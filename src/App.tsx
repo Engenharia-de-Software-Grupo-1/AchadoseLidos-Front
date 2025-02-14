@@ -1,8 +1,10 @@
+import HomePage from "./pages/homePage";
+
 const App = () => {
 
   return (
     <>
-      <h1>Achados e Lidos</h1>
+      <HomePage/>
     </>
   );
 };
