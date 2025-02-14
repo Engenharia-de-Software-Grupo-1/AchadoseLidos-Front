@@ -5,7 +5,7 @@ import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
 import { Avatar } from "primereact/avatar";
 import "primeicons/primeicons.css";
-import "./style.css"
+import "./style.css";
 
 interface HeaderProps {
   simpleHeader: boolean;
