@@ -1,3 +1,18 @@
+.menu-container {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-link {
+  color: #2f292a;
+}
+
 .simple-header {
   background: rgb(47, 41, 42);
   border: none;
@@ -8,4 +23,19 @@
   padding: 0.5rem;
   color: #4b5563;
   justify-content: center;
+}
+
+.p-menubar-end {
+  display: flex;
+}
+
+.flex.align-items-center {
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.p-icon-field {
+  transform: translateX(-50%);
 }

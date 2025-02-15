@@ -12,7 +12,6 @@ const HomePage = () => {
     <TemplatePage simpleHeader={false}>
       <div className="main-context">
         <Banner images={images} />
-        <BreadCrumb model={items} home={home} style={{alignItems: "left"}}/>
         <div>
           <p className="main-p1">Explore itens de segunda mão!</p>
           <p className="main-p2">ACHADOS E LIDOS</p>
@@ -20,6 +19,7 @@ const HomePage = () => {
             é o catálogo virtual dos sebos de Campina Grande!
           </p>
         </div>
+        <BreadCrumb model={items} home={home} style={{ justifyContent: "flex-start", marginLeft: "1rem" }} />
       </div>
     </TemplatePage>
   );
