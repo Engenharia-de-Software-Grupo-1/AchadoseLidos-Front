@@ -31,7 +31,8 @@
     "primeicons": "^7.0.0",
     "primereact": "^10.9.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "6.16.0"
   },
   "scripts": {
     "dev": "vite",
