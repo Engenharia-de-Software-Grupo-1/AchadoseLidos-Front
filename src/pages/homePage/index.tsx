@@ -1,7 +1,7 @@
-import { useBreadcrumb } from '../../hooks/useBreadcrumb';
-import Banner from '../../components/Banner/banner';
-import ALBreadCrumb from '../../components/ALBreadCrumb/ALBreadCrumb';
-import TemplatePage from '../templatePage';
+import { useBreadcrumb } from '@hooks/useBreadcrumb';
+import Banner from '@components/Banner/banner';
+import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb';
+import TemplatePage from '@pages/templatePage';
 import './style.css';
 
 const HomePage = () => {

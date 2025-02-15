@@ -1,4 +1,4 @@
-import Menu from '../../components/Header/header';
+import Menu from '@components/Header/header';
 
 interface TemplatePageProps {
   children: React.ReactNode;
