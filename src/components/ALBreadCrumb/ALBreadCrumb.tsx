@@ -10,14 +10,13 @@ interface ALBreadCrumbComponentProps {
 }
 
 const ALBreadCrumb: React.FC<ALBreadCrumbComponentProps> = ({ breadcrumbItems }) => {
-
   return (
     <BreadCrumb
       model={[...breadcrumbItems].map((item) => ({
         label: item.label,
         url: item.url,
       }))}
-      home={{ icon: 'pi pi-home', url: "/" }}
+      home={{ icon: 'pi pi-home', url: '/' }}
       style={{ justifyContent: 'flex-start', marginLeft: '1rem' }}
     />
   );

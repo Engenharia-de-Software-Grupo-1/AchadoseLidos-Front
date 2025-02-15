@@ -3,40 +3,40 @@
 @import url('https://fonts.cdnfonts.com/css/sao-torpes');
 
 .main-context {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .main-p1,
 .main-p2,
 .main-p3 {
-    padding: 0;
-    margin: 0;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .main-p1 {
-    color: #D04E3B;
-    text-align: center;
-    font-family: "Covered By Your Grace", serif;
-    font-size: 48px;
-    line-height: 60%;
-    padding-top: 10px;
+  color: #d04e3b;
+  text-align: center;
+  font-family: 'Covered By Your Grace', serif;
+  font-size: 48px;
+  line-height: 60%;
+  padding-top: 10px;
 }
 
 .main-p2 {
-    color: #CFB358;
-    font-family: "Sao Torpes", sans-serif;
-    font-size: 64px;
+  color: #cfb358;
+  font-family: 'Sao Torpes', sans-serif;
+  font-size: 64px;
 }
 
 .main-p3 {
-    color: #2F292A;
-    font-family: "Poppins", serif;
-    font-size: 32px;
-    font-weight: 500;
+  color: #2f292a;
+  font-family: 'Poppins', serif;
+  font-size: 32px;
+  font-weight: 500;
 }

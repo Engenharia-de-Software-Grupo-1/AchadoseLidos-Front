@@ -70,7 +70,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
       <div className="flex align-items-center">
         <IconField iconPosition="left">
           <InputIcon className="pi pi-search"> </InputIcon>
-          <InputText placeholder="Search" type="text" style={{ width: '50rem', height: '2.5rem' }} />
+          <InputText placeholder="O que deseja grimpar?" type="text" style={{ width: '50rem', height: '2.5rem' }} />
         </IconField>
 
         <div className="flex align-items-center gap-4 justify-center">

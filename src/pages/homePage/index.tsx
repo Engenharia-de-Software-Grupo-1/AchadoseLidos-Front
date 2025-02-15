@@ -17,7 +17,7 @@ const HomePage = () => {
           <p className="main-p2">ACHADOS E LIDOS</p>
           <p className="main-p3">é o catálogo virtual dos sebos de Campina Grande!</p>
         </div>
-        <ALBreadCrumb breadcrumbItems={breadcrumbItems}/>
+        <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
       </div>
     </TemplatePage>
   );

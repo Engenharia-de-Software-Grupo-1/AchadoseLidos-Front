@@ -92,14 +92,29 @@ Crie o arquivo `.eslintrc.json`:
 }
 ```
 
+---
+
+Instale as dependências:
+
+```sh
+yarn add --dev prettier
+```
+
 Crie o arquivo `.prettierrc`:
 
 ```json
 {
   "semi": true,
-  "singleQuote": false,
-  "trailingComma": "es5"
+  "tabWidth": 2,
+  "singleQuote": true,
+  "printWidth": 120,
+  "trailingComma": "es5",
+  "prettier.tabWidth": 2,
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 120,
+  "prettier.trailingComma": "es5"
 }
+
 ```
 
 ---
