@@ -1,3 +1,11 @@
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+  color: #f9fafb;
+}
+
+.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-link {
+  color: #2f292a;
+}
+
 .menu-container {
   position: absolute;
   top: 50px;
@@ -7,10 +15,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 10px;
   z-index: 1000;
-}
-
-.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-link {
-  color: #2f292a;
 }
 
 .simple-header {
