@@ -1,4 +1,5 @@
 # **Configuração Inicial do Projeto**
+
 *Comandos utilizados para subir o projeto na US2*
 
 Crie o `package.json`:
@@ -44,6 +45,7 @@ Adicione os scripts no `package.json`:
 Instale as dependências:
 
 ```sh
+yarn add react-router-dom@6.16.0
 yarn add -D typescript @types/react @types/react-dom
 ```
 
