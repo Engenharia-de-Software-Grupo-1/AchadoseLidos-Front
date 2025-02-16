@@ -30,8 +30,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
     );
   } else {
     const itemRenderer = (item: any) => (
-      <a className="flex align-items-center p-menuitem-link" style={{ backgroundColor: '#2F292A' }}>
-        <span className="mx-2" style={{ color: '#2F292A' }}>
+      <a className="flex align-items-center p-menuitem-link" style={{ backgroundColor: '#f9fafb' }}>
+        <span className="mx-2 p-menuitem-text" style={{ color: '#2F292A' }}>
           {item.label}
         </span>
       </a>
@@ -68,10 +68,17 @@ export default function Header({ simpleHeader }: HeaderProps) {
     );
     const end = (
       <div className="flex align-items-center">
-        <IconField iconPosition="left">
-          <InputIcon className="pi pi-search"> </InputIcon>
-          <InputText placeholder="O que deseja grimpar?" type="text" style={{ width: '50rem', height: '2.5rem' }} />
-        </IconField>
+       <div className="search-container">
+          <IconField iconPosition="left">
+              <InputIcon className="pi pi-search"></InputIcon>
+              <InputText 
+                  placeholder="O que deseja grimpar?" 
+                  type="text" 
+                  style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }} 
+              />
+          </IconField>
+      </div>
+
 
         <div className="flex align-items-center gap-4 justify-center">
           <Button icon="pi pi-heart" rounded text aria-label="Favoritos" style={{ color: '#F5ECDD' }} />
