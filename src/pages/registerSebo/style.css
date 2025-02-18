@@ -1,0 +1,80 @@
+.main-register-sebo {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F5ECDD;
+}
+
+.container-register-sebo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+}
+
+.container-register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    gap: 44px;
+}
+
+.tittle-register {
+    color: #2F292A;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: 'Poppins', serif;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    /* 57.143% */
+}
+
+.text-data {
+    color: #2F292A;
+    font-family: 'Poppins', serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.container-data {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 16px;
+}
+
+.text-sales {
+    color: #2F292A;
+    font-family: 'Poppins', serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.p-checkbox .p-checkbox-box {
+    width: 32px;
+    height: 32px;
+}
+
+.p-checkbox.p-highlight .p-checkbox-box {
+    border-color: #2F292A;
+    background: #2F292A;
+}
+
+.p-checkbox:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-box {
+    border-color: #2F292A;
+}
+
+/* seria legal fixar? */
+.container-footer {
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #2F292A;
+}

@@ -7,7 +7,7 @@ interface TemplatePageProps {
 
 const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader }) => {
   return (
-    <div>
+    <div style={{height: '100%'}}>
       <Menu simpleHeader={simpleHeader} />
       {children}
     </div>
