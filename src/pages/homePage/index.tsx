@@ -9,7 +9,7 @@ const HomePage = () => {
   const images = ['/images/banner.jpg'];
 
   return (
-    <TemplatePage simpleHeader={false}>
+    <TemplatePage simpleHeader={false} simpleFooter={false}>
       <div className="main-context">
         <Banner images={images} />
         <div>

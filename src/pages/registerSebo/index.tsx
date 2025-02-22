@@ -10,7 +10,7 @@ const RegisterSebo = () => {
 
     return (
         <div className="main-register-sebo">
-            <TemplatePage simpleHeader={true}>
+            <TemplatePage simpleHeader={true} simpleFooter={true}>
                 <div className="container-register-sebo">
                     <div className="container-register">
                         <p className="tittle-register">Cadastro de Sebo</p>
@@ -34,8 +34,6 @@ const RegisterSebo = () => {
 
                 </div>
             </TemplatePage>
-
-            <footer className="container-footer" />
         </div>
     )
 }
