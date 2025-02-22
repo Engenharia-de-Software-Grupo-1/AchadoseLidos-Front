@@ -72,7 +72,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           <IconField iconPosition="left">
               <InputIcon className="pi pi-search"></InputIcon>
               <InputText 
-                  placeholder="O que deseja grimpar?" 
+                  placeholder="O que deseja garimpar?" 
                   type="text" 
                   style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }} 
               />
