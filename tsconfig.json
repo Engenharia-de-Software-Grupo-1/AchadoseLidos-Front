@@ -9,7 +9,9 @@
     "paths": {
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
-      "@pages/*": ["pages/*"]
+      "@pages/*": ["pages/*"],
+      "@stores/*": ["stores/*"],
+      "@domains/*": ["domains/*"]
     }
   }
 }

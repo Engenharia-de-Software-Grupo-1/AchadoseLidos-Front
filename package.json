@@ -28,6 +28,9 @@
   },
   "dependencies": {
     "achadose-lidos-front": "file:",
+    "cpf-cnpj-validator": "^1.0.3",
+    "email-validator": "^2.0.4",
+    "moment": "^2.30.1",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.2",
     "react": "^19.0.0",

@@ -1,0 +1,9 @@
+export const DATE_FORMAT = 'DD/MM/yyyy';
+export const DATE_FORMAT_WITH_HOURS = 'DD/MM/yyyy HH:mm';
+export const DATE_FORMAT_WITH_HOURS_AND_SECONDS = 'DD/MM/yyyy HH:mm:ss';
+export const DATE_PARSE_FORMAT = 'yyyy-MM-DD';
+export const DATE_PARSE_FORMAT_INVERSE = 'DD-MM-yyyy';
+export const DATE_PARSE_FORMAT_WITH_HOURS = 'yyyy-MM-DDTHH:mm';
+export const DATE_PARSE_FORMAT_WITH_HOURS_AND_SECONDS = 'yyyy-MM-DDTHH:mm:ss';
+export const DATE_FORMAT_REPORT = 'YYYYMMDDHHmmss';
+export const DATE_FORMAT_ONLY_YEAR = 'YYYY';
