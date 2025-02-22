@@ -17,8 +17,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    gap: 44px;
 }
 
 .tittle-register {
@@ -44,8 +42,7 @@
 .container-data {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    gap: 16px;
+    gap: 8px;
 }
 
 .text-sales {
@@ -58,8 +55,8 @@
 }
 
 .p-checkbox .p-checkbox-box {
-    width: 32px;
-    height: 32px;
+    width: 60px;
+    height: 25px;
 }
 
 .p-checkbox.p-highlight .p-checkbox-box {
@@ -69,4 +66,20 @@
 
 .p-checkbox:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-box {
     border-color: #2F292A;
+}
+
+.p-steps .p-steps-item .p-menuitem-link {
+    background: transparent;
+    transition: box-shadow 0.2s;
+    border-radius: 6px;
+}
+
+.p-steps .p-steps-item.p-highlight .p-steps-number {
+    background: #2F292A;
+    color: #f9fafb;
+}
+
+.p-steps .p-steps-item.p-highlight .p-steps-title {
+    font-weight: 700;
+    color: #2F292A;
 }
