@@ -1,11 +1,7 @@
-import { useRef } from 'react';
 import { cpf, cnpj } from 'cpf-cnpj-validator';
-import { Toast } from 'primereact/toast';
 import { DATE_FORMAT, DATE_PARSE_FORMAT } from './date';
-import moment from 'moment';
-
-const validator = require('email-validator');
-const toast = useRef<Toast>(null);
+import * as validator from 'email-validator';
+import * as moment from 'moment';
 
 export const cleanCpfCnpj = (cpfCnpj: string) => {
   cpfCnpj = cpfCnpj.replace('.', '');
@@ -40,26 +36,6 @@ export const isMaxLength = (campo: string, tamanhoMax: number) => {
 
 export const isEmail = (email: string) => {
   return validator.validate(email);
-};
-
-export const showNotification = (severity: any, summary = null, detail: string | any) => {
-  if (toast.current) {
-    toast.current.show({ severity, summary, detail, life: 3000 });
-  }
-};
-
-export const showErrorNotification = (error: any) => {
-  let message = 'Ocorreu um erro!';
-  if (
-    error.response &&
-    error.response.data &&
-    error.response.data.messages &&
-    error.response.data.messages.length > 0
-  ) {
-    message = error.response.data.messages.join('; ');
-  }
-  console.error(error);
-  showNotification('error', null, message);
 };
 
 export const getValueByKey = (value: string, list = [], key = 'value', label = 'text') => {
