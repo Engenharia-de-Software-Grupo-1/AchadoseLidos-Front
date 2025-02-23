@@ -11,7 +11,9 @@
       "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
       "@stores/*": ["stores/*"],
-      "@domains/*": ["domains/*"]
+      "@domains/*": ["domains/*"],
+      "@utils/*": ["utils/*"],
+      "@services/*": ["services/*"]
     }
   }
 }
