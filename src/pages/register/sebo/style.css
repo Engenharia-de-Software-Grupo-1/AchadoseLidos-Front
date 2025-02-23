@@ -4,11 +4,14 @@
     background-color: #F5ECDD;
 }
 
+.card {
+    display: grid;
+}
+
 .container-register-sebo {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
     height: 90%;
 }
 
@@ -26,8 +29,7 @@
     font-size: 42px;
     font-style: normal;
     font-weight: 500;
-    line-height: 24px;
-    /* 57.143% */
+    text-align: center;
 }
 
 .text-data {
@@ -43,6 +45,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    align-items: center;
 }
 
 .text-sales {
@@ -52,6 +55,17 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+.step-button {
+    margin-top: 15px;
+    background-color: #2F292A;
+    justify-self: center;
+}
+
+.p-inputtext {
+    margin: 0;
+    width: 400px;
 }
 
 .p-checkbox .p-checkbox-box {

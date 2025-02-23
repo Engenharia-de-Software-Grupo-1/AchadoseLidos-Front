@@ -11,18 +11,21 @@ import './style.css';
 
 const RegisterSebo = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { sebo, setField, validateStep } = useRegisterSebo();
+  const { sebo, setField, validateStep, getRule, cities } = useRegisterSebo();
 
   const nextStep = (e: any) => {
-    if (validateStep(e.index)) {
-      setActiveIndex(e.index);
+    if (validateStep(activeIndex)) {
+      setActiveIndex(activeIndex + 1);
     }
   };
 
   const stepsItems = [
-    { label: 'Dados Básicos', component: <TabDadosBasicos sebo={sebo} setField={setField} /> },
-    { label: 'Endereço', component: <TabEndereco /> },
-    { label: 'Dados do Perfil', component: <TabDadosPerfil /> },
+    { label: 'Dados Básicos', component: <TabDadosBasicos sebo={sebo} setField={setField} getRule={getRule} /> },
+    {
+      label: 'Endereço',
+      component: <TabEndereco sebo={sebo} setField={setField} getRule={getRule} cities={cities} />,
+    },
+    { label: 'Dados do Perfil', component: <TabDadosPerfil sebo={sebo} setField={setField} getRule={getRule} /> },
   ];
 
   return (
@@ -30,6 +33,7 @@ const RegisterSebo = () => {
       <TemplatePage simpleHeader={true} simpleFooter={true}>
         <div className="container-register-sebo">
           <div className="card">
+            <p className="tittle-register">Cadastro de Sebo</p>
             <div className="steps-content">{stepsItems[activeIndex].component}</div>
             <Steps
               model={stepsItems.map((step, index) => ({
@@ -39,7 +43,10 @@ const RegisterSebo = () => {
               activeIndex={activeIndex}
               readOnly
             />
-            <Button label="Continuar" onClick={(e) => nextStep(e)} />
+            <Button className="step-button" label="Continuar" onClick={(e) => nextStep(e)} />
+            <p className="login" style={{ color: '#2F292A', textAlign: 'center' }}>
+              Já tem uma conta? Entrar
+            </p>
           </div>
         </div>
       </TemplatePage>
