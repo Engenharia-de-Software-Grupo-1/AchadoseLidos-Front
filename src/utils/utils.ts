@@ -109,3 +109,10 @@ export const checkBoolean = (value: boolean) => {
   if (value) return 'Sim';
   else return 'Não';
 };
+
+export const addRuleToField = (rules: Record<string, Rule[]>, field: string, newRule: Rule) => {
+  return {
+    ...rules,
+    [field]: rules[field] ? [...rules[field], newRule] : [newRule],
+  };
+}

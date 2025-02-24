@@ -1,23 +1,18 @@
-import {
-  isCpfCnpj,
-  isEmail,
-  isMaxLength,
-} from './utils';
+import { isCpfCnpj, isEmail, isMaxLength } from './utils';
 
-export const extractRules = (definition: Record<string, Rule[]>, object: any) => {
+export const extractRules = (definition: Record<string, Rule[]>, object: any, adress: boolean) => {
   const fields = Object.keys(definition) as string[];
   const result = {} as {};
 
   fields.forEach((field) => {
     const rules = definition[field];
-    result[field] = validateRule(object[field], rules);
+    result[field] = adress ? validateRule(object['endereco'][field], rules) : validateRule(object[field], rules);
   });
 
   return result;
 };
 
 const validateRule = (value: any, ruleList = []) => {
-
   const validationResult = { error: false, message: '', rules: ruleList };
 
   ruleList.forEach((rule: Rule) => {
@@ -32,7 +27,7 @@ const validateRule = (value: any, ruleList = []) => {
         validationResult.message = (rule.message ?? 'Por favor, informe um CPF/CNPJ válido') + ' ';
       }
     } else if (rule.rule === 'isMaxLength') {
-      if ((value && rule.maxLength && !isMaxLength(value, rule.maxLength))) {
+      if (value && rule.maxLength && !isMaxLength(value, rule.maxLength)) {
         validationResult.error = true;
         validationResult.message = (rule.message ?? 'Por favor, retifique o tamanho do campo') + ' ';
       }

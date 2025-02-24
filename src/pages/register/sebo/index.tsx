@@ -6,26 +6,41 @@ import TabDadosBasicos from './tabs/tabDadosBasicos';
 import TabEndereco from './tabs/tabEndereco';
 import TabDadosPerfil from './tabs/tabPerfil';
 import { useRegisterSebo } from '@stores/register/sebo/store';
+import { useNotification } from '@utils/notificationContext';
 
 import './style.css';
 
 const RegisterSebo = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { sebo, setField, validateStep, getRule, cities } = useRegisterSebo();
+  const [submitted, setSubmitted] = useState(false);
+  const { showNotification } = useNotification();
 
   const nextStep = (e: any) => {
+    setSubmitted(true);
     if (validateStep(activeIndex)) {
       setActiveIndex(activeIndex + 1);
+    } else {
+      showNotification('error', null, 'Campos obrigatórios não preenchidos');
     }
+    setSubmitted(false);
   };
 
   const stepsItems = [
-    { label: 'Dados Básicos', component: <TabDadosBasicos sebo={sebo} setField={setField} getRule={getRule} /> },
+    {
+      label: 'Dados Básicos',
+      component: <TabDadosBasicos submitted={submitted} sebo={sebo} setField={setField} getRule={getRule} />,
+    },
     {
       label: 'Endereço',
-      component: <TabEndereco sebo={sebo} setField={setField} getRule={getRule} cities={cities} />,
+      component: (
+        <TabEndereco submitted={submitted} sebo={sebo} setField={setField} getRule={getRule} cities={cities} />
+      ),
     },
-    { label: 'Dados do Perfil', component: <TabDadosPerfil sebo={sebo} setField={setField} getRule={getRule} /> },
+    {
+      label: 'Dados do Perfil',
+      component: <TabDadosPerfil submitted={submitted} sebo={sebo} setField={setField} getRule={getRule} />,
+    },
   ];
 
   return (

@@ -8,14 +8,15 @@ interface TabDadosBasicosProps {
   sebo: Sebo;
   setField: (field: keyof Sebo, value: any) => void;
   getRule: (field: keyof Sebo) => {};
+  submitted: boolean;
 }
 
-const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, getRule }) => {
+const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, getRule, submitted }) => {
   return (
     <div className="container-register-sebo">
       <div className="container-register">
         <div className="container-data">
-          <FormField attribute="nomeSebo" rule={getRule('nomeSebo')} submitted={false}>
+          <FormField attribute="nomeSebo" rule={getRule('nomeSebo')} submitted={submitted}>
             <InputText
               value={sebo.nomeSebo}
               onChange={(e) => setField('nomeSebo', e.target.value)}
@@ -23,20 +24,19 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, getRu
             />
           </FormField>
 
-          <FormField attribute="cpfCnpj" rule={getRule('cpfCnpj')} submitted={false}>
-            <InputMask
+          <FormField attribute="cpfCnpj" rule={getRule('cpfCnpj')} submitted={submitted}>
+            <InputText
               value={sebo.cpfCnpj}
-              mask={sebo.cpfCnpj.length > 11 ? '99.999.999/9999-99' : '999.999.999-99'}
               onChange={(e) => setField('cpfCnpj', e.target.value)}
               placeholder="CPF ou CNPJ *"
             />
           </FormField>
 
-          <FormField attribute="email" rule={getRule('email')} submitted={false}>
+          <FormField attribute="email" rule={getRule('email')} submitted={submitted}>
             <InputText value={sebo.email} onChange={(e) => setField('email', e.target.value)} placeholder="E-mail *" />
           </FormField>
 
-          <FormField attribute="senha" rule={getRule('senha')} submitted={false}>
+          <FormField attribute="senha" rule={getRule('senha')} submitted={submitted}>
             <InputText
               value={sebo.senha}
               onChange={(e) => setField('senha', e.target.value)}
@@ -45,7 +45,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, getRu
             />
           </FormField>
 
-          <FormField attribute="confirmarSenha" rule={getRule('confirmarSenha')} submitted={false}>
+          <FormField attribute="confirmarSenha" rule={getRule('confirmarSenha')} submitted={submitted}>
             <InputText
               value={sebo.confirmarSenha}
               onChange={(e) => setField('confirmarSenha', e.target.value)}
@@ -54,7 +54,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, getRu
             />
           </FormField>
 
-          <FormField attribute="whatsapp" rule={getRule('whatsapp')} submitted={false}>
+          <FormField attribute="whatsapp" rule={getRule('whatsapp')} submitted={submitted}>
             <InputMask
               value={sebo.whatsapp}
               mask='(99) 9 9999-9999'

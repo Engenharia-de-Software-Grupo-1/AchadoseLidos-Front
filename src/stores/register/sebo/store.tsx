@@ -2,6 +2,8 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import { ibge } from 'brasilapi-js';
 import { Sebo } from '@domains/Sebo';
 import { useNotification } from '@utils/notificationContext';
+import { extractRules } from '@utils/formRules';
+import { addRuleToField } from '@utils/utils';
 
 interface RegisterSeboContextType {
   sebo: Sebo;
@@ -64,7 +66,6 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     email: [{ rule: 'required' }, { rule: 'isEmail' }],
     senha: [{ rule: 'required' }],
     confirmarSenha: [{ rule: 'required' }],
-    whatsapp: [{ rule: 'required' }],
     estado: [{ rule: 'required' }],
     cidade: [{ rule: 'required' }],
     cep: [{ rule: 'required' }],
@@ -73,34 +74,47 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     numero: [{ rule: 'required' }],
     complemento: [{ rule: 'required' }],
   };
-
+  
   const getRule = (field: string) => {
     return rules[field] ? rules[field] : {};
   };
 
   const validateStep = (stepIndex: number): boolean => {
-    switch (stepIndex) {
-      case 0:
-        return (
-          !!sebo.nomeSebo.trim() &&
-          !!sebo.cpfCnpj.trim() &&
-          !!sebo.email.trim() &&
-          !!sebo.senha.trim() &&
-          !!sebo.confirmarSenha.trim() &&
-          !!sebo.whatsapp.trim()
-        );
-      case 1:
-        return true;
-      case 2:
-        return sebo.concordaVenda;
-      default:
-        return false;
+    // validar match de senha
+    let fieldsToValidate: string[] = [];
+
+    if (stepIndex === 0) {
+      fieldsToValidate = ['nomeSebo', 'cpfCnpj', 'email', 'senha', 'confirmarSenha'];
+      if (sebo.concordaVenda) {
+        addRuleToField(rules, 'whatsapp', { rule: 'required' })
+        fieldsToValidate.push('whatsapp');
+      } 
+    } else if (stepIndex === 1) {
+      fieldsToValidate = ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero', 'complemento'];
+    } else if (stepIndex === 2) {
+      // salvar
+      fieldsToValidate = [];
     }
+
+    const stepRules = fieldsToValidate.reduce(
+      (acc, field) => {
+        if (rules[field]) {
+          acc[field] = rules[field];
+        }
+        return acc;
+      },
+      {} as Record<string, Rule[]>
+    );
+
+    const validationResults = extractRules(stepRules, sebo, stepIndex == 1 ? true: false);
+
+    const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
+    return !hasError;
   };
 
   const loadCitiesByState = async (state: string): Promise<void> => {
     try {
-      const response = await ibge.state.getBy(state);
+      const response = await ibge.country.getBy(state);
       const citiesOptions = (response.data as unknown as any[]).map((city: any) => ({
         value: city.codigo_ibge,
         text: city.nome,

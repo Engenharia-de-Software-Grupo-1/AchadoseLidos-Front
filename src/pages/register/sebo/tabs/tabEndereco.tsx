@@ -12,16 +12,17 @@ interface TabEnderecoProps {
   setField: (field: keyof Sebo, value: any) => void;
   getRule: (field: string) => {};
   cities: { value: string; text: string }[];
+  submitted: boolean;
 }
 
-const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, cities }) => {
+const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, cities, submitted }) => {
   useLoadCities(sebo.endereco.estado);
 
   return (
     <div className="container-register-sebo">
       <div className="container-register">
         <div className="container-data">
-          <FormField attribute="estado" rule={getRule('estado')} submitted={false}>
+          <FormField attribute="estado" rule={getRule('estado')} submitted={submitted}>
             <Dropdown
               value={sebo.endereco.estado}
               onChange={(e) => setField('endereco', { ...sebo.endereco, estado: e.target.value })}
@@ -30,10 +31,11 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
               optionValue="value"
               showClear
               placeholder="Estado *"
+              style={{width: '400px'}}
             />
           </FormField>
 
-          <FormField attribute="cidade" rule={getRule('cidade')} submitted={false}>
+          <FormField attribute="cidade" rule={getRule('cidade')} submitted={submitted}>
             <Dropdown
               value={sebo.endereco.cidade}
               onChange={(e) => setField('endereco', { ...sebo.endereco, cidade: e.target.value })}
@@ -42,10 +44,11 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
               optionValue="value"
               showClear
               placeholder="Cidade *"
-            />
+              style={{width: '400px'}}
+              />
           </FormField>
 
-          <FormField attribute="cep" rule={getRule('cep')} submitted={false}>
+          <FormField attribute="cep" rule={getRule('cep')} submitted={submitted}>
             <InputMask
               value={sebo.endereco.cep}
               mask="99999-999"
@@ -54,7 +57,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
             />
           </FormField>
 
-          <FormField attribute="rua" rule={getRule('rua')} submitted={false}>
+          <FormField attribute="rua" rule={getRule('rua')} submitted={submitted}>
             <InputText
               value={sebo.endereco.rua}
               onChange={(e) => setField('endereco', { ...sebo.endereco, rua: e.target.value })}
@@ -62,7 +65,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
             />
           </FormField>
 
-          <FormField attribute="bairro" rule={getRule('bairro')} submitted={false}>
+          <FormField attribute="bairro" rule={getRule('bairro')} submitted={submitted}>
             <InputText
               value={sebo.endereco.bairro}
               onChange={(e) => setField('endereco', { ...sebo.endereco, bairro: e.target.value })}
@@ -70,7 +73,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
             />
           </FormField>
 
-          <FormField attribute="numero" rule={getRule('numero')} submitted={false}>
+          <FormField attribute="numero" rule={getRule('numero')} submitted={submitted}>
             <InputText
               value={sebo.endereco.numero}
               onChange={(e) => setField('endereco', { ...sebo.endereco, numero: e.target.value })}
@@ -78,7 +81,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
             />
           </FormField>
 
-          <FormField attribute="complemento" rule={getRule('complemento')} submitted={false}>
+          <FormField attribute="complemento" rule={getRule('complemento')} submitted={submitted}>
             <InputText
               value={sebo.endereco.complemento}
               onChange={(e) => setField('endereco', { ...sebo.endereco, complemento: e.target.value })}
@@ -87,7 +90,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
           </FormField>
 
           <div className="card flex align-items-center gap-4">
-            <p className="text-sales">Esse endereo é público?</p>
+            <p className="text-sales">Esse endereço é público?</p>
             <Checkbox
               onChange={(e) => setField('endereco', { ...sebo.endereco, ehPublico: e.target.value })}
               checked={sebo.endereco.ehPublico}
