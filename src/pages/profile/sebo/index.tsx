@@ -1,8 +1,6 @@
 import TemplatePage from "@pages/templatePage";
 import  "./style.css";
 import Banner from "@components/Banner/banner";
-import { Button } from "primereact/button";
-import { IconField } from "primereact/iconfield";
 import Profile from "@components/ProfileUsers";
 
 const ProfileSebo = () => {

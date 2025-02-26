@@ -2,15 +2,12 @@ import { Button } from "primereact/button";
 import { IconField } from "primereact/iconfield";
 import "./style.css";
 
-
-
 interface ProfileProps {
     imageProfile: string;
     titleProfile: string;
     descripProfile: string;
     isSebo: boolean;
 }
-
 
 const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo }: ProfileProps) => {
     return (
@@ -37,7 +34,6 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo }: Profile
 
                     <p className="descrip-profile">{descripProfile}</p>
 
-
                     {isSebo ? (
                     <div className="information-profile">
                         <IconField iconPosition="left">
@@ -57,6 +53,5 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo }: Profile
         </>
     )
 };
-
 
 export default Profile;
