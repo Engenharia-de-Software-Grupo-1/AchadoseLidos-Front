@@ -25,7 +25,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
   if (simpleHeader) {
     content = (
       <div className="simple-header">
-        <img alt="logo" src="/images/logo.png" height="40" className="ml-2 mr-4"></img>
+        <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
       </div>
     );
   } else {
@@ -63,7 +63,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
 
     const start = (
       <>
-        <img alt="logo" src="/images/logo.png" height="40" className="ml-2 mr-4"></img>;
+        <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
       </>
     );
     const end = (

@@ -11,9 +11,9 @@
 
 .initial-footer {
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
-  background-color: #f9fafb;
+  background-color: transparent;
 }
 
 .text-footer {

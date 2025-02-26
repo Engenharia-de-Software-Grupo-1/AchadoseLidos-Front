@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <TemplatePage simpleHeader={false} simpleFooter={false}>
       <div className="main-context">
-        <Banner images={images} />
+        <Banner images={images} showIndicators={true}/>
         <div>
           <p className="main-p1">Explore itens de segunda mão!</p>
           <p className="main-p2">ACHADOS E LIDOS</p>

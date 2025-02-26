@@ -1,0 +1,89 @@
+.container-profile {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.profile-picture {
+    display: flex;
+    width: 175px;
+    height: 175px;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 100%;
+    gap: 10px;
+    box-shadow: #849041;
+    overflow: "hidden",
+}
+
+.profile-description {
+    display: flex;
+    width: 861px;
+    height: 191px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.titulo-profile {
+    color: #000;
+    margin: 0;
+    font-family: Poppins;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: none;
+    text-decoration-color: rgba(207, 179, 88, 0.30);
+    text-decoration-thickness: 40%; /* 16.8px */
+    text-underline-offset: -30%; /* -12.6px */
+    text-underline-position: from-font;
+}
+
+.descrip-profile {
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.content-title-profile {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 32px;
+}
+
+.button-edit {
+    background-color: #849041;
+    border: none;
+    border-radius: 16px;
+}
+
+.p-button:not(:disabled):hover {
+    background: #849041;
+}
+
+.text-profile {
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 125% */
+}
+
+.information-profile {
+    display: flex;
+    width: 100%;
+    gap: 32px;
+}
+
