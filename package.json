@@ -27,6 +27,7 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
+    "@types/google.maps": "^3.58.1",
     "achadose-lidos-front": "file:",
     "brasilapi-js": "^1.0.1",
     "cpf-cnpj-validator": "^1.0.3",

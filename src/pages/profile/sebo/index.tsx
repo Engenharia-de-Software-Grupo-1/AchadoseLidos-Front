@@ -2,6 +2,9 @@ import TemplatePage from "@pages/templatePage";
 import "./style.css";
 import Banner from "@components/Banner/banner";
 import Profile from "@components/ProfileUsers";
+import { Galleria } from 'primereact/galleria';
+import Gallery from "@components/Gallery";
+
 
 const ProfileSebo = () => {
 
@@ -56,6 +59,13 @@ const ProfileSebo = () => {
                         <div className="hist">
                             <span className="text-hist">Office ipsum you must be muted. Activities previous request what's impact where just whatever journey enable. Socialize journey responsible the say centric an. Emails recap angel food sky close running mint they don't. Strategic discussion diligence so revision first-order unlock bed. Ui new calculator join discussions if synergy anomalies cta. Too weeks diligence vec discussion unpack I race. Beforehand first-order say charts with replied. Stands this comms due wider. Goto solutionize i'm technologically idea weeks emails people site. Emails pollination creep sop first-order. Own turn win teams base algorithm calculator. Breakout hits air gave journey dive club book get. Door regroup churning hard just half closing dive initiative working. Stronger weeks the closer back-end knowledge asserts. Productive decisions these follow weaponize blue email mindfulness. Three knowledge day sky boil first where line member. Also business message closest solutions dog. Ditching streamline 2 hill walk start. Strategic also open live book standup player-coach food. Closing one points existing ui bells seat also info. Already cadence player-coach before office diligence I hits open key. Stakeholder just latest third me what's. Good when stakeholder more comms.</span>
                         </div>
+
+                        <Gallery/>
+                    </div>
+
+                    <div className="container-map">
+
+                        teste
                     </div>
 
                 </div>

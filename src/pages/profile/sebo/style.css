@@ -1,7 +1,7 @@
 .main-profile-sebo {
     width: 100vw;
     height: 100vh;
-    background-color: #F5ECDD;
+    background: #F5ECDD;
 }
 
 .profile-sebo {
@@ -126,6 +126,7 @@
     align-self: stretch;
     border-radius: 8px;
     background: #FBF8F3;
+    width: 50%;
 }
 
 .text-hist {
