@@ -7,9 +7,10 @@ interface ProfileProps {
     titleProfile: string;
     descripProfile: string;
     isSebo: boolean;
+    authUser: boolean;
 }
 
-const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo }: ProfileProps) => {
+const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser }: ProfileProps) => {
     return (
         <>
             <div className="container-profile">
@@ -28,6 +29,8 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo }: Profile
 
                         {isSebo ? (
                             <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
+                        ) : authUser ? (
+                            <img src="/images/bell.svg"></img>
                         ) : null}
 
                     </div>
@@ -35,18 +38,18 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo }: Profile
                     <p className="descrip-profile">{descripProfile}</p>
 
                     {isSebo ? (
-                    <div className="information-profile">
-                        <IconField iconPosition="left">
-                            <i className="pi pi-map-marker mr-2" />
-                            <span className="text-profile">Rua Exemplo de Rua, No 306 - Bairro Tal</span>
-                        </IconField>
+                        <div className="information-profile">
+                            <IconField iconPosition="left">
+                                <i className="pi pi-map-marker mr-2" />
+                                <span className="text-profile">Rua Exemplo de Rua, No 306 - Bairro Tal</span>
+                            </IconField>
 
-                        <IconField iconPosition="left" >
-                            <i className="pi pi-clock mr-2" />
-                            <span className="text-profile">Horário de Funcionamento: Segunda a Sexta, 9h às 18h</span>
-                        </IconField>
-                    </div>
-                    ): null}
+                            <IconField iconPosition="left" >
+                                <i className="pi pi-clock mr-2" />
+                                <span className="text-profile">Horário de Funcionamento: Segunda a Sexta, 9h às 18h</span>
+                            </IconField>
+                        </div>
+                    ) : null}
 
                 </div>
             </div>

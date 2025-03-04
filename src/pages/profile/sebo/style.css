@@ -14,3 +14,129 @@
     gap: 32px;
     border-radius: 32px;
 }
+
+.container-carousel-items,
+.container-carousel-event {
+    display: flex;
+    padding: 0px 72px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    background-color: #FBF8F3;
+}
+
+.container-carousel-event {
+    background: #F5ECDD;
+}
+
+.content-title,
+.content-title-event,
+.content-title-history {
+    display: flex;
+    padding: 0px 32px;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+    border-radius: 8px 8px 0px 0px;
+    border-top: 1px solid rgba(207, 179, 88, 0.30);
+    border-right: 1px solid rgba(207, 179, 88, 0.30);
+    background: #F5ECDD;
+}
+
+.content-title-event {
+    background-color: #FBF8F3;
+}
+
+.title-carousel-items,
+.title-carousel-event {
+    color: #849041;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 48px;
+    background-color: #F5ECDD;
+}
+
+.title-carousel-event {
+    background-color: #FBF8F3;
+}
+
+.space-carousel-items {
+    display: flex;
+    height: 330px;
+    padding: 32px 98px;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    background-color: #F5ECDD;
+}
+
+.space-carousel-events {
+    display: flex;
+    height: 88px;
+    padding: 32px 60px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    background: #FBF8F3;
+}
+
+.content-title-history {
+    border-radius: 32px 32px 0px 0px;
+    border-top: 5px solid rgba(207, 179, 88, 0.30);
+    border-right: 5px solid rgba(207, 179, 88, 0.30);
+}
+
+.title-carousel-history {
+    color: #849041;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 64px;
+}
+
+.space-carousel-history {
+    display: flex;
+    padding: 16px 64px 64px 64px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    align-self: stretch;
+    border-top: 3px solid rgba(207, 179, 88, 0.30);
+    background: #F5ECDD;
+}
+
+.container-hist-pics {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    align-self: stretch;
+}
+
+.hist {
+    display: flex;
+    padding: 32px 64px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: #FBF8F3;
+}
+
+.text-hist {
+    align-self: stretch;
+    color:  #2F292A;
+    text-align: justify;
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
