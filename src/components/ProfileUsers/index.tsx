@@ -2,6 +2,7 @@ import { Button } from "primereact/button";
 import { IconField } from "primereact/iconfield";
 import { Tag } from 'primereact/tag';
 import "./style.css";
+import { Link } from "react-router-dom";
 
 interface ProfileProps {
     imageProfile: string;
@@ -29,7 +30,9 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser 
                         <p className="titulo-profile">{titleProfile}</p>
 
                         {isSebo ? (
-                            <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
+                            <Link to="/edit/sebo">
+                                <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
+                            </Link>
                         ) : authUser ? (
                             <img src="/images/bell.svg"></img>
                         ) : null}
@@ -40,34 +43,34 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser 
 
                     {isSebo ? (
                         <>
-                        <div className="information-profile">
-                            <IconField iconPosition="left">
-                                <i className="pi pi-map-marker mr-2" />
-                                <span className="text-profile">Rua Exemplo de Rua, No 306 - Bairro Tal</span>
-                            </IconField>
+                            <div className="information-profile">
+                                <IconField iconPosition="left">
+                                    <i className="pi pi-map-marker mr-2" />
+                                    <span className="text-profile">Rua Exemplo de Rua, No 306 - Bairro Tal</span>
+                                </IconField>
 
-                            <IconField iconPosition="left" >
-                                <i className="pi pi-clock mr-2" />
-                                <span className="text-profile">Horário de Funcionamento: Segunda a Sexta, 9h às 18h</span>
-                            </IconField>
-                        </div>
+                                <IconField iconPosition="left" >
+                                    <i className="pi pi-clock mr-2" />
+                                    <span className="text-profile">Horário de Funcionamento: Segunda a Sexta, 9h às 18h</span>
+                                </IconField>
+                            </div>
 
-                        <div className="tags-profile">
-                            <Tag className="mr-2 mt-2" icon="pi pi-whatsapp" value="(83)9888-8888"></Tag>
-                            <Tag className="mr-2 mt-2" icon="pi pi-book" value="/fulano_detal"></Tag>
-                            <Tag className="mr-2 mt-2" icon="pi pi-instagram" value="@fulano_detal"></Tag>
-                            <Tag className="mr-2 mt-2" icon="pi pi-facebook" value="@fulano_detal"></Tag>
-                        </div>
+                            <div className="tags-profile">
+                                <Tag className="mr-2 mt-2" icon="pi pi-whatsapp" value="(83)9888-8888"></Tag>
+                                <Tag className="mr-2 mt-2" icon="pi pi-book" value="/fulano_detal"></Tag>
+                                <Tag className="mr-2 mt-2" icon="pi pi-instagram" value="@fulano_detal"></Tag>
+                                <Tag className="mr-2 mt-2" icon="pi pi-facebook" value="@fulano_detal"></Tag>
+                            </div>
                         </>
-                    ) : 
-                    (
-                    <div className="tags-profile-user">
-                        <Tag className="mr-2 mt-4" icon="pi pi-whatsapp" value="(83)9888-8888"></Tag>
-                        <Tag className="mr-2 mt-4" icon="pi pi-book" value="/fulano_detal"></Tag>
-                        <Tag className="mr-2 mt-4" icon="pi pi-instagram" value="@fulano_detal"></Tag>
-                        <Tag className="mr-2 mt-4" icon="pi pi-facebook" value="@fulano_detal"></Tag>
-                    </div>
-                    )}
+                    ) :
+                        (
+                            <div className="tags-profile-user">
+                                <Tag className="mr-2 mt-4" icon="pi pi-whatsapp" value="(83)9888-8888"></Tag>
+                                <Tag className="mr-2 mt-4" icon="pi pi-book" value="/fulano_detal"></Tag>
+                                <Tag className="mr-2 mt-4" icon="pi pi-instagram" value="@fulano_detal"></Tag>
+                                <Tag className="mr-2 mt-4" icon="pi pi-facebook" value="@fulano_detal"></Tag>
+                            </div>
+                        )}
 
                 </div>
             </div>

@@ -4,6 +4,7 @@ import RegisterSebo from '@pages/register/sebo';
 import { RegisterSeboProvider } from '@stores/register/sebo/store';
 import { NotificationProvider } from '@utils/notificationContext';
 import ProfileSebo from '@pages/profile/sebo';
+import EditSebo from '@pages/Edit/sebo';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           />
 
           <Route path="/profile/sebo" element={<ProfileSebo />}/>
+          <Route path="/edit/sebo" element={<EditSebo />} />
         </Routes>
       </NotificationProvider>
     </BrowserRouter>
