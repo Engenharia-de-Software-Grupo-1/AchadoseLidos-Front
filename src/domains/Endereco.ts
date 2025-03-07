@@ -5,6 +5,6 @@ export interface Endereco {
   rua: string;
   bairro: string;
   numero: string;
-  complemento: string;
+  complemento?: string;
   ehPublico: boolean;
 }

@@ -31,13 +31,24 @@ interface RegisterSeboProviderProps {
 export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) => {
   const { showNotification } = useNotification();
   const [sebo, setFormData] = useState<Sebo>({
-    nomeSebo: '',
+    // falta foto
+    conta: {
+      email: '',
+      senha: '',
+      confirmaSenha: '',
+      tipo: 'SEBO',
+      status: 'ATIVA',
+      createdAt: '',
+      updatedAt: '',
+    },
+    nome: '',
     cpfCnpj: '',
-    email: '',
-    senha: '',
-    confirmarSenha: '',
-    whatsapp: '',
-    concordaVenda: false,
+    telefone: '',
+    biografia: '',
+    instagram: '',
+    estanteVirtual: '',
+    curadores: '',
+    concordaVender: false,
     endereco: {
       estado: '',
       cidade: '',
@@ -48,10 +59,6 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
       complemento: '',
       ehPublico: false,
     },
-    biografia: '',
-    instagram: '',
-    estanteVirtual: '',
-    curadores: '',
   });
 
   const [cities, setCities] = useState<{ value: string; text: string }[]>([]);
@@ -61,7 +68,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   };
 
   const rules: Record<string, Rule[]> = {
-    nomeSebo: [{ rule: 'required' }],
+    nome: [{ rule: 'required' }],
     cpfCnpj: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
     email: [{ rule: 'required' }, { rule: 'isEmail' }],
     senha: [{ rule: 'required' }],
@@ -84,10 +91,10 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     let fieldsToValidate: string[] = [];
 
     if (stepIndex === 0) {
-      fieldsToValidate = ['nomeSebo', 'cpfCnpj', 'email', 'senha', 'confirmarSenha'];
-      if (sebo.concordaVenda) {
-        addRuleToField(rules, 'whatsapp', { rule: 'required' });
-        fieldsToValidate.push('whatsapp');
+      fieldsToValidate = ['nome', 'cpfCnpj', 'email', 'senha', 'confirmarSenha'];
+      if (sebo.concordaVender) {
+        addRuleToField(rules, 'telefone', { rule: 'required' });
+        fieldsToValidate.push('telefone');
       }
     } else if (stepIndex === 1) {
       fieldsToValidate = ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero', 'complemento'];

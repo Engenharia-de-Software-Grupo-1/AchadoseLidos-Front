@@ -1,17 +1,20 @@
+import { Conta } from './Conta';
 import { Endereco } from './Endereco';
+import { Foto } from './Foto';
 
 export interface Sebo {
   id?: number;
-  nomeSebo: string;
+  conta: Conta;
+  nome: string;
   cpfCnpj: string;
-  email: string;
-  senha: string;
-  confirmarSenha: string;
-  whatsapp: string;
-  concordaVenda: boolean;
+  telefone: string;
+  biografia?: string;
+  estanteVirtual?: string;
+  instagram?: string;
+  curadores?: string;
+  historia?: string;
+  fotoPerfil?: Foto;
+  concordaVender: boolean;
   endereco: Endereco;
-  biografia: string;
-  instagram: string;
-  estanteVirtual: string;
-  curadores: string;
+  fotos?: Array<Foto>;
 }
