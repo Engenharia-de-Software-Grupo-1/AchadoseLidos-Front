@@ -5,17 +5,22 @@ import Profile from "@components/ProfileUsers";
 import Gallery from "@components/Gallery";
 import MyMap from "@components/Map";
 import ContainerItems from "@components/ContainerItems";
+import ALBreadCrumb from "@components/ALBreadCrumb/ALBreadCrumb";
 
 
 const ProfileSebo = () => {
 
     const images = ['/images/banner.jpg'];
     const imageProfile = '/images/anarita.JPG';
+    const breadcrumbItems = [
+        { label: 'Meu Perfil', url: '/profile/sebo' },
+      ];
 
     return (
         <div className="main-profile-sebo">
             <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
                 <Banner images={images} showIndicators={false} />
+                <ALBreadCrumb breadcrumbItems={breadcrumbItems} background="#fbf8f3"></ALBreadCrumb>
 
                 <div className="profile-sebo">
                     <Profile

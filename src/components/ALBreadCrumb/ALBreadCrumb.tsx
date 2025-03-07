@@ -8,18 +8,21 @@ interface BreadcrumbItem {
 
 interface ALBreadCrumbComponentProps {
   breadcrumbItems: BreadcrumbItem[];
+  background?: string;
 }
 
-const ALBreadCrumb: React.FC<ALBreadCrumbComponentProps> = ({ breadcrumbItems }) => {
+const ALBreadCrumb: React.FC<ALBreadCrumbComponentProps> = ({ breadcrumbItems, background }) => {
   return (
-    <BreadCrumb
-      model={[...breadcrumbItems].map((item) => ({
-        label: item.label,
-        url: item.url,
-      }))}
-      home={{ icon: 'pi pi-home', url: '/' }}
-      style={{ justifyContent: 'flex-start', marginLeft: '1rem' }}
-    />
+    <div className="breadcrumb-edit" style={{ background: background ?? '' }}>
+      <BreadCrumb
+        model={[...breadcrumbItems].map((item) => ({
+          label: item.label,
+          url: item.url,
+        }))}
+        home={{ icon: 'pi pi-home', url: '/' }}
+        style={{ justifyContent: 'flex-start', marginLeft: '1rem' }}
+      />
+    </div>
   );
 };
 

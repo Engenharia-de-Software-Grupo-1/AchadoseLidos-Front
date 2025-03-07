@@ -1,12 +1,9 @@
-import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import Banner from '@components/Banner/banner';
-import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb';
 import TemplatePage from '@pages/templatePage';
 import './style.css';
 import ContainerItems from '@components/ContainerItems';
 
 const HomePage = () => {
-  const breadcrumbItems = useBreadcrumb();
   const images = ['/images/banner.jpg'];
 
   return (
@@ -20,7 +17,6 @@ const HomePage = () => {
         </div>
 
         <img src="/images/underline.svg" alt="underline" style={{ marginTop: '42px', marginBottom: '42px' }} />
-
         <ContainerItems title="Livros" backgroundBege={false}>
           {' '}
         </ContainerItems>
@@ -34,7 +30,6 @@ const HomePage = () => {
           {' '}
         </ContainerItems>
 
-        <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
       </div>
     </TemplatePage>
   );

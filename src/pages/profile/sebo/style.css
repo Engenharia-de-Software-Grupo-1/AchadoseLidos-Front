@@ -150,15 +150,6 @@
   align-self: stretch;
 }
 
-.breadcrumb-edit {
-  display: flex;
-  padding: 16px 98px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  align-self: stretch;
-}
-
 .icon-image {
   color: #fbf8f3;
 }

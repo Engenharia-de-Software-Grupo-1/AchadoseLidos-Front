@@ -4,6 +4,7 @@ import { Tag } from 'primereact/tag';
 import './style.css';
 import { Link } from 'react-router-dom';
 
+// trocar pra trazer o objeto sebo pra renderizar as infos
 interface ProfileProps {
   imageProfile: string;
   titleProfile: string;
@@ -31,7 +32,7 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser 
             <p className="titulo-profile">{titleProfile}</p>
 
             {isSebo ? (
-              <Link to="/edit/sebo">
+              <Link to="/profile/sebo/edit">
                 <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
               </Link>
             ) : authUser ? (
