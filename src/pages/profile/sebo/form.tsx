@@ -6,10 +6,10 @@ import { InputText } from 'primereact/inputtext';
 import { IconField } from 'primereact/iconfield';
 import { Button } from 'primereact/button';
 
-const EditSebo = () => {
+const ProfileSeboForm = () => {
   const breadcrumbItems = [
     { label: 'Meu Perfil', url: '/profile/sebo' },
-    { label: 'Editar Sebo', url: '/edit/sebo' },
+    { label: 'Editar Sebo', url: '/profile/sebo/edit' },
   ];
 
   const imageProfile = '/images/anarita.JPG';
@@ -43,4 +43,4 @@ const EditSebo = () => {
   );
 };
 
-export default EditSebo;
+export default ProfileSeboForm;
