@@ -39,8 +39,10 @@
     text-decoration-style: solid;
     text-decoration-skip-ink: none;
     text-decoration-color: rgba(207, 179, 88, 0.30);
-    text-decoration-thickness: 40%; /* 16.8px */
-    text-underline-offset: -30%; /* -12.6px */
+    text-decoration-thickness: 40%;
+    /* 16.8px */
+    text-underline-offset: -30%;
+    /* -12.6px */
     text-underline-position: from-font;
 }
 
@@ -78,11 +80,36 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 20px; /* 125% */
+    line-height: 20px;
+    /* 125% */
 }
 
 .information-profile {
     display: flex;
     width: 100%;
     gap: 32px;
+}
+
+.tags-profile {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+}
+
+.tags-profile-user {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.p-tag-icon,
+.p-tag-value,
+.p-tag-icon.pi {
+    color: #2F292A;
+
+}
+
+.p-tag {
+    background: #F0CDCD;
 }

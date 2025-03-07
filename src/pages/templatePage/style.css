@@ -13,11 +13,15 @@
   display: flex;
   justify-content: end;
   align-items: center;
-  background-color: transparent;
+  background: transparent;
 }
 
 .text-footer {
   color: #cfb358;
   font-family: 'Sao Torpes', sans-serif;
   font-size: 48px;
+}
+
+.backgroundDiff {
+  background: #F5ECDD;
 }

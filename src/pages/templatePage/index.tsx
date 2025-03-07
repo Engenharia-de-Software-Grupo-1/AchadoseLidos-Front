@@ -5,13 +5,14 @@ interface TemplatePageProps {
   children: React.ReactNode;
   simpleHeader: boolean;
   simpleFooter: boolean;
+  backgroundFooterDiff?: boolean;
 }
 
-const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader, simpleFooter }) => {
+const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader, simpleFooter, backgroundFooterDiff }) => {
   const footer = simpleFooter ? (
     <footer className="container-footer" />
   ) : (
-    <footer className="initial-footer">
+    <footer className={`initial-footer ${backgroundFooterDiff? "backgroundDiff" : ""}`}>
       <p className="text-footer">ACHADOS E LIDOS</p>
     </footer>
   );

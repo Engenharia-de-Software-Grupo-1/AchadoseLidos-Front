@@ -2,8 +2,9 @@ import TemplatePage from "@pages/templatePage";
 import "./style.css";
 import Banner from "@components/Banner/banner";
 import Profile from "@components/ProfileUsers";
-import { Galleria } from 'primereact/galleria';
 import Gallery from "@components/Gallery";
+import MyMap from "@components/Map";
+import ContainerItems from "@components/ContainerItems";
 
 
 const ProfileSebo = () => {
@@ -13,7 +14,7 @@ const ProfileSebo = () => {
 
     return (
         <div className="main-profile-sebo">
-            <TemplatePage simpleHeader={false} simpleFooter={false}>
+            <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
                 <Banner images={images} showIndicators={false} />
 
                 <div className="profile-sebo">
@@ -26,25 +27,8 @@ const ProfileSebo = () => {
                     />
                 </div>
 
-                <div className="container-carousel-items">
-                    <div className="content-title">
-                        <span className="title-carousel-items">
-                            Todos os Itens {">"}
-                        </span>
-                    </div>
-                </div>
-
-                <div className="space-carousel-items"></div>
-
-                <div className="container-carousel-event">
-                    <div className="content-title-event">
-                        <span className="title-carousel-event">
-                            Eventos {">"}
-                        </span>
-                    </div>
-                </div>
-
-                <div className="space-carousel-events"></div>
+                <ContainerItems title="Todos os Itens" backgroundBege={false}> </ContainerItems>
+                <ContainerItems title="Eventos" backgroundBege={true}> </ContainerItems>
 
                 <div className="container-carousel-items">
                     <div className="content-title-history">
@@ -64,8 +48,7 @@ const ProfileSebo = () => {
                     </div>
 
                     <div className="container-map">
-
-                        teste
+                        <MyMap/>
                     </div>
 
                 </div>
