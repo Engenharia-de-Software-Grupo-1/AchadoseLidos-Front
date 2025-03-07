@@ -3,6 +3,7 @@ import { IconField } from 'primereact/iconfield';
 import { Tag } from 'primereact/tag';
 import './style.css';
 import { Link } from 'react-router-dom';
+import ProfilePhoto from '@components/ProfilePhoto';
 
 // trocar pra trazer o objeto sebo pra renderizar as infos
 interface ProfileProps {
@@ -17,15 +18,7 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser 
   return (
     <>
       <div className="container-profile">
-        <div
-          className="profile-picture"
-          style={{
-            backgroundImage: `url(${imageProfile})`,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-          }}
-        />
+        <ProfilePhoto imageProfile={imageProfile} />
 
         <div className="profile-description">
           <div className="content-title-profile">

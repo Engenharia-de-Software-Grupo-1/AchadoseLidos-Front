@@ -1,5 +1,16 @@
 import { isCpfCnpj, isEmail, isMaxLength } from './utils';
 
+export const stepRules = (fieldsToValidate: Array<string>, rules: Record<string, Rule[]>) =>
+  fieldsToValidate.reduce(
+    (acc, field) => {
+      if (rules[field]) {
+        acc[field] = rules[field];
+      }
+      return acc;
+    },
+    {} as Record<string, Rule[]>
+  );
+
 export const extractRules = (definition: Record<string, Rule[]>, object: any, adress: boolean) => {
   const fields = Object.keys(definition) as string[];
   const result = {} as {};

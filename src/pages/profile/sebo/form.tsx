@@ -2,9 +2,7 @@ import TemplatePage from '@pages/templatePage';
 import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb';
 import { useBreadcrumb } from '@hooks/useBreadcrumb';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { Button } from 'primereact/button';
+import ProfilePhoto from '@components/ProfilePhoto';
 
 const ProfileSeboForm = () => {
   const breadcrumbItems = [
@@ -21,17 +19,7 @@ const ProfileSeboForm = () => {
 
         <div className="container-edit-sebo">
           <div className="form-edit-sebo">
-            <div
-              className="profile-picture-sebo"
-              style={{
-                backgroundImage: `linear-gradient(rgba(169, 169, 169, 0.5), rgba(169, 169, 169, 0.5)),url(${imageProfile})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-              }}
-            >
-              <i className="pi pi-pencil icon-image" />
-            </div>
+            <ProfilePhoto imageProfile={imageProfile} canUpload/>
 
             <div className="container-data-form"></div>
           </div>

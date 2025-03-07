@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import { ibge } from 'brasilapi-js';
 import { Sebo } from '@domains/Sebo';
 import { useNotification } from '@utils/notificationContext';
-import { extractRules } from '@utils/formRules';
+import { extractRules, stepRules } from '@utils/formRules';
 import { addRuleToField } from '@utils/utils';
 
 interface RegisterSeboContextType {
@@ -64,7 +64,10 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   const [cities, setCities] = useState<{ value: string; text: string }[]>([]);
 
   const setField = (field: keyof Sebo, value: any) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({
+      ...prev!,
+      [field]: value,
+    }));
   };
 
   const rules: Record<string, Rule[]> = {
@@ -97,23 +100,15 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
         fieldsToValidate.push('telefone');
       }
     } else if (stepIndex === 1) {
-      fieldsToValidate = ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero', 'complemento'];
+      fieldsToValidate = ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero'];
     } else if (stepIndex === 2) {
       // salvar
       fieldsToValidate = [];
     }
 
-    const stepRules = fieldsToValidate.reduce(
-      (acc, field) => {
-        if (rules[field]) {
-          acc[field] = rules[field];
-        }
-        return acc;
-      },
-      {} as Record<string, Rule[]>
-    );
+    const rulesByStep = stepRules(fieldsToValidate, rules);
 
-    const validationResults = extractRules(stepRules, sebo, stepIndex == 1 ? true : false);
+    const validationResults = extractRules(rulesByStep, sebo, stepIndex == 1 ? true : false);
 
     const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
     return !hasError;

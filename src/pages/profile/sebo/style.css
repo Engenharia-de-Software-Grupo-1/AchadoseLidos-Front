@@ -129,27 +129,9 @@
   background: #fbf8f3;
 }
 
-.profile-picture-sebo {
-  display: flex;
-  width: 175px;
-  height: 175px;
-  padding: 10px;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 100%;
-  gap: 10px;
-  box-shadow: #849041;
-  overflow: 'hidden';
-  align-items: center;
-}
-
 .container-data-form {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
-}
-
-.icon-image {
-  color: #fbf8f3;
 }
