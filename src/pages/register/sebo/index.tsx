@@ -26,6 +26,10 @@ const RegisterSebo = () => {
     setSubmitted(false);
   };
 
+  const stepBack = (e: any) => {
+    setActiveIndex(activeIndex - 1);
+  };
+
   const stepsItems = [
     {
       label: 'Dados Básicos',
@@ -58,7 +62,10 @@ const RegisterSebo = () => {
               activeIndex={activeIndex}
               readOnly
             />
-            <Button className="step-button" label="Continuar" onClick={(e) => nextStep(e)} />
+            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+              {activeIndex !== 0 && <Button className="step-button" label="Voltar" onClick={(e) => stepBack(e)} />}
+              <Button className="step-button" label="Continuar" onClick={(e) => nextStep(e)} />
+            </div>
             <p className="login" style={{ color: '#2F292A', textAlign: 'center' }}>
               Já tem uma conta? Entrar
             </p>

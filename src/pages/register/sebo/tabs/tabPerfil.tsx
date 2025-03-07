@@ -3,6 +3,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Sebo } from '@domains/Sebo';
+import ProfilePhoto from '@components/ProfilePhoto';
 
 interface TabDadosPerfilProps {
   sebo: Sebo;
@@ -11,12 +12,12 @@ interface TabDadosPerfilProps {
   submitted: boolean;
 }
 
-// faltando foto de perfil
 const TabDadosPerfil: React.FC<TabDadosPerfilProps> = ({ sebo, setField, getRule, submitted }) => {
   return (
     <div className="container-register-sebo">
       <div className="container-register">
         <div className="container-data">
+          <ProfilePhoto canUpload imageProfile=''/>
           <FormField attribute="biografia" rule={getRule('biografia')} submitted={submitted}>
             <InputTextarea
               value={sebo.biografia}

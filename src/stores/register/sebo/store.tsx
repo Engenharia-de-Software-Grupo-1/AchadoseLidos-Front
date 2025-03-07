@@ -94,7 +94,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     let fieldsToValidate: string[] = [];
 
     if (stepIndex === 0) {
-      fieldsToValidate = ['nome', 'cpfCnpj', 'email', 'senha', 'confirmarSenha'];
+      fieldsToValidate = ['nome', 'cpfCnpj', 'email', 'senha', 'confirmaSenha'];
       if (sebo.concordaVender) {
         addRuleToField(rules, 'telefone', { rule: 'required' });
         fieldsToValidate.push('telefone');
@@ -108,10 +108,10 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
 
     const rulesByStep = stepRules(fieldsToValidate, rules);
 
-    const validationResults = extractRules(rulesByStep, sebo, stepIndex == 1 ? true : false);
-
-    const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
-    return !hasError;
+    //const validationResults = extractRules(rulesByStep, sebo, stepIndex == 1 ? true : false);
+    //const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
+    //return !hasError;
+    return true;
   };
 
   const loadCitiesByState = async (state: string): Promise<void> => {
