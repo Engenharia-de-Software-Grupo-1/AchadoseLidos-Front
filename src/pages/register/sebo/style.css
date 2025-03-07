@@ -1,100 +1,102 @@
 .main-register-sebo {
-    width: 100vw;
-    height: 100vh;
-    background-color: #F5ECDD;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f5ecdd;
 }
 
 .card {
-    display: grid;
+  display: grid;
 }
 
 .container-register-sebo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background-color: #F5ECDD;
+  background-color: #f5ecdd;
 }
 
 .container-register {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .tittle-register {
-    color: #2F292A;
-    font-feature-settings: 'liga' off, 'clig' off;
-    font-family: 'Poppins', serif;
-    font-size: 42px;
-    font-style: normal;
-    font-weight: 500;
-    text-align: center;
+  color: #2f292a;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: 'Poppins', serif;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
 }
 
 .text-data {
-    color: #2F292A;
-    font-family: 'Poppins', serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  color: #2f292a;
+  font-family: 'Poppins', serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .container-data {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
 }
 
 .text-sales {
-    color: #2F292A;
-    font-family: 'Poppins', serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  color: #2f292a;
+  font-family: 'Poppins', serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .step-button {
-    margin-top: 15px;
-    background-color: #2F292A;
-    justify-self: center;
+  margin-top: 15px;
+  background-color: #2f292a;
+  justify-self: center;
 }
 
 .p-inputtext {
-    margin: 0;
-    width: 400px;
+  margin: 0;
+  width: 400px;
 }
 
 .p-checkbox .p-checkbox-box {
-    width: 60px;
-    height: 25px;
+  width: 60px;
+  height: 25px;
 }
 
 .p-checkbox.p-highlight .p-checkbox-box {
-    border-color: #2F292A;
-    background: #2F292A;
+  border-color: #2f292a;
+  background: #2f292a;
 }
 
 .p-checkbox:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-box {
-    border-color: #2F292A;
+  border-color: #2f292a;
 }
 
 .p-steps .p-steps-item .p-menuitem-link {
-    background: transparent;
-    transition: box-shadow 0.2s;
-    border-radius: 6px;
+  background: transparent;
+  transition: box-shadow 0.2s;
+  border-radius: 6px;
 }
 
 .p-steps .p-steps-item.p-highlight .p-steps-number {
-    background: #2F292A;
-    color: #f9fafb;
+  background: #2f292a;
+  color: #f9fafb;
 }
 
 .p-steps .p-steps-item.p-highlight .p-steps-title {
-    font-weight: 700;
-    color: #2F292A;
+  font-weight: 700;
+  color: #2f292a;
 }

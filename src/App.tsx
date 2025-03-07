@@ -22,7 +22,7 @@ const App = () => {
             }
           />
 
-          <Route path="/profile/sebo" element={<ProfileSebo />}/>
+          <Route path="/profile/sebo" element={<ProfileSebo />} />
           <Route path="/edit/sebo" element={<EditSebo />} />
         </Routes>
       </NotificationProvider>

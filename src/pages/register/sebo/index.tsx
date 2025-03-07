@@ -45,7 +45,7 @@ const RegisterSebo = () => {
 
   return (
     <div className="main-register-sebo">
-      <TemplatePage simpleHeader={true} simpleFooter={true}>
+      <TemplatePage simpleHeader simpleFooter>
         <div className="container-register-sebo">
           <div className="card">
             <p className="tittle-register">Cadastro de Sebo</p>

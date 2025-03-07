@@ -74,7 +74,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     numero: [{ rule: 'required' }],
     complemento: [{ rule: 'required' }],
   };
-  
+
   const getRule = (field: string) => {
     return rules[field] ? rules[field] : {};
   };
@@ -86,9 +86,9 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     if (stepIndex === 0) {
       fieldsToValidate = ['nomeSebo', 'cpfCnpj', 'email', 'senha', 'confirmarSenha'];
       if (sebo.concordaVenda) {
-        addRuleToField(rules, 'whatsapp', { rule: 'required' })
+        addRuleToField(rules, 'whatsapp', { rule: 'required' });
         fieldsToValidate.push('whatsapp');
-      } 
+      }
     } else if (stepIndex === 1) {
       fieldsToValidate = ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero', 'complemento'];
     } else if (stepIndex === 2) {
@@ -106,7 +106,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
       {} as Record<string, Rule[]>
     );
 
-    const validationResults = extractRules(stepRules, sebo, stepIndex == 1 ? true: false);
+    const validationResults = extractRules(stepRules, sebo, stepIndex == 1 ? true : false);
 
     const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
     return !hasError;

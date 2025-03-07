@@ -9,13 +9,7 @@ interface FormFieldProps {
   children: React.ReactNode;
 }
 
-const FormField: React.FC<FormFieldProps> = ({
-  label,
-  attribute,
-  rule,
-  submitted = false,
-  children,
-}) => {
+const FormField: React.FC<FormFieldProps> = ({ label, attribute, rule, submitted = false, children }) => {
   const validateField = () => {
     return rule?.error && submitted ? { className: 'p-invalid p-error' } : {};
   };
@@ -27,7 +21,7 @@ const FormField: React.FC<FormFieldProps> = ({
     return <small>&nbsp;</small>;
   };
 
-  const childProps = { id: attribute, rules: rule, ...validateField()};
+  const childProps = { id: attribute, rules: rule, ...validateField() };
 
   return (
     <div className="field">

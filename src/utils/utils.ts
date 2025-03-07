@@ -115,4 +115,4 @@ export const addRuleToField = (rules: Record<string, Rule[]>, field: string, new
     ...rules,
     [field]: rules[field] ? [...rules[field], newRule] : [newRule],
   };
-}
+};

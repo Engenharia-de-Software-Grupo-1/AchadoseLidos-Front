@@ -21,7 +21,7 @@ const TabDadosPerfil: React.FC<TabDadosPerfilProps> = ({ sebo, setField, getRule
             <InputTextarea
               value={sebo.biografia}
               onChange={(e) => setField('biografia', e.target.value)}
-              placeholder='Biografia'
+              placeholder="Biografia"
               rows={5}
               cols={30}
             />

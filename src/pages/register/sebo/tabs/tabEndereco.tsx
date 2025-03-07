@@ -31,7 +31,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
               optionValue="value"
               showClear
               placeholder="Estado *"
-              style={{width: '400px'}}
+              style={{ width: '400px' }}
             />
           </FormField>
 
@@ -44,8 +44,8 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
               optionValue="value"
               showClear
               placeholder="Cidade *"
-              style={{width: '400px'}}
-              />
+              style={{ width: '400px' }}
+            />
           </FormField>
 
           <FormField attribute="cep" rule={getRule('cep')} submitted={submitted}>

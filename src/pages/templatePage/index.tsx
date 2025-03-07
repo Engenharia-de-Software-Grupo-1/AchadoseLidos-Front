@@ -1,5 +1,5 @@
 import Menu from '@components/Header/header';
-import "./style.css"
+import './style.css';
 
 interface TemplatePageProps {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader, sim
   const footer = simpleFooter ? (
     <footer className="container-footer" />
   ) : (
-    <footer className={`initial-footer ${backgroundFooterDiff? "backgroundDiff" : ""}`}>
+    <footer className={`initial-footer ${backgroundFooterDiff ? 'backgroundDiff' : ''}`}>
       <p className="text-footer">ACHADOS E LIDOS</p>
     </footer>
   );

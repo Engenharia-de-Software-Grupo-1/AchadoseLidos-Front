@@ -68,17 +68,16 @@ export default function Header({ simpleHeader }: HeaderProps) {
     );
     const end = (
       <div className="flex align-items-center">
-       <div className="search-container">
+        <div className="search-container">
           <IconField iconPosition="left">
-              <InputIcon className="pi pi-search"></InputIcon>
-              <InputText 
-                  placeholder="O que deseja garimpar?" 
-                  type="text" 
-                  style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }} 
-              />
+            <InputIcon className="pi pi-search"></InputIcon>
+            <InputText
+              placeholder="O que deseja garimpar?"
+              type="text"
+              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
+            />
           </IconField>
-      </div>
-
+        </div>
 
         <div className="flex align-items-center gap-4 justify-center">
           <Button icon="pi pi-heart" rounded text aria-label="Favoritos" style={{ color: '#F5ECDD' }} />

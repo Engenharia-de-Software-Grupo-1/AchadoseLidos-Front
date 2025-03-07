@@ -1,28 +1,30 @@
 .p-breadcrumb {
-    border: none;
-    background: #FBF8F3;
-    border-radius: 4px;
+  border: none;
+  background: #fbf8f3;
+  border-radius: 4px;
 }
 
 .p-breadcrumb li {
-    color: #2F292A;
+  color: #2f292a;
 }
 
 .p-breadcrumb .p-menuitem-text {
-    color: #2F292A;
-    font-feature-settings: 'liga' off, 'clig' off;
+  color: #2f292a;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
 
-    font-family: Poppins;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
 }
 
 .p-breadcrumb ol {
-    padding: 10px;
+  padding: 10px;
 }
 
 .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-icon {
-    color: #2F292A;
+  color: #2f292a;
 }

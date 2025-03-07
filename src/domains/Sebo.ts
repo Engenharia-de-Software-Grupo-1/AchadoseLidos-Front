@@ -1,6 +1,7 @@
-import { Endereco } from "./Endereco";
+import { Endereco } from './Endereco';
 
 export interface Sebo {
+  id: number;
   nomeSebo: string;
   cpfCnpj: string;
   email: string;

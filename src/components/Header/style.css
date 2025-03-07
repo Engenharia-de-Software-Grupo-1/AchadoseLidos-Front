@@ -47,16 +47,15 @@
 }
 
 .p-link {
-  background-color: #2F292A;
+  background-color: #2f292a;
 }
 
-
 .p-menuitem-content:hover {
-  background-color: #2F292A;
+  background-color: #2f292a;
 }
 
 .p-menuitem-active > .p-menuitem-content {
-  background-color: #2F292A;
+  background-color: #2f292a;
   color: #f9fafb;
 }
 

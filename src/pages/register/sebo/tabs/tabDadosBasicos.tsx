@@ -57,7 +57,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, getRu
           <FormField attribute="whatsapp" rule={getRule('whatsapp')} submitted={submitted}>
             <InputMask
               value={sebo.whatsapp}
-              mask='(99) 9 9999-9999'
+              mask="(99) 9 9999-9999"
               onChange={(e) => setField('whatsapp', e.target.value)}
               placeholder={sebo.concordaVenda ? 'WhatsApp *' : 'WhatsApp'}
             />

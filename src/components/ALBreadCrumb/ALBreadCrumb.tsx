@@ -1,5 +1,5 @@
 import { BreadCrumb } from 'primereact/breadcrumb';
-import "./style.css";
+import './style.css';
 
 interface BreadcrumbItem {
   label: string;
