@@ -2,6 +2,9 @@
   width: 100vw;
   height: 100vh;
   background-color: #f5ecdd;
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh;
 }
 
 .card {
@@ -12,7 +15,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  flex: 1;
   background-color: #f5ecdd;
 }
 
@@ -48,7 +51,6 @@
 .container-data {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   align-items: center;
 }
 

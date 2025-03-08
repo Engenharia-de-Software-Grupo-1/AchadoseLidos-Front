@@ -85,7 +85,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, getRule, citi
             <InputText
               value={sebo.endereco.complemento}
               onChange={(e) => setField('endereco', { ...sebo.endereco, complemento: e.target.value })}
-              placeholder="Complemento *"
+              placeholder="Complemento"
             />
           </FormField>
 

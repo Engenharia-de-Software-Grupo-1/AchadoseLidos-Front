@@ -5,6 +5,6 @@ export enum FieldNames {
   curadores = 'curadores',
   senha = 'senha',
   novaSenha = 'novaSenha',
-  confirmarSenha = 'confirmarSenha',
+  confirmaSenha = 'confirmaSenha',
   historia = 'historia',
 }

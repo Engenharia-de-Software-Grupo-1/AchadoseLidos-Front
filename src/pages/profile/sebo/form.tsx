@@ -7,7 +7,6 @@ import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
 import { ProfileFormField } from '@components/ProfileForm/ProfileFormField';
 import { FieldNames } from '@domains/FieldNames';
 import { IconField } from 'primereact/iconfield';
-import { Endereco } from '@domains/Endereco';
 import { AddressFormField } from '@components/ProfileForm/AddressFormField';
 import { AddressNames } from '@domains/AddressNames';
 import { useForm } from './useForm';
@@ -90,50 +89,6 @@ const ProfileSeboForm = () => {
                   isTextArea
                   isOptional
                 />
-
-                <button className={`${alterPassword ? "change-password-button" : "change-password-button-rose"}`} onClick={handleAlterPassword}>
-                  <IconField className="label-icon">
-                    <i className={'pi pi-pencil'} />
-                  </IconField>
-
-                  <text className="change-password-text">Alterar senha</text>
-                </button>
-
-                {alterPassword && (
-                  <>
-                    <ProfileFormField
-                      labelText="Senha atual *"
-                      fieldName={FieldNames.senha}
-                      fieldValue={sebo.senha}
-                      hasSubmissionFailed={submitted}
-                      setField={setField}
-                      placeholderText=""
-                      isShortInput
-                      isPassword
-                    />
-
-                    <ProfileFormField
-                      labelText="Nova Senha *"
-                      fieldName={FieldNames.novaSenha}
-                      fieldValue={sebo.novaSenha}
-                      hasSubmissionFailed={submitted}
-                      setField={setField}
-                      placeholderText=""
-                      isShortInput
-                      isPassword
-                    />
-
-                    <ProfileFormField
-                      labelText="Confirmar Senha *"
-                      fieldName={FieldNames.confirmarSenha}
-                      fieldValue={sebo.confirmarSenha}
-                      hasSubmissionFailed={submitted}
-                      setField={setField}
-                      placeholderText=""
-                      isShortInput
-                      isPassword
-                    />
-                  </>)}
               </div>
 
               <div className="fields-column">

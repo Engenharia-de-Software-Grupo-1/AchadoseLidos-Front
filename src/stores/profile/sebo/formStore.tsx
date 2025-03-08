@@ -72,7 +72,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     cpfCnpj: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
     email: [{ rule: 'required' }, { rule: 'isEmail' }],
     senha: [{ rule: 'required' }],
-    confirmarSenha: [{ rule: 'required' }],
+    confirmaSenha: [{ rule: 'required' }],
     estado: [{ rule: 'required' }],
     cidade: [{ rule: 'required' }],
     cep: [{ rule: 'required' }],

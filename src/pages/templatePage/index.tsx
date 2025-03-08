@@ -18,7 +18,7 @@ const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader, sim
   );
 
   return (
-    <div style={{ height: '100%' }}>
+    <div style={{ height: '100%', display: 'contents' }}>
       <Menu simpleHeader={simpleHeader} />
       {children}
       {footer}

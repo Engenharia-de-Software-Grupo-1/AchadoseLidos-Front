@@ -19,5 +19,5 @@ export interface Sebo {
   fotos?: Array<Foto>;
   senha?: string;
   novaSenha?: string;
-  confirmarSenha?: string;
+  confirmaSenha?: string;
 }
