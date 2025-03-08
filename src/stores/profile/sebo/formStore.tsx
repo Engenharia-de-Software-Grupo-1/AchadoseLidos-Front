@@ -1,13 +1,13 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { ibge } from 'brasilapi-js';
 import { Sebo } from '@domains/Sebo';
-import { useNotification } from '@utils/notificationContext';
+import { useNotification } from '@contexts/notificationContext';
 import { extractRules, stepRules } from '@utils/formRules';
 import { addRuleToField } from '@utils/utils';
 
 interface ProfileSeboFormContextType {
   sebo: Sebo;
-  setField: (field: keyof Sebo, value: any) => void;
+  setField: (field: string, value: any) => void;
   validateStep: (stepIndex: number) => boolean;
   getRule: (field: string) => {};
   loadCitiesByState: (state: string) => Promise<void>;
@@ -63,7 +63,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
 
   const [cities, setCities] = useState<{ value: string; text: string }[]>([]);
 
-  const setField = (field: keyof Sebo, value: any) => {
+  const setField = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -108,7 +108,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
 
     const rulesByStep = stepRules(fieldsToValidate, rules);
 
-    const validationResults = extractRules(rulesByStep, sebo, stepIndex == 1 ? true : false);
+    const validationResults = extractRules(rulesByStep, sebo);
 
     const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
     return !hasError;

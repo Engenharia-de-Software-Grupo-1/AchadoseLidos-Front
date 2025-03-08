@@ -17,7 +17,4 @@ export interface Sebo {
   concordaVender: boolean;
   endereco: Endereco;
   fotos?: Array<Foto>;
-  senha?: string;
-  novaSenha?: string;
-  confirmaSenha?: string;
 }
