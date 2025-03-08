@@ -90,7 +90,6 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
         if (index === keys.length - 1) {
           currentField[key] = value;
         } else {
-          currentField[key] = currentField[key] || {};
           currentField = currentField[key];
         }
       });
@@ -103,14 +102,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   };
 
   const getRule = (field: string): Rule[] => {
-    const keys = field.split('.');
-    let currentRules = rules;
-
-    keys.forEach((key) => {
-      currentRules = currentRules[key] || [];
-    });
-
-    return currentRules;
+    return rules[field] || [];
   };
 
   const validateStep = (stepIndex: number): boolean => {
@@ -147,7 +139,11 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
       validationResults['confirmaSenha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
     }
     if (senha && confirmaSenha && senha !== confirmaSenha) {
-      validationResults['confirmaSenha'] = { error: true, message: 'Por favor, coloque senhas equivalentes', rules: [] };
+      validationResults['confirmaSenha'] = {
+        error: true,
+        message: 'Por favor, coloque senhas equivalentes',
+        rules: [],
+      };
     }
 
     return validationResults;
