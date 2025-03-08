@@ -12,6 +12,9 @@ import { AddressFormField } from '@components/ProfileForm/AddressFormField';
 import { AddressNames } from '@domains/AddressNames';
 import { useForm } from './useForm';
 import { Checkbox } from 'primereact/checkbox';
+import { useState } from 'react';
+import UploadImages from '@components/UploadImages';
+import { Button } from 'primereact/button';
 
 const ProfileSeboForm = () => {
   const {
@@ -27,6 +30,13 @@ const ProfileSeboForm = () => {
     validateStep,
     imageProfile,
   } = useForm();
+
+
+  const [alterPassword, setAlterPassword] = useState(false);
+
+  const handleAlterPassword = () => {
+    setAlterPassword(!alterPassword);
+  }
 
   return (
     <div className="container-main-edit-sebo">
@@ -81,13 +91,49 @@ const ProfileSeboForm = () => {
                   isOptional
                 />
 
-                <button className="change-password-button">
+                <button className={`${alterPassword ? "change-password-button" : "change-password-button-rose"}`} onClick={handleAlterPassword}>
                   <IconField className="label-icon">
                     <i className={'pi pi-pencil'} />
                   </IconField>
 
                   <text className="change-password-text">Alterar senha</text>
                 </button>
+
+                {alterPassword && (
+                  <>
+                    <ProfileFormField
+                      labelText="Senha atual *"
+                      fieldName={FieldNames.senha}
+                      fieldValue={sebo.senha}
+                      hasSubmissionFailed={submitted}
+                      setField={setField}
+                      placeholderText=""
+                      isShortInput
+                      isPassword
+                    />
+
+                    <ProfileFormField
+                      labelText="Nova Senha *"
+                      fieldName={FieldNames.novaSenha}
+                      fieldValue={sebo.novaSenha}
+                      hasSubmissionFailed={submitted}
+                      setField={setField}
+                      placeholderText=""
+                      isShortInput
+                      isPassword
+                    />
+
+                    <ProfileFormField
+                      labelText="Confirmar Senha *"
+                      fieldName={FieldNames.confirmarSenha}
+                      fieldValue={sebo.confirmarSenha}
+                      hasSubmissionFailed={submitted}
+                      setField={setField}
+                      placeholderText=""
+                      isShortInput
+                      isPassword
+                    />
+                  </>)}
               </div>
 
               <div className="fields-column">
@@ -151,6 +197,29 @@ const ProfileSeboForm = () => {
                 // Ainda falta adicionar o checkbox para o campo ehPublico
               </div>
             </div>
+
+            <div className='container-upload'>
+              <UploadImages />
+            </div>
+
+            <div className='container-historia-sebo'>
+              <ProfileFormField
+                labelText="História (longo)"
+                fieldName={FieldNames.historia}
+                fieldValue={sebo.historia}
+                setField={setField}
+                hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                placeholderText="Conte sua história" // também falta adicionar as rules que Eliane criou, se elas forem necessárias aqui especificamente
+                isTextArea
+                isOptional
+              />
+            </div>
+
+            <div className='container-buttons'>
+              <Button label="Excluir Conta" className='button-trash' />
+              <Button label="Salvar" className='button-save' />
+            </div>
+
           </div>
         </div>
       </TemplatePage>
@@ -159,3 +228,4 @@ const ProfileSeboForm = () => {
 };
 
 export default ProfileSeboForm;
+

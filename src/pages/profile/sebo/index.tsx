@@ -20,7 +20,6 @@ const ProfileSebo = () => {
         <div className="main-profile-sebo">
             <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
                 <Banner images={images} showIndicators={false} />
-                <ALBreadCrumb breadcrumbItems={breadcrumbItems} background="#fbf8f3"></ALBreadCrumb>
 
                 <div className="profile-sebo">
                     <Profile

@@ -3,4 +3,8 @@ export enum FieldNames {
   cpfCnpj = 'cpfCnpj',
   briefBio = 'biografia',
   curadores = 'curadores',
+  senha = 'senha',
+  novaSenha = 'novaSenha',
+  confirmarSenha = 'confirmarSenha',
+  historia = 'historia',
 }

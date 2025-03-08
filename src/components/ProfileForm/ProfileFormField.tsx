@@ -15,6 +15,7 @@ type ProfileFormFieldProps = {
   placeholderText: string;
   isShortInput?: boolean;
   isOptional?: boolean;
+  isPassword?: boolean;
 };
 
 const ProfileFormField = ({
@@ -28,6 +29,7 @@ const ProfileFormField = ({
   placeholderText,
   isShortInput,
   isOptional,
+  isPassword,
 }: ProfileFormFieldProps) => {
   const shouldShowError = hasSubmissionFailed && !isOptional && !fieldValue;
 
@@ -66,6 +68,7 @@ const ProfileFormField = ({
             'short-input': isShortInput,
             'empty-input-error': shouldShowError,
           })}
+          type={isPassword ? 'password' : 'text'}
           value={fieldValue}
           onChange={handleInputTextChange}
           placeholder={placeholderText}

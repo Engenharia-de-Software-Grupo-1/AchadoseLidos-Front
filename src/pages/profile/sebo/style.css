@@ -15,6 +15,8 @@
   border-radius: 32px;
 }
 
+
+
 .content-title-history {
   display: flex;
   padding: 0px 32px;
@@ -142,4 +144,63 @@
   flex-direction: column;
   gap: 7px;
   width: 45%;
+}
+
+.container-upload {
+  width: 100%;
+  display: flex;
+  padding-bottom: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+  background: #FFF;
+}
+
+.container-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  align-self: stretch;
+}
+
+.container-historia-sebo {
+  width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.button-save,
+.button-trash {
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+}
+
+.button-trash {
+  background: #D04E3B;
+  border: 1px solid #D04E3B;
+}
+
+.button-save {
+  border: 1px solid #90A9AE;
+  background: #849041;
+}
+
+.button-trash:hover {
+  background: #D04E3B !important;
+  border: none;
+}
+
+.button-save:hover {
+  background: #849041 !important;
+  border: none;
+}
+
+.button-save:focus,
+.button-trash:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }

@@ -68,34 +68,49 @@
 .label-icon i {
   line-height: normal;
 }
-
+.change-password-button-rose,
 .change-password-button {
   display: flex;
   border-color: transparent;
   border-radius: 4px;
   justify-content: space-between;
-  background-color: #f5ecdd;
+  background-color:#2F292A;
   align-items: center;
-  padding: 8px;
+  color: #F5ECDD;
+  padding: 8px 12px;
   width: 30%;
   max-width: 150px;
   height: 37px;
   overflow: hidden;
 }
 
+.change-password-button-rose {
+  background: #F5ECDD;
+  color: #2F292A ;
+}
+
+.change-password-button-rose text {
+  color: #2F292A;
+}
+
+.change-password-button-rose:hover,
 .change-password-button:hover {
   cursor: pointer;
 }
 
+.change-password-button-rose text,
 .change-password-button text {
+
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'liga' off, 'clig' off;
   font-family: Poppins;
   font-size: 14px;
+  font-style: normal;
   font-weight: 500;
-  color: #2f292a;
-  flex-grow: 1;
-  min-width: 0;
+  line-height: normal;
 }
 
+.change-password-button-rose div,
 .change-password-button div {
   flex-shrink: 0;
 }
