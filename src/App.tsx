@@ -10,6 +10,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage children={undefined} simpleHeader={true} />} />
+        <Route path="/recoverone" element={<RecoverPageOne children={undefined} simpleHeader={true} />} />
+        <Route path="/recovertwo" element={<RecoverPageTwo children={undefined} simpleHeader={true} />} />
       </Routes>
     </BrowserRouter>
   );
