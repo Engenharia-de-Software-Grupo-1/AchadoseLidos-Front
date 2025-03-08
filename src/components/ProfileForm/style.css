@@ -1,0 +1,97 @@
+.profile-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.field-input {
+  border: 1px #2f292a solid;
+  border-radius: 4px;
+  background-color: transparent;
+  height: 36px;
+  width: 100%;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+
+.short-input {
+  width: 50%;
+}
+
+.empty-input-error {
+  && {
+    border: 1px solid red;
+  }
+}
+
+.text-area {
+  border: 1px #2f292a solid;
+  border-radius: 4px;
+  padding: 8px;
+  height: 100px;
+  color: #2f292a;
+  background-color: transparent;
+  font-family: Poppins;
+  font-size: 14px;
+}
+
+.field-input {
+  font-family: Poppins;
+}
+
+.field-label {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  padding-left: 2px;
+  color: #2f292a;
+  font-family: Poppins;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.label-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label-icon i {
+  line-height: normal;
+}
+
+.change-password-button {
+  display: flex;
+  border-color: transparent;
+  border-radius: 4px;
+  justify-content: space-between;
+  background-color: #f5ecdd;
+  align-items: center;
+  padding: 8px;
+  width: 30%;
+  max-width: 150px;
+  height: 37px;
+  overflow: hidden;
+}
+
+.change-password-button:hover {
+  cursor: pointer;
+}
+
+.change-password-button text {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2f292a;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.change-password-button div {
+  flex-shrink: 0;
+}
+
+.error-message {
+  color: red;
+}
