@@ -3,7 +3,7 @@ import { IconField } from 'primereact/iconfield';
 import { Tag } from 'primereact/tag';
 import './style.css';
 import { Link } from 'react-router-dom';
-import ProfilePhoto from '@components/ProfilePhoto';
+import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 
 // trocar pra trazer o objeto sebo pra renderizar as infos
 interface ProfileProps {

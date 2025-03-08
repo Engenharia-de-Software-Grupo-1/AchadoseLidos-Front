@@ -8,12 +8,12 @@ interface BreadcrumbItem {
 
 interface ALBreadCrumbComponentProps {
   breadcrumbItems: BreadcrumbItem[];
-  background?: string;
+  style?: {};
 }
 
-const ALBreadCrumb: React.FC<ALBreadCrumbComponentProps> = ({ breadcrumbItems, background }) => {
+const ALBreadCrumb: React.FC<ALBreadCrumbComponentProps> = ({ breadcrumbItems, style }) => {
   return (
-    <div className="breadcrumb-edit" style={{ background: background ?? '' }}>
+    <div className="breadcrumb-edit" style={style}>
       <BreadCrumb
         model={[...breadcrumbItems].map((item) => ({
           label: item.label,
