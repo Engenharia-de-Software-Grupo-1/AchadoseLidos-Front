@@ -6,9 +6,10 @@ interface TemplatePageProps {
   simpleHeader: boolean;
   simpleFooter: boolean;
   backgroundFooterDiff?: boolean;
+  contents?: boolean;
 }
 
-const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader, simpleFooter, backgroundFooterDiff }) => {
+const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader, simpleFooter, backgroundFooterDiff, contents=false }) => {
   const footer = simpleFooter ? (
     <footer className="container-footer" />
   ) : (
@@ -17,8 +18,10 @@ const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader, sim
     </footer>
   );
 
+  const style = contents ? { height: '100%', display: 'contents' } : { height: '100%'};
+
   return (
-    <div style={{ height: '100%', display: 'contents' }}>
+    <div style={style}>
       <Menu simpleHeader={simpleHeader} />
       {children}
       {footer}

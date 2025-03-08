@@ -8,6 +8,7 @@ import { Avatar } from 'primereact/avatar';
 import { PanelMenu } from 'primereact/panelmenu';
 import 'primeicons/primeicons.css';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   simpleHeader: boolean;
@@ -25,7 +26,9 @@ export default function Header({ simpleHeader }: HeaderProps) {
   if (simpleHeader) {
     content = (
       <div className="simple-header">
-        <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
+        <Link to="/">
+          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
+        </Link>
       </div>
     );
   } else {
@@ -63,7 +66,9 @@ export default function Header({ simpleHeader }: HeaderProps) {
 
     const start = (
       <>
-        <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
+        <Link to="/">
+          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
+        </Link>
       </>
     );
     const end = (
