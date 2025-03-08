@@ -5,6 +5,14 @@
   margin-bottom: 8px;
 }
 
+.address-form-field {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-self: flex-end;
+}
+
 .field-input {
   border: 1px #2f292a solid;
   border-radius: 4px;
@@ -16,7 +24,7 @@
 }
 
 .short-input {
-  width: 50%;
+  width: 70%;
 }
 
 .empty-input-error {

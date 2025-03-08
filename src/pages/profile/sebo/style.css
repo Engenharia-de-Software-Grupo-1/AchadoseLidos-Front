@@ -140,6 +140,6 @@
 .fields-column {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 7px;
   width: 45%;
 }

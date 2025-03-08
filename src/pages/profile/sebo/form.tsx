@@ -4,21 +4,30 @@ import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb';
 import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import ProfilePhoto from '@components/ProfilePhoto';
 import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
-import { useState } from 'react';
 import { ProfileFormField } from '@components/ProfileForm/ProfileFormField';
 import { FieldNames } from '@domains/FieldNames';
 import { IconField } from 'primereact/iconfield';
+import { Endereco } from '@domains/Endereco';
+import { AddressFormField } from '@components/ProfileForm/AddressFormField';
+import { AddressNames } from '@domains/AddressNames';
+import { useForm } from './useForm';
+import { Checkbox } from 'primereact/checkbox';
 
 const ProfileSeboForm = () => {
-  const { sebo, setField, validateStep, getRule, cities } = useProfileSeboForm();
-  const [submitted, setSubmitted] = useState(false);
+  const {
+    breadcrumbItems,
+    cities,
+    getRule,
+    endereco,
+    handleEnderecoChange,
+    sebo,
+    setField,
+    setSubmitted,
+    submitted,
+    validateStep,
+    imageProfile,
+  } = useForm();
 
-  const breadcrumbItems = [
-    { label: 'Meu Perfil', url: '/profile/sebo' },
-    { label: 'Editar Sebo', url: '/profile/sebo/edit' },
-  ];
-
-  const imageProfile = '/images/anarita.JPG';
   return (
     <div className="container-main-edit-sebo">
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
@@ -79,6 +88,67 @@ const ProfileSeboForm = () => {
 
                   <text className="change-password-text">Alterar senha</text>
                 </button>
+              </div>
+
+              <div className="fields-column">
+                <AddressFormField
+                  labelText="CEP"
+                  fieldName={AddressNames.cep}
+                  fieldValue={sebo.endereco.cep}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="00000-000"
+                  setField={handleEnderecoChange}
+                />
+                <AddressFormField
+                  labelText="Estado"
+                  fieldName={AddressNames.estado}
+                  fieldValue={sebo.endereco.estado}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Estado"
+                  setField={handleEnderecoChange}
+                />
+                <AddressFormField
+                  labelText="Cidade"
+                  fieldName={AddressNames.cidade}
+                  fieldValue={sebo.endereco.cidade}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Cidade"
+                  setField={handleEnderecoChange}
+                />
+                <AddressFormField
+                  labelText="Rua"
+                  fieldName={AddressNames.rua}
+                  fieldValue={sebo.endereco.rua}
+                  hasSubmissionFailed={submitted}
+                  placeholderText='Rua "Nome da Rua"'
+                  setField={handleEnderecoChange}
+                />
+                <AddressFormField
+                  labelText="Bairro"
+                  fieldName={AddressNames.bairro}
+                  fieldValue={sebo.endereco.bairro}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Bairro"
+                  setField={handleEnderecoChange}
+                />
+                <AddressFormField
+                  labelText="Número"
+                  fieldName={AddressNames.numero}
+                  fieldValue={sebo.endereco.numero}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Número"
+                  setField={handleEnderecoChange}
+                />
+                <AddressFormField
+                  labelText="Complemento"
+                  fieldName={AddressNames.complemento}
+                  fieldValue={sebo.endereco.complemento}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Complemento"
+                  setField={handleEnderecoChange}
+                  isOptional
+                />
+                // Ainda falta adicionar o checkbox para o campo ehPublico
               </div>
             </div>
           </div>
