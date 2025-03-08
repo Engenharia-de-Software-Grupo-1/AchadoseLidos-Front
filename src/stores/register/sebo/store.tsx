@@ -106,48 +106,46 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   };
 
   const validateStep = (stepIndex: number): boolean => {
-    let fieldsToValidate: string[] = [];
-
-    if (stepIndex === 0) {
-      fieldsToValidate = ['nome', 'cpfCnpj', 'email', 'senha', 'confirmaSenha'];
-      if (sebo.concordaVender) {
-        setRules((prevRules) => addRuleToField(prevRules, 'telefone', { rule: 'required' }));
-        fieldsToValidate.push('telefone');
-      }
-    } else if (stepIndex === 1) {
-      fieldsToValidate = ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero'];
-    } else if (stepIndex === 2) {
-      // salvar
-      fieldsToValidate = [];
+    const stepFields: Record<number, string[]> = {
+      0: ['nome', 'cpfCnpj', 'email', 'senha', 'confirmaSenha'],
+      1: ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero'],
+      2: [] 
+    };
+  
+    let fieldsToValidate = stepFields[stepIndex] || [];
+    
+    if (stepIndex === 0 && sebo.concordaVender) {
+      setRules((prevRules) => addRuleToField(prevRules, 'telefone', { rule: 'required' }));
+      fieldsToValidate.push('telefone');
     }
-
+  
     const rulesByStep = stepRules(fieldsToValidate, rules);
     let validationResults = extractRules(rulesByStep, sebo);
     validationResults = verifyPassword(sebo, validationResults);
-
+  
     setErrors(validationResults);
+    
     return !Object.values(validationResults).some((field) => field.error);
   };
 
-  const verifyPassword = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
-    const { senha, confirmaSenha } = sebo.conta ?? {};
+const verifyPassword = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
+  const passwordFields = ['senha', 'confirmaSenha'];
+  passwordFields.forEach((field) => {
+    if (!sebo.conta[field]) {
+      validationResults[field] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
+    }
+  });
 
-    if (!senha) {
-      validationResults['senha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
-    }
-    if (!confirmaSenha) {
-      validationResults['confirmaSenha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
-    }
-    if (senha && confirmaSenha && senha !== confirmaSenha) {
-      validationResults['confirmaSenha'] = {
-        error: true,
-        message: 'Por favor, coloque senhas equivalentes',
-        rules: [],
-      };
-    }
+  if (sebo.conta.senha && sebo.conta.confirmaSenha && sebo.conta.senha !== sebo.conta.confirmaSenha) {
+    validationResults['confirmaSenha'] = {
+      error: true,
+      message: 'Por favor, coloque senhas equivalentes',
+      rules: [],
+    };
+  }
 
-    return validationResults;
-  };
+  return validationResults;
+};
 
   const loadCitiesByState = async (state: string): Promise<void> => {
     try {
