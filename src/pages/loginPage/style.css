@@ -64,18 +64,7 @@
         
     }
 
-    .submit {
-        background-color: var(--black);
-        border-color: var(--black);
-        width:fit-content;
-        align-self: center;
-    }
-    
-    .submit:focus {
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 1),
-        0 0 0 4px var(--black50);
-    }
-    
+      
     .p-inputtext, .p-password, .p-icon-field {
         width:100%;
         font-size:1rem;

@@ -1,6 +1,6 @@
 import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
+import CustomButton from '@components/CustomButton/custom-button';
 import { Password } from 'primereact/password';
 
 
@@ -23,7 +23,7 @@ const LoginPage = () => {
             <InputText placeholder="E-mail"/>
             <Password placeholder="Senha" toggleMask />
           </div>
-          <Button className="submit" label="Entrar"/>
+          <CustomButton label="Entrar"/>
           <div className="footer">
             <p>Não possui uma conta? <a>Cadastre-se</a></p>
             <p>Esqueceu sua senha? <a>Recuperar senha</a></p>

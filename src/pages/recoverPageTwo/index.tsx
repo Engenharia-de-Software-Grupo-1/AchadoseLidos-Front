@@ -1,11 +1,9 @@
 import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-
 
 import './style.css';
-import { redirect } from 'react-router-dom';
 import { Password } from 'primereact/password';
+import CustomButton from '@components/CustomButton/custom-button';
 
 interface RecoverPageTwoProps {
   children: React.ReactNode;
@@ -22,7 +20,7 @@ const RecoverPageTwo = () => {
             <Password placeholder="Senha" toggleMask />
             <Password placeholder="Confirmar Senha" />
           </div>
-          <Button className="submit" label="Atualizar Senha"/>
+          <CustomButton label="Atualizar Senha"/>
           <div className="footer">
           </div>
         </div>

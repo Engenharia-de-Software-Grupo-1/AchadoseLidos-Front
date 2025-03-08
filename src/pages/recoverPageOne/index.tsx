@@ -1,10 +1,8 @@
 import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-
 
 import './style.css';
-import { redirect } from 'react-router-dom';
+import CustomButton from '@components/CustomButton/custom-button';
 
 interface RecoverPageOneProps {
   children: React.ReactNode;
@@ -22,7 +20,7 @@ const RecoverPageOne = () => {
             Você receberá um email com um link de recuperação.</p>
             <InputText placeholder="E-mail"/>
           </div>
-          <Button className="submit" label="Enviar e-mail de recuperação"/>
+          <CustomButton label="Enviar e-mail de recuperação"/>
           <div className="footer">
             <p><a>Voltar</a></p>
           </div>
