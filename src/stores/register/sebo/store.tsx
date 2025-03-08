@@ -70,12 +70,12 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     }));
   };
 
-  const rules: Record<string, Rule[]> = {
+  let rules: Record<string, Rule[]> = {
     nome: [{ rule: 'required' }],
     cpfCnpj: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
     email: [{ rule: 'required' }, { rule: 'isEmail' }],
-    senha: [{ rule: 'required' }],
-    confirmarSenha: [{ rule: 'required' }],
+    senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
+    confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
     estado: [{ rule: 'required' }],
     cidade: [{ rule: 'required' }],
     cep: [{ rule: 'required' }],
@@ -90,13 +90,12 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   };
 
   const validateStep = (stepIndex: number): boolean => {
-    // validar match de senha
     let fieldsToValidate: string[] = [];
 
     if (stepIndex === 0) {
       fieldsToValidate = ['nome', 'cpfCnpj', 'email', 'senha', 'confirmaSenha'];
       if (sebo.concordaVender) {
-        addRuleToField(rules, 'telefone', { rule: 'required' });
+        rules = addRuleToField(rules, 'telefone', { rule: 'required' });
         fieldsToValidate.push('telefone');
       }
     } else if (stepIndex === 1) {
@@ -108,10 +107,24 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
 
     const rulesByStep = stepRules(fieldsToValidate, rules);
 
-    //const validationResults = extractRules(rulesByStep, sebo, stepIndex == 1 ? true : false);
-    //const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
-    //return !hasError;
-    return true;
+    let validationResults = extractRules(rulesByStep, sebo);
+    validationResults = verifyPassword(sebo, validationResults);
+    const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
+    return !hasError;
+  };
+
+  const verifyPassword = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
+    if (!sebo.conta?.senha) {
+      validationResults['senha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
+    }
+    if (!sebo.conta?.confirmaSenha) {
+      validationResults['confirmaSenha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
+    }
+    if (sebo.conta?.senha && sebo.conta?.confirmaSenha && sebo.conta.senha !== sebo.conta.confirmaSenha) {
+      validationResults['senha'] = { error: true, message: 'Por favor, coloque senhas equivalentes', rules: [] };
+    }
+
+    return validationResults;
   };
 
   const loadCitiesByState = async (state: string): Promise<void> => {
@@ -134,3 +147,4 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     </RegisterSeboContext.Provider>
   );
 };
+

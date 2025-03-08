@@ -11,13 +11,26 @@ export const stepRules = (fieldsToValidate: Array<string>, rules: Record<string,
     {} as Record<string, Rule[]>
   );
 
-export const extractRules = (definition: Record<string, Rule[]>, object: any, adress: boolean) => {
-  const fields = Object.keys(definition) as string[];
-  const result = {} as {};
+const findNestedValue = (obj: any, field: string): any => {
+  if (!obj || typeof obj !== 'object') return undefined;
+  if (field in obj) return obj[field];
+
+  for (const key of Object.keys(obj)) {
+    const nestedValue = findNestedValue(obj[key], field);
+    if (nestedValue !== undefined) return nestedValue;
+  }
+
+  return undefined;
+};
+
+export const extractRules = (definition: Record<string, Rule[]>, object: any) => {
+  const fields = Object.keys(definition);
+  const result: Record<string, any> = {};
 
   fields.forEach((field) => {
     const rules = definition[field];
-    result[field] = adress ? validateRule(object['endereco'][field], rules) : validateRule(object[field], rules);
+    const value = findNestedValue(object, field);
+    result[field] = validateRule(value, rules);
   });
 
   return result;
@@ -30,22 +43,22 @@ const validateRule = (value: any, ruleList = []) => {
     if (rule.rule === 'required') {
       if (value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0)) {
         validationResult.error = true;
-        validationResult.message = (rule.message ?? 'Por favor, preencha o campo') + ' ';
+        validationResult.message = 'Por favor, preencha o campo';
       }
     } else if (rule.rule === 'isCpfCnpj') {
       if (value && !isCpfCnpj(value)) {
         validationResult.error = true;
-        validationResult.message = (rule.message ?? 'Por favor, informe um CPF/CNPJ válido') + ' ';
+        validationResult.message = 'Por favor, informe um CPF/CNPJ válido';
       }
     } else if (rule.rule === 'isMaxLength') {
       if (value && rule.maxLength && !isMaxLength(value, rule.maxLength)) {
         validationResult.error = true;
-        validationResult.message = (rule.message ?? 'Por favor, retifique o tamanho do campo') + ' ';
+        validationResult.message = 'Por favor, retifique o tamanho do campo';
       }
     } else if (rule.rule === 'isEmail') {
       if (value && !isEmail(value)) {
         validationResult.error = true;
-        validationResult.message = (rule.message ?? 'Por favor, informe um e-mail válido') + ' ';
+        validationResult.message = 'Por favor, informe um e-mail válido';
       }
     }
   });
