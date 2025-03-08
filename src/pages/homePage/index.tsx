@@ -1,7 +1,7 @@
 import Banner from '@components/Banner/banner';
 import TemplatePage from '@pages/templatePage';
 import './style.css';
-import ContainerItems from '@components/ContainerItems';
+import ContainerItems from '@components/ContainerItems/containerItems';
 
 const HomePage = () => {
   const images = ['/images/banner.jpg'];

@@ -1,8 +1,8 @@
 import TemplatePage from '@pages/templatePage';
 import './style.css';
-import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb';
+import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import { useBreadcrumb } from '@hooks/useBreadcrumb';
-import ProfilePhoto from '@components/ProfilePhoto';
+import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
 import { ProfileFormField } from '@components/ProfileForm/ProfileFormField';
 import { FieldNames } from '@domains/FieldNames';
@@ -12,7 +12,7 @@ import { AddressNames } from '@domains/AddressNames';
 import { useForm } from './useForm';
 import { Checkbox } from 'primereact/checkbox';
 import { useState } from 'react';
-import UploadImages from '@components/UploadImages';
+import UploadImages from '@components/UploadImages/uploadImages';
 import { Button } from 'primereact/button';
 
 const ProfileSeboForm = () => {
@@ -40,7 +40,7 @@ const ProfileSeboForm = () => {
   return (
     <div className="container-main-edit-sebo">
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
-        <ALBreadCrumb breadcrumbItems={breadcrumbItems}></ALBreadCrumb>
+        <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
 
         <div className="container-edit-sebo">
           <div className="form-edit-sebo">

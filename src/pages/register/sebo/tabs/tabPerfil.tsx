@@ -3,7 +3,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Sebo } from '@domains/Sebo';
-import ProfilePhoto from '@components/ProfilePhoto';
+import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 
 interface TabDadosPerfilProps {
   sebo: Sebo;
