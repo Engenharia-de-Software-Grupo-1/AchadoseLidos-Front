@@ -3,10 +3,11 @@ import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb';
 import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import ProfilePhoto from '@components/ProfilePhoto';
-import FormField from '@components/FormField/formField';
-import { InputText } from 'primereact/inputtext';
 import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
 import { useState } from 'react';
+import { ProfileFormField } from '@components/ProfileForm/ProfileFormField';
+import { FieldNames } from '@domains/FieldNames';
+import { IconField } from 'primereact/iconfield';
 
 const ProfileSeboForm = () => {
   const { sebo, setField, validateStep, getRule, cities } = useProfileSeboForm();
@@ -18,7 +19,6 @@ const ProfileSeboForm = () => {
   ];
 
   const imageProfile = '/images/anarita.JPG';
-
   return (
     <div className="container-main-edit-sebo">
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
@@ -29,29 +29,57 @@ const ProfileSeboForm = () => {
             <ProfilePhoto imageProfile={imageProfile} canUpload />
 
             <div className="container-data-form">
-              <FormField attribute="nome" label="Nome" rule={getRule('nome')} submitted={submitted}>
-                <InputText
-                  value={sebo.nome}
-                  onChange={(e) => setField('nome', e.target.value)}
-                  placeholder="Nome do Sebo *"
+              <div className="fields-column">
+                <ProfileFormField
+                  labelText="Nome"
+                  fieldName={FieldNames.nome}
+                  fieldValue={sebo.nome}
+                  setField={setField}
+                  hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                  placeholderText="Nome do Sebo" // também falta adicionar as rules que Eliane criou, se elas forem necessárias aqui especificamente
                 />
-              </FormField>
 
-              <FormField attribute="cpfCnpj" rule={getRule('cpfCnpj')} submitted={submitted}>
-                <InputText
-                  value={sebo.cpfCnpj}
-                  onChange={(e) => setField('cpfCnpj', e.target.value)}
-                  placeholder="CPF ou CNPJ *"
+                <ProfileFormField
+                  labelText="CPF/CNPJ"
+                  fieldName={FieldNames.cpfCnpj}
+                  fieldValue={sebo.cpfCnpj}
+                  setField={setField}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="000.000.000-00"
+                  isShortInput
                 />
-              </FormField>
 
-              <FormField attribute="email" rule={getRule('email')} submitted={submitted}>
-                <InputText
-                  value={sebo.conta.email}
-                  onChange={(e) => setField('conta', { ...sebo.conta, email: e.target.value })}
-                  placeholder="E-mail *"
+                <ProfileFormField
+                  labelText="Biografia curta"
+                  fieldName={FieldNames.briefBio}
+                  fieldValue={sebo.biografia}
+                  hasSubmissionFailed={submitted}
+                  setField={setField}
+                  iconName="info-circle"
+                  placeholderText="Escreva uma breve biografia sobre o Sebo"
+                  isTextArea
+                  isOptional
                 />
-              </FormField>
+
+                <ProfileFormField
+                  labelText="Nome dos Curadores (separados por vírgula)"
+                  fieldName={FieldNames.curadores}
+                  fieldValue={sebo.curadores}
+                  hasSubmissionFailed={submitted}
+                  setField={setField}
+                  placeholderText="Fulaninha, Fulaninho"
+                  isTextArea
+                  isOptional
+                />
+
+                <button className="change-password-button">
+                  <IconField className="label-icon">
+                    <i className={'pi pi-pencil'} />
+                  </IconField>
+
+                  <text className="change-password-text">Alterar senha</text>
+                </button>
+              </div>
             </div>
           </div>
         </div>

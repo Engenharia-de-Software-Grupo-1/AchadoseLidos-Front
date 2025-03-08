@@ -135,5 +135,11 @@
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
-  width: 46%;
+}
+
+.fields-column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 45%;
 }
