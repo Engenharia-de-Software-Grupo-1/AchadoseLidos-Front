@@ -13,7 +13,8 @@
       "@stores/*": ["stores/*"],
       "@domains/*": ["domains/*"],
       "@utils/*": ["utils/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@contexts/*": ["contexts/*"]
     }
   }
 }

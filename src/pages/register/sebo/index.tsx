@@ -6,22 +6,22 @@ import TabDadosBasicos from './tabs/tabDadosBasicos';
 import TabEndereco from './tabs/tabEndereco';
 import TabDadosPerfil from './tabs/tabPerfil';
 import { useRegisterSebo } from '@stores/register/sebo/store';
-import { useNotification } from '@utils/notificationContext';
+import { useNotification } from '@contexts/notificationContext';
 
 import './style.css';
 
 const RegisterSebo = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { sebo, setField, validateStep, getRule, cities } = useRegisterSebo();
+  const { sebo, setField, validateStep, cities } = useRegisterSebo();
   const [submitted, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
 
   const nextStep = (e: any) => {
-    setSubmitted(true);
     if (validateStep(activeIndex)) {
+      setSubmitted(true);
       setActiveIndex(activeIndex + 1);
     } else {
-      showNotification('error', null, 'Campos obrigatórios não preenchidos');
+      showNotification('error', null, 'Verifique os campos do formulário!');
     }
     setSubmitted(false);
   };
@@ -33,17 +33,15 @@ const RegisterSebo = () => {
   const stepsItems = [
     {
       label: 'Dados Básicos',
-      component: <TabDadosBasicos submitted={submitted} sebo={sebo} setField={setField} getRule={getRule} />,
+      component: <TabDadosBasicos sebo={sebo} setField={setField} />,
     },
     {
       label: 'Endereço',
-      component: (
-        <TabEndereco submitted={submitted} sebo={sebo} setField={setField} getRule={getRule} cities={cities} />
-      ),
+      component: <TabEndereco sebo={sebo} setField={setField} cities={cities} />,
     },
     {
       label: 'Dados do Perfil',
-      component: <TabDadosPerfil submitted={submitted} sebo={sebo} setField={setField} getRule={getRule} />,
+      component: <TabDadosPerfil sebo={sebo} setField={setField} />,
     },
   ];
 
@@ -62,7 +60,7 @@ const RegisterSebo = () => {
               activeIndex={activeIndex}
               readOnly
             />
-            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
               {activeIndex !== 0 && <Button className="step-button" label="Voltar" onClick={(e) => stepBack(e)} />}
               <Button className="step-button" label="Continuar" onClick={(e) => nextStep(e)} />
             </div>

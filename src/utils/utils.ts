@@ -116,3 +116,8 @@ export const addRuleToField = (rules: Record<string, Rule[]>, field: string, new
     [field]: rules[field] ? [...rules[field], newRule] : [newRule],
   };
 };
+
+export const getField = (field: string) => {
+  const keys = field.split('.');
+  return keys.length === 2 ? keys[1] : keys[0];
+};

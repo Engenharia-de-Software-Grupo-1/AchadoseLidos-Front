@@ -36,7 +36,7 @@ export const extractRules = (definition: Record<string, Rule[]>, object: any) =>
   return result;
 };
 
-const validateRule = (value: any, ruleList = []) => {
+export const validateRule = (value: any, ruleList = []) => {
   const validationResult = { error: false, message: '', rules: ruleList };
 
   ruleList.forEach((rule: Rule) => {

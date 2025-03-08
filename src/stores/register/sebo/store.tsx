@@ -1,13 +1,14 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { ibge } from 'brasilapi-js';
 import { Sebo } from '@domains/Sebo';
-import { useNotification } from '@utils/notificationContext';
-import { extractRules, stepRules } from '@utils/formRules';
-import { addRuleToField } from '@utils/utils';
+import { useNotification } from '@contexts/notificationContext';
+import { extractRules, stepRules, validateRule } from '@utils/formRules';
+import { addRuleToField, getField } from '@utils/utils';
+import { useErrorContext } from 'contexts/errorContext';
 
 interface RegisterSeboContextType {
   sebo: Sebo;
-  setField: (field: keyof Sebo, value: any) => void;
+  setField: (field: string, value: any) => void;
   validateStep: (stepIndex: number) => boolean;
   getRule: (field: string) => {};
   loadCitiesByState: (state: string) => Promise<void>;
@@ -62,15 +63,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   });
 
   const [cities, setCities] = useState<{ value: string; text: string }[]>([]);
-
-  const setField = (field: keyof Sebo, value: any) => {
-    setFormData((prev) => ({
-      ...prev!,
-      [field]: value,
-    }));
-  };
-
-  let rules: Record<string, Rule[]> = {
+  const [rules, setRules] = useState<Record<string, Rule[]>>({
     nome: [{ rule: 'required' }],
     cpfCnpj: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
     email: [{ rule: 'required' }, { rule: 'isEmail' }],
@@ -83,10 +76,41 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     bairro: [{ rule: 'required' }],
     numero: [{ rule: 'required' }],
     complemento: [{ rule: 'required' }],
+  });
+  const { setErrors, setError } = useErrorContext();
+
+  const setField = (field: string, value: any) => {
+    setFormData((prev) => {
+      const updatedFormData = { ...prev! };
+
+      const keys = field.split('.');
+      let currentField = updatedFormData;
+
+      keys.forEach((key, index) => {
+        if (index === keys.length - 1) {
+          currentField[key] = value;
+        } else {
+          currentField[key] = currentField[key] || {};
+          currentField = currentField[key];
+        }
+      });
+
+      return updatedFormData;
+    });
+
+    const fieldName = getField(field);
+    setError(fieldName, validateRule(value, getRule(fieldName)));
   };
 
-  const getRule = (field: string) => {
-    return rules[field] ? rules[field] : {};
+  const getRule = (field: string): Rule[] => {
+    const keys = field.split('.');
+    let currentRules = rules;
+
+    keys.forEach((key) => {
+      currentRules = currentRules[key] || [];
+    });
+
+    return currentRules;
   };
 
   const validateStep = (stepIndex: number): boolean => {
@@ -95,7 +119,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     if (stepIndex === 0) {
       fieldsToValidate = ['nome', 'cpfCnpj', 'email', 'senha', 'confirmaSenha'];
       if (sebo.concordaVender) {
-        rules = addRuleToField(rules, 'telefone', { rule: 'required' });
+        setRules((prevRules) => addRuleToField(prevRules, 'telefone', { rule: 'required' }));
         fieldsToValidate.push('telefone');
       }
     } else if (stepIndex === 1) {
@@ -106,22 +130,24 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     }
 
     const rulesByStep = stepRules(fieldsToValidate, rules);
-
     let validationResults = extractRules(rulesByStep, sebo);
     validationResults = verifyPassword(sebo, validationResults);
-    const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
-    return !hasError;
+
+    setErrors(validationResults);
+    return !Object.values(validationResults).some((field) => field.error);
   };
 
   const verifyPassword = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
-    if (!sebo.conta?.senha) {
+    const { senha, confirmaSenha } = sebo.conta ?? {};
+
+    if (!senha) {
       validationResults['senha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
     }
-    if (!sebo.conta?.confirmaSenha) {
+    if (!confirmaSenha) {
       validationResults['confirmaSenha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
     }
-    if (sebo.conta?.senha && sebo.conta?.confirmaSenha && sebo.conta.senha !== sebo.conta.confirmaSenha) {
-      validationResults['senha'] = { error: true, message: 'Por favor, coloque senhas equivalentes', rules: [] };
+    if (senha && confirmaSenha && senha !== confirmaSenha) {
+      validationResults['confirmaSenha'] = { error: true, message: 'Por favor, coloque senhas equivalentes', rules: [] };
     }
 
     return validationResults;
@@ -147,4 +173,3 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     </RegisterSeboContext.Provider>
   );
 };
-

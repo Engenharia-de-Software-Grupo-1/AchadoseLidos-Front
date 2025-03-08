@@ -1,22 +1,19 @@
 import FormField from '@components/FormField/formField';
 import { Checkbox } from 'primereact/checkbox';
 import { InputText } from 'primereact/inputtext';
-import { InputMask } from 'primereact/inputmask';
 import { Sebo } from '@domains/Sebo';
 
 interface TabDadosBasicosProps {
   sebo: Sebo;
-  setField: (field: keyof Sebo, value: any) => void;
-  getRule: (field: string) => {};
-  submitted: boolean;
+  setField: (field: string, value: any) => void;
 }
 
-const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, getRule, submitted }) => {
+const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField }) => {
   return (
     <div className="container-register-sebo">
       <div className="container-register">
         <div className="container-data">
-          <FormField attribute="nome" rule={getRule('nome')} submitted={submitted}>
+          <FormField attribute="nome">
             <InputText
               value={sebo.nome}
               onChange={(e) => setField('nome', e.target.value)}
@@ -24,7 +21,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, getRu
             />
           </FormField>
 
-          <FormField attribute="cpfCnpj" rule={getRule('cpfCnpj')} submitted={submitted}>
+          <FormField attribute="cpfCnpj">
             <InputText
               value={sebo.cpfCnpj}
               onChange={(e) => setField('cpfCnpj', e.target.value)}
@@ -32,36 +29,35 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, getRu
             />
           </FormField>
 
-          <FormField attribute="email" rule={getRule('email')} submitted={submitted}>
+          <FormField attribute="conta.email">
             <InputText
               value={sebo.conta.email}
-              onChange={(e) => setField('conta', { ...sebo.conta, email: e.target.value })}
+              onChange={(e) => setField('conta.email', e.target.value)}
               placeholder="E-mail *"
             />
           </FormField>
 
-          <FormField attribute="senha" rule={getRule('senha')} submitted={submitted}>
+          <FormField attribute="senha">
             <InputText
               value={sebo.conta.senha}
-              onChange={(e) => setField('conta', { ...sebo.conta, senha: e.target.value })}
+              onChange={(e) => setField('conta.senha', e.target.value)}
               type="password"
               placeholder="Senha *"
             />
           </FormField>
 
-          <FormField attribute="confirmaSenha" rule={getRule('confirmaSenha')} submitted={submitted}>
+          <FormField attribute="confirmaSenha">
             <InputText
               value={sebo.conta.confirmaSenha}
-              onChange={(e) => setField('conta', { ...sebo.conta, confirmaSenha: e.target.value })}
+              onChange={(e) => setField('conta.confirmaSenha', e.target.value)}
               type="password"
               placeholder="Confirme a senha *"
             />
           </FormField>
 
-          <FormField attribute="telefone" rule={getRule('telefone')} submitted={submitted}>
-            <InputMask
+          <FormField attribute="telefone">
+            <InputText
               value={sebo.telefone}
-              mask="(99) 9 9999-9999"
               onChange={(e) => setField('telefone', e.target.value)}
               placeholder={sebo.concordaVender ? 'WhatsApp *' : 'WhatsApp'}
             />

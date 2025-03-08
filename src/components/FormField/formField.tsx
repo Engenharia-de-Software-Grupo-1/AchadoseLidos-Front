@@ -1,36 +1,33 @@
 import { cloneElement } from 'react';
 import { observer } from 'mobx-react';
+import { useErrorContext } from '@contexts/errorContext';
+import { getField } from '@utils/utils';
 
 interface FormFieldProps {
   label?: string;
   attribute: string;
-  rule?: any;
-  submitted?: boolean;
   children: React.ReactNode;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ label, attribute, rule, submitted = false, children }) => {
-  const validateField = () => {
-    return rule?.error && submitted ? { className: 'p-invalid p-error' } : {};
-  };
-
-  const getFieldErrorMessage = () => {
-    if (rule?.error && submitted) {
-      return <small className="p-error">{rule.message}</small>;
-    }
-    return <small>&nbsp;</small>;
-  };
-
-  const childProps = { id: attribute, rules: rule, ...validateField() };
+const FormField: React.FC<FormFieldProps> = ({ label, attribute, children }) => {
+  const { errors } = useErrorContext();
+  const error = errors[getField(attribute)];
 
   return (
     <div className="field">
-      <label {...validateField()} htmlFor={attribute}>
-        {label}
-        {rule?.rules?.some((r: any) => r.rule === 'required') && <span className="p-error"> *</span>}
-      </label>
-      {cloneElement(children as React.ReactElement, childProps)}
-      {getFieldErrorMessage()}
+      {label && (
+        <label htmlFor={attribute} className={error?.error ? 'p-error' : ''}>
+          {label}
+          {error?.error && <span className="p-error"> *</span>}
+        </label>
+      )}
+      <div className="input-wrapper">
+        {cloneElement(children as React.ReactElement<any>, {
+          id: attribute,
+          className: error?.error ? 'p-invalid p-error' : '',
+        })}
+      </div>
+      {error?.error && <small className="p-error">{error?.message}</small>}
     </div>
   );
 };

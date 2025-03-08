@@ -7,18 +7,16 @@ import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 
 interface TabDadosPerfilProps {
   sebo: Sebo;
-  setField: (field: keyof Sebo, value: any) => void;
-  getRule: (field: string) => {};
-  submitted: boolean;
+  setField: (field: string, value: any) => void;
 }
 
-const TabDadosPerfil: React.FC<TabDadosPerfilProps> = ({ sebo, setField, getRule, submitted }) => {
+const TabDadosPerfil: React.FC<TabDadosPerfilProps> = ({ sebo, setField }) => {
   return (
     <div className="container-register-sebo">
       <div className="container-register">
         <div className="container-data">
-          <ProfilePhoto canUpload imageProfile=''/>
-          <FormField attribute="biografia" rule={getRule('biografia')} submitted={submitted}>
+          <ProfilePhoto canUpload imageProfile="" />
+          <FormField attribute="biografia">
             <InputTextarea
               value={sebo.biografia}
               onChange={(e) => setField('biografia', e.target.value)}
@@ -28,7 +26,7 @@ const TabDadosPerfil: React.FC<TabDadosPerfilProps> = ({ sebo, setField, getRule
             />
           </FormField>
 
-          <FormField attribute="instagram" rule={getRule('instagram')} submitted={submitted}>
+          <FormField attribute="instagram">
             <InputText
               value={sebo.instagram}
               onChange={(e) => setField('instagram', e.target.value)}
@@ -36,7 +34,7 @@ const TabDadosPerfil: React.FC<TabDadosPerfilProps> = ({ sebo, setField, getRule
             />
           </FormField>
 
-          <FormField attribute="estanteVirtual" rule={getRule('estanteVirtual')} submitted={submitted}>
+          <FormField attribute="estanteVirtual">
             <InputText
               value={sebo.estanteVirtual}
               onChange={(e) => setField('estanteVirtual', e.target.value)}
@@ -44,7 +42,7 @@ const TabDadosPerfil: React.FC<TabDadosPerfilProps> = ({ sebo, setField, getRule
             />
           </FormField>
 
-          <FormField attribute="curadores" rule={getRule('curadores')} submitted={submitted}>
+          <FormField attribute="curadores">
             <InputText
               value={sebo.curadores}
               onChange={(e) => setField('curadores', e.target.value)}
