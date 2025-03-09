@@ -14,11 +14,11 @@
 }
 
 .p-breadcrumb li {
-  color: #2f292a;
+  color: var(--Achados-Black);
 }
 
 .p-breadcrumb .p-menuitem-text {
-  color: #2f292a;
+  color: var(--Achados-Black);
   font-feature-settings:
     'liga' off,
     'clig' off;
@@ -35,5 +35,5 @@
 }
 
 .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-icon {
-  color: #2f292a;
+  color: var(--Achados-Black);
 }

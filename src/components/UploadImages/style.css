@@ -1,6 +1,6 @@
 .p-fileupload .p-fileupload-buttonbar .p-button {
     border: none;
-    color: #594B46;
+    color: var(--Achados-Brown);
 }
 
 .fileupload-demo {
@@ -9,7 +9,7 @@
 
 .buttom-upload-plus:hover {
     background-color: transparent !important;
-    color: #594B46;
+    color: var(--Achados-Brown);
 }
 
 .buttom-upload-plus:focus {
@@ -19,13 +19,13 @@
 
 .buttom-icon-x {
     border: none;
-    color: #594B46;
+    color: var(--Achados-Brown);
     background-color: transparent !important;
 }
 
 .buttom-icon-x:hover {
     background-color: transparent !important;
-    color: #594B46;
+    color: var(--Achados-Brown);
 }
 
 .buttom-icon-x:focus {

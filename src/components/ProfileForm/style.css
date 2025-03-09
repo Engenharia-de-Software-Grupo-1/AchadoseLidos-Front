@@ -14,7 +14,7 @@
 }
 
 .field-input {
-  border: 1px #2f292a solid;
+  border: 1px var(--Achados-Black) solid;
   border-radius: 4px;
   background-color: transparent;
   height: 36px;
@@ -34,11 +34,11 @@
 }
 
 .text-area {
-  border: 1px #2f292a solid;
+  border: 1px var(--Achados-Black) solid;
   border-radius: 4px;
   padding: 8px;
   height: 100px;
-  color: #2f292a;
+  color: var(--Achados-Black);
   background-color: transparent;
   font-family: Poppins;
   font-size: 14px;
@@ -53,7 +53,7 @@
   flex-direction: row;
   gap: 5px;
   padding-left: 2px;
-  color: #2f292a;
+  color: var(--Achados-Black);
   font-family: Poppins;
   font-weight: 700;
   font-size: 14px;
@@ -68,15 +68,16 @@
 .label-icon i {
   line-height: normal;
 }
+
 .change-password-button-rose,
 .change-password-button {
   display: flex;
   border-color: transparent;
   border-radius: 4px;
   justify-content: space-between;
-  background-color:#2F292A;
+  background-color: var(--Achados-Black);
   align-items: center;
-  color: #F5ECDD;
+  color: var(--Achados-OffWhite);
   padding: 8px 12px;
   width: 30%;
   max-width: 150px;
@@ -85,12 +86,12 @@
 }
 
 .change-password-button-rose {
-  background: #F5ECDD;
-  color: #2F292A ;
+  background: var(--Achados-OffWhite);
+  color: var(--Achados-Black);
 }
 
 .change-password-button-rose text {
-  color: #2F292A;
+  color: var(--Achados-Black);
 }
 
 .change-password-button-rose:hover,

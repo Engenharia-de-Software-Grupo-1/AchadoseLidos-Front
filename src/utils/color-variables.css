@@ -1,4 +1,18 @@
 :root {
   --light-standard: #f9fafb;
-  --dark-standard: #2f292a;
+
+  --Achados-Pink: #F0CDCD;
+  --Achados-Red: #D04E3B;
+  --Achados-OffWhite: #F5ECDD;
+  --Achados-Light-Blue: #90A9AE;
+  --Achados-Green: #CFB358;
+  --Achados-Black: #2F292A;
+  --Achados-Lighter-OffWhite: #FBF8F3;
+  --Achados-Highlight-Blue: #90A9AE4D;
+  --Achados-Black-50: #2F292A80;
+  --Achados-Highlight-Green: #CFB3584D;
+  --Achados-Success: #849041;
+  --Achados-Brown: #594B46;
+  --Achados-White: #FFFFFF;
+  --Achados-Warning: #DB9146;
 }

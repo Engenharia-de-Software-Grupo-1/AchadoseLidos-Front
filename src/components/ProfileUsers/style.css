@@ -52,13 +52,13 @@
 }
 
 .button-edit {
-  background-color: #849041;
+  background-color: var(--Achados-Success);
   border: none;
   border-radius: 16px;
 }
 
 .p-button:not(:disabled):hover {
-  background: #849041;
+  background: var(--Achados-Success);
 }
 
 .text-profile {
@@ -96,9 +96,9 @@
 .p-tag-icon,
 .p-tag-value,
 .p-tag-icon.pi {
-  color: #2f292a;
+  color: var(--Achados-Black);
 }
 
 .p-tag {
-  background: #f0cdcd;
+  background: var(--Achados-Pink);
 }

@@ -1,7 +1,7 @@
 .main-register-sebo {
   width: 100vw;
   height: 100vh;
-  background-color: #f5ecdd;
+  background-color: var(--Achados-OffWhite);
   display: flex; 
   flex-direction: column; 
   min-height: 100vh;
@@ -16,7 +16,7 @@
   justify-content: center;
   align-items: center;
   flex: 1;
-  background-color: #f5ecdd;
+  background-color: var(--Achados-OffWhite);
 }
 
 .container-register {
@@ -27,7 +27,7 @@
 }
 
 .tittle-register {
-  color: #2f292a;
+  color: var(--Achados-Black);
   font-feature-settings:
     'liga' off,
     'clig' off;
@@ -40,7 +40,7 @@
 }
 
 .text-data {
-  color: #2f292a;
+  color: var(--Achados-Black);
   font-family: 'Poppins', serif;
   font-size: 16px;
   font-style: normal;
@@ -55,7 +55,7 @@
 }
 
 .text-sales {
-  color: #2f292a;
+  color: var(--Achados-Black);
   font-family: 'Poppins', serif;
   font-size: 16px;
   font-style: normal;
@@ -65,7 +65,7 @@
 
 .step-button {
   margin-top: 15px;
-  background-color: #2f292a;
+  background-color: var(--Achados-Black);
 }
 
 .p-inputtext {
@@ -79,12 +79,12 @@
 }
 
 .p-checkbox.p-highlight .p-checkbox-box {
-  border-color: #2f292a;
-  background: #2f292a;
+  border-color: var(--Achados-Black);
+  background: var(--Achados-Black);
 }
 
 .p-checkbox:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-box {
-  border-color: #2f292a;
+  border-color: var(--Achados-Black);
 }
 
 .p-steps .p-steps-item .p-menuitem-link {
@@ -94,11 +94,11 @@
 }
 
 .p-steps .p-steps-item.p-highlight .p-steps-number {
-  background: #2f292a;
+  background: var(--Achados-Black);
   color: #f9fafb;
 }
 
 .p-steps .p-steps-item.p-highlight .p-steps-title {
   font-weight: 700;
-  color: #2f292a;
+  color: var(--Achados-Black);
 }

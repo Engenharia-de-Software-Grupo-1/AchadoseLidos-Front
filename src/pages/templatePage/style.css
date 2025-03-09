@@ -6,7 +6,7 @@
 }
 
 .container-footer {
-  background-color: #2f292a;
+  background-color: var(--Achados-Black);
 }
 
 .initial-footer {
@@ -23,5 +23,5 @@
 }
 
 .backgroundDiff {
-  background: #f5ecdd;
+  background: var(--Achados-OffWhite);
 }

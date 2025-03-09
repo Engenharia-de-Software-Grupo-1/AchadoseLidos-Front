@@ -21,7 +21,7 @@
 }
 
 .main-p1 {
-  color: #d04e3b;
+  color: var(--Achados-Red);
   text-align: center;
   font-family: 'Covered By Your Grace', serif;
   font-size: 48px;

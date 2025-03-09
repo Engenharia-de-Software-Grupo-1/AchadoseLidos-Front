@@ -1,12 +1,12 @@
 .main-profile-sebo {
   width: 100vw;
   height: 100vh;
-  background: #f5ecdd;
+  background: var(--Achados-OffWhite);
 }
 
 .profile-sebo {
   width: 100%;
-  background-color: #fbf8f3;
+  background-color: var(--Achados-Lighter-OffWhite);
   display: flex;
   padding: 48px 200px;
   flex-direction: column;
@@ -26,7 +26,7 @@
   border-radius: 8px 8px 0px 0px;
   border-top: 1px solid rgba(207, 179, 88, 0.3);
   border-right: 1px solid rgba(207, 179, 88, 0.3);
-  background: #f5ecdd;
+  background: var(--Achados-OffWhite);
 }
 
 .content-title-history {
@@ -36,7 +36,7 @@
 }
 
 .title-carousel-history {
-  color: #849041;
+  color: var(--Achados-Success);
   font-feature-settings:
     'liga' off,
     'clig' off;
@@ -55,7 +55,7 @@
   gap: 32px;
   align-self: stretch;
   border-top: 3px solid rgba(207, 179, 88, 0.3);
-  background: #f5ecdd;
+  background: var(--Achados-OffWhite);
 }
 
 .container-hist-pics {
@@ -73,13 +73,13 @@
   gap: 10px;
   align-self: stretch;
   border-radius: 8px;
-  background: #fbf8f3;
+  background: var(--Achados-Lighter-OffWhite);
   width: 50%;
 }
 
 .text-hist {
   align-self: stretch;
-  color: #2f292a;
+  color: var(--Achados-Black);
   text-align: justify;
   font-variant-numeric: lining-nums tabular-nums;
   font-feature-settings:
@@ -105,7 +105,7 @@
 .container-main-edit-sebo {
   width: 100vw;
   height: 100vh;
-  background: #fbf8f3;
+  background: var(--Achados-Lighter-OffWhite);
 }
 
 .container-edit-sebo {
@@ -117,7 +117,7 @@
   padding: 48px 200px 64px 200px;
   gap: 32px;
   border-radius: 32px;
-  background: #f5ecdd;
+  background: var(--Achados-OffWhite);
 }
 
 .form-edit-sebo {
@@ -128,7 +128,7 @@
   align-items: center;
   gap: 32px;
   align-self: stretch;
-  background: #fbf8f3;
+  background: var(--Achados-Lighter-OffWhite);
   overflow: auto;
 }
 
@@ -180,22 +180,22 @@
 }
 
 .button-trash {
-  background: #D04E3B;
-  border: 1px solid #D04E3B;
+  background: var(--Achados-Red);
+  border: 1px solid var(--Achados-Red);
 }
 
 .button-save {
-  border: 1px solid #90A9AE;
-  background: #849041;
+  border: 1px solid var(--Achados-Light-Blue);
+  background: var(--Achados-Success);
 }
 
 .button-trash:hover {
-  background: #D04E3B !important;
+  background: var(--Achados-Red) !important;
   border: none;
 }
 
 .button-save:hover {
-  background: #849041 !important;
+  background: var(--Achados-Success) !important;
   border: none;
 }
 
