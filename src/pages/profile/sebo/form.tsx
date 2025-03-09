@@ -14,6 +14,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { useState } from 'react';
 import UploadImages from '@components/UploadImages/uploadImages';
 import { Button } from 'primereact/button';
+import DialogModal from '@components/DialogModal';
 
 const ProfileSeboForm = () => {
   const {
@@ -31,11 +32,8 @@ const ProfileSeboForm = () => {
   } = useForm();
 
 
-  const [alterPassword, setAlterPassword] = useState(false);
-
-  const handleAlterPassword = () => {
-    setAlterPassword(!alterPassword);
-  }
+  const [checked, setChecked] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
 
   return (
     <div className="container-main-edit-sebo">
@@ -157,6 +155,78 @@ const ProfileSeboForm = () => {
               <UploadImages />
             </div>
 
+            <div className='container-contat-edit-sebo'>
+              <div>
+                <Checkbox className='mr-2' onChange={e => setChecked(e.checked ?? false)} checked={checked} />
+                <span className='span-checkbox'>Você concorda em vender produtos via plataforma?</span>
+              </div>
+
+              <div className='form-contat-sebo'>
+
+                <ProfileFormField
+                  labelText="Whatsapp"
+                  fieldName={FieldNames.telefone}
+                  fieldValue={sebo.telefone}
+                  setField={setField}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Whatsapp"
+                  isOptional={!checked}
+                  isShortInput
+                />
+                <ProfileFormField
+                  labelText="Instagram"
+                  fieldName={FieldNames.instagram}
+                  fieldValue={sebo.instagram}
+                  setField={setField}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Instagram"
+                  isOptional
+                  isShortInput
+                />
+                <ProfileFormField
+                  labelText="Estante Virtual"
+                  fieldName={FieldNames.estanteVirtual}
+                  fieldValue={sebo.estanteVirtual}
+                  setField={setField}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Estante Virtual"
+                  isOptional
+                  isShortInput
+                />
+                <ProfileFormField
+                  labelText="Mercado Livre"
+                  fieldName={FieldNames.mercadoLivre}
+                  fieldValue={sebo.mercadoLivre}
+                  setField={setField}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Mercado Livre"
+                  isOptional
+                  isShortInput
+                />
+                <ProfileFormField
+                  labelText="Enjoei"
+                  fieldName={FieldNames.enjoei}
+                  fieldValue={sebo.enjoei}
+                  setField={setField}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Enjoei"
+                  isOptional
+                  isShortInput
+                />
+                <ProfileFormField
+                  labelText="Amazon"
+                  fieldName={FieldNames.amazon}
+                  fieldValue={sebo.amazon}
+                  setField={setField}
+                  hasSubmissionFailed={submitted}
+                  placeholderText="Amazon"
+                  isOptional
+                  isShortInput
+                />
+
+              </div>
+            </div>
+
             <div className='container-historia-sebo'>
               <ProfileFormField
                 labelText="História (longo)"
@@ -171,7 +241,11 @@ const ProfileSeboForm = () => {
             </div>
 
             <div className='container-buttons'>
-              <Button label="Excluir Conta" className='button-trash' />
+              <Button label="Excluir Conta" className='button-trash' onClick={() => setVisible(true)}/>
+              {visible && (
+                <DialogModal visibleDialog={visible} setVisibleDialog={setVisible}></DialogModal>
+              )}
+
               <Button label="Salvar" className='button-save' />
             </div>
 

@@ -1,0 +1,35 @@
+.paragraph-modal {
+    color: var(--Achados-Warning);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings: 'liga' off, 'clig' off;
+
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.container-dialog-text {
+    display: flex;
+    gap: 10px;
+}
+
+.button-cancel-dialog {
+    color: var(--Achados-Black) !important;
+}
+
+.button-cancel-dialog:hover {
+    background: transparent !important;
+}
+
+.button-cancel-dialog:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.button-confirm-dialog {
+    border-radius: 4px;
+    border: 1px solid var(--Achados-Black) !important;
+    background: var(--Achados-Black) !important;
+}
