@@ -1,0 +1,17 @@
+.profile-picture {
+  display: flex;
+  width: 175px;
+  height: 175px;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 100%;
+  gap: 10px;
+  box-shadow: var(--Achados-Success);
+  overflow: 'hidden';
+  align-items: center;
+}
+
+.icon-image {
+  color: var(--Achados-Lighter-OffWhite);
+}

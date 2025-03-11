@@ -8,6 +8,7 @@ import { Avatar } from 'primereact/avatar';
 import { PanelMenu } from 'primereact/panelmenu';
 import 'primeicons/primeicons.css';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   simpleHeader: boolean;
@@ -25,7 +26,9 @@ export default function Header({ simpleHeader }: HeaderProps) {
   if (simpleHeader) {
     content = (
       <div className="simple-header">
-        <img alt="logo" src="/images/logo.png" height="40" className="ml-2 mr-4"></img>
+        <Link to="/">
+          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
+        </Link>
       </div>
     );
   } else {
@@ -63,22 +66,23 @@ export default function Header({ simpleHeader }: HeaderProps) {
 
     const start = (
       <>
-        <img alt="logo" src="/images/logo.png" height="40" className="ml-2 mr-4"></img>;
+        <Link to="/">
+          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
+        </Link>
       </>
     );
     const end = (
       <div className="flex align-items-center">
-       <div className="search-container">
+        <div className="search-container">
           <IconField iconPosition="left">
-              <InputIcon className="pi pi-search"></InputIcon>
-              <InputText 
-                  placeholder="O que deseja grimpar?" 
-                  type="text" 
-                  style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }} 
-              />
+            <InputIcon className="pi pi-search"></InputIcon>
+            <InputText
+              placeholder="O que deseja garimpar?"
+              type="text"
+              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
+            />
           </IconField>
-      </div>
-
+        </div>
 
         <div className="flex align-items-center gap-4 justify-center">
           <Button icon="pi pi-heart" rounded text aria-label="Favoritos" style={{ color: '#F5ECDD' }} />

@@ -1,0 +1,1 @@
+// store da pagina de detalhes do sebo

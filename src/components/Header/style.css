@@ -3,7 +3,7 @@
 }
 
 .p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-link {
-  color: #2f292a;
+  color: var(--Achados-Black);
 }
 
 .menu-container {
@@ -47,16 +47,15 @@
 }
 
 .p-link {
-  background-color: #2F292A;
+  background-color: var(--Achados-Black);
 }
 
-
 .p-menuitem-content:hover {
-  background-color: #2F292A;
+  background-color: var(--Achados-Black);
 }
 
 .p-menuitem-active > .p-menuitem-content {
-  background-color: #2F292A;
+  background-color: var(--Achados-Black);
   color: #f9fafb;
 }
 

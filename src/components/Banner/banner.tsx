@@ -3,9 +3,10 @@ import './style.css';
 
 interface BannerProps {
   images: string[];
+  showIndicators: boolean;
 }
 
-export default function Banner({ images }: BannerProps) {
+export default function Banner({ images, showIndicators }: BannerProps) {
   const responsiveOptions = [{ breakpoint: '1400px', numVisible: 1, numScroll: 1 }];
 
   const imageTemplate = (imageUrl: string) => (
@@ -25,6 +26,7 @@ export default function Banner({ images }: BannerProps) {
         circular
         autoplayInterval={3000}
         itemTemplate={imageTemplate}
+        showIndicators={showIndicators}
       />
     </div>
   );
