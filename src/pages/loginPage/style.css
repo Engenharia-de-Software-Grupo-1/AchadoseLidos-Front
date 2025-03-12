@@ -85,13 +85,23 @@
     }
 
     .p-inputtext:focus, .p-password-input:focus {
-        outline: 2px solid var(--offwhite);
+        outline: 1px solid var(--offwhite);
         border-color: var(--offwhite);
         box-shadow: var(--black);
     }
 
     .p-inputtext:hover, .p-password-input:hover {
         border-color: var(--offwhite); 
+    }
+
+    .button {
+        background-color: var(--black);
+        border-color: var(--offwhite);
+        width:fit-content;
+        align-self:center;
+    }
+    a {
+        color:inherit;
     }
 }
 

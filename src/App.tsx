@@ -38,6 +38,7 @@ const App = () => {
             />
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/recoverone" element={<RecoverPageOne/>}/>
+            <Route path="/recovertwo" element={<RecoverPageTwo/>}/>
           </Routes>
         </NotificationProvider>
       </BrowserRouter>

@@ -76,7 +76,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
                 />
               </FormField>
             </div>
-            <Button label="Entrar" type="submit" onClick={() => handleSubmit(credenciais)}/>
+            <Button label="Entrar" className="button" type="submit" onClick={() => handleSubmit(credenciais)}/>
             <div className="footer">
               <p>Não possui uma conta? <a href="/register">Cadastre-se</a></p>
               <p>Esqueceu sua senha? <a href="/recoverone">Recuperar senha</a></p>
