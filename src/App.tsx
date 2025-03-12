@@ -36,6 +36,8 @@ const App = () => {
                 </ProfileSeboFormProvider>
               }
             />
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/recoverone" element={<RecoverPageOne/>}/>
           </Routes>
         </NotificationProvider>
       </BrowserRouter>
