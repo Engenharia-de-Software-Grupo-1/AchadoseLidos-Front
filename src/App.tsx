@@ -9,6 +9,7 @@ import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
 import RegisterUser from '@pages/register/user';
 import { RegisterUserProvider } from '@stores/register/user/store';
+import RegistrationPage from '@pages/registrationPage';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <NotificationProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/register" element={<RegistrationPage />} />
             {/*<Route path="/register" element={<Register />} />  path pra tela inicial de cadastro*/}
             <Route
               path="/register/sebo"

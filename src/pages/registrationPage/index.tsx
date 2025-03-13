@@ -7,7 +7,7 @@ const RegistrationPage = () => {
     <div className="container">
       <TemplatePage simpleHeader simpleFooter contents>
       <div className="content-area">
-        <div className="card">
+        <div className="card-register">
           <div className="options-container">
             <div className="option-column user-column">
               <h2 className="option-title">Sou Usuário</h2>
