@@ -12,9 +12,10 @@ interface ProfileProps {
   descripProfile: string;
   isSebo: boolean;
   authUser: boolean;
+  isUser?: boolean;
 }
 
-const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser }: ProfileProps) => {
+const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser, isUser }: ProfileProps) => {
   return (
     <>
       <div className="container-profile">
@@ -24,11 +25,17 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser 
           <div className="content-title-profile">
             <p className="titulo-profile">{titleProfile}</p>
 
+            
+
             {isSebo ? (
               <Link to="/profile/sebo/edit">
                 <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
               </Link>
-            ) : authUser ? (
+            ) : isUser ? (
+              <Link to="/profile/user/edit">
+                <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
+              </Link>
+            ): authUser ? (
               <img src="/images/bell.svg"></img>
             ) : null}
           </div>

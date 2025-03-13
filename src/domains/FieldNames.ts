@@ -11,3 +11,14 @@ export enum FieldNames {
   mercadoLivre = 'mercadoLivre',
   amazon = 'amazon',
 }
+
+export enum FieldNamesUser {
+  nome = 'nome',
+  cpf = 'cpf',
+  biografia = 'biografia',
+  telefone = 'telefone',
+  instagram = 'instagram',
+  twitter = 'twitter',
+  skoob = 'skoob',
+  goodreads = 'goodreads',
+}

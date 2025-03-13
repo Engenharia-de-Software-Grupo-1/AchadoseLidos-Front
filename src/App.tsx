@@ -10,6 +10,9 @@ import { ErrorProvider } from '@contexts/errorContext';
 import RegisterUser from '@pages/register/user';
 import { RegisterUserProvider } from '@stores/register/user/store';
 import RegistrationPage from '@pages/registrationPage';
+import ProfileUser from '@pages/profile/user';
+import ProfileUserForm from '@pages/profile/user/form';
+import { ProfileUserFormProvider } from '@stores/profile/user/formStore';
 
 const App = () => {
   return (
@@ -43,6 +46,15 @@ const App = () => {
                 <ProfileSeboFormProvider>
                   <ProfileSeboForm />
                 </ProfileSeboFormProvider>
+              }
+            />
+            <Route path="/profile/user" element={<ProfileUser />} />
+            <Route
+              path="/profile/user/edit"
+              element={
+                <ProfileUserFormProvider>
+                  <ProfileUserForm />
+                </ProfileUserFormProvider>
               }
             />
           </Routes>
