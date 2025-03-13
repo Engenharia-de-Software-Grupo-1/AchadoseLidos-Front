@@ -101,7 +101,6 @@
 
 .change-password-button-rose text,
 .change-password-button text {
-
   font-variant-numeric: lining-nums tabular-nums;
   font-feature-settings: 'liga' off, 'clig' off;
   font-family: Poppins;

@@ -1,57 +1,34 @@
 import TemplatePage from '@pages/templatePage';
 import './style.css';
+import '@utils/typography.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
-import Gallery from '@components/Gallery/gallery';
-import { Tag } from 'primereact/tag';
-import { Button } from 'primereact/button';
+import ProductDetails from '@components/ProductDetails/ProductDetails';
 
 const breadcrumbItems = [{ label: 'Página do produto', url: '/product-page' }];
-
+const mockDescription =
+  'Escrito por um autor defunto (e não por um defunto autor, como o próprio destaca), Memórias Póstumas de Brás Cubas é um livro atípico, bastante original e desafiador em relação às suas escolhas estéticas e estilísticas. Considerada atualmente a obra que dá início ao Realismo literário no país, este quinto romance de Machado de Assis, publicado em 1881, representou um ponto de virada na carreira do escritor, até então filiado ao ideário do Romantismo.';
 const ProductPage = () => {
   return (
-    <div className="container-product-page">
+    <main className="container-product-page">
       <TemplatePage simpleHeader={false} simpleFooter={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
-        <div className="container-product-frame">
-          <main className="product-frame">
-            <section className="product-details-frame">
-              <Gallery />
-            </section>
-
-            <section className="product-details-frame">
-              <main className="product-atributes-frame">
-                <div className="product-title-frame">
-                  <header className="product-Achados-H4"> Produto tal </header>
-                  <p className="product-sebo">Sebo Tal - Bairro Tal</p>
-                  <div className="product-tags">
-                    <Tag severity="info" value="Bom estado" />
-                    <Tag severity="secondary" value="K7" />
-                  </div>
-                  <p className="product-stock"> 2 em estoque</p>
-                  <p className="product-Achados-SubH1">R$ 00,00</p>
-                </div>
-                <div className="product-actions-frame">
-                  <Button
-                    icon="pi pi-heart"
-                    rounded
-                    severity="danger"
-                    aria-label="Favorite"
-                    className="favorite-button"
-                  />
-                  <Button label="Adicionar à cesta" severity="success" rounded />
-                </div>
-                <p className="product-ediction-year">
-                  {' '}
-                  Ano da Edição: 1900
-                  Ano de lançamento: 1900 
-                  Autor: Fulano de Tal
-                </p>
-              </main>
-            </section>
-          </main>
-        </div>
+        <ProductDetails
+          productName="Memórias Póstumas de Brás Cubas"
+          seboName="Recanto das Ondas"
+          bairro="Icoaraci"
+          tags={[
+            { severity: 'warning', value: 'Bom estado' },
+            { severity: 'warning', value: 'K7' },
+          ]}
+          stock={5}
+          price={68.4}
+          editionYear={2025}
+          releaseYear={2025}
+          author="Machado de Assis"
+          description={mockDescription}
+        />
       </TemplatePage>
-    </div>
+    </main>
   );
 };
 
