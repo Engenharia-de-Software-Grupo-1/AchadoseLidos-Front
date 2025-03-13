@@ -1,0 +1,129 @@
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--Achados-Black);
+    font-family: 'Poppins', serif;
+    font-style: normal;
+  }
+  
+  .app {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  
+  .logo-container {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .content-area {
+    flex: 1;
+    background-color: #f9f3e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 6px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .options-container {
+    display: flex;
+    min-height: 340px;
+    width: 100%;
+  }
+  
+  .option-column {
+    flex: 1;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .option-title {
+    font-size: 24px;
+    color: #333;
+    padding: 10%;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  .option-description {
+    color: #2a2a2a;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: auto;
+    padding: 0 10px;
+  }
+  
+  .register-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    margin: 20px 0 10px;
+    justify-content: center !important;
+  }
+  
+  .login-link {
+    font-size: 13px;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+  .enter-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .divider {
+    width: 1.5px;
+    margin: 10px;
+    background-color: var(--Achados-Black);
+  }
+  
+  .seller-column {
+    position: relative;
+  }
+  
+  .highlight-indicator {
+    position: absolute;
+    top: -10%;
+    right: 0;
+    width: 30px;
+    height: 70px;
+    background-color: #d9964b;
+  }

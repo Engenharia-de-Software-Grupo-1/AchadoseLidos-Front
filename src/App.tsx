@@ -7,6 +7,8 @@ import ProfileSebo from '@pages/profile/sebo';
 import ProfileSeboForm from '@pages/profile/sebo/form';
 import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
+import RegisterUser from '@pages/register/user';
+import { RegisterUserProvider } from '@stores/register/user/store';
 
 const App = () => {
   return (
@@ -22,6 +24,14 @@ const App = () => {
                 <RegisterSeboProvider>
                   <RegisterSebo />
                 </RegisterSeboProvider>
+              }
+            />
+            <Route
+              path="/register/user"
+              element={
+                <RegisterUserProvider>
+                  <RegisterUser />
+                </RegisterUserProvider>
               }
             />
             <Route path="/profile/sebo" element={<ProfileSebo />} />
