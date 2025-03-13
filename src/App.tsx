@@ -7,6 +7,7 @@ import ProfileSebo from '@pages/profile/sebo';
 import ProfileSeboForm from '@pages/profile/sebo/form';
 import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
+import ProductPage from '@pages/product';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
                 </ProfileSeboFormProvider>
               }
             />
+            <Route path="/product" element={<ProductPage />} />
           </Routes>
         </NotificationProvider>
       </BrowserRouter>
