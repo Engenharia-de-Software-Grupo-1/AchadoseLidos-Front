@@ -169,42 +169,6 @@
   align-self: stretch;
 }
 
-.button-save,
-.button-trash {
-  display: flex;
-  padding: 8px 16px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 4px;
-}
-
-.button-trash {
-  background: var(--Achados-Red);
-  border: 1px solid var(--Achados-Red);
-}
-
-.button-save {
-  border: 1px solid var(--Achados-Light-Blue);
-  background: var(--Achados-Success);
-}
-
-.button-trash:hover {
-  background: var(--Achados-Red) !important;
-  border: none;
-}
-
-.button-save:hover {
-  background: var(--Achados-Success) !important;
-  border: none;
-}
-
-.button-save:focus,
-.button-trash:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
 .container-contat-edit-sebo {
   display: flex;
   flex-direction: column;

@@ -10,7 +10,7 @@ type ProfileFormFieldPropsUser = {
   fieldValue: string | undefined;
   setField: (field: keyof User, value: string) => void;
   iconName?: string;
-  labelText: string;
+  labelText?: string;
   isTextArea?: boolean;
   placeholderText: string;
   isShortInput?: boolean;
@@ -42,9 +42,12 @@ const ProfileFormFieldUser = ({
   return (
     <div className="profile-form-field">
       <div className="field-label">
-        <label>
-          {labelText} {!isOptional && <text>*</text>}{isTextArea && <i className="ml-2 pi pi-info-circle" />}
-        </label>
+
+        {labelText && (
+          <label>
+            {labelText} {!isOptional && <text>*</text>}{isTextArea && <i className="ml-2 pi pi-info-circle" />}
+          </label>
+        )}
 
         {!!iconName && ( // isto é uma tooltip. ainda falta a mensagem da tooltip
           <IconField className="label-icon">
@@ -62,7 +65,7 @@ const ProfileFormFieldUser = ({
         />
       ) : (
         <InputText
-          className={classNames('field-input', {
+          className={classNames('field-user-input','field-input', {
             'short-input': isShortInput,
             'empty-input-error': shouldShowError,
           })}

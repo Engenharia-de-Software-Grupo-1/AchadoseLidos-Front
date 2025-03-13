@@ -134,3 +134,7 @@
   font-weight: 500;
   line-height: 20px;
 }
+
+.field-user-input {
+  background: var(--Achados-White);
+}
