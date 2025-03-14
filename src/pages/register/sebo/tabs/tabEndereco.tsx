@@ -50,7 +50,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, cities }) => 
             <InputMask
               value={sebo.endereco.cep}
               mask="99999-999"
-              onChange={(e) => setField('endereco.cep', e.target.value)}
+              onChange={(e) => setField('endereco.cep', e.target.value?.replace(/\D/g, ''))}
               placeholder="CEP *"
             />
           </FormField>

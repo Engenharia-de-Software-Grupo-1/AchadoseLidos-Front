@@ -3,21 +3,13 @@ import { DATE_FORMAT, DATE_PARSE_FORMAT } from './date';
 import * as validator from 'email-validator';
 import * as moment from 'moment';
 
-export const cleanCpfCnpj = (cpfCnpj: string) => {
-  cpfCnpj = cpfCnpj.replace('.', '');
-  cpfCnpj = cpfCnpj.replace('/', '');
-  cpfCnpj = cpfCnpj.replace('-', '');
-
-  return cpfCnpj;
-};
-
 export const isCpfCnpj = (cpfCnpj: string) => {
   if (cpfCnpj) {
-    cpfCnpj = cleanCpfCnpj('' + cpfCnpj);
+    cpfCnpj = cpfCnpj.replace(/\D/g, '');
 
-    if (cpf.isValid(cpfCnpj)) {
+    if (cpfCnpj.length == 11 && cpf.isValid(cpfCnpj)) {
       return 'cpf';
-    } else if (cnpj.isValid(cpfCnpj)) {
+    } else if (cpfCnpj.length == 14 && cnpj.isValid(cpfCnpj)) {
       return 'cnpj';
     }
   }
