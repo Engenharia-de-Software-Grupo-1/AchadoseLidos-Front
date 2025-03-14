@@ -7,6 +7,7 @@ import TabEndereco from './tabs/tabEndereco';
 import TabDadosPerfil from './tabs/tabPerfil';
 import { useRegisterSebo } from '@stores/register/sebo/store';
 import { useNotification } from '@contexts/notificationContext';
+import { registerSebo } from '../../../routes/routesSebo';
 
 import './style.css';
 
@@ -15,6 +16,17 @@ const RegisterSebo = () => {
   const { sebo, setField, validateStep, cities } = useRegisterSebo();
   const [submitted, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
+
+  const finalizeRegister = async () => {
+    try {
+      const response = await registerSebo(sebo);
+      console.log(response);
+      alert('Sebo cadastrado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao cadastrar sebo:', error);
+    }
+  };
+  
 
   const nextStep = (e: any) => {
     if (validateStep(activeIndex)) {
@@ -61,8 +73,15 @@ const RegisterSebo = () => {
               readOnly
             />
             <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-              {activeIndex !== 0 && <Button className="step-button" label="Voltar" onClick={(e) => stepBack(e)} />}
+              {activeIndex !== 0 && activeIndex < 3 && 
+              <Button className="step-button" label="Voltar" onClick={(e) => stepBack(e)} />}
+              {activeIndex === 2 && (
+                <Button className="step-button" label="Finalizar" onClick={finalizeRegister} />
+              )}
+              {activeIndex < 2 && (
               <Button className="step-button" label="Continuar" onClick={(e) => nextStep(e)} />
+              )}
+
             </div>
             <p className="login" style={{ color: '#2F292A', textAlign: 'center' }}>
               Já tem uma conta? Entrar
