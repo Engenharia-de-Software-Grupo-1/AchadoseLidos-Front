@@ -44,7 +44,7 @@ const RecoverPageTwo = () => {
     <div className="main-recover-two">
       <TemplatePage simpleHeader simpleFooter contents>
         <div className="recovertwo-container">
-          <div className="card">
+          <div className="card-recover">
             <h1>Recuperar Senha</h1>
             <div className="fields">
               <FormField attribute="credenciais.senha">

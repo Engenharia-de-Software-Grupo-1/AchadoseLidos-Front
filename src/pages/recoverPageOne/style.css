@@ -26,7 +26,7 @@
     flex-grow:1;
 }
 
-.card {
+.card-recover {
     font-family:'Poppins';
     color:var(--black);
     background-color: var(--lighter-offwhite);

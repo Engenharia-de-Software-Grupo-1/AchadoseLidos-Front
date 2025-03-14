@@ -33,7 +33,7 @@ const RecoverPageOne = () => {
     <div className="main-recover-one">
       <TemplatePage simpleHeader simpleFooter contents>
         <div className="recover-container">
-          <div className="card">
+          <div className="card-recover">
             <h1>Recuperar Senha</h1>
             <div className="fields">
               <p>Digite o e-mail relacionado à sua conta.<br/>
