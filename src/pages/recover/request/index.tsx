@@ -8,26 +8,34 @@ import { useState } from 'react';
 import { useRecoverRequest } from '@stores/recover/recoverRequest';
 import { useErrorContext } from '@contexts/errorContext';
 import { recuperar_senha } from 'routes/routesRecover';
+import { useNotification } from '@contexts/notificationContext';
 
 const RecoverRequestPage = () => {
 
-  const { credenciais, setField } = useRecoverRequest()
+  const { credenciais, setField, validate } = useRecoverRequest()
   const { setErrors, setError } = useErrorContext();
+  const { showNotification } = useNotification();
+  
     
   const finalizeRecoverRequest = async () => {
+    if (validate()) {
       try {
         const response = await recuperar_senha(credenciais);
-        console.log(response);
-  
+        
         if (!response.ok) {
           const errorData: Error = await response.json();
-          setError('email', {error:true, message:'Erro ao buscar email'});
+          showNotification("error", response.message, "")
+        } else {
+          showNotification("success", response.message, "")
         }
-  
+        
       } catch (error) {
-        console.error('Erro ao recuperar senha:', error);
+        showNotification("error", 'Algo deu errado, tente novamente mais tarde.', "");
       }
-    };
+    } else {
+      setError("email", {error:true, message:"Por favor, preencha o campo."})
+    }
+  }
 
   return (
     <div className="main-recover-one">

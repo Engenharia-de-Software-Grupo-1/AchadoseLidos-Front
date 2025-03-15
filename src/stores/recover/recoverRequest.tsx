@@ -7,6 +7,7 @@ import { CredenciaisRecoverRequest } from "@domains/Credenciais";
 interface RecoverRequestContextType {
   credenciais: CredenciaisRecoverRequest;
   setField: (field: string, value: any) => void;
+  validate: () => boolean;
 }
 
 const RecoverRequestContext = createContext<RecoverRequestContextType | null>(null);
@@ -68,7 +69,7 @@ export const RecoverRequestProvider = ({ children }: RecoverRequestProviderProps
     };
 
     return (
-        <RecoverRequestContext.Provider value={{ credenciais, setField }}>
+        <RecoverRequestContext.Provider value={{ credenciais, setField, validate }}>
           {children}
         </RecoverRequestContext.Provider>
       );

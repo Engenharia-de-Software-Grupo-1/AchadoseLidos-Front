@@ -9,33 +9,34 @@ import { useErrorContext } from '@contexts/errorContext';
 import { useLogin } from '@stores/login/loginStore';
 import { login } from 'routes/routesLogin';
 import { LoginResponse } from '@domains/LoginResponse';
+import { useNotification } from '@contexts/notificationContext';
 
 
 const LoginPage = () => {
 
-  const { credenciais, setField } = useLogin()
+  const { credenciais, setField, validate } = useLogin()
   const { setErrors, setError } = useErrorContext();
   const navigate = useNavigate();
+  const {showNotification} = useNotification()
 
-  // adicionar verificação do tipo de erro para lançar para o usuário
   const finalizeLogin = async () => {
-    try {
-      const response = await login(credenciais);
-      console.log(response);
-
-      if (!response.ok) {
-        const errorData: Error = await response.json();
-        console.error('Erro ao realizar login:', errorData.message);
-        setError('email', {error:true, message:''});
-        setError('senha', {error:true, message:'Email ou senha inválidos'});
+    if (validate()) {
+      try {
+        const response = await login(credenciais);
+        
+        if (!response.ok) {
+          showNotification("error", 'Erro ao realizar login:', response.message);
+          setError('email', {error:true, message:''});
+          setError('senha', {error:true, message:'Email ou senha inválidos'});
+        } else {
+          const data: LoginResponse = await response.json();
+          localStorage.setItem('token', data.token);
+          navigate('/');
+        }
+        
+      } catch (error) {
+        showNotification("error", 'Erro ao realizar login', "");
       }
-
-      const data: LoginResponse = await response.json();
-      localStorage.setItem('token', data.token);
-      navigate('/');
-
-    } catch (error) {
-      console.error('Erro ao realizar login:', error);
     }
   };
   
@@ -71,7 +72,7 @@ const LoginPage = () => {
             <Button label="Entrar" className="button" type="submit" onClick={finalizeLogin}/>
             <div className="footer">
               <p>Não possui uma conta? <a href="/register">Cadastre-se</a></p>
-              <p>Esqueceu sua senha? <a href="/recoverone">Recuperar senha</a></p>
+              <p>Esqueceu sua senha? <a href="/recover/request">Recuperar senha</a></p>
             </div>
           </div>
         </div>

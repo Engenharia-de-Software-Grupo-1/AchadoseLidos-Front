@@ -7,6 +7,7 @@ import { CredenciaisResetRequest } from "@domains/Credenciais";
 interface ResetRequestContextType {
   credenciais: CredenciaisResetRequest;
   setField: (field: string, value: any) => void;
+  validate: () => boolean;
 }
 
 const ResetRequestContext = createContext<ResetRequestContextType | null>(null);
@@ -96,7 +97,7 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
     };
 
     return (
-        <ResetRequestContext.Provider value={{ credenciais, setField }}>
+        <ResetRequestContext.Provider value={{ credenciais, setField, validate }}>
           {children}
         </ResetRequestContext.Provider>
       );

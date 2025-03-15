@@ -9,31 +9,33 @@ import { useResetRequest } from '@stores/recover/resetRequest';
 import { useErrorContext } from '@contexts/errorContext';
 import { atualizar_senha } from 'routes/routesRecover';
 import { useNavigate, useParams } from 'react-router-dom';
-import { contains } from 'cypress/types/jquery';
 
 const ResetRequestPage = () => {
 
   const { showNotification } = useNotification();
-  const { credenciais, setField } = useResetRequest()
+  const { credenciais, setField, validate } = useResetRequest();
+  const {setErrors, setError} = useErrorContext();
   const { token } = useParams();
   const navigate = useNavigate();
 
     
   const finalizeResetRequest = async () => {
+    if (validate()) {
       try {
         setField("conta.token", token);
         const response = await atualizar_senha(credenciais.conta);
-        showNotification("success", response.message, "")
+        showNotification("success", response.message, "");
         navigate('/login');
-  
+        
         if (!response.ok) {
-          showNotification("error", response.message, "")
+          showNotification("error", response.message, "");
         }
-  
+        
       } catch (error) {
         showNotification("error", 'Erro ao atualizar senha', "");
       }
-    };
+    }
+  };
 
 
   return (

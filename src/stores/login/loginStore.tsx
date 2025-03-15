@@ -8,6 +8,7 @@ import { getField } from '@utils/utils';
 interface LoginContextType {
   credenciais: Credenciais;
   setField: (field: string, value: any) => void;
+  validate: () => boolean;
 }
 
 const LoginContext = createContext<LoginContextType | null>(null);
@@ -71,7 +72,7 @@ export const LoginProvider = ({ children }: LoginProviderProps) => {
     };
 
     return (
-        <LoginContext.Provider value={{ credenciais, setField }}>
+        <LoginContext.Provider value={{ credenciais, setField, validate }}>
           {children}
         </LoginContext.Provider>
       );
