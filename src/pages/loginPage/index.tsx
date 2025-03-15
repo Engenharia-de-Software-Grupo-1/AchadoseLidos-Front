@@ -3,8 +3,7 @@ import { InputText } from 'primereact/inputtext';
 import './style.css';
 
 import FormField from '@components/FormField/formField';
-import { useState } from 'react';
-import { useNotification } from '@contexts/notificationContext';
+import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useErrorContext } from '@contexts/errorContext';
 import { useLogin } from '@stores/login/store';
@@ -16,6 +15,7 @@ const LoginPage = () => {
 
   const { credenciais, setField } = useLogin()
   const { setErrors, setError } = useErrorContext();
+  const navigate = useNavigate();
 
   // adicionar verificação do tipo de erro para lançar para o usuário
   const finalizeLogin = async () => {
@@ -32,6 +32,7 @@ const LoginPage = () => {
 
       const data: LoginResponse = await response.json();
       localStorage.setItem('token', data.token);
+      navigate('/');
 
     } catch (error) {
       console.error('Erro ao realizar login:', error);
