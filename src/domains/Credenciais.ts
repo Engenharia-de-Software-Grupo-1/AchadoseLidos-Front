@@ -7,7 +7,10 @@ export interface CredenciaisRecoverRequest {
     email:string;
 }
 
-export interface CredenciaisRecover {
-    senha: string;
-    confirma: string;
+export interface CredenciaisResetRequest {
+    conta: {
+        senha: string;
+        token:string;
+    },
+    confirmaSenha: ""
 }

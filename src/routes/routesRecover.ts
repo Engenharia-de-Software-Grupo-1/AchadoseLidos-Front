@@ -10,6 +10,6 @@ export const recuperar_senha = async (data: any) => {
 };
 
 export const atualizar_senha = async (data: any) => {
-  const response = await api.post('/contas/atualizar_Senha/', data);
+  const response = await api.put('/contas/atualizar_Senha/', data);
   return response.data;
 };

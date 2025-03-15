@@ -2,43 +2,39 @@ import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
 
 import './style.css';
-import { Password } from 'primereact/password';
-import CustomButton from '@components/CustomButton/custom-button';
 import FormField from '@components/FormField/formField';
-import { useState } from 'react';
 import { useNotification } from '@contexts/notificationContext';
 import { Button } from 'primereact/button';
+import { useResetRequest } from '@stores/recover/resetRequest';
+import { useErrorContext } from '@contexts/errorContext';
+import { atualizar_senha } from 'routes/routesRecover';
+import { useNavigate, useParams } from 'react-router-dom';
+import { contains } from 'cypress/types/jquery';
 
-interface RecoverPageTwoProps {}
+const ResetRequestPage = () => {
 
-const RecoverPageTwo = () => {
-
-  const [credenciais, setCredenciais] = useState({
-      senha: "",
-      confirma: "",
-    });
-  
-    const { showNotification } = useNotification();
+  const { showNotification } = useNotification();
+  const { credenciais, setField } = useResetRequest()
+  const { token } = useParams();
+  const navigate = useNavigate();
 
     
+  const finalizeResetRequest = async () => {
+      try {
+        setField("conta.token", token);
+        const response = await atualizar_senha(credenciais.conta);
+        showNotification("success", response.message, "")
+        navigate('/login');
   
-    const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
-      const { name, value } = e.target;
-      setCredenciais((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    };
+        if (!response.ok) {
+          showNotification("error", response.message, "")
+        }
   
-    const handleSubmit = (credenciais: { senha: any; confirma: any; }) => {
-  
-      
-      if (credenciais.senha !== credenciais.confirma){
-        showNotification('error', null, 'Senhas não Conferem');
-      } else {
-        showNotification('success', null, 'Senhas Conferem');
+      } catch (error) {
+        showNotification("error", 'Erro ao atualizar senha', "");
       }
     };
+
 
   return (
     <div className="main-recover-two">
@@ -47,29 +43,29 @@ const RecoverPageTwo = () => {
           <div className="card-recover">
             <h1>Recuperar Senha</h1>
             <div className="fields">
-              <FormField attribute="credenciais.senha">
+              <FormField attribute="senha">
                 <InputText
                   name="senha"
-                  value={credenciais.senha}
-                  onChange={handleInputChange}
+                  value={credenciais.conta.senha}
+                  onChange={(e) => setField('conta.senha', e.target.value)}
                   type="password"
                   placeholder="Nova Senha *"
                   required
                 />
               </FormField>
     
-              <FormField attribute="credenciais.confirma">
+              <FormField attribute="confirmaSenha">
                 <InputText
                   name="confirma"
-                  value={credenciais.confirma}
-                  onChange={handleInputChange}
+                  value={credenciais.confirmaSenha}
+                  onChange={(e) => setField('confirmaSenha', e.target.value)}
                   type="password"
                   placeholder="Confirme a Senha *"
                   required
-                />
+              />
               </FormField>
             </div>
-            <Button className="button" type="submit" label="Atualizar Senha" onClick={() => handleSubmit(credenciais)}/>
+            <Button className="button" type="submit" label="Atualizar Senha" onClick={finalizeResetRequest}/>
             <div className="footer">
             </div>
           </div>
@@ -79,4 +75,4 @@ const RecoverPageTwo = () => {
   );
 };
 
-export default RecoverPageTwo;
+export default ResetRequestPage;

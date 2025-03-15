@@ -12,6 +12,8 @@ import RecoverPageTwo from '@pages/recover/reset';
 import { LoginProvider } from '@stores/login/loginStore';
 import { RecoverRequestProvider } from '@stores/recover/recoverRequest';
 import RecoverRequestPage from '@pages/recover/request';
+import { ResetRequestProvider } from '@stores/recover/resetRequest';
+import ResetRequestPage from '@pages/recover/reset';
 
 const App = () => {
   return (
@@ -54,7 +56,14 @@ const App = () => {
                 </RecoverRequestProvider>
               }
               />
-            <Route path="/recovertwo" element={<RecoverPageTwo/>}/>
+            <Route 
+              path="/recover/reset" 
+              element={
+                <ResetRequestProvider>
+                  <ResetRequestPage/>
+                </ResetRequestProvider>
+              }
+              />
           </Routes>
         </NotificationProvider>
       </BrowserRouter>
