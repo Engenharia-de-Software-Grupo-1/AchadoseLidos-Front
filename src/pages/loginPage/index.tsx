@@ -9,6 +9,7 @@ import { Button } from 'primereact/button';
 import { useErrorContext } from '@contexts/errorContext';
 import { useLogin } from '@stores/login/store';
 import { login } from 'routes/routesLogin';
+import { LoginResponse } from '@domains/LoginResponse';
 
 
 const LoginPage = () => {
@@ -21,11 +22,19 @@ const LoginPage = () => {
     try {
       const response = await login(credenciais);
       console.log(response);
-      alert('Login realizado com sucesso!');
+
+      if (!response.ok) {
+        const errorData: Error = await response.json();
+        console.error('Erro ao realizar login:', errorData.message);
+        setError('email', {error:true, message:''});
+        setError('senha', {error:true, message:'Email ou senha inválidos'});
+      }
+
+      const data: LoginResponse = await response.json();
+      localStorage.setItem('token', data.token);
+
     } catch (error) {
       console.error('Erro ao realizar login:', error);
-      setError('email', error={error:true, message:''});
-      setError('senha', error={error:true, message:'Email ou senha inválidos'});
     }
   };
   
