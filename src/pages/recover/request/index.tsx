@@ -2,31 +2,31 @@ import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
 
 import './style.css';
-import CustomButton from '@components/CustomButton/custom-button';
 import { Button } from 'primereact/button';
 import FormField from '@components/FormField/formField';
 import { useState } from 'react';
+import { useRecoverRequest } from '@stores/recover/recoverRequest';
+import { useErrorContext } from '@contexts/errorContext';
+import { recuperar_senha } from 'routes/routesRecover';
 
-interface RecoverPageOneProps {}
+const RecoverRequestPage = () => {
 
-const RecoverPageOne = () => {
-
-  const [credenciais, setCredenciais] = useState({
-      email: ""
-    });
-  
+  const { credenciais, setField } = useRecoverRequest()
+  const { setErrors, setError } = useErrorContext();
     
+  const finalizeRecoverRequest = async () => {
+      try {
+        const response = await recuperar_senha(credenciais);
+        console.log(response);
   
-    const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
-      const { name, value } = e.target;
-      setCredenciais((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    };
+        if (!response.ok) {
+          const errorData: Error = await response.json();
+          setError('email', {error:true, message:'Erro ao buscar email'});
+        }
   
-    const handleSubmit = (credenciais: { email: any;}) => {
-      console.log(credenciais.email)
+      } catch (error) {
+        console.error('Erro ao recuperar senha:', error);
+      }
     };
 
   return (
@@ -38,17 +38,17 @@ const RecoverPageOne = () => {
             <div className="fields">
               <p>Digite o e-mail relacionado à sua conta.<br/>
               Você receberá um email com um link de recuperação.</p>
-              <FormField attribute="conta.email">
+              <FormField attribute="email">
                 <InputText
                   name="email"
                   value={credenciais.email}
-                  onChange={handleInputChange}
+                  onChange={(e) => setField('email', e.target.value)}
                   placeholder="E-mail *"
                   required
                 />
               </FormField>
             </div>
-            <Button className="button" type="submit" label="Enviar e-mail de recuperação" onClick={() => handleSubmit(credenciais)}/>
+            <Button className="button" type="submit" label="Enviar e-mail de recuperação" onClick={finalizeRecoverRequest}/>
             <div className="footer">
               <p><a href="/login">Voltar</a></p>
             </div>
@@ -59,4 +59,4 @@ const RecoverPageOne = () => {
   );
 };
 
-export default RecoverPageOne;
+export default RecoverRequestPage;

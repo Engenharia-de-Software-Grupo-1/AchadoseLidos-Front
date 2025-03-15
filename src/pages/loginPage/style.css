@@ -68,6 +68,7 @@
         flex-direction: column;
         padding: 0 3rem;
         gap: 1rem;
+        align-items:center;
         
     }
 
@@ -82,6 +83,7 @@
         width:fit-content;
         align-self:center;
     }
+
     a {
         color:inherit;
     }

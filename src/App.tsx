@@ -8,9 +8,10 @@ import ProfileSeboForm from '@pages/profile/sebo/form';
 import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
 import LoginPage from '@pages/loginPage';
-import RecoverPageOne from '@pages/recoverPageOne';
-import RecoverPageTwo from '@pages/recoverPageTwo';
-import { LoginProvider } from '@stores/login/store';
+import RecoverPageTwo from '@pages/recover/reset';
+import { LoginProvider } from '@stores/login/loginStore';
+import { RecoverRequestProvider } from '@stores/recover/recoverRequest';
+import RecoverRequestPage from '@pages/recover/request';
 
 const App = () => {
   return (
@@ -42,9 +43,17 @@ const App = () => {
               element={
                 <LoginProvider>
                   <LoginPage/>
-                </LoginProvider>}
+                </LoginProvider>
+              }
             />
-            <Route path="/recoverone" element={<RecoverPageOne/>}/>
+            <Route 
+              path="/recover/request" 
+              element={
+                <RecoverRequestProvider>
+                  <RecoverRequestPage/>
+                </RecoverRequestProvider>
+              }
+              />
             <Route path="/recovertwo" element={<RecoverPageTwo/>}/>
           </Routes>
         </NotificationProvider>

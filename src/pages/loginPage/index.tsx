@@ -6,7 +6,7 @@ import FormField from '@components/FormField/formField';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useErrorContext } from '@contexts/errorContext';
-import { useLogin } from '@stores/login/store';
+import { useLogin } from '@stores/login/loginStore';
 import { login } from 'routes/routesLogin';
 import { LoginResponse } from '@domains/LoginResponse';
 

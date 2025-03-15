@@ -33,7 +33,7 @@ export const LoginProvider = ({ children }: LoginProviderProps) => {
 
     const [rules, setRules] = useState<Record<string, Rule[]>>({
         senha: [{rule: 'required'}],
-        email: [{rule: 'isEmail'}]
+        email: [{rule: 'isEmail'}, {rule: 'required'}]
     })
 
     const {setErrors, setError} = useErrorContext();
