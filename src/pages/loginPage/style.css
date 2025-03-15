@@ -76,24 +76,6 @@
     }
 
       
-    .p-inputtext, .p-password, .p-icon-field {
-        width:100%;
-        font-size:1rem;
-        border-radius:3px;
-        background-color: var(--lighter-offwhite);
-        border-color:var(--black50)
-    }
-
-    .p-inputtext:focus, .p-password-input:focus {
-        outline: 1px solid var(--offwhite);
-        border-color: var(--offwhite);
-        box-shadow: var(--black);
-    }
-
-    .p-inputtext:hover, .p-password-input:hover {
-        border-color: var(--offwhite); 
-    }
-
     .button {
         background-color: var(--black);
         border-color: var(--offwhite);

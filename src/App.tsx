@@ -10,6 +10,7 @@ import { ErrorProvider } from '@contexts/errorContext';
 import LoginPage from '@pages/loginPage';
 import RecoverPageOne from '@pages/recoverPageOne';
 import RecoverPageTwo from '@pages/recoverPageTwo';
+import { LoginProvider } from '@stores/login/store';
 
 const App = () => {
   return (
@@ -36,7 +37,13 @@ const App = () => {
                 </ProfileSeboFormProvider>
               }
             />
-            <Route path="/login" element={<LoginPage/>}/>
+            <Route 
+              path="/login" 
+              element={
+                <LoginProvider>
+                  <LoginPage/>
+                </LoginProvider>}
+            />
             <Route path="/recoverone" element={<RecoverPageOne/>}/>
             <Route path="/recovertwo" element={<RecoverPageTwo/>}/>
           </Routes>

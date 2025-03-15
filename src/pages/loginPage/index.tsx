@@ -1,52 +1,34 @@
 import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
-import CustomButton from '@components/CustomButton/custom-button';
-import { Password } from 'primereact/password';
 import './style.css';
 
-import { redirect } from 'react-router-dom';
 import FormField from '@components/FormField/formField';
 import { useState } from 'react';
 import { useNotification } from '@contexts/notificationContext';
 import { Button } from 'primereact/button';
 import { useErrorContext } from '@contexts/errorContext';
+import { useLogin } from '@stores/login/store';
+import { login } from 'routes/routesLogin';
 
-interface LoginPageProps {}
 
-const LoginPage: React.FC<LoginPageProps> = () => {
+const LoginPage = () => {
 
-  const [credenciais, setCredenciais] = useState({
-    email: "",
-    senha: "",
-  });
-
-  const { showNotification } = useNotification();
+  const { credenciais, setField } = useLogin()
   const { setErrors, setError } = useErrorContext();
-  
 
-  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
-    const { name, value } = e.target;
-    setCredenciais((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (credenciais: { email: any; senha: any; }) => {
-
-    console.log("Logging in with:", { email:credenciais.email, senha:credenciais.senha });
-    
-    if (
-      credenciais.email === "user@example.com" &&
-      credenciais.senha === "password123"
-    ) {
-      showNotification('success', null, 'Logged in');
-    } else {
-      showNotification('error', null, 'Email ou Senha inválidos');
+  // adicionar verificação do tipo de erro para lançar para o usuário
+  const finalizeLogin = async () => {
+    try {
+      const response = await login(credenciais);
+      console.log(response);
+      alert('Login realizado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao realizar login:', error);
+      setError('email', error={error:true, message:''});
+      setError('senha', error={error:true, message:'Email ou senha inválidos'});
     }
   };
   
-
   return (
     <div className="main-login" >
       <TemplatePage simpleHeader simpleFooter contents>
@@ -55,11 +37,11 @@ const LoginPage: React.FC<LoginPageProps> = () => {
             <h1>Já possui uma conta?</h1>
             <div className="fields">
 
-              <FormField attribute="conta.email">
+              <FormField attribute="email">
                 <InputText
                   name="email"
                   value={credenciais.email}
-                  onChange={handleInputChange}
+                  onChange={(e) => setField('email', e.target.value)}
                   placeholder="E-mail *"
                   required
                 />
@@ -69,14 +51,14 @@ const LoginPage: React.FC<LoginPageProps> = () => {
                 <InputText
                   name="senha"
                   value={credenciais.senha}
-                  onChange={handleInputChange}
+                  onChange={(e) => setField('senha', e.target.value)}
                   type="password"
                   placeholder="Senha *"
                   required
                 />
               </FormField>
             </div>
-            <Button label="Entrar" className="button" type="submit" onClick={() => handleSubmit(credenciais)}/>
+            <Button label="Entrar" className="button" type="submit" onClick={finalizeLogin}/>
             <div className="footer">
               <p>Não possui uma conta? <a href="/register">Cadastre-se</a></p>
               <p>Esqueceu sua senha? <a href="/recoverone">Recuperar senha</a></p>
