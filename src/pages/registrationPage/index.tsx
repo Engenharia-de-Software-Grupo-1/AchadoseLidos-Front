@@ -1,6 +1,7 @@
 import TemplatePage from '@pages/templatePage';
 import { Button } from 'primereact/button';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 const RegistrationPage = () => {
   return (
@@ -14,9 +15,11 @@ const RegistrationPage = () => {
               <p className="option-description">
                 Quero navegar pelos produtos, favoritá-los e fazer compras.
               </p>
-              <Button className="register-button">
-                Cadastrar-se como usuário
-              </Button>
+              <Link to = "/register/user">
+                <Button className="register-button">
+                  Cadastrar-se como usuário
+                </Button>
+              </Link>
               <div className="login-link">
                 <span>Já possui conta? </span>
                 <a href="#" className="enter-link">Entre</a>
@@ -31,9 +34,11 @@ const RegistrationPage = () => {
               <p className="option-description">
                 Quero registrar minha história ou inventário e anunciar produtos e eventos.
               </p>
-              <Button className="register-button">
-                Cadastrar-se como sebista
-              </Button>
+              <Link to = "/register/sebo">
+                <Button className="register-button">
+                  Cadastrar-se como sebista
+                </Button>
+              </Link>
               <div className="login-link">
                 <span>Já possui conta? </span>
                 <a href="#" className="enter-link">Entre</a>
