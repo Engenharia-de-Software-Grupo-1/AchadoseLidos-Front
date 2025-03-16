@@ -60,14 +60,25 @@
   }
   
   .option-title {
+    font-family: Poppins;
     font-size: 24px;
     color: #333;
     padding: 10%;
     font-weight: 600;
     margin-bottom: 20px;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: none;
+    text-decoration-color: rgba(207, 179, 88, 0.3);
+    text-decoration-thickness: 40%;
+    /* 16.8px */
+    text-underline-offset: -40%;
+    /* -12.6px */
+    text-underline-position: from-font;
   }
   
   .option-description {
+    font-family: Poppins;
     color: #2a2a2a;
     font-size: 16px;
     line-height: 1.6;
@@ -89,6 +100,7 @@
   }
   
   .login-link {
+    font-family: Poppins;
     font-size: 13px;
     color: #555;
     margin-top: 5px;
