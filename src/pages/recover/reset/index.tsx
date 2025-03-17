@@ -24,11 +24,12 @@ const ResetRequestPage = () => {
       try {
         setField("conta.token", token);
         const response = await atualizar_senha(credenciais.conta);
-        showNotification("success", response.message, "");
-        navigate('/login');
         
         if (!response.ok) {
           showNotification("error", response.message, "");
+        } else {
+          showNotification("success", response.message, "");
+          navigate('/login');
         }
         
       } catch (error) {
