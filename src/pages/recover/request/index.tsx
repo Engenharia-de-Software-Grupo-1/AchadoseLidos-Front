@@ -21,16 +21,22 @@ const RecoverRequestPage = () => {
     if (validate()) {
       try {
         const response = await recuperar_senha(credenciais);
+        console.log(response);
         
-        if (!response.ok) {
-          const errorData: Error = await response.json();
-          showNotification("error", response.message, "")
-        } else {
-          showNotification("success", response.message, "")
-        }
+        if (response.status === 200) {
+          showNotification("success", response.data.mensagem, "");
+        } 
         
       } catch (error) {
-        showNotification("error", 'Algo deu errado, tente novamente mais tarde.', "");
+        console.log(error);
+        if (error.response) {
+          const errorMessage = error.response.data.message || "Erro no servidor.";
+          showNotification("error", errorMessage, "");
+        } else if (error.request) {
+          showNotification("error", "Sem resposta do servidor. Verifique sua conexão.", "");
+        } else {
+          showNotification("error", "Algo deu errado. Tente novamente mais tarde.", "");
+        }
       }
     } else {
       setError("email", {error:true, message:"Por favor, preencha o campo."})

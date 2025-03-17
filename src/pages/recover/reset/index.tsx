@@ -8,35 +8,58 @@ import { Button } from 'primereact/button';
 import { useResetRequest } from '@stores/recover/resetRequest';
 import { useErrorContext } from '@contexts/errorContext';
 import { atualizar_senha } from 'routes/routesRecover';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const ResetRequestPage = () => {
 
   const { showNotification } = useNotification();
   const { credenciais, setField, validate } = useResetRequest();
   const {setErrors, setError} = useErrorContext();
-  const { token } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  
+  const token = searchParams.get("token");
 
-    
+  useEffect(() => {
+    if (token) {
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  }, [token]);
+  
   const finalizeResetRequest = async () => {
     if (validate()) {
       try {
-        setField("conta.token", token);
+        await setField("conta.token", token);
         const response = await atualizar_senha(credenciais.conta);
+        console.log(response);
         
-        if (!response.ok) {
-          showNotification("error", response.message, "");
-        } else {
-          showNotification("success", response.message, "");
-          navigate('/login');
-        }
+        if (response.status === 200) {
+          showNotification("success", "Senha atualizada com sucesso!", "");
+          navigate("/login")
+        } 
         
       } catch (error) {
-        showNotification("error", 'Erro ao atualizar senha', "");
+        console.log(error);
+        if (error.response) {
+          const errorData = error.response.data;
+      
+          if (errorData.errors && Array.isArray(errorData.errors)) {
+            errorData.errors.forEach((err: { message: string }) => {
+              showNotification("error", err.message, "");
+            });
+          } else {
+            showNotification("error", errorData.mensagem || "Erro no servidor.", "");
+          }
+        } else if (error.request) {
+          showNotification("error", "Sem resposta do servidor. Verifique sua conexão.", "");
+        } else {
+          showNotification("error", "Algo deu errado. Tente novamente mais tarde.", "");
+        }
       }
     }
-  };
+  }
 
 
   return (

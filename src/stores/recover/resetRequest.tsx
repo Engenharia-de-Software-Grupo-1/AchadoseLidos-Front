@@ -84,6 +84,14 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
       if (!credenciais.confirmaSenha) {
         validationResults['confirmaSenha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
       }
+
+      if (credenciais.conta.senha && credenciais.conta.senha.length < 8) {
+        validationResults['senha'] = {
+          error: true,
+          message: 'A senha deve ter pelo menos 8 caracteres',
+          rules: [],
+        };
+      }
     
       if (credenciais.conta.senha && credenciais.confirmaSenha && credenciais.conta.senha !== credenciais.confirmaSenha) {
         validationResults['confirmaSenha'] = {
