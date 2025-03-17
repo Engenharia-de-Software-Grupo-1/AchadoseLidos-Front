@@ -45,7 +45,13 @@ export default function Header({ simpleHeader }: HeaderProps) {
       { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
       { label: 'Cesta', icon: 'pi pi-shopping-bag' },
       { label: 'Favoritos', icon: 'pi pi-heart' },
-      { label: 'Sair', icon: 'pi pi-sign-out' , onClick: () => {localStorage.removeItem('token')}},
+      {
+        label: 'Sair',
+        icon: 'pi pi-sign-out',
+        onClick: () => {
+          localStorage.removeItem('token');
+        },
+      },
     ];
 
     const items = [

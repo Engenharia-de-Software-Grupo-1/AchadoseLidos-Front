@@ -40,30 +40,30 @@ const App = () => {
                 </ProfileSeboFormProvider>
               }
             />
-            <Route 
-              path="/login" 
+            <Route
+              path="/login"
               element={
                 <LoginProvider>
-                  <LoginPage/>
+                  <LoginPage />
                 </LoginProvider>
               }
             />
-            <Route 
-              path="/recover/request" 
+            <Route
+              path="/recover/request"
               element={
                 <RecoverRequestProvider>
-                  <RecoverRequestPage/>
+                  <RecoverRequestPage />
                 </RecoverRequestProvider>
               }
-              />
-            <Route 
-              path="/recover/reset" 
+            />
+            <Route
+              path="/recover/reset"
               element={
                 <ResetRequestProvider>
-                  <ResetRequestPage/>
+                  <ResetRequestPage />
                 </ResetRequestProvider>
               }
-              />
+            />
           </Routes>
         </NotificationProvider>
       </BrowserRouter>
