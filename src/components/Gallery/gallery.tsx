@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { Galleria } from 'primereact/galleria';
 import './style.css';
 
-export default function Gallery() {
+interface GalleryProps {
+  position?: string;
+}
+
+export default function Gallery({ position }: GalleryProps) {
   const [images] = useState([
     { itemImageSrc: '/images/anarita.JPG', thumbnailImageSrc: '/images/anarita.JPG', alt: 'Imagem 1' },
   ]);
@@ -16,7 +20,7 @@ export default function Gallery() {
   };
 
   return (
-    <div className="card-galleria">
+    <div className={`card-galleria ${position}`} >
       <Galleria
         value={images}
         numVisible={5}

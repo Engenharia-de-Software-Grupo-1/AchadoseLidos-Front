@@ -1,6 +1,7 @@
 import { Button } from 'primereact/button';
 import { Tag } from 'primereact/tag';
 import Gallery from '@components/Gallery/gallery';
+import './style.css';
 
 interface TagProps {
   severity: 'success' | 'info' | 'warning' | 'danger' | 'secondary' | 'contrast' | null | undefined;
@@ -21,22 +22,12 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = (props: ProductDetailsProps) => {
-  const {
-    productName,
-    seboName,
-    bairro,
-    tags,
-    stock,
-    price,
-    editionYear,
-    releaseYear,
-    author,
-    description,
-  } = props;
+  const { productName, seboName, bairro, tags, stock, price, editionYear, releaseYear, author, description } = props;
   return (
-      <main className="product-frame">
+    <main className="product-frame">
+      <section className="product-columns-frame">
         <section className="product-details-frame">
-          <Gallery />
+          <Gallery position="product-card-galleria"/>
         </section>
 
         <section className="product-details-frame">
@@ -63,12 +54,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = (props: ProductDetailsProp
             <strong>Autor:</strong> {author}
           </p>
 
-          <p>
-            <strong>Descrição:</strong>
+          <p style={{ textAlign: 'justify' }}>
+            <strong>Descrição: </strong>
+            <br></br>
+            {description}
           </p>
-          <p>{description}</p>
         </section>
-      </main>
+      </section>
+    </main>
   );
 };
 

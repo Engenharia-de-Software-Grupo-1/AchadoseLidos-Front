@@ -1,0 +1,125 @@
+.container-product-page {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--Achados-OffWhite);
+}
+
+.product-frame {
+  display: flex;
+  padding: 0px 64px;
+  height: 87%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.product-columns-frame {
+  display: flex;
+  padding: 16px 0px;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 16px;
+  background-color: var(--Achados-Lighter-OffWhite);
+}
+
+.product-details-frame {
+  display: flex;
+  padding: 32px 64px;
+  flex-direction: column;
+  align-items: left;
+  gap: 12px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.product-details-frame {
+  display: flex;
+  padding: 32px 64px;
+  flex-direction: column;
+  align-items: left;
+  gap: 12px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.product-title-frame {
+  display: flex;
+  width: 198px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.product-stock {
+  color: rgba(0, 0, 0, 0.5);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0px;
+}
+
+.product-Achados-SubH1 {
+  color: #000;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+
+  font-family: Poppins;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0px;
+}
+
+.product-sebo {
+  color: #000;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 6px;
+}
+
+.product-tags {
+  display: flex;
+  gap: 10px;
+}
+
+.product-actions-frame {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.favorite-button:hover {
+  background-color: var(--Achados-Pink) !important;
+  color: var(--Achados-Red) !important;
+}
+
+.p-button-success {
+  background-color: var(--Achados-Success) !important; /* Cor de fundo padrão */
+  border-color: var(--Achados-Success) !important;
+}
+
+.product-ediction-year {
+  color: #000;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
