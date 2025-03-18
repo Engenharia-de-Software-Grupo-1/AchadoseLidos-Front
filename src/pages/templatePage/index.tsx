@@ -18,7 +18,10 @@ const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader, sim
     </footer>
   );
 
-  const style = contents ? { height: '100%', display: 'contents' } : { height: '100%'};
+  const style: React.CSSProperties = contents 
+  ? { height: '100vh', display: 'flex', flexDirection: 'column' } 
+  : { height: '100vh', display: 'flex', flexDirection: 'column' };
+
 
   return (
     <div style={style}>
