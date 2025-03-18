@@ -1,8 +1,9 @@
-import Menu from '@components/Header/header';
+import React from 'react'
+import Menu from '@components/Header/header'
 
 interface TemplatePageProps {
-  children: React.ReactNode;
-  simpleHeader: boolean;
+  children: React.ReactNode
+  simpleHeader: boolean
 }
 
 const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader }) => {
@@ -11,7 +12,7 @@ const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader }) =
       <Menu simpleHeader={simpleHeader} />
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default TemplatePage;
+export default TemplatePage
