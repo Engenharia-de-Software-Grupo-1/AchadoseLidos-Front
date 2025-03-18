@@ -98,7 +98,7 @@
 }
 
 .p-button-success {
-  background-color: var(--Achados-Success) !important; /* Cor de fundo padrão */
+  /* background-color: var(--Achados-Success) !important; Cor de fundo padrão  coloca uma classe no botao de nome unico, se nao vai sobrescrever todos ja que essa é classe geral*/
   border-color: var(--Achados-Success) !important;
 }
 

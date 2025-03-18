@@ -12,6 +12,10 @@
     color: var(--Achados-Brown);
 }
 
+.p-button-success-upload {
+    background-color: transparent !important;
+}
+
 .buttom-upload-plus:focus {
     outline: none !important;
     box-shadow: none !important;
