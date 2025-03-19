@@ -1,5 +1,5 @@
-import { Carousel } from 'primereact/carousel'
-import './style.css'
+import { Carousel } from 'primereact/carousel';
+import './style.css';
 
 interface BannerProps {
   images: string[]
@@ -7,13 +7,13 @@ interface BannerProps {
 }
 
 export default function Banner({ images, showIndicators }: BannerProps) {
-  const responsiveOptions = [{ breakpoint: '1400px', numVisible: 1, numScroll: 1 }]
+  const responsiveOptions = [{ breakpoint: '1400px', numVisible: 1, numScroll: 1 }];
 
   const imageTemplate = (imageUrl: string) => (
     <div className="carousel-item">
       <img src={imageUrl} alt="Banner" className="carousel-image" />
     </div>
-  )
+  );
 
   return (
     <div className="carousel-container">
@@ -29,5 +29,5 @@ export default function Banner({ images, showIndicators }: BannerProps) {
         showIndicators={showIndicators}
       />
     </div>
-  )
+  );
 }

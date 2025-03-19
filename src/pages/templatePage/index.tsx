@@ -1,6 +1,6 @@
-import Menu from '@components/Header/header'
-import './style.css'
-import React from 'react'
+import Menu from '@components/Header/header';
+import './style.css';
+import React from 'react';
 
 interface TemplatePageProps {
   children: React.ReactNode
@@ -23,11 +23,11 @@ const TemplatePage: React.FC<TemplatePageProps> = ({
     <footer className={`initial-footer ${backgroundFooterDiff ? 'backgroundDiff' : ''}`}>
       <p className="text-footer">ACHADOS E LIDOS</p>
     </footer>
-  )
+  );
 
   const style: React.CSSProperties = contents
     ? { height: '100vh', display: 'flex', flexDirection: 'column' }
-    : { height: '100vh', display: 'flex', flexDirection: 'column' }
+    : { height: '100vh', display: 'flex', flexDirection: 'column' };
 
   return (
     <div style={style}>
@@ -35,7 +35,7 @@ const TemplatePage: React.FC<TemplatePageProps> = ({
       {children}
       {footer}
     </div>
-  )
-}
+  );
+};
 
-export default TemplatePage
+export default TemplatePage;

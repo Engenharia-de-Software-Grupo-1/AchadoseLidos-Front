@@ -2,15 +2,15 @@ name: ESLint
 
 on:
   push:
-    branches: [ "***" ]
+    branches: [ "**" ]
   pull_request:
     branches: [ "main" ]
   schedule:
     - cron: '42 10 * * 1'
 
 jobs:
-  eslint:
-    name: Run eslint scanning
+  lint:
+    name: Run ESLint
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -19,23 +19,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install ESLint
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: |
+          yarn install
+
+      - name: Install ESLint and plugins
         run: |
           yarn add eslint@8.10.0
-          yarn add @microsoft/eslint-formatter-sarif@3.1.0
 
       - name: Run ESLint
         env:
           SARIF_ESLINT_IGNORE_SUPPRESSED: "true"
-        run: yarn eslint .
-          --config .eslintrc.js
-          --ext .js,.jsx,.ts,.tsx
-          --format @microsoft/eslint-formatter-sarif
-          --output-file eslint-results.sarif
+        run: |
+          yarn eslint . --config eslint.config.mjs --ext .js,.jsx,.ts,.tsx
         continue-on-error: true
-
-      - name: Upload analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: eslint-results.sarif
-          wait-for-processing: true
