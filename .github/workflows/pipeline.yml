@@ -31,17 +31,11 @@ jobs:
       - name: Install ESLint and plugins
         run: |
           yarn add eslint@8.10.0
-          yarn add @microsoft/eslint-formatter-sarif@3.1.0
 
       - name: Run ESLint
         env:
           SARIF_ESLINT_IGNORE_SUPPRESSED: "true"
         run: |
-          yarn eslint . --config eslint.config.mjs --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
+          yarn eslint . --config eslint.config.mjs --ext .js,.jsx,.ts,.tsx
         continue-on-error: true
-
-      - name: Upload ESLint Results to GitHub
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: eslint-results.sarif
-          wait-for-processing: true
+        
