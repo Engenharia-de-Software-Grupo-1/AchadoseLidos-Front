@@ -52,6 +52,19 @@ Para abrir a interface gráfica de testes do **Cypress**, use:
 ```sh
 yarn cypress open
 ```
+---
+
+## 🚀 **Comandos de lint do repositório**  
+Para rodar o analisador estático localmente, basta rodar:
+```sh
+yarn eslint . --config eslint.config.mjs
+```
+Para aplicar as correções de lint:
+```sh
+yarn eslint . --fix
+```
+
+
 
 ---
 

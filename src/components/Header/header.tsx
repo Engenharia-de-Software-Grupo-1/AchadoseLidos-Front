@@ -9,9 +9,10 @@ import { PanelMenu } from 'primereact/panelmenu';
 import 'primeicons/primeicons.css';
 import './style.css';
 import { Link } from 'react-router-dom';
+import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
 
 interface HeaderProps {
-  simpleHeader: boolean;
+  simpleHeader: boolean
 }
 
 export default function Header({ simpleHeader }: HeaderProps) {
@@ -32,8 +33,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
       </div>
     );
   } else {
-    const itemRenderer = (item: any) => (
-      <a className="flex align-items-center p-menuitem-link" style={{ backgroundColor: '#f9fafb' }}>
+    const itemRenderer = (item: MenuItem, options: MenuItemOptions) => (
+      <a className={options.className} style={{ backgroundColor: '#f9fafb' }}>
         <span className="mx-2 p-menuitem-text" style={{ color: '#2F292A' }}>
           {item.label}
         </span>
@@ -79,6 +80,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
     );
     const end = (
       <div className="flex align-items-center">
+        <div className="search-container">
         <div className="search-container">
           <IconField iconPosition="left">
             <InputIcon className="pi pi-search"></InputIcon>

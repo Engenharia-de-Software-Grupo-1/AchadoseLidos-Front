@@ -1,3 +1,4 @@
+import React from 'react';
 import Menu from '@components/Header/header';
 import './style.css';
 
