@@ -21,8 +21,7 @@ export default [
       prettier: prettierPlugin,
     },
     rules: {
-      'no-unused-vars': 'warn',
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       'prettier/prettier': ['error', { singleQuote: true, semi: false }],
     },
   },
