@@ -1,5 +1,4 @@
 import { useErrorContext } from '@contexts/errorContext';
-import { useNotification } from '@contexts/notificationContext';
 import { Credenciais } from '@domains/Credenciais';
 import { extractRules, validateRule } from '@utils/formRules';
 import { createContext, ReactNode, useContext, useState } from 'react';
@@ -31,7 +30,7 @@ export const LoginProvider = ({ children }: LoginProviderProps) => {
     email: '',
   });
 
-  const [rules, setRules] = useState<Record<string, Rule[]>>({
+  const [rules] = useState<Record<string, Rule[]>>({
     senha: [{ rule: 'required' }],
     email: [{ rule: 'isEmail' }, { rule: 'required' }],
   });

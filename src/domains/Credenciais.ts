@@ -12,5 +12,5 @@ export interface CredenciaisResetRequest {
         senha: string;
         token:string;
     },
-    confirmaSenha: ""
+    confirmaSenha: '';
 }

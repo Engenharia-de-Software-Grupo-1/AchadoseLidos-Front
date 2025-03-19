@@ -8,7 +8,6 @@ import ProfileSeboForm from '@pages/profile/sebo/form';
 import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
 import LoginPage from '@pages/loginPage';
-import RecoverPageTwo from '@pages/recover/reset';
 import { LoginProvider } from '@stores/login/loginStore';
 import { RecoverRequestProvider } from '@stores/recover/recoverRequest';
 import RecoverRequestPage from '@pages/recover/request';

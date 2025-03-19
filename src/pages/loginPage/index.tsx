@@ -8,12 +8,11 @@ import { Button } from 'primereact/button';
 import { useErrorContext } from '@contexts/errorContext';
 import { useLogin } from '@stores/login/loginStore';
 import { login } from 'routes/routesLogin';
-import { LoginResponse } from '@domains/LoginResponse';
 import { useNotification } from '@contexts/notificationContext';
 
 const LoginPage = () => {
   const { credenciais, setField, validate } = useLogin();
-  const { setErrors, setError } = useErrorContext();
+  const { setError } = useErrorContext();
   const navigate = useNavigate();
   const { showNotification } = useNotification();
 
@@ -22,19 +21,26 @@ const LoginPage = () => {
       try {
         const response = await login(credenciais);
 
-        if (!response.ok) {
-          showNotification('error', 'Erro ao realizar login:', response.message);
-          setError('email', { error: true, message: '' });
-          setError('senha', { error: true, message: 'Email ou senha inválidos' });
-        } else {
-          const data: LoginResponse = await response.json();
-          localStorage.setItem('token', data.token);
+        if (response.status === 200) {
+          showNotification('success', 'Login realizado com sucesso!', '');
           navigate('/');
         }
       } catch (error) {
-        showNotification('error', 'Erro ao realizar login', '');
+        if (error.response.status === 401) {
+          setError('senha', {error:true, message:'Senha incorreta.'});
+        } else if (error.response.status === 404) {
+          setError('email', {error:true, message:'Email inválido.'});
+          setError('senha', {error:true, message:''});
+        } else if (error.response) {
+          const errorMessage = error.response.data.message || 'Erro no servidor.';
+          showNotification('error', errorMessage, '');
+        } else if (error.request) {
+          showNotification('error', 'Sem resposta do servidor. Verifique sua conexão.', '');
+        } else {
+          showNotification('error', 'Algo deu errado. Tente novamente mais tarde.', '');
+        }
       }
-    }
+    } 
   };
 
   return (
