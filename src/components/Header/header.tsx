@@ -1,33 +1,33 @@
-import { useState } from 'react'
-import { Menubar } from 'primereact/menubar'
-import { Button } from 'primereact/button'
-import { IconField } from 'primereact/iconfield'
-import { InputIcon } from 'primereact/inputicon'
-import { InputText } from 'primereact/inputtext'
-import { Avatar } from 'primereact/avatar'
-import { PanelMenu } from 'primereact/panelmenu'
-import 'primeicons/primeicons.css'
-import './style.css'
+import { useState } from 'react';
+import { Menubar } from 'primereact/menubar';
+import { Button } from 'primereact/button';
+import { IconField } from 'primereact/iconfield';
+import { InputIcon } from 'primereact/inputicon';
+import { InputText } from 'primereact/inputtext';
+import { Avatar } from 'primereact/avatar';
+import { PanelMenu } from 'primereact/panelmenu';
+import 'primeicons/primeicons.css';
+import './style.css';
 
 interface HeaderProps {
   simpleHeader: boolean
 }
 
 export default function Header({ simpleHeader }: HeaderProps) {
-  const [menuVisible, setMenuVisible] = useState(false)
+  const [menuVisible, setMenuVisible] = useState(false);
 
   const toggleMenu = () => {
-    setMenuVisible(!menuVisible)
-  }
+    setMenuVisible(!menuVisible);
+  };
 
-  let content = <></>
+  let content = <></>;
 
   if (simpleHeader) {
     content = (
       <div className="simple-header">
         <img alt="logo" src="/images/logo.png" height="40" className="ml-2 mr-4"></img>
       </div>
-    )
+    );
   } else {
     const itemRenderer = (item: any) => (
       <a className="flex align-items-center p-menuitem-link" style={{ backgroundColor: '#f9fafb' }}>
@@ -35,7 +35,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           {item.label}
         </span>
       </a>
-    )
+    );
 
     const panelMenuItems = [
       { label: 'Meu Perfil', icon: 'pi pi-user' },
@@ -43,7 +43,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
       { label: 'Cesta', icon: 'pi pi-shopping-bag' },
       { label: 'Favoritos', icon: 'pi pi-heart' },
       { label: 'Sair', icon: 'pi pi-sign-out' },
-    ]
+    ];
 
     const items = [
       {
@@ -59,13 +59,13 @@ export default function Header({ simpleHeader }: HeaderProps) {
           },
         ],
       },
-    ]
+    ];
 
     const start = (
       <>
         <img alt="logo" src="/images/logo.png" height="40" className="ml-2 mr-4"></img>;
       </>
-    )
+    );
     const end = (
       <div className="flex align-items-center">
         <div className="search-container">
@@ -96,7 +96,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           </div>
         )}
       </div>
-    )
+    );
 
     content = (
       <Menubar
@@ -105,8 +105,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
         end={end}
         style={{ background: '#2F292A', border: 'none', borderRadius: '0%' }}
       />
-    )
+    );
   }
 
-  return content
+  return content;
 }

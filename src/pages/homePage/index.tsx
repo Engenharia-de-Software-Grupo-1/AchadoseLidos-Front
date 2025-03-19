@@ -1,12 +1,12 @@
-import { useBreadcrumb } from '@hooks/useBreadcrumb'
-import Banner from '@components/Banner/banner'
-import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb'
-import TemplatePage from '@pages/templatePage'
-import './style.css'
+import { useBreadcrumb } from '@hooks/useBreadcrumb';
+import Banner from '@components/Banner/banner';
+import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb';
+import TemplatePage from '@pages/templatePage';
+import './style.css';
 
 const HomePage = () => {
-  const breadcrumbItems = useBreadcrumb()
-  const images = ['/images/banner.jpg']
+  const breadcrumbItems = useBreadcrumb();
+  const images = ['/images/banner.jpg'];
 
   return (
     <TemplatePage simpleHeader={false}>
@@ -23,7 +23,7 @@ const HomePage = () => {
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
       </div>
     </TemplatePage>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

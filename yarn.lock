@@ -387,7 +387,7 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@eslint/js@9.22.0":
+"@eslint/js@9.22.0", "@eslint/js@^9.22.0":
   version "9.22.0"
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.22.0.tgz#4ff53649ded7cbce90b444b494c234137fa1aa3d"
   integrity sha512-vLFajx9o8d1/oL2ZkpMYbkLv8nDB6yaIwFNt7nI4+I80U/z03SxmfOMsLbvWr3p7C+Wnoh//aOu2pQW8cS0HCQ==
@@ -780,7 +780,7 @@
 "achadose-lidos-front@file:.":
   version "1.0.0"
   dependencies:
-    achadose-lidos-front "file:../../.cache/yarn/v6/npm-achadose-lidos-front-1.0.0-c36a7839-5701-4017-9c3b-24ca7fddb84b-1742340543701/node_modules/achadose-lidos-front"
+    achadose-lidos-front "file:../../.cache/yarn/v6/npm-achadose-lidos-front-1.0.0-6a89eb09-35c4-4952-8f15-8d909aaf2451-1742346115761/node_modules/achadose-lidos-front"
     primeicons "^7.0.0"
     primereact "^10.9.2"
     react "^19.0.0"
@@ -1628,10 +1628,10 @@ eslint-config-airbnb@^19.0.4:
     object.assign "^4.1.2"
     object.entries "^1.1.5"
 
-eslint-config-prettier@^10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-10.0.1.tgz#fbb03bfc8db0651df9ce4e8b7150d11c5fe3addf"
-  integrity sha512-lZBts941cyJyeaooiKxAtzoPHTN+GbQTJFAIdQbRhA4/8whaAraEh47Whw/ZFfrjNSnlAxqfm9i0XVAEkULjCw==
+eslint-config-prettier@^10.1.1:
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-10.1.1.tgz#cf0ff6e5c4e7e15f129f1f1ce2a5ecba92dec132"
+  integrity sha512-4EQQr6wXwS+ZJSzaR5ZCrYgLxqvUjdXctaEtBqHcbkW944B1NQyO4qpdHQbXBONfwxXdkAY81HH4+LUfrg+zPw==
 
 eslint-import-resolver-node@^0.3.9:
   version "0.3.9"
