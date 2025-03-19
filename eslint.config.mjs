@@ -8,11 +8,8 @@ export default {
   overrides: [
     {
       files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
-    },
-    {
-      files: ['**/*.js'],
       languageOptions: {
-        sourceType: 'script',
+        sourceType: 'module',
         globals: globals.browser,
         parser: tsParser,
       },
