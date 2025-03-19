@@ -1,10 +1,10 @@
-import Banner from '@components/Banner/banner';
-import TemplatePage from '@pages/templatePage';
-import './style.css';
-import ContainerItems from '@components/ContainerItems/containerItems';
+import Banner from '@components/Banner/banner'
+import TemplatePage from '@pages/templatePage'
+import './style.css'
+import ContainerItems from '@components/ContainerItems/containerItems'
 
 const HomePage = () => {
-  const images = ['/images/banner.jpg'];
+  const images = ['/images/banner.jpg']
 
   return (
     <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
@@ -29,10 +29,9 @@ const HomePage = () => {
         <ContainerItems title="Todos os itens" backgroundBege={true}>
           {' '}
         </ContainerItems>
-
       </div>
     </TemplatePage>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
