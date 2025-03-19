@@ -75,7 +75,7 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
 
     const [rules, setRules] = useState<Record<string, Rule[]>>({
         nome: [{ rule: 'required' }],
-        cpf: [{ rule: 'required' }, { rule: 'isCpf' }],
+        cpf: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
         email: [{ rule: 'required' }, { rule: 'isEmail' }],
         senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
         confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
