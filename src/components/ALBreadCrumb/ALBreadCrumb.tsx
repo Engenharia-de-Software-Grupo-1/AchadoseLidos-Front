@@ -1,15 +1,16 @@
+import React from 'react';
 import { BreadCrumb } from 'primereact/breadcrumb';
 
 interface BreadcrumbItem {
-  label: string;
-  url: string;
+  label: string
+  url: string
 }
 
 interface ALBreadCrumbComponentProps {
-  breadcrumbItems: BreadcrumbItem[];
+  breadcrumbItems: BreadcrumbItem[]
 }
 
-const ALBreadCrumb: React.FC<ALBreadCrumbComponentProps> = ({ breadcrumbItems }) => {
+const ALBreadCrumb: React.FC<ALBreadCrumbComponentProps> = ({ breadcrumbItems }: ALBreadCrumbComponentProps) => {
   return (
     <BreadCrumb
       model={[...breadcrumbItems].map((item) => ({

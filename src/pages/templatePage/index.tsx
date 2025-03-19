@@ -1,8 +1,9 @@
+import React from 'react';
 import Menu from '@components/Header/header';
 
 interface TemplatePageProps {
-  children: React.ReactNode;
-  simpleHeader: boolean;
+  children: React.ReactNode
+  simpleHeader: boolean
 }
 
 const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader }) => {

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import Banner from '@components/Banner/banner';
 import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb';
@@ -18,7 +19,7 @@ const HomePage = () => {
           <p className="main-p3">é o catálogo virtual dos sebos de Campina Grande!</p>
         </div>
 
-        <img src="/images/underline.svg" alt="underline" style={{marginTop: "42px", marginBottom: "42px"}}/>
+        <img src="/images/underline.svg" alt="underline" style={{ marginTop: '42px', marginBottom: '42px' }} />
 
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
       </div>
