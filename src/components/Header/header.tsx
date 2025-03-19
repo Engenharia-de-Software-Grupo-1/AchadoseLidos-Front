@@ -81,14 +81,12 @@ export default function Header({ simpleHeader }: HeaderProps) {
     const end = (
       <div className="flex align-items-center">
         <div className="search-container">
-        <div className="search-container">
           <IconField iconPosition="left">
             <InputIcon className="pi pi-search"></InputIcon>
             <InputText
               placeholder="O que deseja garimpar?"
               type="text"
-              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
-            />
+              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}/>
           </IconField>
         </div>
 
