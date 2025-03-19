@@ -4,12 +4,13 @@ interface ContainerItemsProps {
   title: string;
   children: React.ReactNode;
   backgroundBege: boolean;
+  isFirst?: boolean;
 }
-
-const ContainerItems = ({ title, children, backgroundBege }: ContainerItemsProps) => {
+ 
+const ContainerItems = ({ title, children, backgroundBege, isFirst }: ContainerItemsProps) => {
   return (
     <>
-      <div className={`${backgroundBege ? 'container-carousel-event' : 'container-carousel-items'}`}>
+      <div className={`${backgroundBege ? 'container-carousel-event' : isFirst ? 'container-carousel-items-first' :'container-carousel-items'}`}>
         <div className={`${backgroundBege ? 'content-title-event' : 'content-title'}`}>
           <span className={`${backgroundBege ? 'title-carousel-event' : 'title-carousel-items'}`}>
             {title} {'>'}

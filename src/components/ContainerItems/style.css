@@ -38,6 +38,7 @@
   background-color: var(--Achados-Lighter-OffWhite);
 }
 
+.container-carousel-items-first,
 .container-carousel-items,
 .container-carousel-event {
   display: flex;
@@ -46,6 +47,10 @@
   gap: 10px;
   align-self: stretch;
   background-color: var(--Achados-Lighter-OffWhite);
+}
+
+.container-carousel-items-first {
+  background: transparent;
 }
 
 .container-carousel-event {

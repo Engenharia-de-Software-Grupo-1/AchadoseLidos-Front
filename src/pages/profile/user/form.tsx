@@ -29,7 +29,7 @@ const ProfileUserForm = () => {
     return (
         <main className='container-profile-user-form'>
             <TemplatePage simpleHeader={false} simpleFooter={true}>
-                <section className='container-profile-user'>
+                <section className='container-profile-user-form-edit'>
                     <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
 
                     <div className='container-image-form'>
