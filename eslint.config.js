@@ -1,31 +1,35 @@
-import js from '@eslint/js';
-import tsParser from '@typescript-eslint/parser';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
-import prettierPlugin from 'eslint-plugin-prettier';
-import importPlugin from 'eslint-plugin-import';
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import pluginReact from 'eslint-plugin-react';
 
+/** @type {import('eslint').Linter.Config[]} */
 export default [
-  js.configs.recommended,
-  
+  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
+  { files: ['**/*.js'], languageOptions: { sourceType: 'script' } },
+  { languageOptions: { globals: globals.browser } },
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
+  pluginReact.configs.flat.recommended,
   {
-    files: ['**/*.ts', '**/*.tsx'],
-    languageOptions: {
-      parser: tsParser,
-      ecmaVersion: 12,
-      sourceType: 'module',
-      globals: {
-        document: 'readonly',
+    plugins: pluginReact,
+    settings: {
+      react: {
+        version: 'detect',
       },
     },
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-      prettier: prettierPlugin,
-      import: importPlugin,
-    },
     rules: {
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-      'semi': ['error', 'always'],
-      'import/extensions': ['error', 'never', { ts: 'never', tsx: 'never', css: 'always' }],
+      semi: ['error', 'always'],
+      quotes: ['error', 'single'],
+      'react/react-in-jsx-scope': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+      'no-console': ['error', { allow: ['warn', 'error', 'info', 'debug', 'trace', 'table'] }],
     },
   },
-]
+];
