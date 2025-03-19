@@ -38,4 +38,3 @@ jobs:
         run: |
           yarn eslint . --config eslint.config.mjs --ext .js,.jsx,.ts,.tsx
         continue-on-error: true
-        
