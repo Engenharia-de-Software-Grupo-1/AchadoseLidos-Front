@@ -31,7 +31,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
     );
   } else {
     const itemRenderer = (item: MenuItem, options: MenuItemOptions) => (
-      <a className={options.className} style={{ ...options.style, backgroundColor: '#f9fafb' }}>
+      <a className={options.className} style={{ backgroundColor: '#f9fafb' }}>
         <span className="mx-2 p-menuitem-text" style={{ color: '#2F292A' }}>
           {item.label}
         </span>
