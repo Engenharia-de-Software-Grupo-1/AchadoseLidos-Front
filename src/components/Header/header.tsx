@@ -9,9 +9,10 @@ import { PanelMenu } from 'primereact/panelmenu';
 import 'primeicons/primeicons.css';
 import './style.css';
 import { Link } from 'react-router-dom';
+import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
 
 interface HeaderProps {
-  simpleHeader: boolean;
+  simpleHeader: boolean
 }
 
 export default function Header({ simpleHeader }: HeaderProps) {
@@ -32,8 +33,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
       </div>
     );
   } else {
-    const itemRenderer = (item: any) => (
-      <a className="flex align-items-center p-menuitem-link" style={{ backgroundColor: '#f9fafb' }}>
+    const itemRenderer = (item: MenuItem, options: MenuItemOptions) => (
+      <a className={options.className} style={{ backgroundColor: '#f9fafb' }}>
         <span className="mx-2 p-menuitem-text" style={{ color: '#2F292A' }}>
           {item.label}
         </span>
@@ -45,7 +46,13 @@ export default function Header({ simpleHeader }: HeaderProps) {
       { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
       { label: 'Cesta', icon: 'pi pi-shopping-bag' },
       { label: 'Favoritos', icon: 'pi pi-heart' },
-      { label: 'Sair', icon: 'pi pi-sign-out' },
+      {
+        label: 'Sair',
+        icon: 'pi pi-sign-out',
+        onClick: () => {
+          localStorage.removeItem('token');
+        },
+      },
     ];
 
     const items = [
@@ -79,8 +86,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
             <InputText
               placeholder="O que deseja garimpar?"
               type="text"
-              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
-            />
+              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}/>
           </IconField>
         </div>
 

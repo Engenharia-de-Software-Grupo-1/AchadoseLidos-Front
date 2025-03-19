@@ -7,6 +7,12 @@ import ProfileSebo from '@pages/profile/sebo';
 import ProfileSeboForm from '@pages/profile/sebo/form';
 import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
+import LoginPage from '@pages/loginPage';
+import { LoginProvider } from '@stores/login/loginStore';
+import { RecoverRequestProvider } from '@stores/recover/recoverRequest';
+import RecoverRequestPage from '@pages/recover/request';
+import { ResetRequestProvider } from '@stores/recover/resetRequest';
+import ResetRequestPage from '@pages/recover/reset';
 import RegisterUser from '@pages/register/user';
 import { RegisterUserProvider } from '@stores/register/user/store';
 import RegistrationPage from '@pages/registrationPage';
@@ -49,6 +55,30 @@ const App = () => {
                 </ProfileSeboFormProvider>
               }
             />
+            <Route
+              path="/login"
+              element={
+                <LoginProvider>
+                  <LoginPage />
+                </LoginProvider>
+              }
+            />
+            <Route
+              path="/recover/request"
+              element={
+                <RecoverRequestProvider>
+                  <RecoverRequestPage />
+                </RecoverRequestProvider>
+              }
+            />
+            <Route
+              path="/recover/reset"
+              element={
+                <ResetRequestProvider>
+                  <ResetRequestPage />
+                </ResetRequestProvider>
+              }
+            />
             <Route path="/profile/user" element={<ProfileUser />} />
             <Route
               path="/profile/user/edit"
@@ -58,6 +88,7 @@ const App = () => {
                 </ProfileUserFormProvider>
               }
             />
+             <Route path="/register" element={<RegistrationPage />} />
           </Routes>
         </NotificationProvider>
       </BrowserRouter>
