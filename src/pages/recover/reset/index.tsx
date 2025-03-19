@@ -6,15 +6,13 @@ import FormField from '@components/FormField/formField';
 import { useNotification } from '@contexts/notificationContext';
 import { Button } from 'primereact/button';
 import { useResetRequest } from '@stores/recover/resetRequest';
-import { useErrorContext } from '@contexts/errorContext';
 import { atualizar_senha } from 'routes/routesRecover';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const ResetRequestPage = () => {
   const { showNotification } = useNotification();
   const { credenciais, setField, validate } = useResetRequest();
-  const { setErrors, setError } = useErrorContext();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -32,14 +30,12 @@ const ResetRequestPage = () => {
       try {
         await setField('conta.token', token);
         const response = await atualizar_senha(credenciais.conta);
-        console.log(response);
 
         if (response.status === 200) {
           showNotification('success', 'Senha atualizada com sucesso!', '');
           navigate('/login');
         }
       } catch (error) {
-        console.log(error);
         if (error.response) {
           const errorData = error.response.data;
 

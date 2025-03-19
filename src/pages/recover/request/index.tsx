@@ -4,7 +4,6 @@ import { InputText } from 'primereact/inputtext';
 import './style.css';
 import { Button } from 'primereact/button';
 import FormField from '@components/FormField/formField';
-import { useState } from 'react';
 import { useRecoverRequest } from '@stores/recover/recoverRequest';
 import { useErrorContext } from '@contexts/errorContext';
 import { recuperar_senha } from 'routes/routesRecover';
@@ -12,20 +11,18 @@ import { useNotification } from '@contexts/notificationContext';
 
 const RecoverRequestPage = () => {
   const { credenciais, setField, validate } = useRecoverRequest();
-  const { setErrors, setError } = useErrorContext();
+  const { setError } = useErrorContext();
   const { showNotification } = useNotification();
 
   const finalizeRecoverRequest = async () => {
     if (validate()) {
       try {
         const response = await recuperar_senha(credenciais);
-        console.log(response);
 
         if (response.status === 200) {
           showNotification('success', response.data.mensagem, '');
         }
       } catch (error) {
-        console.log(error);
         if (error.response) {
           const errorMessage = error.response.data.message || 'Erro no servidor.';
           showNotification('error', errorMessage, '');

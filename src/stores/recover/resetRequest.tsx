@@ -33,7 +33,7 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
     confirmaSenha: '',
   });
 
-  const [rules, setRules] = useState<Record<string, Rule[]>>({
+  const [rules] = useState<Record<string, Rule[]>>({
     senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
     confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
   });

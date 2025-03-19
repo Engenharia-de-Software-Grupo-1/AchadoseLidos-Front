@@ -29,7 +29,7 @@ export const RecoverRequestProvider = ({ children }: RecoverRequestProviderProps
     email: '',
   });
 
-  const [rules, setRules] = useState<Record<string, Rule[]>>({
+  const [rules] = useState<Record<string, Rule[]>>({
     email: [{ rule: 'isEmail' }, { rule: 'required' }],
   });
 
