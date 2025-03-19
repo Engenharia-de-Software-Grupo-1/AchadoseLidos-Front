@@ -110,6 +110,7 @@
   font-weight: 500;
   line-height: normal;
 }
+
 .main-container-edit-product {
   width: 100vw;
   height: 100vh;
@@ -149,9 +150,8 @@
   display: flex;
   padding: 32px 64px;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
   flex: 1 0 0;
+  width: 50%;
   align-self: stretch;
 }
 
@@ -164,4 +164,11 @@
   font-style: normal;
   font-weight: 700;
   line-height: 20px;
+}
+
+.content-price-form {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  align-self: stretch;
 }

@@ -111,7 +111,7 @@
 }
 
 .p-button-success {
-  background-color: var(--Achados-Success) !important; /* Cor de fundo padrão */
+  /* background-color: var(--Achados-Success) !important; Cor de fundo padrão */
   border-color: var(--Achados-Success) !important;
 }
 
@@ -142,7 +142,7 @@
   .field-input {
     border: 1px var(--Achados-Black) solid;
     border-radius: 4px;
-    background-color: transparent;
+    background: var(--Achados-White);
     height: 36px;
     width: 100%;
     line-height: 20px;
@@ -150,7 +150,7 @@
   }
 
   .short-input {
-    width: 70%;
+    width: 50%;
   }
 
   .empty-input-error {
@@ -243,4 +243,9 @@
 
   .error-message {
     color: red;
+  }
+
+  .field-input-price {
+    min-width: 0 !important;
+    
   }

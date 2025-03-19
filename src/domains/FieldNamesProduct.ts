@@ -1,5 +1,5 @@
 export enum FieldNamesProduct {
-    nomeProduto = 'nomeProduto',
+    nome = 'nome',
     preco = 'preco',
     categoria = 'categoria',
     estoque = 'estoque',

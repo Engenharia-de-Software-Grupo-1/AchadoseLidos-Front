@@ -3,12 +3,16 @@ import { InputText } from 'primereact/inputtext';
 import './style.css';
 import { classNames } from 'primereact/utils';
 import { Product } from '@domains/Product';
+import { InputNumber } from 'primereact/inputnumber';
+import { InputNumberValueChangeEvent } from 'primereact/inputnumber';
+
 
 type ProductFormFieldProps = {
   hasSubmissionFailed: boolean;
   fieldName: keyof Product;
-  fieldValue: string | undefined;
-  setField: (field: keyof Product, value: string) => void;
+  fieldValue?: string | undefined;
+  fieldValueNumber?: number | undefined;
+  setField: (field: keyof Product, value: string | number) => void;
   iconName?: string;
   labelText: string;
   isTextArea?: boolean;
@@ -16,11 +20,16 @@ type ProductFormFieldProps = {
   isShortInput?: boolean;
   isOptional?: boolean;
   isPassword?: boolean;
+  isPrice?: boolean;
+  isCategory?: boolean;
+  isStock?: boolean;
+  isState?: boolean;
 };
 
 const ProductFormField = ({
   hasSubmissionFailed,
   fieldValue,
+  fieldValueNumber,
   iconName,
   setField,
   fieldName,
@@ -29,13 +38,20 @@ const ProductFormField = ({
   placeholderText,
   isShortInput,
   isOptional,
-  isPassword,
+  isPrice,
+  isCategory,
+  isStock,
+  isState,
 }: ProductFormFieldProps) => {
-  const shouldShowError = hasSubmissionFailed && !isOptional && !fieldValue;
+  const shouldShowError = hasSubmissionFailed && !isOptional && (!fieldValue || !fieldValueNumber);
 
   const handleInputTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setField(fieldName, e.target.value);
   };
+
+  const handlePriceChange = (e: InputNumberValueChangeEvent) => {
+    setField(fieldName, e.value ? e.value : 0);
+  }
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setField(fieldName, e.target.value);
@@ -62,13 +78,22 @@ const ProductFormField = ({
           onChange={handleTextAreaChange}
           placeholder={placeholderText}
         />
+      ) : isPrice ? (
+          <InputNumber 
+          className={classNames('field-input', 'field-input-price', {
+            'short-input': isShortInput,
+            'empty-input-error': shouldShowError,
+          })}
+          variant="filled" 
+          value={fieldValueNumber} 
+          onValueChange={handlePriceChange} mode="decimal" 
+          minFractionDigits={2} />
       ) : (
         <InputText
           className={classNames('field-input', {
             'short-input': isShortInput,
             'empty-input-error': shouldShowError,
           })}
-          type={isPassword ? 'password' : 'text'}
           value={fieldValue}
           onChange={handleInputTextChange}
           placeholder={placeholderText}

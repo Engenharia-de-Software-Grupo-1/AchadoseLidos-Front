@@ -37,13 +37,38 @@ const ProductForm = () => {
 
                         <div className="content-form-edit-product">
                             <ProductFormField
-                                labelText="Nome do produto *"
-                                fieldName={FieldNamesProduct.nomeProduto}
-                                fieldValue={product.nomeProduto}
+                                labelText="Nome do produto"
+                                fieldName={FieldNamesProduct.nome}
+                                fieldValue={product.nome}
                                 setField={setField}
                                 hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
                                 placeholderText="Nome do Produto"
                             />
+                        <div className="content-price-form">
+                            <ProductFormField
+                                labelText="Preco"
+                                fieldName={FieldNamesProduct.preco}
+                                fieldValueNumber={product.preco}
+                                setField={setField}
+                                hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                                placeholderText="0,00"
+                                isPrice
+                                isShortInput
+                            />
+                            <ProductFormField
+                                labelText="Preco"
+                                fieldName={FieldNamesProduct.preco}
+                                fieldValueNumber={product.preco}
+                                setField={setField}
+                                hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                                placeholderText="0,00"
+                                isPrice
+                                isShortInput
+                            />
+                    
+                        </div>
+
+
 
                         </div>
 

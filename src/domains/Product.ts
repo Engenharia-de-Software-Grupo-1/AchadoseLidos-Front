@@ -1,8 +1,8 @@
 import { Foto } from './Foto';
 
 export interface Product {
-    nomeProduto: string,
-    preco: string,
+    nome: string,
+    preco: number,
     categoria: string,
     estoque: string,
     anoEdicao?: string,
