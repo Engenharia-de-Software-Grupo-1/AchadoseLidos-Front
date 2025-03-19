@@ -21,14 +21,17 @@
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.1.0",
+    "globals": "^16.0.0",
     "prettier": "^3.5.3",
     "typescript": "^5.7.3",
+    "typescript-eslint": "^8.26.1",
     "vite": "^6.1.0",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
     "@eslint/js": "^9.22.0",
-    "achadose-lidos-front": "file:",
+    "@microsoft/eslint-formatter-sarif": "3.1.0",
+    "achadose-lidos-front": "file:.",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.2",
     "react": "^19.0.0",
