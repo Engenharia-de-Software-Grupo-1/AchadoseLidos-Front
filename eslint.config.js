@@ -1,7 +1,8 @@
-import js from '@eslint/js'
-import tsParser from '@typescript-eslint/parser'
-import tsPlugin from '@typescript-eslint/eslint-plugin'
-import prettierPlugin from 'eslint-plugin-prettier'
+import js from '@eslint/js';
+import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import prettierPlugin from 'eslint-plugin-prettier';
+import importPlugin from 'eslint-plugin-import';
 
 export default [
   js.configs.recommended,
@@ -19,10 +20,12 @@ export default [
     plugins: {
       '@typescript-eslint': tsPlugin,
       prettier: prettierPlugin,
+      import: importPlugin,
     },
     rules: {
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-      'prettier/prettier': ['error', { singleQuote: true, semi: false }],
+      'semi': ['error', 'always'],
+      'import/extensions': ['error', 'never', { ts: 'never', tsx: 'never', css: 'always' }],
     },
   },
 ]
