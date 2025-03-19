@@ -1,6 +1,7 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 import pluginReact from 'eslint-plugin-react';
 
 export default {
@@ -10,22 +11,15 @@ export default {
     },
     {
       files: ['**/*.js'],
-      languageOptions: { sourceType: 'script' },
-    },
-    {
-      languageOptions: { globals: globals.browser },
-    },
-    {
+      languageOptions: {
+        sourceType: 'script',
+        globals: globals.browser,
+        parser: tsParser,
+      },
       ...pluginJs.configs.recommended,
-    },
-    {
       ...tseslint.configs.recommended,
-    },
-    {
       ...pluginReact.configs.flat.recommended,
-    },
-    {
-      plugins: [pluginReact],
+      plugins: [pluginReact, tseslint],
       settings: {
         react: {
           version: 'detect',
