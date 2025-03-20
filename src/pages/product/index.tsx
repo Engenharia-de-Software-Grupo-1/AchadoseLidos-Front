@@ -18,7 +18,7 @@ const ProductPage = async (id: number) => {
         <ProductDetails
           productName={produto.nome}
           seboName={produto.sebo?.nome}
-          bairro="Icoaraci"
+          bairro={produto.sebo?.bairro}
           tags={[
             { severity: 'warning', value: 'Bom estado' },
             { severity: 'warning', value: 'K7' },
@@ -26,7 +26,7 @@ const ProductPage = async (id: number) => {
           stock={produto.qtdEstoque}
           price={produto.preco}
           editionYear={produto.anoEdicao}
-          releaseYear={2025}
+          releaseYear={produto.anoLancamento}
           author={produto.autores}
           description={produto.descricao}
         />

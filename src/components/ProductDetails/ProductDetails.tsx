@@ -10,7 +10,7 @@ interface TagProps {
 
 interface ProdutoDetalhesProps {
   productName: string;
-  seboName?: string; // não é opcional.
+  seboName?: string;
   bairro: string;
   tags: TagProps[];
   stock: number;

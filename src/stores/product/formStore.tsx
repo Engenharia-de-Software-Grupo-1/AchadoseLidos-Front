@@ -5,7 +5,7 @@ import { Produto } from '@domains/Produto/Produto';
 import { ProdutoFieldNames } from '@domains/Produto/ProdutoFieldNames';
 
 interface ProdutoFormContextType {
-  Produto: Produto;
+  produto: Produto;
   setField: (field: string, value: any) => void;
   validateStep: (stepIndex: number) => boolean;
   getRule: (field: string) => {};
@@ -79,7 +79,7 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
   };
 
   return (
-    <ProdutoFormContext.Provider value={{ Produto, setField, validateStep, getRule }}>
+    <ProdutoFormContext.Provider value={{ produto: Produto, setField, validateStep, getRule }}>
       {children}
     </ProdutoFormContext.Provider>
   );
