@@ -8,8 +8,11 @@ import { Avatar } from 'primereact/avatar';
 import { PanelMenu } from 'primereact/panelmenu';
 import 'primeicons/primeicons.css';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
+import { logout } from 'routes/routesAuth';
+import { useNotification } from '@contexts/notificationContext';
+import { useAuth } from '@contexts/authContext';
 
 interface HeaderProps {
   simpleHeader: boolean
@@ -17,9 +20,29 @@ interface HeaderProps {
 
 export default function Header({ simpleHeader }: HeaderProps) {
   const [menuVisible, setMenuVisible] = useState(false);
+  const navigate = useNavigate();
+  const { showNotification } = useNotification();
+  const { isAuthenticated, conta, auth_logout } = useAuth();
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+
+      if (response.status == 200) {
+        showNotification('success', 'Logout realizado com sucesso!', '');
+      } else {
+        showNotification('error', 'Logout falhou', '');
+      }
+
+      auth_logout();
+      navigate('/');
+    } catch (err) {
+      showNotification('error', err, '');
+    }
   };
 
   let content = <></>;
@@ -41,18 +64,30 @@ export default function Header({ simpleHeader }: HeaderProps) {
       </a>
     );
 
-    const panelMenuItems = [
+    const panelMenuItems = isAuthenticated
+  ? [
       { label: 'Meu Perfil', icon: 'pi pi-user' },
       { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
-      { label: 'Cesta', icon: 'pi pi-shopping-bag' },
-      { label: 'Favoritos', icon: 'pi pi-heart' },
+
+      ...(conta?.tipo === 'SEBO'
+        ? [
+            { label: 'Meus Produtos', icon: 'pi pi-box' }, 
+          ]
+        : [
+          { label: 'Cesta', icon: 'pi pi-shopping-bag' },
+          { label: 'Favoritos', icon: 'pi pi-heart' },
+        ]),
+
+      
       {
         label: 'Sair',
         icon: 'pi pi-sign-out',
-        onClick: () => {
-          localStorage.removeItem('token');
-        },
+        command: () => handleLogout(),
       },
+    ]
+  : [
+      { label: 'Entrar', icon: 'pi pi-sign-in', command: () => navigate('/login') },
+      { label: 'Cadastrar', icon: 'pi pi-user-plus', command: () => navigate('/register') },
     ];
 
     const items = [
@@ -91,10 +126,14 @@ export default function Header({ simpleHeader }: HeaderProps) {
         </div>
 
         <div className="flex align-items-center gap-4 justify-center">
-          <Button icon="pi pi-heart" rounded text aria-label="Favoritos" style={{ color: '#F5ECDD' }} />
-          <Button icon="pi pi-shopping-bag" rounded text aria-label="Cesta" style={{ color: '#F5ECDD' }} />
+          {conta?.tipo === 'USUARIO' && (
+            <>
+              <Button icon="pi pi-heart" rounded text aria-label="Favoritos" style={{ color: '#F5ECDD' }} />
+              <Button icon="pi pi-shopping-bag" rounded text aria-label="Cesta" style={{ color: '#F5ECDD' }} />
+            </>
+          )}
           <Avatar
-            image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png"
+            image={conta?.usuario?.fotoPerfil || conta?.sebo?.fotoPerfil?.url || 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png'}
             shape="circle"
             onClick={() => toggleMenu()}
             style={{ cursor: 'pointer' }}
