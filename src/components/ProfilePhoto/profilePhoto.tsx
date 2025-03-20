@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import "./style.css";
+import { useState, useRef } from 'react';
+import './style.css';
 
 interface ProfilePhotoProps {
   imageProfile: string;
@@ -21,15 +21,15 @@ const ProfilePhoto = ({ imageProfile, canUpload = false }: ProfilePhotoProps) =>
     <div
       className="profile-container"
       onClick={() => canUpload && fileInputRef.current?.click()}
-      style={{ cursor: canUpload ? "pointer" : "default" }}
+      style={{ cursor: canUpload ? 'pointer' : 'default' }}
     >
       <div
         className="profile-picture"
         style={{
           backgroundImage: canUpload ? `linear-gradient(rgba(169, 169, 169, 0.5), rgba(169, 169, 169, 0.5)), url(${image})` : `url(${imageProfile})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
         }}
       >
         {canUpload && <i className="pi pi-pencil icon-image" />}
@@ -38,7 +38,7 @@ const ProfilePhoto = ({ imageProfile, canUpload = false }: ProfilePhotoProps) =>
         <input
           type="file"
           ref={fileInputRef}
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           accept="image/*"
           onChange={handleImageUpload}
         />

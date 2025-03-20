@@ -2,17 +2,17 @@ import { IconField } from 'primereact/iconfield';
 import { InputText } from 'primereact/inputtext';
 import './style.css';
 import { classNames } from 'primereact/utils';
-import { Product } from '@domains/Product';
+import { Produto } from '@domains/Produto/Produto';
 import { InputNumber } from 'primereact/inputnumber';
 import { InputNumberValueChangeEvent } from 'primereact/inputnumber';
 
 
 type ProductFormFieldProps = {
   hasSubmissionFailed: boolean;
-  fieldName: keyof Product;
+  fieldName: keyof Produto;
   fieldValue?: string | undefined;
   fieldValueNumber?: number | undefined;
-  setField: (field: keyof Product, value: string | number) => void;
+  setField: (field: keyof Produto, value: string | number) => void;
   iconName?: string;
   labelText: string;
   isTextArea?: boolean;
@@ -51,7 +51,7 @@ const ProductFormField = ({
 
   const handlePriceChange = (e: InputNumberValueChangeEvent) => {
     setField(fieldName, e.value ? e.value : 0);
-  }
+  };
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setField(fieldName, e.target.value);

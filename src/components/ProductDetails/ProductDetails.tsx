@@ -8,20 +8,20 @@ interface TagProps {
   value: string;
 }
 
-interface ProductDetailsProps {
+interface ProdutoDetalhesProps {
   productName: string;
-  seboName: string;
+  seboName?: string; // não é opcional.
   bairro: string;
   tags: TagProps[];
   stock: number;
   price: number;
-  editionYear: number;
+  editionYear?: number;
   releaseYear: number;
-  author: string;
-  description: string;
+  author?: string;
+  description?: string;
 }
 
-const ProductDetails: React.FC<ProductDetailsProps> = (props: ProductDetailsProps) => {
+const ProductDetails: React.FC<ProdutoDetalhesProps> = (props: ProdutoDetalhesProps) => {
   const { productName, seboName, bairro, tags, stock, price, editionYear, releaseYear, author, description } = props;
   return (
     <main className="product-frame">

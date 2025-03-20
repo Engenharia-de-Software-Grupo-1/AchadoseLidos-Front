@@ -1,42 +1,46 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { useNotification } from '@contexts/notificationContext';
 import { extractRules, stepRules } from '@utils/formRules';
-import { Product } from '@domains/Product';
+import { Produto } from '@domains/Produto/Produto';
+import { ProdutoFieldNames } from '@domains/Produto/ProdutoFieldNames';
 
-interface ProductFormContextType {
-  product: Product;
+interface ProdutoFormContextType {
+  Produto: Produto;
   setField: (field: string, value: any) => void;
   validateStep: (stepIndex: number) => boolean;
   getRule: (field: string) => {};
 }
 
-const ProductFormContext = createContext<ProductFormContextType | null>(null);
+const ProdutoFormContext = createContext<ProdutoFormContextType | null>(null);
 
-export const useProductForm = (): ProductFormContextType => {
-  const context = useContext(ProductFormContext);
+export const useProdutoForm = (): ProdutoFormContextType => {
+  const context = useContext(ProdutoFormContext);
   if (!context) {
-    throw new Error('useProductForm must be used within a ProductFormProvider');
+    throw new Error('useProdutoForm must be used within a ProdutoFormProvider');
   }
   return context;
 };
 
-interface ProductFormProviderProps {
+interface ProdutoFormProviderProps {
   children: ReactNode;
 }
 
-export const ProductFormProvider = ({ children }: ProductFormProviderProps) => {
+export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
   const { showNotification } = useNotification();
-  const [product, setFormData] = useState<Product>({
+  const [Produto, setFormData] = useState<Produto>({
     // falta foto
-    nomeProduto: '',
-    preco: '',
-    categoria: '',
-    estoque: '',
-    anoEdicao: '',
-    anoLancamento: '',
-    estado: '',
+    nome: '',
+    preco: 0,
+    categoria: 'LIVRO',
+    qtdEstoque: 0,
+    anoEdicao: 0,
+    anoLancamento: 0,
+    estadoConservacao: 'EXCELENTE',
     autores: '',
     descricao: '',
+    status: 'ATIVO',
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
 
   const setField = (field: string, value: any) => {
@@ -68,15 +72,15 @@ export const ProductFormProvider = ({ children }: ProductFormProviderProps) => {
 
     const rulesByStep = stepRules(fieldsToValidate, rules);
 
-    const validationResults = extractRules(rulesByStep, product);
+    const validationResults = extractRules(rulesByStep, Produto);
 
     const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
     return !hasError;
   };
 
   return (
-    <ProductFormContext.Provider value={{ product, setField, validateStep, getRule }}>
+    <ProdutoFormContext.Provider value={{ Produto, setField, validateStep, getRule }}>
       {children}
-    </ProductFormContext.Provider>
+    </ProdutoFormContext.Provider>
   );
 };
