@@ -1,4 +1,3 @@
-import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import Banner from '@components/Banner/banner';
 import TemplatePage from '@pages/templatePage';
 import './style.css';

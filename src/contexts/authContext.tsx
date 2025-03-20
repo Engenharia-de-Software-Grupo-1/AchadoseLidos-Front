@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           auth_logout();
         }
       } catch (err) {
+        console.error(err);
         auth_logout();
       }
     };
