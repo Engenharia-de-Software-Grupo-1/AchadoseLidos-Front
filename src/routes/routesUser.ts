@@ -22,3 +22,10 @@ import axios from 'axios';
     });
     return response.data;
  };
+
+ export const deleteUser = async (id: any) => {
+    const response = await api.delete(`/contas/${id}`, {
+      withCredentials: true,
+    });
+    return response.data;
+ };

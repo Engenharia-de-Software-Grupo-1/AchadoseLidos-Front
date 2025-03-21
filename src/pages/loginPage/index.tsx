@@ -27,7 +27,9 @@ const LoginPage = () => {
         if (response.status === 200) {
           showNotification('success', 'Login realizado com sucesso!', '');
           auth_login();
+          
           navigate('/');
+          window.location.reload();
         }
       } catch (error) {
         if (error.response.status === 401) {

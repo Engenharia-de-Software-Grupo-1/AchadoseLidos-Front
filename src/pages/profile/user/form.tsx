@@ -6,16 +6,17 @@ import { ProfileFormFieldUser } from '@components/ProfileForm/ProfileFormFieldUs
 import { FieldNamesUser } from '@domains/FieldNames';
 import { useFormUser } from './useForm';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DialogModal from '@components/DialogModal';
-import ButtonComponent from '@components/Button';
 import { useAuth } from '@contexts/authContext';
-import { getById, updateUser } from 'routes/routesUser';
+import { deleteUser, getById, updateUser } from 'routes/routesUser';
 import { useNotification } from '@contexts/notificationContext';
+import { Button } from 'primereact/button';
 
 const ProfileUserForm = () => {
   const { breadcrumbItems, setField, submitted, user } = useFormUser();
-
-  const { conta } = useAuth();
+  const { conta,  auth_logout } = useAuth();
+  const navigate = useNavigate();
   const { showNotification } = useNotification();
 
   useEffect(() => {
@@ -50,6 +51,19 @@ const ProfileUserForm = () => {
     }
   };
 
+  const deleteAccount = async () => {
+    try {
+        if (conta?.usuario?.id !== undefined) {
+            await deleteUser(conta.usuario.id);
+            showNotification('success', 'Conta excluída com sucesso!', '');
+            auth_logout();
+            navigate('/');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+  };
+
   return (
     <main className="container-profile-user-form">
       <TemplatePage simpleHeader={false} simpleFooter={true}>
@@ -57,7 +71,12 @@ const ProfileUserForm = () => {
           <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
 
           <div className="container-image-form">
-            <ProfilePhoto imageProfile={user.fotoPerfil || ''} canUpload setField={setField} userId={conta?.usuario?.id} />
+            <ProfilePhoto
+              imageProfile={user.fotoPerfil || ''}
+              canUpload
+              setField={setField}
+              userId={conta?.usuario?.id}
+            />
 
             <ProfileFormFieldUser
               labelText="Biografia Curta"
@@ -78,6 +97,7 @@ const ProfileUserForm = () => {
                 <div className="form-user-content1">
                   <span className="span-form-user-data">Dados</span>
                   <ProfileFormFieldUser
+                    labelText="Nome Completo"
                     fieldName={FieldNamesUser.nome}
                     fieldValue={user.nome}
                     setField={setField}
@@ -86,6 +106,7 @@ const ProfileUserForm = () => {
                   />
 
                   <ProfileFormFieldUser
+                    labelText="CPF"
                     fieldName={FieldNamesUser.cpf}
                     fieldValue={user.cpf}
                     setField={setField}
@@ -94,6 +115,7 @@ const ProfileUserForm = () => {
                   />
 
                   <ProfileFormFieldUser
+                    labelText="Instagram"
                     fieldName={FieldNamesUser.instagram}
                     fieldValue={user.instagram}
                     setField={setField}
@@ -103,6 +125,7 @@ const ProfileUserForm = () => {
                   />
 
                   <ProfileFormFieldUser
+                    labelText="Twitter"
                     fieldName={FieldNamesUser.twitter}
                     fieldValue={user.twitter}
                     setField={setField}
@@ -111,12 +134,17 @@ const ProfileUserForm = () => {
                     isOptional
                   />
 
-                  <ButtonComponent label="Excluir Conta" type="button-trash" onClick={() => setVisible(true)} />
-                  {visible && <DialogModal visibleDialog={visible} setVisibleDialog={setVisible}></DialogModal>}
+                  <Button label="Excluir Conta" className="button-trash" onClick={() => setVisible(true)} />
+                  {visible && 
+                    <DialogModal 
+                    visibleDialog={visible} 
+                    setVisibleDialog={setVisible}
+                    onConfirm={deleteAccount} />}
                 </div>
 
                 <div className="form-user-content2">
                   <ProfileFormFieldUser
+                    labelText="Telefone"
                     fieldName={FieldNamesUser.telefone}
                     fieldValue={user.telefone}
                     setField={setField}
@@ -124,6 +152,7 @@ const ProfileUserForm = () => {
                     placeholderText="Telefone *"
                   />
                   <ProfileFormFieldUser
+                    labelText="Goodreads"
                     fieldName={FieldNamesUser.goodreads}
                     fieldValue={user.goodreads}
                     setField={setField}
@@ -132,6 +161,7 @@ const ProfileUserForm = () => {
                     isOptional
                   />
                   <ProfileFormFieldUser
+                    labelText="Skoob"
                     fieldName={FieldNamesUser.skoob}
                     fieldValue={user.skoob}
                     setField={setField}
@@ -143,7 +173,7 @@ const ProfileUserForm = () => {
               </div>
 
               <div className="container-button-save-form-user">
-                <ButtonComponent label="Salvar" type="button-save" onClick={updateDataUser} />
+                <Button label="Salvar" className="button-save" onClick={updateDataUser} />
               </div>
             </section>
           </section>

@@ -23,7 +23,7 @@ const RegisterUser = () => {
     try {
       await registerUser(user);
       showNotification('success', null, 'Usuário cadastrado com sucesso!');
-      navigate('/');
+      navigate('/login');
     } catch {
       showNotification('error', null, 'Erro ao cadastrar usuário!');
     }
