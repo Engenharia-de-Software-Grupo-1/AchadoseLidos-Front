@@ -1,5 +1,5 @@
 .content-title-event,
-.content-title {
+.content-title-items {
   display: flex;
   padding: 0px 32px;
   justify-content: center;
@@ -80,7 +80,7 @@
   background-color: var(--Achados-OffWhite);
 }
 
-.space-carousel-events {
+.space-carousel-event {
   display: flex;
   height: 88px;
   padding: 32px 60px;

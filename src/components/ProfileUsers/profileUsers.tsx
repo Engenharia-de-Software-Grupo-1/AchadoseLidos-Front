@@ -28,7 +28,7 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser 
                 <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
               </Link>
             ) : authUser ? (
-              <img src="/images/bell.svg"></img>
+              <i className="pi pi-bell" style={{ fontSize: 'x-large' }}/>
             ) : null}
           </div>
 

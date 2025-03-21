@@ -54,8 +54,7 @@ export default function UploadImages() {
         );
     };
 
-    const itemTemplate = (inFile: object, props: ItemTemplateOptions) => {
-        const file = inFile as File;
+    const itemTemplate = (file: File, props: ItemTemplateOptions) => {
         return (
             <div className="flex align-items-center flex-wrap">
                 <div className="flex align-items-center" style={{ width: '40%' }}>

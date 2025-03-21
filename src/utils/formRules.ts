@@ -1,4 +1,4 @@
-import { isCpfCnpj, isEmail, isMaxLength } from './utils';
+import { getTypeCpfCnpj, isEmail, isValidLength } from './utils';
 
 export const stepRules = (fieldsToValidate: Array<string>, rules: Record<string, Rule[]>) =>
   fieldsToValidate.reduce(
@@ -45,13 +45,13 @@ export const validateRule = (value: string, ruleList: Rule[] = []) => {
         validationResult.error = true;
         validationResult.message = 'Campo obrigatório';
       }
-    } else if (rule.rule === 'isCpfCnpj') {
-      if (value && !isCpfCnpj(value)) {
+    } else if (rule.rule === 'getTypeCpfCnpj') {
+      if (value && !getTypeCpfCnpj(value)) {
         validationResult.error = true;
         validationResult.message = 'Informe um CPF/CNPJ válido';
       }
-    } else if (rule.rule === 'isMaxLength') {
-      if (value && rule.maxLength && !isMaxLength(value, rule.maxLength)) {
+    } else if (rule.rule === 'isValidLength') {
+      if (value && rule.maxLength && !isValidLength(value, rule.maxLength)) {
         validationResult.error = true;
         validationResult.message = 'Límite de caracteres ultrapassado';
       }

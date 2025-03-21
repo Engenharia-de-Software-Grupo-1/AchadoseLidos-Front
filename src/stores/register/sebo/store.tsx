@@ -66,7 +66,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   const [cities, setCities] = useState<{ value: string; text: string }[]>([]);
   const [rules, setRules] = useState<Record<string, Rule[]>>({
     nome: [{ rule: 'required' }],
-    cpfCnpj: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
+    cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
     email: [{ rule: 'required' }, { rule: 'isEmail' }],
     senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
     confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],

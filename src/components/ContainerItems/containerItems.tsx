@@ -7,17 +7,22 @@ interface ContainerItemsProps {
 }
 
 const ContainerItems = ({ title, children, backgroundBege }: ContainerItemsProps) => {
+  const getClassName = (classNameBase: string) => {
+    if (backgroundBege) return classNameBase + '-event';
+    return classNameBase + '-items';
+  };
+
   return (
     <>
-      <div className={`${backgroundBege ? 'container-carousel-event' : 'container-carousel-items'}`}>
-        <div className={`${backgroundBege ? 'content-title-event' : 'content-title'}`}>
-          <span className={`${backgroundBege ? 'title-carousel-event' : 'title-carousel-items'}`}>
+      <div className={getClassName('container-carousel')}>
+        <div className={getClassName('content-title')}>
+          <span className={getClassName('title-carousel-event')}>
             {title} {'>'}
           </span>
         </div>
       </div>
 
-      <div className={`${backgroundBege ? 'space-carousel-events' : 'space-carousel-items'}`}>{children}</div>
+      <div className={getClassName('space-carousel')}>{children}</div>
     </>
   );
 };

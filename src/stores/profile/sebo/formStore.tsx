@@ -71,7 +71,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
 
   const rules: Record<string, Rule[]> = {
     nome: [{ rule: 'required' }],
-    cpfCnpj: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
+    cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
     email: [{ rule: 'required' }, { rule: 'isEmail' }],
     senha: [{ rule: 'required' }],
     confirmaSenha: [{ rule: 'required' }],
