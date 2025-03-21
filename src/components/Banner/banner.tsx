@@ -3,7 +3,10 @@ import './style.css';
 
 interface BannerProps {
   images: string[]
+<<<<<<< HEAD
   showIndicators: boolean
+=======
+>>>>>>> main
 }
 
 export default function Banner({ images, showIndicators }: BannerProps) {

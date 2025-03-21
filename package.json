@@ -32,7 +32,6 @@
   "dependencies": {
     "@react-google-maps/api": "^2.20.6",
     "@types/google.maps": "^3.58.1",
-    "achadose-lidos-front": "file:",
     "brasilapi-js": "^1.0.1",
     "cpf-cnpj-validator": "^1.0.3",
     "email-validator": "^2.0.4",
