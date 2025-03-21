@@ -17,6 +17,6 @@ export const logout = async () => {
 };
 
 export const informacoes = async () => {
-  const response = await api.get('/contas/informacoes');
+  const response = await api.get('/contas/perfil');
   return response;
 };
