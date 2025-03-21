@@ -10,7 +10,9 @@ import axios from 'axios';
  };
 
  export const getById = async (id: any) => {
-    const response = await api.get(`/usuarios/${id}`);
+    const response = await api.get(`/usuarios/perfil/${id}`, {
+      withCredentials: true,
+    });
     return response.data;
  };
 
