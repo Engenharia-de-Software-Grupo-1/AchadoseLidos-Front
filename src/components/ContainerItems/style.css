@@ -11,7 +11,12 @@
   background: var(--Achados-OffWhite);
 }
 
-.title-carousel-items {
+.content-title-event {
+  background-color: var(--Achados-Lighter-OffWhite);
+}
+
+.title-carousel-items,
+.title-carousel-event {
   color: var(--Achados-Success);
   font-feature-settings:
     'liga' off,
@@ -21,20 +26,13 @@
   font-style: normal;
   font-weight: 600;
   line-height: 48px;
+}
+
+.title-carousel-items {
   background-color: var(--Achados-OffWhite);
 }
 
-.space-carousel-items {
-  display: flex;
-  height: 330px;
-  padding: 32px 98px;
-  justify-content: center;
-  align-items: center;
-  align-self: stretch;
-  background-color: var(--Achados-OffWhite);
-}
-
-.content-title-event {
+.title-carousel-event {
   background-color: var(--Achados-Lighter-OffWhite);
 }
 
@@ -50,24 +48,6 @@
 
 .container-carousel-event {
   background: var(--Achados-OffWhite);
-}
-
-.title-carousel-items,
-.title-carousel-event {
-  color: var(--Achados-Success);
-  font-feature-settings:
-    'liga' off,
-    'clig' off;
-  font-family: Poppins;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 48px;
-  background-color: var(--Achados-OffWhite);
-}
-
-.title-carousel-event {
-  background-color: var(--Achados-Lighter-OffWhite);
 }
 
 .space-carousel-items {

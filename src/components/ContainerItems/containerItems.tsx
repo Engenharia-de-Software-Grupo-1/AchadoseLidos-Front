@@ -8,15 +8,14 @@ interface ContainerItemsProps {
 
 const ContainerItems = ({ title, children, backgroundBege }: ContainerItemsProps) => {
   const getClassName = (classNameBase: string) => {
-    if (backgroundBege) return classNameBase + '-event';
-    return classNameBase + '-items';
+    return backgroundBege ? classNameBase + '-event' : classNameBase + '-items';
   };
 
   return (
     <>
       <div className={getClassName('container-carousel')}>
         <div className={getClassName('content-title')}>
-          <span className={getClassName('title-carousel-event')}>
+          <span className={getClassName('title-carousel')}>
             {title} {'>'}
           </span>
         </div>
