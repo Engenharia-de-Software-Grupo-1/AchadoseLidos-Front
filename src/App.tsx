@@ -15,7 +15,6 @@ const App = () => {
         <NotificationProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            {/*<Route path="/register" element={<Register />} />  path pra tela inicial de cadastro*/}
             <Route
               path="/register/sebo"
               element={

@@ -4,6 +4,7 @@ import { Sebo } from '@domains/Sebo';
 import { useNotification } from '@contexts/notificationContext';
 import { extractRules, stepRules } from '@utils/formRules';
 import { addRuleToField } from '@utils/utils';
+import { Rule } from '@domains/Rule';
 
 interface ProfileSeboFormContextType {
   sebo: Sebo;
@@ -87,7 +88,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     return rules[field] ? rules[field] : {};
   };
 
-  const validateStep = (stepIndex: number): boolean => {
+  const validateStep = (): boolean => {
     let fieldsToValidate = [
       'nome',
       'cpfCnpj',

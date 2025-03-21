@@ -1,4 +1,3 @@
-import { IconField } from 'primereact/iconfield';
 import { InputText } from 'primereact/inputtext';
 import './style.css';
 import { classNames } from 'primereact/utils';

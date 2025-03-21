@@ -20,7 +20,6 @@ const RegisterSebo = () => {
   const finalizeRegister = async () => {
     try {
       const response = await registerSebo(sebo);
-      console.log(response);
       alert('Sebo cadastrado com sucesso!');
     } catch (error) {
       console.error('Erro ao cadastrar sebo:', error);

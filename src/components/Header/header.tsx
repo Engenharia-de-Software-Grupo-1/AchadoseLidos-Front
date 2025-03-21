@@ -8,10 +8,7 @@ import { Avatar } from 'primereact/avatar';
 import { PanelMenu } from 'primereact/panelmenu';
 import 'primeicons/primeicons.css';
 import './style.css';
-<<<<<<< HEAD
 import { Link } from 'react-router-dom';
-=======
->>>>>>> main
 import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
 
 interface HeaderProps {
@@ -82,11 +79,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           <IconField iconPosition="left">
             <InputIcon className="pi pi-search"></InputIcon>
             <InputText
-<<<<<<< HEAD
               placeholder="O que deseja garimpar?"
-=======
-              placeholder="O que deseja grimpar?"
->>>>>>> main
               type="text"
               style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
             />

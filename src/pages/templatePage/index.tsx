@@ -6,12 +6,9 @@ import { classNames } from 'primereact/utils';
 interface TemplatePageProps {
   children: React.ReactNode
   simpleHeader: boolean
-<<<<<<< HEAD
   simpleFooter: boolean
   backgroundFooterDiff?: boolean
   contents?: boolean
-=======
->>>>>>> main
 }
 
 const TemplatePage: React.FC<TemplatePageProps> = ({ children, simpleHeader, simpleFooter, backgroundFooterDiff, contents=false }) => {

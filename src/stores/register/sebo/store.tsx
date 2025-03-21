@@ -5,6 +5,7 @@ import { useNotification } from '@contexts/notificationContext';
 import { extractRules, stepRules, validateRule } from '@utils/formRules';
 import { addRuleToField, getField } from '@utils/utils';
 import { useErrorContext } from 'contexts/errorContext';
+import { Rule } from '@domains/Rule';
 
 interface RegisterSeboContextType {
   sebo: Sebo;

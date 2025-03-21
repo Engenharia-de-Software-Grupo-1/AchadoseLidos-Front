@@ -1,5 +1,3 @@
-import React from 'react';
-import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import Banner from '@components/Banner/banner';
 import TemplatePage from '@pages/templatePage';
 import './style.css';
@@ -19,7 +17,6 @@ const HomePage = () => {
         </div>
 
         <img src="/images/underline.svg" alt="underline" style={{ marginTop: '42px', marginBottom: '42px' }} />
-<<<<<<< HEAD
         <ContainerItems title="Livros" backgroundBege={false}>
           {' '}
         </ContainerItems>
@@ -32,8 +29,6 @@ const HomePage = () => {
         <ContainerItems title="Todos os itens" backgroundBege={true}>
           {' '}
         </ContainerItems>
-=======
->>>>>>> main
 
       </div>
     </TemplatePage>

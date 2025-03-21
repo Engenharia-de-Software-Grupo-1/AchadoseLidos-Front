@@ -1,5 +1,4 @@
 import FormField from '@components/FormField/formField';
-import { Checkbox } from 'primereact/checkbox';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Sebo } from '@domains/Sebo';

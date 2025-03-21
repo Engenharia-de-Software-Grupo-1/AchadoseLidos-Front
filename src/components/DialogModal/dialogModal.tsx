@@ -26,5 +26,5 @@ export default function DialogModal({ visibleDialog, setVisibleDialog }: DialogM
                 </div>
             </Dialog>
         </div>
-    )
+    );
 }

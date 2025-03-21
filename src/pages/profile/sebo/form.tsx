@@ -1,20 +1,17 @@
 import TemplatePage from '@pages/templatePage';
 import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
-import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
-import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
-import { ProfileFormField } from '@components/ProfileForm/ProfileFormField';
+import { ProfileFormField } from '@components/ProfileForm/profileFormField';
 import { FieldNames } from '@domains/FieldNames';
-import { IconField } from 'primereact/iconfield';
-import { AddressFormField } from '@components/ProfileForm/AddressFormField';
+import { AddressFormField } from '@components/ProfileForm/addressFormField';
 import { AddressNames } from '@domains/AddressNames';
 import { useForm } from './useForm';
 import { Checkbox } from 'primereact/checkbox';
 import { useState } from 'react';
 import UploadImages from '@components/UploadImages/uploadImages';
 import { Button } from 'primereact/button';
-import DialogModal from '@components/DialogModal';
+import DialogModal from '@components/DialogModal/dialogModal';
 
 const ProfileSeboForm = () => {
   const {
