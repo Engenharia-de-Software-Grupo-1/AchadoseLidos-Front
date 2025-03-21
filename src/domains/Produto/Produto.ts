@@ -8,13 +8,13 @@ export interface Produto {
     preco: number,
     categoria: keyof typeof CategoriaProduto,
     qtdEstoque: number,
+    estadoConservacao: keyof typeof EstadoConservacaoProduto,
     anoEdicao?: number,
     anoLancamento?: number,
-    estadoConservacao: keyof typeof EstadoConservacaoProduto,
     autores?: string,
     descricao?: string,
     fotos?: Foto[],
     createdAt: Date,
     updatedAt: Date,
-    sebo?: Sebo, //Esse campo não é opcional, verificar como ficaria no forms o Sebo após remover "?".
+    sebo?: Sebo,
 }
