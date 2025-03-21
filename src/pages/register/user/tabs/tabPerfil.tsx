@@ -60,6 +60,6 @@ const TabDadosPerfil: React.FC<TabDadosPerfilProps> = ({ user, setField }) => {
         </div>
         </div>
     );
-    }
+    };
 
 export default TabDadosPerfil;

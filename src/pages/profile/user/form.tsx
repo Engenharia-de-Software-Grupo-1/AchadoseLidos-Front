@@ -1,135 +1,156 @@
 import TemplatePage from '@pages/templatePage';
-import './style.css'
+import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 import { ProfileFormFieldUser } from '@components/ProfileForm/ProfileFormFieldUser';
 import { FieldNamesUser } from '@domains/FieldNames';
-import { useForm } from '../sebo/useForm';
 import { useFormUser } from './useForm';
-import { Button } from 'primereact/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DialogModal from '@components/DialogModal';
 import ButtonComponent from '@components/Button';
+import { useAuth } from '@contexts/authContext';
+import { getById, updateUser } from 'routes/routesUser';
+import { useNotification } from '@contexts/notificationContext';
 
 const ProfileUserForm = () => {
+  const { breadcrumbItems, setField, submitted, user } = useFormUser();
 
-    const [visible, setVisible] = useState<boolean>(false);
+  const { conta } = useAuth();
+  const { showNotification } = useNotification();
 
-    const {
-        breadcrumbItems,
-        getRule,
-        setField,
-        setSubmitted,
-        submitted,
-        validateStep,
-        imageProfile,
-        user
-    } = useFormUser();
+  useEffect(() => {
+    setUser();
+  }, [conta]);
 
-    return (
-        <main className='container-profile-user-form'>
-            <TemplatePage simpleHeader={false} simpleFooter={true}>
-                <section className='container-profile-user-form-edit'>
-                    <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
+  const setUser = async () => {
+    try {
+      if (conta?.usuario?.id !== undefined) {
+        const usuario = await getById(conta.usuario.id);
+        (Object.keys(usuario) as Array<keyof typeof usuario>).forEach((key) => {
+          if (usuario[key] !== undefined) {
+            setField(key as string, usuario[key]);
+          }
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-                    <div className='container-image-form'>
-                        <ProfilePhoto imageProfile={imageProfile} canUpload />
+  const [visible, setVisible] = useState<boolean>(false);
 
-                        <ProfileFormFieldUser
-                            labelText="Biografia Curta"
-                            fieldName={FieldNamesUser.biografia}
-                            fieldValue={user.biografia}
-                            setField={setField}
-                            hasSubmissionFailed={submitted}
-                            placeholderText="biografia curta"
-                            isTextArea
-                            isOptional
-                            isShortInput
-                        />
-                    </div>
+  const updateDataUser = async () => {
+    try {
+      if (conta?.usuario?.id !== undefined) {
+        await updateUser(user, conta.usuario.id);
+        showNotification('success', 'Dados atualizados com sucesso!', '');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-                    <section className='container-form-user-data'>
-                        <section className='container-section-form-user'>
-                            <div className='content-form-user-data'>
+  return (
+    <main className="container-profile-user-form">
+      <TemplatePage simpleHeader={false} simpleFooter={true}>
+        <section className="container-profile-user-form-edit">
+          <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
 
-                                <div className='form-user-content1'>
-                                    <span className='span-form-user-data'>Dados</span>
-                                    <ProfileFormFieldUser
-                                        fieldName={FieldNamesUser.nome}
-                                        fieldValue={user.nome}
-                                        setField={setField}
-                                        hasSubmissionFailed={submitted}
-                                        placeholderText="Nome Completo *"
-                                    />
+          <div className="container-image-form">
+            <ProfilePhoto imageProfile={user.fotoPerfil || ''} canUpload setField={setField} userId={conta?.usuario?.id} />
 
-                                    <ProfileFormFieldUser
-                                        fieldName={FieldNamesUser.cpf}
-                                        fieldValue={user.cpf}
-                                        setField={setField}
-                                        hasSubmissionFailed={submitted}
-                                        placeholderText="CPF *"
-                                    />
+            <ProfileFormFieldUser
+              labelText="Biografia Curta"
+              fieldName={FieldNamesUser.biografia}
+              fieldValue={user.biografia}
+              setField={setField}
+              hasSubmissionFailed={submitted}
+              placeholderText="biografia curta"
+              isTextArea
+              isOptional
+              isShortInput
+            />
+          </div>
 
-                                    <ProfileFormFieldUser
-                                        fieldName={FieldNamesUser.instagram}
-                                        fieldValue={user.instagram}
-                                        setField={setField}
-                                        hasSubmissionFailed={submitted}
-                                        placeholderText="Instagram"
-                                        isOptional
-                                    />
+          <section className="container-form-user-data">
+            <section className="container-section-form-user">
+              <div className="content-form-user-data">
+                <div className="form-user-content1">
+                  <span className="span-form-user-data">Dados</span>
+                  <ProfileFormFieldUser
+                    fieldName={FieldNamesUser.nome}
+                    fieldValue={user.nome}
+                    setField={setField}
+                    hasSubmissionFailed={submitted}
+                    placeholderText="Nome Completo *"
+                  />
 
-                                    <ProfileFormFieldUser
-                                        fieldName={FieldNamesUser.twitter}
-                                        fieldValue={user.twitter}
-                                        setField={setField}
-                                        hasSubmissionFailed={submitted}
-                                        placeholderText="Twitter"
-                                        isOptional
-                                    />
+                  <ProfileFormFieldUser
+                    fieldName={FieldNamesUser.cpf}
+                    fieldValue={user.cpf}
+                    setField={setField}
+                    hasSubmissionFailed={submitted}
+                    placeholderText="CPF *"
+                  />
 
-                                    <ButtonComponent label="Excluir Conta" type='button-trash' onClick={() => setVisible(true)} />
-                                    {visible && (
-                                        <DialogModal visibleDialog={visible} setVisibleDialog={setVisible}></DialogModal>
-                                    )}
-                                </div>
+                  <ProfileFormFieldUser
+                    fieldName={FieldNamesUser.instagram}
+                    fieldValue={user.instagram}
+                    setField={setField}
+                    hasSubmissionFailed={submitted}
+                    placeholderText="Instagram"
+                    isOptional
+                  />
 
-                                <div className='form-user-content2'>
-                                    <ProfileFormFieldUser
-                                        fieldName={FieldNamesUser.telefone}
-                                        fieldValue={user.telefone}
-                                        setField={setField}
-                                        hasSubmissionFailed={submitted}
-                                        placeholderText="Telefone *"
-                                    />
-                                    <ProfileFormFieldUser
-                                        fieldName={FieldNamesUser.goodreads}
-                                        fieldValue={user.goodreads}
-                                        setField={setField}
-                                        hasSubmissionFailed={submitted}
-                                        placeholderText="gooddreads"
-                                        isOptional
-                                    />
-                                    <ProfileFormFieldUser
-                                        fieldName={FieldNamesUser.skoob}
-                                        fieldValue={user.skoob}
-                                        setField={setField}
-                                        hasSubmissionFailed={submitted}
-                                        placeholderText="skoob"
-                                        isOptional
-                                    />
-                                </div>
-                            </div>
+                  <ProfileFormFieldUser
+                    fieldName={FieldNamesUser.twitter}
+                    fieldValue={user.twitter}
+                    setField={setField}
+                    hasSubmissionFailed={submitted}
+                    placeholderText="Twitter"
+                    isOptional
+                  />
 
-                            <div className='container-button-save-form-user'>
-                                <ButtonComponent label="Salvar" type='button-save' />
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </TemplatePage>
-        </main>
-    );
-}
+                  <ButtonComponent label="Excluir Conta" type="button-trash" onClick={() => setVisible(true)} />
+                  {visible && <DialogModal visibleDialog={visible} setVisibleDialog={setVisible}></DialogModal>}
+                </div>
+
+                <div className="form-user-content2">
+                  <ProfileFormFieldUser
+                    fieldName={FieldNamesUser.telefone}
+                    fieldValue={user.telefone}
+                    setField={setField}
+                    hasSubmissionFailed={submitted}
+                    placeholderText="Telefone *"
+                  />
+                  <ProfileFormFieldUser
+                    fieldName={FieldNamesUser.goodreads}
+                    fieldValue={user.goodreads}
+                    setField={setField}
+                    hasSubmissionFailed={submitted}
+                    placeholderText="gooddreads"
+                    isOptional
+                  />
+                  <ProfileFormFieldUser
+                    fieldName={FieldNamesUser.skoob}
+                    fieldValue={user.skoob}
+                    setField={setField}
+                    hasSubmissionFailed={submitted}
+                    placeholderText="skoob"
+                    isOptional
+                  />
+                </div>
+              </div>
+
+              <div className="container-button-save-form-user">
+                <ButtonComponent label="Salvar" type="button-save" onClick={updateDataUser} />
+              </div>
+            </section>
+          </section>
+        </section>
+      </TemplatePage>
+    </main>
+  );
+};
 
 export default ProfileUserForm;

@@ -1,7 +1,8 @@
 import { cpf, cnpj } from 'cpf-cnpj-validator';
 import { DATE_FORMAT, DATE_PARSE_FORMAT } from './date';
 import * as validator from 'email-validator';
-import * as moment from 'moment';
+import moment from 'moment';
+import { supabase } from '@services/supabase';
 
 export const isCpfCnpj = (cpfCnpj: string) => {
   if (cpfCnpj) {
@@ -113,3 +114,27 @@ export const getField = (field: string) => {
   const keys = field.split('.');
   return keys.length === 2 ? keys[1] : keys[0];
 };
+
+export const uploadImage = async (file: File, userId: string) => {
+  const filePath = `profiles/${userId}/${file.name}`;
+  const bucketName = 'user-photos'; 
+
+  const { data: _data, error } = await supabase.storage
+    .from(bucketName)
+    .upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: true, 
+    });
+
+  if (error) {
+    console.error('Erro ao fazer upload:', error.message);
+    return null;
+  }
+
+  const { data: publicUrl } = supabase.storage
+    .from(bucketName)
+    .getPublicUrl(filePath);
+
+  return publicUrl.publicUrl;
+};
+

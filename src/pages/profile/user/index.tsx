@@ -1,16 +1,21 @@
-import TemplatePage from '@pages/templatePage'
-import './style.css'
+import TemplatePage from '@pages/templatePage';
+import './style.css';
 import Profile from '@components/ProfileUsers/profileUsers';
-import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb'
+import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
+import { useAuth } from '@contexts/authContext';
+import { useEffect } from 'react';
 
 const ProfileUser = () => {
 
-    const imageProfile = '/images/anarita.JPG'
-    const description = "Hipster ipsum tattooed brunch I' m baby. Trust tonx pitchfork I'm fund. Level flannel polaroid tousled 8-bit edison big. Literally jomo before butcher beard fashion juice shorts subway austin. Yolo cornhole cornhole tilde raw."
+    const {conta} = useAuth();
 
+     useEffect(() => {
+       
+      }, [conta]); // Executa sempre que conta mudar
+    
     const breadCrumbItems = [
         { label: 'Usuário', url: '/profile/user' }
-    ]
+    ];
 
     return (
         <div className='container-profile-user'>
@@ -20,18 +25,18 @@ const ProfileUser = () => {
                     <ALBreadCrumb breadcrumbItems={breadCrumbItems} />
 
                     <Profile
-                        imageProfile={imageProfile}
-                        titleProfile='Usuário Fulano de Tal'
-                        descripProfile={description}
+                        imageProfile={conta?.usuario?.fotoPerfil || ''}
+                        titleProfile={conta?.usuario?.nome || ''}
+                        descripProfile={conta?.usuario?.biografia || ''}
+                        dataProfile={conta}
                         isSebo={false}
-                        authUser={true}
                         isUser={true}
                     />
                 </div>
 
             </TemplatePage>
         </div>
-    )
-}
+    );
+};
 
-export default ProfileUser
+export default ProfileUser;

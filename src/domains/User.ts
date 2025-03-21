@@ -11,4 +11,5 @@ export interface User {
     twitter?: string;
     skoob?: string;
     goodreads?: string;
+    fotoPerfil?: string;
 }

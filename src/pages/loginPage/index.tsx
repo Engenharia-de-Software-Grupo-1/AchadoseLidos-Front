@@ -7,14 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useErrorContext } from '@contexts/errorContext';
 import { useLogin } from '@stores/login/loginStore';
-import { login } from 'routes/routesLogin';
+import { login } from 'routes/routesAuth';
 import { useNotification } from '@contexts/notificationContext';
+import { useAuth } from '@contexts/authContext';
 
 const LoginPage = () => {
   const { credenciais, setField, validate } = useLogin();
   const { setError } = useErrorContext();
   const navigate = useNavigate();
   const { showNotification } = useNotification();
+  const { auth_login } = useAuth();
+  
 
   const finalizeLogin = async () => {
     if (validate()) {
@@ -23,6 +26,7 @@ const LoginPage = () => {
 
         if (response.status === 200) {
           showNotification('success', 'Login realizado com sucesso!', '');
+          auth_login();
           navigate('/');
         }
       } catch (error) {

@@ -21,4 +21,5 @@ export enum FieldNamesUser {
   twitter = 'twitter',
   skoob = 'skoob',
   goodreads = 'goodreads',
+  fotoPerfil = 'fotoPerfil',
 }

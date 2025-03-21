@@ -9,24 +9,22 @@ import { useNotification } from '@contexts/notificationContext';
 import { useNavigate } from 'react-router-dom';
 
 import './style.css';
-import { registerUser } from 'Routes/userRoutes';
+import { registerUser } from 'routes/routesUser';
 
 const RegisterUser = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { user, setField, validateStep } = useRegisterUser();
-  const [submitted, setSubmitted] = useState(false);
+  const [_, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
 
   const navigate = useNavigate();
 
   const finalizeRegister = async () => {
     try {
-      const response = await registerUser(user);
-      console.log(response);
+      await registerUser(user);
       showNotification('success', null, 'Usuário cadastrado com sucesso!');
       navigate('/');
-    } catch (error) {
-      console.log(error);
+    } catch {
       showNotification('error', null, 'Erro ao cadastrar usuário!');
     }
   };

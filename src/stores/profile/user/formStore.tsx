@@ -1,8 +1,6 @@
-import { User } from "@domains/User";
+import { User } from '@domains/User';
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { useNotification } from '@contexts/notificationContext';
 import { extractRules, stepRules } from '@utils/formRules';
-import { addRuleToField } from '@utils/utils';
 
 
 
@@ -30,7 +28,6 @@ interface ProfileUserFormProviderProps {
 }
 
 export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderProps) => {
-    const { showNotification } = useNotification();
     const [user, setFormData] = useState<User>({
         conta: {
             email: '',
@@ -68,7 +65,7 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
         return rules[field] ? rules[field] : {};
     };
 
-    const validateStep = (stepIndex: number): boolean => {
+    const validateStep = (): boolean => {
         let fieldsToValidate = [
             'nome',
             'cpfCnpj',
@@ -85,12 +82,12 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
         return !hasError;
     };
 
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [submitted] = useState<boolean>(false);
 
     return (
         <ProfileUserFormContext.Provider value={{ user, setField, validateStep, getRule, submitted }}>
             {children}
         </ProfileUserFormContext.Provider >
-    )
-}
+    );
+};
 

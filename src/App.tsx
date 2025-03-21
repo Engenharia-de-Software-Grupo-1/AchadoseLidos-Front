@@ -19,25 +19,27 @@ import RegistrationPage from '@pages/registrationPage';
 import ProfileUser from '@pages/profile/user';
 import ProfileUserForm from '@pages/profile/user/form';
 import { ProfileUserFormProvider } from '@stores/profile/user/formStore';
-import { useEffect, useState } from 'react';
+import { AuthProvider } from '@contexts/authContext';
+import ProtectedRoute from '@components/ProtectedRoute/protectedRoute';
 
 const App = () => {
   return (
     <ErrorProvider>
       <BrowserRouter>
         <NotificationProvider>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
+          <AuthProvider>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<RegistrationPage />} />
-            {/*<Route path="/register" element={<Register />} />  path pra tela inicial de cadastro*/}
-            <Route
-              path="/register/sebo"
-              element={
-                <RegisterSeboProvider>
-                  <RegisterSebo />
-                </RegisterSeboProvider>
-              }
-            />
+              {/*<Route path="/register" element={<Register />} />  path pra tela inicial de cadastro*/}
+              <Route
+                path="/register/sebo"
+                element={
+                  <RegisterSeboProvider>
+                    <RegisterSebo />
+                  </RegisterSeboProvider>
+                }
+                />
             <Route
               path="/register/user"
               element={
@@ -46,39 +48,39 @@ const App = () => {
                 </RegisterUserProvider>
               }
             />
-            <Route path="/profile/sebo" element={<ProfileSebo />} />
-            <Route
-              path="/profile/sebo/edit"
-              element={
-                <ProfileSeboFormProvider>
-                  <ProfileSeboForm />
-                </ProfileSeboFormProvider>
-              }
-            />
-            <Route
-              path="/login"
-              element={
-                <LoginProvider>
-                  <LoginPage />
-                </LoginProvider>
-              }
-            />
-            <Route
-              path="/recover/request"
-              element={
-                <RecoverRequestProvider>
-                  <RecoverRequestPage />
-                </RecoverRequestProvider>
-              }
-            />
-            <Route
-              path="/recover/reset"
-              element={
-                <ResetRequestProvider>
-                  <ResetRequestPage />
-                </ResetRequestProvider>
-              }
-            />
+              <Route path="/profile/sebo" element={<ProfileSebo />} />
+              <Route
+                path="/profile/sebo/edit"
+                element={
+                  <ProfileSeboFormProvider>
+                    <ProfileSeboForm />
+                  </ProfileSeboFormProvider>
+                }
+                />
+              <Route
+                path="/login"
+                element={
+                  <LoginProvider>
+                    <LoginPage />
+                  </LoginProvider>
+                }
+                />
+              <Route
+                path="/recover/request"
+                element={
+                  <RecoverRequestProvider>
+                    <RecoverRequestPage />
+                  </RecoverRequestProvider>
+                }
+                />
+              <Route
+                path="/recover/reset"
+                element={
+                  <ResetRequestProvider>
+                    <ResetRequestPage />
+                  </ResetRequestProvider>
+                }
+                />
             <Route path="/profile/user" element={<ProfileUser />} />
             <Route
               path="/profile/user/edit"
@@ -89,7 +91,11 @@ const App = () => {
               }
             />
              <Route path="/register" element={<RegistrationPage />} />
-          </Routes>
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/protected_example" element={<h1>This is protected!!!</h1>} />
+                </Route>
+            </Routes>
+          </AuthProvider>
         </NotificationProvider>
       </BrowserRouter>
     </ErrorProvider>

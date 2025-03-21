@@ -4,6 +4,7 @@ import { Tag } from 'primereact/tag';
 import './style.css';
 import { Link } from 'react-router-dom';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
+import { Conta } from '@domains/Conta';
 
 // trocar pra trazer o objeto sebo pra renderizar as infos
 interface ProfileProps {
@@ -11,11 +12,20 @@ interface ProfileProps {
   titleProfile: string;
   descripProfile: string;
   isSebo: boolean;
-  authUser: boolean;
+  authUser?: boolean;
   isUser?: boolean;
+  dataProfile?: Conta | null;
 }
 
-const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser, isUser }: ProfileProps) => {
+const Profile = ({
+  imageProfile,
+  titleProfile,
+  descripProfile,
+  isSebo,
+  authUser,
+  isUser,
+  dataProfile,
+}: ProfileProps) => {
   return (
     <>
       <div className="container-profile">
@@ -25,8 +35,6 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser,
           <div className="content-title-profile">
             <p className="titulo-profile">{titleProfile}</p>
 
-            
-
             {isSebo ? (
               <Link to="/profile/sebo/edit">
                 <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
@@ -35,7 +43,7 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser,
               <Link to="/profile/user/edit">
                 <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
               </Link>
-            ): authUser ? (
+            ) : authUser ? (
               <img src="/images/bell.svg"></img>
             ) : null}
           </div>
@@ -65,10 +73,19 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser,
             </>
           ) : (
             <div className="tags-profile-user">
-              <Tag className="mr-2 mt-4" icon="pi pi-whatsapp" value="(83)9888-8888"></Tag>
-              <Tag className="mr-2 mt-4" icon="pi pi-book" value="/fulano_detal"></Tag>
-              <Tag className="mr-2 mt-4" icon="pi pi-instagram" value="@fulano_detal"></Tag>
-              <Tag className="mr-2 mt-4" icon="pi pi-facebook" value="@fulano_detal"></Tag>
+              {dataProfile?.usuario?.goodreads && (
+                <Tag className="mr-2 mt-4" icon="pi pi-book" value={dataProfile.usuario.goodreads}></Tag>
+              )}
+
+              {dataProfile?.usuario?.skoob && (
+                <Tag className="mr-2 mt-4" icon="pi pi-book" value={dataProfile.usuario.skoob}></Tag>
+              )}
+              {dataProfile?.usuario?.instagram && (
+                <Tag className="mr-2 mt-4" icon="pi pi-instagram" value={dataProfile.usuario.instagram}></Tag>
+              )}
+              {dataProfile?.usuario?.twitter && (
+                <Tag className="mr-2 mt-4" icon="pi pi-twitter" value={dataProfile.usuario.twitter}></Tag>
+              )}
             </div>
           )}
         </div>

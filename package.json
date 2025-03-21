@@ -32,9 +32,10 @@
   "dependencies": {
     "@eslint/js": "^9.22.0",
     "@microsoft/eslint-formatter-sarif": "3.1.0",
-    "achadose-lidos-front": "file:.",
     "@react-google-maps/api": "^2.20.6",
+    "@supabase/supabase-js": "^2.49.1",
     "@types/google.maps": "^3.58.1",
+    "achadose-lidos-front": "file:.",
     "brasilapi-js": "^1.0.1",
     "cpf-cnpj-validator": "^1.0.3",
     "email-validator": "^2.0.4",

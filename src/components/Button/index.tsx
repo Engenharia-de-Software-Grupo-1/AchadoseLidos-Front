@@ -11,6 +11,6 @@ const ButtonComponent = ({label, type, onClick}: buttonProps) => {
     return (
         <Button label={label} className={type} onClick={onClick}></Button>
     );
-}
+};
 
 export default ButtonComponent;

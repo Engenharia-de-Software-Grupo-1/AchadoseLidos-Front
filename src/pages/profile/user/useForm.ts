@@ -1,7 +1,5 @@
-import { Endereco } from '@domains/Endereco';
-import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
 import { useProfileUserForm } from '@stores/profile/user/formStore';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const useFormUser = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -12,7 +10,7 @@ const useFormUser = () => {
   const breadcrumbItems = [
     { label: 'Meu Perfil', url: '/profile/user' },
     { label: 'Editar', url: '/profile/user/edit' }
-]
+];
 
   const imageProfile = '/images/anarita.JPG';
 

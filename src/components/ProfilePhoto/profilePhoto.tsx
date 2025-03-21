@@ -1,21 +1,35 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './style.css';
+import { uploadImage } from '@utils/utils';
 
 interface ProfilePhotoProps {
   imageProfile: string;
   canUpload?: boolean;
+  setField?: (field: string, value: any) => void;
+  userId?: number;
 }
 
-const ProfilePhoto = ({ imageProfile, canUpload = false }: ProfilePhotoProps) => {
+const ProfilePhoto = ({ imageProfile, canUpload = false, setField, userId }: ProfilePhotoProps) => {
   const [image, setImage] = useState(imageProfile);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async(event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      const newImage = URL.createObjectURL(event.target.files[0]);
-      setImage(newImage);
+      const file = event.target.files[0];
+  
+      const imageUrl = await uploadImage(file, userId?.toString() || '');
+
+  
+      if (imageUrl) {
+        setImage(imageUrl); 
+        setField && setField('fotoPerfil', imageUrl); 
+      }
     }
   };
+
+  useEffect(() => {
+    setImage(imageProfile);
+  }, [imageProfile]);
 
   return (
     <div
