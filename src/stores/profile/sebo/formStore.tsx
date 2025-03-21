@@ -30,6 +30,7 @@ interface ProfileSeboFormProviderProps {
 
 export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderProps) => {
   const { showNotification } = useNotification();
+
   const [sebo, setFormData] = useState<Sebo>({
     // falta foto
     conta: {
@@ -117,7 +118,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
   const loadCitiesByState = async (state: string): Promise<void> => {
     try {
       const response = await ibge.country.getBy(state);
-      const citiesOptions = (response.data as unknown as any[]).map((city: any) => ({
+      const citiesOptions = response.data.map((city) => ({
         value: city.codigo_ibge,
         text: city.nome,
       }));

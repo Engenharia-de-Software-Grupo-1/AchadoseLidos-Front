@@ -2,6 +2,7 @@ import { cloneElement } from 'react';
 import { observer } from 'mobx-react';
 import { useErrorContext } from '@contexts/errorContext';
 import { getField } from '@utils/utils';
+import { classNames } from 'primereact/utils';
 
 interface FormFieldProps {
   label?: string;
@@ -16,7 +17,7 @@ const FormField: React.FC<FormFieldProps> = ({ label, attribute, children }) => 
   return (
     <div className="field">
       {label && (
-        <label htmlFor={attribute} className={error?.error ? 'p-error' : ''}>
+        <label htmlFor={attribute} className={classNames({'p-error': error?.error})}>
           {label}
           {error?.error && <span className="p-error"> *</span>}
         </label>
@@ -24,7 +25,7 @@ const FormField: React.FC<FormFieldProps> = ({ label, attribute, children }) => 
       <div className="input-wrapper">
         {cloneElement(children as React.ReactElement<any>, {
           id: attribute,
-          className: error?.error ? 'p-invalid p-error' : '',
+          className: classNames({'p-invalid p-error': error?.error}),
         })}
       </div>
       {error?.error && <small className="p-error">{error?.message}</small>}

@@ -16,7 +16,6 @@ interface ProfileProps {
 
 const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser }: ProfileProps) => {
   return (
-    <>
       <div className="container-profile">
         <ProfilePhoto imageProfile={imageProfile} />
 
@@ -66,7 +65,6 @@ const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser 
           )}
         </div>
       </div>
-    </>
   );
 };
 

@@ -31,7 +31,6 @@ const ProfileSeboForm = () => {
     imageProfile,
   } = useForm();
 
-
   const [checked, setChecked] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
 
@@ -52,9 +51,8 @@ const ProfileSeboForm = () => {
                   fieldValue={sebo.nome}
                   setField={setField}
                   hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
-                  placeholderText="Nome do Sebo" // também falta adicionar as rules que Eliane criou, se elas forem necessárias aqui especificamente
+                  placeholderText="Digite o nome do Sebo" // também falta adicionar as rules que Eliane criou, se elas forem necessárias aqui especificamente
                 />
-
                 <ProfileFormField
                   labelText="CPF/CNPJ"
                   fieldName={FieldNames.cpfCnpj}
@@ -64,7 +62,6 @@ const ProfileSeboForm = () => {
                   placeholderText="000.000.000-00"
                   isShortInput
                 />
-
                 <ProfileFormField
                   labelText="Biografia curta"
                   fieldName={FieldNames.briefBio}
@@ -76,14 +73,13 @@ const ProfileSeboForm = () => {
                   isTextArea
                   isOptional
                 />
-
                 <ProfileFormField
                   labelText="Nome dos Curadores (separados por vírgula)"
                   fieldName={FieldNames.curadores}
                   fieldValue={sebo.curadores}
                   hasSubmissionFailed={submitted}
                   setField={setField}
-                  placeholderText="Fulaninha, Fulaninho"
+                  placeholderText="Digite o nome dos curadores"
                   isTextArea
                   isOptional
                 />
@@ -162,7 +158,6 @@ const ProfileSeboForm = () => {
               </div>
 
               <div className='form-contat-sebo'>
-
                 <ProfileFormField
                   labelText="Whatsapp"
                   fieldName={FieldNames.telefone}
@@ -223,7 +218,6 @@ const ProfileSeboForm = () => {
                   isOptional
                   isShortInput
                 />
-
               </div>
             </div>
 
@@ -248,7 +242,6 @@ const ProfileSeboForm = () => {
 
               <Button label="Salvar" className='button-save' />
             </div>
-
           </div>
         </div>
       </TemplatePage>

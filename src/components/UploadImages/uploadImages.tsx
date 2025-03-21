@@ -32,7 +32,7 @@ export default function UploadImages() {
         });
 
         setTotalSize(_totalSize);
-        toast.current?.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
+        toast.current?.show({ severity: 'info', summary: 'Sucesso', detail: 'Arquivo enviado!' });
     };
 
     const onTemplateRemove = (file: File, callback: Function) => {
@@ -89,9 +89,9 @@ export default function UploadImages() {
         <div className='fileupload-demo'>
             <Toast ref={toast}></Toast>
 
-            <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-            <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-            <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
+            <Tooltip target=".custom-choose-btn" content="Selecione" position="bottom" />
+            <Tooltip target=".custom-upload-btn" content="Enviar" position="bottom" />
+            <Tooltip target=".custom-cancel-btn" content="Remover todos" position="bottom" />
 
             <FileUpload ref={fileUploadRef} name="demo[]" url="/api/upload" multiple accept="image/*" maxFileSize={1000000}
                 onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}

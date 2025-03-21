@@ -28,17 +28,17 @@ const RegisterSebo = () => {
   };
   
 
-  const nextStep = (e: any) => {
+  const nextStep = () => {
     if (validateStep(activeIndex)) {
       setSubmitted(true);
       setActiveIndex(activeIndex + 1);
     } else {
-      showNotification('error', null, 'Verifique os campos do formulário!');
+      showNotification('error', null, 'Preencha todos os campos obrigatórios!');
     }
     setSubmitted(false);
   };
 
-  const stepBack = (e: any) => {
+  const stepBack = () => {
     setActiveIndex(activeIndex - 1);
   };
 
@@ -74,12 +74,12 @@ const RegisterSebo = () => {
             />
             <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
               {activeIndex !== 0 && activeIndex < 3 && 
-              <Button className="step-button" label="Voltar" onClick={(e) => stepBack(e)} />}
+              <Button className="step-button" label="Voltar" onClick={() => stepBack()} />}
               {activeIndex === 2 && (
                 <Button className="step-button" label="Finalizar" onClick={finalizeRegister} />
               )}
               {activeIndex < 2 && (
-              <Button className="step-button" label="Continuar" onClick={(e) => nextStep(e)} />
+              <Button className="step-button" label="Continuar" onClick={() => nextStep()} />
               )}
 
             </div>
