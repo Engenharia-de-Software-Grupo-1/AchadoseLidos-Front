@@ -1,28 +1,25 @@
 import { useState, useRef, useEffect } from 'react';
 import './style.css';
-import { uploadImage } from '@utils/utils';
+import { uploadImage } from '@utils/cloudinary';
 
 interface ProfilePhotoProps {
   imageProfile: string;
   canUpload?: boolean;
   setField?: (field: string, value: any) => void;
-  userId?: number;
 }
 
-const ProfilePhoto = ({ imageProfile, canUpload = false, setField, userId }: ProfilePhotoProps) => {
+const ProfilePhoto = ({ imageProfile, canUpload = false, setField}: ProfilePhotoProps) => {
   const [image, setImage] = useState(imageProfile);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageUpload = async(event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-  
-      const imageUrl = await uploadImage(file, userId?.toString() || '');
+      const imageUrl = await uploadImage(file);
 
-  
       if (imageUrl) {
-        setImage(imageUrl); 
-        setField && setField('fotoPerfil', imageUrl); 
+        setImage(imageUrl);
+        setField && setField('fotoPerfil', imageUrl);
       }
     }
   };

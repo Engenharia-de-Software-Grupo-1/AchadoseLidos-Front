@@ -75,7 +75,6 @@ const ProfileUserForm = () => {
               imageProfile={user.fotoPerfil || ''}
               canUpload
               setField={setField}
-              userId={conta?.usuario?.id}
             />
 
             <ProfileFormFieldUser

@@ -14,7 +14,7 @@ const TabDadosPerfil: React.FC<TabDadosPerfilProps> = ({ user, setField }) => {
         <div className="container-register-user">
         <div className="container-register">
             <div className="container-data">
-            <ProfilePhoto canUpload imageProfile="" setField={setField}/>
+            <ProfilePhoto canUpload imageProfile={user.fotoPerfil || ''} setField={setField}/>
             <FormField attribute="biografia">
                 <InputTextarea
                 value={user.biografia}
