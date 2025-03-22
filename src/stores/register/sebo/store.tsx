@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { ibge } from 'brasilapi-js';
 import { Sebo } from '@domains/Sebo';
 import { useNotification } from '@contexts/notificationContext';
@@ -106,9 +106,9 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   const getRule = (field: string): Rule[] => {
     return rules[field] || [];
   };
-  
+
   const checkTelefone = (checked: boolean) => {
-    if (checked){
+    if (checked) {
       const updatedRules = addRuleToField(rules, 'telefone', { rule: 'required' });
       setRules(updatedRules);
     }
@@ -120,19 +120,19 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
       1: ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero'],
       2: [],
     };
-  
+
     let fieldsToValidate = stepFields[stepIndex] || [];
-    
+
     if (stepIndex === 0 && sebo.concordaVender) {
       fieldsToValidate.push('telefone');
     }
-  
+
     const rulesByStep = stepRules(fieldsToValidate, rules);
     let validationResults = extractRules(rulesByStep, sebo);
     validationResults = verifyPassword(sebo, validationResults);
-  
+
     setErrors(validationResults);
-    
+
     return !Object.values(validationResults).some((field) => field.error);
   };
 
@@ -155,10 +155,10 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     return validationResults;
   };
 
-  const loadCitiesByState = async (state: string): Promise<void> => {
+  const loadCitiesByState = useCallback(async (state: string) => {
     try {
       const response = await ibge.country.getBy(state);
-      const citiesOptions = (response.data as unknown as any[]).map((city: any) => ({
+      const citiesOptions = response.data.map((city: any) => ({
         value: city.codigo_ibge,
         text: city.nome,
       }));
@@ -167,10 +167,12 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
       showNotification('error', null, 'Erro ao carregar cidades');
       setCities([]);
     }
-  };
+  }, []);
 
   return (
-    <RegisterSeboContext.Provider value={{ sebo, setField, validateStep, getRule, cities, loadCitiesByState, checkTelefone }}>
+    <RegisterSeboContext.Provider
+      value={{ sebo, setField, validateStep, getRule, cities, loadCitiesByState, checkTelefone }}
+    >
       {children}
     </RegisterSeboContext.Provider>
   );

@@ -8,5 +8,5 @@ export const useLoadCities = (uf: string) => {
     if (uf) {
       loadCitiesByState(uf);
     }
-  }, [uf, loadCitiesByState]);
+  }, [uf]);  
 };
