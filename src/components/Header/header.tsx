@@ -31,7 +31,6 @@ export default function Header({ simpleHeader }: HeaderProps) {
   const handleLogout = async () => {
     try {
       const response = await logout();
-
       if (response.status == 200) {
         showNotification('success', 'Logout realizado com sucesso!', '');
       } else {

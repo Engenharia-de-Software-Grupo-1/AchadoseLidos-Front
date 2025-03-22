@@ -1,12 +1,13 @@
 import { Conta } from '@domains/Conta';
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { informacoes } from 'routes/routesAuth';
+import { perfil } from 'routes/routesAuth';
 
 type AuthContextType = {
   isAuthenticated: boolean;
     conta: Conta | null;
   auth_login: (conta: Conta) => void; 
   auth_logout: () => void;
+  validateAuth: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -16,6 +17,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [conta, setConta] = useState<Conta | null>(null);
 
   const auth_login = useCallback((conta: Conta) => {
+    console.log('Setting conta:', conta);
     setIsAuthenticated(true);
     setConta(conta);
   }, []);
@@ -25,27 +27,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setConta(null);
   }, []);
 
-  useEffect(() => {
-    const validateAuth = async () => {
-
-      try {
-        const response = await informacoes();
-        if (response.data.autenticado == true) {
-          auth_login(response.data.conta);
-        } else {
-          auth_logout();
-        }
-      } catch (err) {
-        console.error(err);
+    const validateAuth = useCallback(async () => {
+    try {
+      const response = await perfil();
+      if (response.data.autenticado === true) {
+        setIsAuthenticated(true);
+        auth_login(response.data.conta);
+      } else {
         auth_logout();
       }
-    };
-
-    validateAuth();
+    } catch (err) {
+      console.error('Validation error:', err);
+      auth_logout();
+    }
   }, [auth_login, auth_logout]);
 
+  useEffect(() => {
+    validateAuth();
+  }, [validateAuth]);
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated,  conta, auth_login, auth_logout }}>
+    <AuthContext.Provider value={{ isAuthenticated,  conta, auth_login, auth_logout, validateAuth }}>
       {children}
     </AuthContext.Provider>
   );
