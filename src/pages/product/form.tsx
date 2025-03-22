@@ -8,7 +8,7 @@ import { ProdutoFieldNames } from '@domains/Produto/ProdutoFieldNames';
 import { ProductFormField } from '@components/ProductDetails/productFormFields';
 
 const ProductForm = () => {
-  const { breadcrumbItems, getRule, setField, setSubmitted, submitted, validateStep, imageProduct } =
+  const { produto, breadcrumbItems, getRule, setField, setSubmitted, submitted, validateStep, imageProduct } =
     useForm();
 
   return (
@@ -27,7 +27,7 @@ const ProductForm = () => {
               <ProductFormField
                 labelText="Nome do produto"
                 fieldName={ProdutoFieldNames.nome}
-                fieldValue={product.nome}
+                fieldValue={produto.nome}
                 setField={setField}
                 hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
                 placeholderText="Nome do Produto"
@@ -36,7 +36,7 @@ const ProductForm = () => {
                 <ProductFormField
                   labelText="Preco"
                   fieldName={ProdutoFieldNames.preco}
-                  fieldValueNumber={product.preco}
+                  fieldValueNumber={produto.preco}
                   setField={setField}
                   hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
                   placeholderText="0,00"
@@ -46,7 +46,7 @@ const ProductForm = () => {
                 <ProductFormField
                   labelText="Preco"
                   fieldName={ProdutoFieldNames.preco}
-                  fieldValueNumber={product.preco}
+                  fieldValueNumber={produto.preco}
                   setField={setField}
                   hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
                   placeholderText="0,00"

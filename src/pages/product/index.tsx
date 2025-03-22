@@ -1,5 +1,5 @@
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
-import ProductDetails from '@components/ProductDetails/ProductDetails';
+import ProductDetails from '@components/ProductDetails/productDetails';
 import { useNotification } from '@contexts/notificationContext';
 import { Produto } from '@domains/Produto/Produto';
 import TemplatePage from '@pages/templatePage';
