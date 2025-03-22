@@ -14,7 +14,6 @@ import RecoverRequestPage from '@pages/recover/request';
 import { ResetRequestProvider } from '@stores/recover/resetRequest';
 import ResetRequestPage from '@pages/recover/reset';
 import { AuthProvider } from '@contexts/authContext';
-import ProtectedRoute from '@components/ProtectedRoute/protectedRoute';
 
 const App = () => {
   return (
@@ -66,10 +65,7 @@ const App = () => {
                   </ResetRequestProvider>
                 }
                 />
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/protected_example" element={<h1>This is protected!!!</h1>} />
-                </Route>
-            </Routes>
+              </Routes>
           </AuthProvider>
         </NotificationProvider>
       </BrowserRouter>
