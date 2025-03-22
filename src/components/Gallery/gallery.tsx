@@ -25,7 +25,7 @@ export default function Gallery({ position }: GalleryProps) {
         value={images}
         numVisible={5}
         circular
-        style={{ maxWidth: '640px', width: '100%', height: '400px' }}
+        style={{ width: '100%', height: '400px' }}
         showThumbnails={false}
         showItemNavigators
         item={itemTemplate}

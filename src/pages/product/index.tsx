@@ -14,12 +14,13 @@ const ProductPage = () => {
   const [produto, setProduto] = useState<Produto | null>(null);
   const { showNotification } = useNotification();
 
+  const fetchProduto = async () => {
+    const data = await getById(Number(id));
+    setProduto(data);
+  };
+
   useEffect(() => {
-    if (id !== null) {
-      const fetchProduto = async () => {
-        const data = await getById(Number(id));
-        setProduto(data);
-      };
+    if (id !== null) { 
       fetchProduto();
     }
   }, [id]);

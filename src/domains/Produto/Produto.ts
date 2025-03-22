@@ -13,8 +13,9 @@ export interface Produto {
     anoLancamento?: number,
     autores?: string,
     descricao?: string,
-    fotos?: Foto[],
+    fotos?: string[],
     createdAt: Date,
     updatedAt: Date,
     sebo?: Sebo,
+    generos:  string[],
 }
