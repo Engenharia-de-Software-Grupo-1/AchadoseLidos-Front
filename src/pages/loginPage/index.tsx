@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useErrorContext } from '@contexts/errorContext';
 import { useLogin } from '@stores/login/loginStore';
-import { login } from 'routes/routesAuth';
+import { informacoes, login } from 'routes/routesAuth';
 import { useNotification } from '@contexts/notificationContext';
 import { useAuth } from '@contexts/authContext';
 
@@ -26,7 +26,8 @@ const LoginPage = () => {
 
         if (response.status === 200) {
           showNotification('success', 'Login realizado com sucesso!', '');
-          auth_login();
+          const response = await informacoes();
+          auth_login(response.data.conta);
           navigate('/');
         }
       } catch (error) {
