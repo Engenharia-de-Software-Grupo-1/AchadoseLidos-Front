@@ -13,7 +13,7 @@ import './style.css';
 
 const RegisterSebo = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { sebo, setField, validateStep, cities } = useRegisterSebo();
+  const { sebo, setField, validateStep, cities, checkTelefone } = useRegisterSebo();
   const [submitted, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
 
@@ -44,7 +44,7 @@ const RegisterSebo = () => {
   const stepsItems = [
     {
       label: 'Dados Básicos',
-      component: <TabDadosBasicos sebo={sebo} setField={setField} />,
+      component: <TabDadosBasicos sebo={sebo} setField={setField} checkTelefone={checkTelefone}/>,
     },
     {
       label: 'Endereço',
