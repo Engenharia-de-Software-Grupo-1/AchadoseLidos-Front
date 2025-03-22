@@ -10,32 +10,40 @@ import { ErrorProvider } from '@contexts/errorContext';
 import ProductPage from '@pages/product/index';
 import { ProdutoFormProvider } from '@stores/product/formStore';
 import ProductForm from '@pages/product/form';
+import LoginPage from '@pages/loginPage';
+import { LoginProvider } from '@stores/login/loginStore';
+import { RecoverRequestProvider } from '@stores/recover/recoverRequest';
+import RecoverRequestPage from '@pages/recover/request';
+import { ResetRequestProvider } from '@stores/recover/resetRequest';
+import ResetRequestPage from '@pages/recover/reset';
+import { AuthProvider } from '@contexts/authContext';
 
 const App = () => {
   return (
     <ErrorProvider>
       <BrowserRouter>
         <NotificationProvider>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            {/*<Route path="/register" element={<Register />} />  path pra tela inicial de cadastro*/}
-            <Route
-              path="/register/sebo"
-              element={
-                <RegisterSeboProvider>
-                  <RegisterSebo />
-                </RegisterSeboProvider>
-              }
-            />
-            <Route path="/profile/sebo" element={<ProfileSebo />} />
-            <Route
-              path="/profile/sebo/edit"
-              element={
-                <ProfileSeboFormProvider>
-                  <ProfileSeboForm />
-                </ProfileSeboFormProvider>
-              }
-            />
+          <AuthProvider>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              {/*<Route path="/register" element={<Register />} />  path pra tela inicial de cadastro*/}
+              <Route
+                path="/register/sebo"
+                element={
+                  <RegisterSeboProvider>
+                    <RegisterSebo />
+                  </RegisterSeboProvider>
+                }
+                />
+              <Route path="/profile/sebo" element={<ProfileSebo />} />
+              <Route
+                path="/profile/sebo/edit"
+                element={
+                  <ProfileSeboFormProvider>
+                    <ProfileSeboForm />
+                  </ProfileSeboFormProvider>
+                }
+                />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route
               path="/product/edit"
@@ -45,7 +53,32 @@ const App = () => {
                 </ProdutoFormProvider>
               }
             />
-          </Routes>
+              <Route
+                path="/login"
+                element={
+                  <LoginProvider>
+                    <LoginPage />
+                  </LoginProvider>
+                }
+                />
+              <Route
+                path="/recover/request"
+                element={
+                  <RecoverRequestProvider>
+                    <RecoverRequestPage />
+                  </RecoverRequestProvider>
+                }
+                />
+              <Route
+                path="/recover/reset"
+                element={
+                  <ResetRequestProvider>
+                    <ResetRequestPage />
+                  </ResetRequestProvider>
+                }
+                />
+              </Routes>
+          </AuthProvider>
         </NotificationProvider>
       </BrowserRouter>
     </ErrorProvider>

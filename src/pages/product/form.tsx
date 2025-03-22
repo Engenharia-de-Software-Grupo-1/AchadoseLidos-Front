@@ -11,7 +11,7 @@ import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'const
 import { useState } from 'react';
 
 const ProductForm = () => {
-  const { produto, breadcrumbItems, getRule, setField, setSubmitted, submitted, validateStep, imageProduct } =
+  const { produto, breadcrumbItems, setField, submitted} =
     useForm();
 
   const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');

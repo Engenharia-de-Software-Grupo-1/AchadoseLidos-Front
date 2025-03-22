@@ -29,6 +29,7 @@ const HomePage = () => {
         <ContainerItems title="Todos os itens" backgroundBege={true}>
           {' '}
         </ContainerItems>
+
       </div>
     </TemplatePage>
   );

@@ -3,11 +3,11 @@ import './style.css';
 import React from 'react';
 
 interface TemplatePageProps {
-  children: React.ReactNode
-  simpleHeader: boolean
-  simpleFooter: boolean
-  backgroundFooterDiff?: boolean
-  contents?: boolean
+  children: React.ReactNode;
+  simpleHeader: boolean;
+  simpleFooter: boolean;
+  backgroundFooterDiff?: boolean;
+  contents?: boolean;
 }
 
 const TemplatePage: React.FC<TemplatePageProps> = ({

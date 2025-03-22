@@ -2,8 +2,8 @@ import { Carousel } from 'primereact/carousel';
 import './style.css';
 
 interface BannerProps {
-  images: string[]
-  showIndicators: boolean
+  images: string[];
+  showIndicators: boolean;
 }
 
 export default function Banner({ images, showIndicators }: BannerProps) {

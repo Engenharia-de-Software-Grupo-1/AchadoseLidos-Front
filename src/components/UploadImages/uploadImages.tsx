@@ -12,7 +12,7 @@ import { Tooltip } from 'primereact/tooltip';
 import './style.css';
 
 interface UploadProps {
-  setField: (field: string, value: string[]) => void;
+  setField?: (field: string, value: string[]) => void;
 }
 
 export default function UploadImages({ setField }: UploadProps) {
@@ -42,7 +42,9 @@ export default function UploadImages({ setField }: UploadProps) {
     });
 
     setTotalSize(_totalSize); // Atualiza o tamanho total
-    setField('fotos', uploadedFiles.map(file => file.url)); 
+    if (setField) {
+      setField('fotos', uploadedFiles.map(file => file.url));
+    }
 };
 
   const onTemplateUpload = (e: FileUploadUploadEvent) => {

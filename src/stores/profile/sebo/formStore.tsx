@@ -122,7 +122,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
         text: city.nome,
       }));
       setCities(citiesOptions);
-    } catch (error) {
+    } catch {
       showNotification('error', null, 'Erro ao carregar cidades');
       setCities([]);
     }
