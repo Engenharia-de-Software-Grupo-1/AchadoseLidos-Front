@@ -5,10 +5,10 @@ import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import Gallery from '@components/Gallery/gallery';
 import UploadImages from '@components/UploadImages/uploadImages';
 import { ProdutoFieldNames } from '@domains/Produto/ProdutoFieldNames';
-import { ProductFormField } from '@components/ProductDetails/ProductFormFields';
+import { ProductFormField } from '@components/ProductDetails/productFormFields';
 
 const ProductForm = () => {
-  const { product, breadcrumbItems, getRule, setField, setSubmitted, submitted, validateStep, imageProduct } =
+  const { breadcrumbItems, getRule, setField, setSubmitted, submitted, validateStep, imageProduct } =
     useForm();
 
   return (
