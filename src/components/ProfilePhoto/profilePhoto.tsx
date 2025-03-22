@@ -1,21 +1,32 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './style.css';
+import { uploadImage } from '@services/cloudinaryService';
 
 interface ProfilePhotoProps {
   imageProfile: string;
   canUpload?: boolean;
+  setField?: (field: string, value: any) => void;
 }
 
-const ProfilePhoto = ({ imageProfile, canUpload = false }: ProfilePhotoProps) => {
+const ProfilePhoto = ({ imageProfile, canUpload = false, setField }: ProfilePhotoProps) => {
   const [image, setImage] = useState(imageProfile);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      const newImage = URL.createObjectURL(event.target.files[0]);
-      setImage(newImage);
+      const file = event.target.files[0];
+      const imageUrl = await uploadImage(file);
+
+      if (imageUrl) {
+        setImage(imageUrl);
+        setField && setField('fotoPerfil', imageUrl);
+      }
     }
   };
+
+  useEffect(() => {
+    setImage(imageProfile);
+  }, [imageProfile]);
 
   return (
     <div
@@ -26,7 +37,9 @@ const ProfilePhoto = ({ imageProfile, canUpload = false }: ProfilePhotoProps) =>
       <div
         className="profile-picture"
         style={{
-          backgroundImage: canUpload ? `linear-gradient(rgba(169, 169, 169, 0.5), rgba(169, 169, 169, 0.5)), url(${image})` : `url(${imageProfile})`,
+          backgroundImage: canUpload
+            ? `linear-gradient(rgba(169, 169, 169, 0.5), rgba(169, 169, 169, 0.5)), url(${image})`
+            : `url(${imageProfile})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
