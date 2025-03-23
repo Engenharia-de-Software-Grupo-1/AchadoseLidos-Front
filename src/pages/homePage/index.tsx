@@ -1,18 +1,15 @@
-import React from 'react';
-import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import Banner from '@components/Banner/banner';
-import ALBreadCrumb from '@components/ALBreadCrumb/ALBreadCrumb';
 import TemplatePage from '@pages/templatePage';
 import './style.css';
+import ContainerItems from '@components/ContainerItems/containerItems';
 
 const HomePage = () => {
-  const breadcrumbItems = useBreadcrumb();
   const images = ['/images/banner.jpg'];
 
   return (
-    <TemplatePage simpleHeader={false}>
+    <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
       <div className="main-context">
-        <Banner images={images} />
+        <Banner images={images} showIndicators={true} />
         <div>
           <p className="main-p1">Explore itens de segunda mão!</p>
           <p className="main-p2">ACHADOS E LIDOS</p>
@@ -20,8 +17,19 @@ const HomePage = () => {
         </div>
 
         <img src="/images/underline.svg" alt="underline" style={{ marginTop: '42px', marginBottom: '42px' }} />
+        <ContainerItems title="Livros" backgroundBege={false}>
+          {' '}
+        </ContainerItems>
+        <ContainerItems title="Sebos" backgroundBege={true}>
+          {' '}
+        </ContainerItems>
+        <ContainerItems title="Eventos" backgroundBege={false}>
+          {' '}
+        </ContainerItems>
+        <ContainerItems title="Todos os itens" backgroundBege={true}>
+          {' '}
+        </ContainerItems>
 
-        <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
       </div>
     </TemplatePage>
   );

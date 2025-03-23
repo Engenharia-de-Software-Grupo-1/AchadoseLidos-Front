@@ -1,0 +1,39 @@
+.breadcrumb-edit {
+  display: flex;
+  padding: 0px 98px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.p-breadcrumb {
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+}
+
+.p-breadcrumb li {
+  color: var(--Achados-Black);
+}
+
+.p-breadcrumb .p-menuitem-text {
+  color: var(--Achados-Black);
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.p-breadcrumb ol {
+  padding: 10px;
+}
+
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-icon {
+  color: var(--Achados-Black);
+}

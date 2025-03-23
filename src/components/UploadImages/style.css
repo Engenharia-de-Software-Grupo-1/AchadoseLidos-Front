@@ -1,0 +1,34 @@
+.p-fileupload .p-fileupload-buttonbar .p-button {
+    border: none;
+    color: var(--Achados-Brown);
+}
+
+.fileupload-demo {
+    width: 100%;
+}
+
+.buttom-upload-plus:hover {
+    background-color: transparent !important;
+    color: var(--Achados-Brown);
+}
+
+.buttom-upload-plus:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.buttom-icon-x {
+    border: none;
+    color: var(--Achados-Brown);
+    background-color: transparent !important;
+}
+
+.buttom-icon-x:hover {
+    background-color: transparent !important;
+    color: var(--Achados-Brown);
+}
+
+.buttom-icon-x:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

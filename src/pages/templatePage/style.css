@@ -1,0 +1,27 @@
+.container-footer,
+.initial-footer {
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+}
+
+.container-footer {
+  background-color: var(--Achados-Black);
+}
+
+.initial-footer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background: transparent;
+}
+
+.text-footer {
+  color: #cfb358;
+  font-family: 'Sao Torpes', sans-serif;
+  font-size: 48px;
+}
+
+.backgroundDiff {
+  background: var(--Achados-OffWhite);
+}

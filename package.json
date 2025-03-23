@@ -7,6 +7,7 @@
   "author": "Naiara Medeiros <naiaramc.almeida@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/leaflet": "^1",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@typescript-eslint/eslint-plugin": "^8.26.1",
@@ -29,6 +30,15 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.6",
+    "@types/google.maps": "^3.58.1",
+    "brasilapi-js": "^1.0.1",
+    "cpf-cnpj-validator": "^1.0.3",
+    "email-validator": "^2.0.4",
+    "leaflet": "^1.9.4",
+    "mobx": "^6.13.6",
+    "mobx-react": "^9.2.0",
+    "moment": "^2.30.1",
     "@eslint/js": "^9.22.0",
     "@microsoft/eslint-formatter-sarif": "3.1.0",
     "achadose-lidos-front": "file:.",
@@ -36,6 +46,7 @@
     "primereact": "^10.9.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-leaflet": "^5.0.0",
     "react-router-dom": "6.16.0"
   },
   "scripts": {
