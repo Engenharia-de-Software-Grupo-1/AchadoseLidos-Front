@@ -10,6 +10,7 @@ import 'primeicons/primeicons.css';
 import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
+import { logout } from '@routes/routesAuth';
 import { useNotification } from '@contexts/notificationContext';
 import { useAuth } from '@contexts/authContext';
 
