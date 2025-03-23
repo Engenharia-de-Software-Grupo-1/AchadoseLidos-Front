@@ -2,69 +2,100 @@ import ProductCard, { ProductCardProps } from '@components/ProductCard/productCa
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import MultipleDemo from '@components/NavigationFilter';
 import TemplatePage from '@pages/templatePage';
-import { classNames } from 'primereact/utils';
 import { Button } from 'primereact/button';
 import React from 'react';
 import './style.css';
-  
+import { getAll } from 'routes/routesProduto';
+import { Filters, Orders } from 'types/NavigationFilters';
+
 const breadcrumbItems = [{ label: 'Buscar', url: '/navigation' }];
 
-export const NavigationPage = () => {
-  const [icon, setIcon] = React.useState('pi pi-arrow-down');
-  const [selectedFilters, setSelectedFilters] = React.useState<string[]>([]);
+export interface NavigationPageProps {
+  filters: Filters[];
+  orders: Orders[];
+}
+
+export const NavigationPage = (props: NavigationPageProps) => {
+  const displayOrganization = props;
   const [cards, setCards] = React.useState<ProductCardProps[]>([]);
+  const [nameIcon, setNameIcon] = React.useState('pi pi-arrow-down');
+  const [priceIcon, setPriceIcon] = React.useState('pi pi-arrow-down');
+  const [dateIcon, setDateIcon] = React.useState('pi pi-arrow-up');
 
   //mock
-  cards.push({
-    name: 'Diário de uma Ana Rita',
-    owner: 'Lupa',
-    price: 1000000,
-    image: 'images/anarita.JPG',
-  });
-  cards.push({
-    name: 'As crônicas de Naiara',
-    owner: 'SeboDeolane',
-    price: 99.05,
-    image: 'images/naiara.jpeg',
-  });
-  cards.push({
-    name: 'Eliane e a pedra Filosofal',
-    owner: 'Lupa',
-    price: 67.8,
-    image: 'images/eliane.jpeg',
-  });
-  cards.push({
-    name: 'A Helefffffffffffffffna que roubdfdfdava livros',
-    owner: 'Cata Livros',
-    price: 37.25,
-    image: 'images/helena.jpeg',
-  });
+  // cards.push({
+  //   name: 'Diário de uma Ana Rita',
+  //   owner: 'Lupa',
+  //   price: 1000000,
+  //   image: 'images/anarita.JPG',
+  //   createdAt: new Date('2025-09-01'),
+  // });
+  // cards.push({
+  //   name: 'As crônicas de Naiara',
+  //   owner: 'SeboDeolane',
+  //   price: 99.05,
+  //   image: 'images/naiara.jpeg',
+  //   createdAt: new Date('2025-09-02'),
+  // });
+  // cards.push({
+  //   name: 'Eliane e a pedra Filosofal',
+  //   owner: 'Lupa',
+  //   price: 67.8,
+  //   image: 'images/eliane.jpeg',
+  //   createdAt: new Date('2025-09-02'),
+  // });
+  // cards.push({
+  //   name: 'A Helena que roubava livros, sacolas carteiras e corações',
+  //   owner: 'Cata Livros',
+  //   price: 37.25,
+  //   image: 'images/helena.jpeg',
+  //   createdAt: new Date('2025-09-02'),
+  // });
+  
+  React.useEffect(() => {
+    sortCardsByName();
+  }, [nameIcon]);
 
-  const changeOrder = () => {
-    if (icon === 'pi pi-arrow-down') {
-      setIcon('pi pi-arrow-up');
-      setOrdenacao('asc');
-    } else {
-      setIcon('pi pi-arrow-down');
-      setOrdenacao('desc');
+  const sortCardsByName = () => {
+    displayOrganization.orders = [{ campo: 'name', ordem: nameIcon === 'pi pi-arrow-down' ? 'desc' : 'asc' }];
+    getAll(displayOrganization).then((response) => {
+      setCards(response);
     }
+    );
   };
 
-  const setOrdenacao = (tipo: 'asc' | 'desc') => {
-    if (selectedFilters.includes('nome')) {
-      cards.sort((a, b) => (tipo === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)));
-    } else if (selectedFilters.includes('preco')) {
-      cards.sort((a, b) => (tipo === 'asc' ? a.price - b.price : b.price - a.price));
+  React.useEffect(() => {
+    sortCardsByPrice();
+  }, [priceIcon]);
+
+  const sortCardsByPrice = () => {
+    displayOrganization.orders = [{ campo: 'price', ordem: nameIcon === 'pi pi-arrow-down' ? 'desc' : 'asc' }];
+    getAll(displayOrganization).then((response) => {
+      setCards(response);
     }
+    );
+  };
+  
+  React.useEffect(() => {
+    sortCardsByDate();
+  }, [dateIcon]);
+
+  const sortCardsByDate = () => {
+    displayOrganization.orders = [{ campo: 'date', ordem: nameIcon === 'pi pi-arrow-down' ? 'desc' : 'asc' }];
+    getAll(displayOrganization).then((response) => {
+      setCards(response);
+    }
+    );
   };
 
-  const addFilter = (order: string) => {
-    if (selectedFilters.includes(order)) {
-      setSelectedFilters(selectedFilters.filter((filter) => filter !== order));
-    } else {
-      setSelectedFilters([...selectedFilters, order]);
+  const changeOrder = (type: string) => {
+    if (type === 'name') {
+      setNameIcon(nameIcon === 'pi pi-arrow-down' ? 'pi pi-arrow-up' : 'pi pi-arrow-down');
+    } else if (type === 'price') {
+      setPriceIcon(priceIcon === 'pi pi-arrow-down' ? 'pi pi-arrow-up' : 'pi pi-arrow-down');
+    } else if (type === 'date') {
+      setDateIcon(dateIcon === 'pi pi-arrow-down' ? 'pi pi-arrow-up' : 'pi pi-arrow-down');
     }
-    setOrdenacao(icon === 'pi pi-arrow-down' ? 'desc' : 'asc');
   };
 
   return (
@@ -88,34 +119,28 @@ export const NavigationPage = () => {
                 Filtro 1, Filtro 2.
               </p>
               <div className="nav-filter-display-order">
-                <p
-                  className={classNames('nav-filter-display-order-text', {
-                    'nav-filter-highlight': selectedFilters.includes('nome'),
-                  })}
-                  onClick={() => addFilter('nome')}
-                  style={{ cursor: 'pointer' }}
-                >
+                <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
                   Nome
                 </p>
+                <i className={nameIcon} onClick={() => changeOrder('name')} style={{ cursor: 'pointer' }}>
+                  {' '}
+                </i>
                 <p
-                  className={classNames('nav-filter-display-order-text', {
-                    'nav-filter-highlight': selectedFilters.includes('preco'),
-                  })}
-                  onClick={() => addFilter('preco')}
+                  className="nav-filter-display-order-text"
                   style={{ cursor: 'pointer' }}
                 >
                   Preco
                 </p>
-                {/* <p
-                  className={classNames('nav-filter-display-order-text', {
-                    'nav-filter-highlight': selectedFilters.includes('filtro'),
-                  })}
-                  onClick={() => addFilter('filtro')}
+                <i className={priceIcon} onClick={() => changeOrder('price')} style={{ cursor: 'pointer' }}>
+                  {' '}
+                </i>
+                <p
+                  className="nav-filter-display-order-text"
                   style={{ cursor: 'pointer' }}
                 >
-                  Filtro
-                </p> */}
-                <i className={icon} onClick={changeOrder} style={{ cursor: 'pointer' }}>
+                  Data de Criação
+                </p>
+                <i className={dateIcon} onClick={() => changeOrder('date')} style={{ cursor: 'pointer' }}>
                   {' '}
                 </i>
               </div>
