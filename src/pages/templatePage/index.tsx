@@ -26,8 +26,8 @@ const TemplatePage: React.FC<TemplatePageProps> = ({
   );
 
   const style: React.CSSProperties = contents
-    ? { height: '100vh', display: 'flex', flexDirection: 'column' }
-    : { height: '100vh', display: 'flex', flexDirection: 'column' };
+    ? { height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column' }
+    : { height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column' };
 
   return (
     <div style={style}>
