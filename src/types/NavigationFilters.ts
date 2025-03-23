@@ -1,10 +1,10 @@
 export interface Filters {
-    campo: string;
-    operador: string;
-    valor: string;
-}
-
-export interface Orders {
-    campo: string;
-    ordem: string;
-}
+    field: string;
+    operator: string;
+    value: string;
+  }
+  
+  export interface Orders {
+    field: string;
+    order: string;
+  }

@@ -28,7 +28,7 @@ const App = () => {
                 </RegisterSeboProvider>
               }
             />
-            <Route path="/profile/sebo" element={<ProfileSebo />} />
+            <Route path="/profile/sebo" element={<ProfileSebo id={0} />} />
             <Route
               path="/profile/sebo/edit"
               element={
@@ -47,9 +47,18 @@ const App = () => {
               }
             />
             <Route
-              path="/navigation"
-              element={<NavigationPage />}
-            />
+               path="/navigation"
+               element={
+                 <NavigationPage
+                   filters={[]}
+                   orders={[
+                     { field: 'name', order: 'ASC' },
+                     { field: 'price', order: 'ASC' },
+                     { field: 'createdAt', order: 'DESC' },
+                   ]}
+                 />
+               }
+             />
           </Routes>
         </NotificationProvider>
       </BrowserRouter>
