@@ -1,3 +1,4 @@
+import { Rule } from '@domains/Rule';
 import { getTypeCpfCnpj, isEmail, isMaxValue, isMinValue } from './utils';
 
 export const stepRules = (fieldsToValidate: Array<string>, rules: Record<string, Rule[]>) =>
@@ -53,10 +54,10 @@ export const validateRule = (value: string, ruleList: Rule[] = []) => {
     } else if (rule.rule === 'isValidLength') {
       if (value && rule.maxLength && !isMaxValue(value, rule.maxLength)) {
         validationResult.error = true;
-        validationResult.message = 'Limite de caracteres ultrapassado';
+        validationResult.message = `O campo deve ter no máximo ${rule.maxLength} caracteres`;
       } else if (value && rule.minLength && !isMinValue(value, rule.minLength)) {
         validationResult.error = true;
-        validationResult.message = `Mínimo de caracteres: ${rule.minLength}`;
+        validationResult.message = `O campo deve ter pelo menos ${rule.minLength} caracteres`;
       }
     } else if (rule.rule === 'isEmail') {
       if (value && !isEmail(value)) {

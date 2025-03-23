@@ -30,7 +30,6 @@ export default function Header({ simpleHeader }: HeaderProps) {
   const handleLogout = async () => {
     try {
       const response = await logout();
-
       if (response.status == 200) {
         showNotification('success', 'Logout realizado com sucesso!', '');
       } else {
@@ -126,7 +125,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
         </div>
 
         <div className="flex align-items-center gap-4 justify-center">
-          {conta?.tipo === 'USUARIO' && (
+          {conta?.tipo == 'USUARIO' && (
             <>
               <Button icon="pi pi-heart" rounded text aria-label="Favoritos" style={{ color: '#F5ECDD' }} />
               <Button icon="pi pi-shopping-bag" rounded text aria-label="Cesta" style={{ color: '#F5ECDD' }} />

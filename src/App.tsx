@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from '@pages/homePage';
 import RegisterSebo from '@pages/register/sebo';
-import { RegisterSeboProvider } from '@stores/register/sebo/store';
+import { RegisterSeboProvider } from '@stores/register/sebo/registerStore';
 import { NotificationProvider } from '@contexts/notificationContext';
 import ProfileSebo from '@pages/profile/sebo';
 import ProfileSeboForm from '@pages/profile/sebo/form';
@@ -9,9 +9,9 @@ import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
 import LoginPage from '@pages/loginPage';
 import { LoginProvider } from '@stores/login/loginStore';
-import { RecoverRequestProvider } from '@stores/recover/recoverRequest';
+import { RecoverRequestProvider } from '@stores/recover/recoverStore';
 import RecoverRequestPage from '@pages/recover/request';
-import { ResetRequestProvider } from '@stores/recover/resetRequest';
+import { ResetRequestProvider } from '@stores/recover/resetStore';
 import ResetRequestPage from '@pages/recover/reset';
 import RegisterUser from '@pages/register/user';
 import { RegisterUserProvider } from '@stores/register/user/store';
@@ -20,7 +20,6 @@ import ProfileUser from '@pages/profile/user';
 import ProfileUserForm from '@pages/profile/user/form';
 import { ProfileUserFormProvider } from '@stores/profile/user/formStore';
 import { AuthProvider } from '@contexts/authContext';
-import ProtectedRoute from '@components/ProtectedRoute/protectedRoute';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
 
 const App = () => {
@@ -97,10 +96,6 @@ const App = () => {
                   </ProfileSeboFormProvider>
                 }
               />
-
-              <Route element={<ProtectedRoute />}>
-                <Route path="/protected_example" element={<h1>This is protected!!!</h1>} />
-              </Route>
             </Routes>
           </AuthProvider>
         </NotificationProvider>

@@ -1,53 +1,12 @@
 import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
+import FormField from '@components/FormField/formField';
+import { Button } from 'primereact/button';
+import { useLogin } from '@stores/login/loginStore';
 import './style.css';
 
-import FormField from '@components/FormField/formField';
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'primereact/button';
-import { useErrorContext } from '@contexts/errorContext';
-import { useLogin } from '@stores/login/loginStore';
-import { login } from 'routes/routesAuth';
-import { useNotification } from '@contexts/notificationContext';
-import { useAuth } from '@contexts/authContext';
-
 const LoginPage = () => {
-  const { credenciais, setField, validate } = useLogin();
-  const { setError } = useErrorContext();
-  const navigate = useNavigate();
-  const { showNotification } = useNotification();
-  const { auth_login } = useAuth();
-  
-
-  const finalizeLogin = async () => {
-    if (validate()) {
-      try {
-        const response = await login(credenciais);
-
-        if (response.status === 200) {
-          showNotification('success', 'Login realizado com sucesso!', '');
-          auth_login();
-          
-          navigate('/');
-          window.location.reload();
-        }
-      } catch (error) {
-        if (error.response.status === 401) {
-          setError('senha', {error:true, message:'Senha incorreta.'});
-        } else if (error.response.status === 404) {
-          setError('email', {error:true, message:'Email inválido.'});
-          setError('senha', {error:true, message:''});
-        } else if (error.response) {
-          const errorMessage = error.response.data.message || 'Erro no servidor.';
-          showNotification('error', errorMessage, '');
-        } else if (error.request) {
-          showNotification('error', 'Sem resposta do servidor. Verifique sua conexão.', '');
-        } else {
-          showNotification('error', 'Algo deu errado. Tente novamente mais tarde.', '');
-        }
-      }
-    } 
-  };
+  const { credenciais, setField, finalizeLogin } = useLogin();
 
   return (
     <div className="main-login">
@@ -77,7 +36,7 @@ const LoginPage = () => {
                 />
               </FormField>
             </div>
-            <Button label="Entrar" className="button" type="submit" onClick={finalizeLogin} />
+            <Button label="Entrar" className="button" type="submit" onClick={() => finalizeLogin()} />
             <div className="footer">
               <p>
                 Não possui uma conta? <a href="/register">Cadastre-se</a>
