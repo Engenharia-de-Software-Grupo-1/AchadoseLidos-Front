@@ -7,6 +7,7 @@ import ProfileSebo from '@pages/profile/sebo';
 import ProfileSeboForm from '@pages/profile/sebo/form';
 import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
+import { SeboProvider } from '@stores/profile/sebo/indexStore';
 
 const App = () => {
   return (
@@ -23,7 +24,14 @@ const App = () => {
                 </RegisterSeboProvider>
               }
             />
-            <Route path="/profile/sebo" element={<ProfileSebo />} />
+            <Route
+              path="/profile/sebo"
+              element={
+                <SeboProvider>
+                  <ProfileSebo id={1}/>
+                </SeboProvider>
+              }
+            />
             <Route
               path="/profile/sebo/edit"
               element={
