@@ -4,6 +4,7 @@ import { Sebo } from '@domains/Sebo';
 import { useNotification } from '@contexts/notificationContext';
 import { extractRules, stepRules } from '@utils/formRules';
 import { addRuleToField } from '@utils/utils';
+import { Rule } from '@domains/Rule';
 
 interface ProfileSeboFormContextType {
   sebo: Sebo;
@@ -30,8 +31,8 @@ interface ProfileSeboFormProviderProps {
 
 export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderProps) => {
   const { showNotification } = useNotification();
+
   const [sebo, setFormData] = useState<Sebo>({
-    // falta foto
     conta: {
       email: '',
       senha: '',
@@ -46,9 +47,11 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     telefone: '',
     biografia: '',
     instagram: '',
+    fotoPerfil: undefined,
     estanteVirtual: '',
     curadores: '',
     concordaVender: false,
+    horarioFuncionamento: '',
     endereco: {
       estado: '',
       cidade: '',
@@ -69,7 +72,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
 
   const rules: Record<string, Rule[]> = {
     nome: [{ rule: 'required' }],
-    cpfCnpj: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
+    cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
     email: [{ rule: 'required' }, { rule: 'isEmail' }],
     senha: [{ rule: 'required' }],
     confirmaSenha: [{ rule: 'required' }],
@@ -86,7 +89,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     return rules[field] ? rules[field] : {};
   };
 
-  const validateStep = (stepIndex: number): boolean => {
+  const validateStep = (): boolean => {
     let fieldsToValidate = [
       'nome',
       'cpfCnpj',
@@ -117,7 +120,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
   const loadCitiesByState = async (state: string): Promise<void> => {
     try {
       const response = await ibge.country.getBy(state);
-      const citiesOptions = (response.data as unknown as any[]).map((city: any) => ({
+      const citiesOptions = response.data.map((city) => ({
         value: city.codigo_ibge,
         text: city.nome,
       }));

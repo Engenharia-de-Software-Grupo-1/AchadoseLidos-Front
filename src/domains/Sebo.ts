@@ -16,8 +16,9 @@ export interface Sebo {
   fotoPerfil?: Foto;
   concordaVender: boolean;
   endereco: Endereco;
-  fotos?: Array<Foto>;
+  fotos?: Foto[];
   mercadoLivre?: string;
   enjoei?: string;
   amazon?: string;
+  horarioFuncionamento?: string,
 }

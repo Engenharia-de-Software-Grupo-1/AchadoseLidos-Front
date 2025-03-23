@@ -17,7 +17,7 @@ const HomePage = () => {
         </div>
 
         <img src="/images/underline.svg" alt="underline" style={{ marginTop: '42px', marginBottom: '42px' }} />
-        <ContainerItems title="Livros" backgroundBege={false} isFirst>
+        <ContainerItems title="Livros" backgroundBege={false}>
           {' '}
         </ContainerItems>
         <ContainerItems title="Sebos" backgroundBege>

@@ -54,6 +54,5 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
-  },
-  "packageManager": "yarn@1.22.22"
+  }
 }

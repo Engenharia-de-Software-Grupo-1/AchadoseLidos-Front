@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import './style.css';
-import { uploadImage } from '@utils/cloudinary';
+import { uploadImage } from '@services/cloudinaryService';
 
 interface ProfilePhotoProps {
   imageProfile: string;
@@ -8,11 +8,11 @@ interface ProfilePhotoProps {
   setField?: (field: string, value: any) => void;
 }
 
-const ProfilePhoto = ({ imageProfile, canUpload = false, setField}: ProfilePhotoProps) => {
+const ProfilePhoto = ({ imageProfile, canUpload = false, setField }: ProfilePhotoProps) => {
   const [image, setImage] = useState(imageProfile);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageUpload = async(event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       const imageUrl = await uploadImage(file);
@@ -37,7 +37,9 @@ const ProfilePhoto = ({ imageProfile, canUpload = false, setField}: ProfilePhoto
       <div
         className="profile-picture"
         style={{
-          backgroundImage: canUpload ? `linear-gradient(rgba(169, 169, 169, 0.5), rgba(169, 169, 169, 0.5)), url(${image})` : `url(${imageProfile})`,
+          backgroundImage: canUpload
+            ? `linear-gradient(rgba(169, 169, 169, 0.5), rgba(169, 169, 169, 0.5)), url(${image})`
+            : `url(${imageProfile})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',

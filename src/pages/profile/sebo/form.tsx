@@ -1,36 +1,27 @@
 import TemplatePage from '@pages/templatePage';
 import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
-import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
-import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
-import { ProfileFormField } from '@components/ProfileForm/ProfileFormField';
+import { ProfileFormField } from '@components/ProfileForm/profileFormField';
 import { FieldNames } from '@domains/FieldNames';
-import { IconField } from 'primereact/iconfield';
-import { AddressFormField } from '@components/ProfileForm/AddressFormField';
+import { AddressFormField } from '@components/ProfileForm/addressFormField';
 import { AddressNames } from '@domains/AddressNames';
 import { useForm } from './useForm';
 import { Checkbox } from 'primereact/checkbox';
 import { useState } from 'react';
 import UploadImages from '@components/UploadImages/uploadImages';
 import { Button } from 'primereact/button';
-import DialogModal from '@components/DialogModal';
+import DialogModal from '@components/DialogModal/dialogModal';
 
 const ProfileSeboForm = () => {
   const {
     breadcrumbItems,
-    cities,
-    getRule,
-    endereco,
     handleEnderecoChange,
     sebo,
     setField,
-    setSubmitted,
     submitted,
-    validateStep,
     imageProfile,
   } = useForm();
-
 
   const [checked, setChecked] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
@@ -42,7 +33,7 @@ const ProfileSeboForm = () => {
 
         <div className="container-edit-sebo">
           <div className="form-edit-sebo">
-            <ProfilePhoto imageProfile={imageProfile} canUpload />
+            <ProfilePhoto imageProfile={imageProfile} canUpload setField={setField} />
 
             <div className="container-data-form">
               <div className="fields-column">
@@ -52,9 +43,8 @@ const ProfileSeboForm = () => {
                   fieldValue={sebo.nome}
                   setField={setField}
                   hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
-                  placeholderText="Nome do Sebo" // também falta adicionar as rules que Eliane criou, se elas forem necessárias aqui especificamente
+                  placeholderText="Digite o nome do Sebo" // também falta adicionar as rules que Eliane criou, se elas forem necessárias aqui especificamente
                 />
-
                 <ProfileFormField
                   labelText="CPF/CNPJ"
                   fieldName={FieldNames.cpfCnpj}
@@ -64,7 +54,6 @@ const ProfileSeboForm = () => {
                   placeholderText="000.000.000-00"
                   isShortInput
                 />
-
                 <ProfileFormField
                   labelText="Biografia curta"
                   fieldName={FieldNames.briefBio}
@@ -76,14 +65,13 @@ const ProfileSeboForm = () => {
                   isTextArea
                   isOptional
                 />
-
                 <ProfileFormField
                   labelText="Nome dos Curadores (separados por vírgula)"
                   fieldName={FieldNames.curadores}
                   fieldValue={sebo.curadores}
                   hasSubmissionFailed={submitted}
                   setField={setField}
-                  placeholderText="Fulaninha, Fulaninho"
+                  placeholderText="Digite o nome dos curadores"
                   isTextArea
                   isOptional
                 />
@@ -147,22 +135,21 @@ const ProfileSeboForm = () => {
                   setField={handleEnderecoChange}
                   isOptional
                 />
-                // Ainda falta adicionar o checkbox para o campo ehPublico
+                // Ainda falta adicionar o checkbox para o campo ehPublico e horario func
               </div>
             </div>
 
-            <div className='container-upload'>
+            <div className="container-upload">
               <UploadImages />
             </div>
 
-            <div className='container-contat-edit-sebo'>
+            <div className="container-contat-edit-sebo">
               <div>
-                <Checkbox className='mr-2' onChange={e => setChecked(e.checked ?? false)} checked={checked} />
-                <span className='span-checkbox'>Você concorda em vender produtos via plataforma?</span>
+                <Checkbox className="mr-2" onChange={(e) => setChecked(e.checked ?? false)} checked={checked} />
+                <span className="span-checkbox">Você concorda em vender produtos via plataforma?</span>
               </div>
 
-              <div className='form-contat-sebo'>
-
+              <div className="form-contat-sebo">
                 <ProfileFormField
                   labelText="Whatsapp"
                   fieldName={FieldNames.telefone}
@@ -223,11 +210,10 @@ const ProfileSeboForm = () => {
                   isOptional
                   isShortInput
                 />
-
               </div>
             </div>
 
-            <div className='container-historia-sebo'>
+            <div className="container-historia-sebo">
               <ProfileFormField
                 labelText="História (longo)"
                 fieldName={FieldNames.historia}
@@ -240,15 +226,12 @@ const ProfileSeboForm = () => {
               />
             </div>
 
-            <div className='container-buttons'>
-              <Button label="Excluir Conta" className='button-trash' onClick={() => setVisible(true)}/>
-              {visible && (
-                <DialogModal visibleDialog={visible} setVisibleDialog={setVisible}></DialogModal>
-              )}
+            <div className="container-buttons">
+              <Button label="Excluir Conta" className="button-trash" onClick={() => setVisible(true)} />
+              {visible && <DialogModal visibleDialog={visible} setVisibleDialog={setVisible}></DialogModal>}
 
-              <Button label="Salvar" className='button-save' />
+              <Button label="Salvar" className="button-save" />
             </div>
-
           </div>
         </div>
       </TemplatePage>
@@ -257,4 +240,3 @@ const ProfileSeboForm = () => {
 };
 
 export default ProfileSeboForm;
-

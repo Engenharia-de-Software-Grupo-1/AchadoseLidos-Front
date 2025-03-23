@@ -3,7 +3,7 @@ import { DATE_FORMAT, DATE_PARSE_FORMAT } from './date';
 import * as validator from 'email-validator';
 import moment from 'moment';
 
-export const isCpfCnpj = (cpfCnpj: string) => {
+export const getTypeCpfCnpj = (cpfCnpj: string) => {
   if (cpfCnpj) {
     cpfCnpj = cpfCnpj.replace(/\D/g, '');
 
@@ -17,13 +17,22 @@ export const isCpfCnpj = (cpfCnpj: string) => {
   return null;
 };
 
-export const isMaxLength = (campo: string, tamanhoMax: number) => {
+export const isMaxValue = (campo: string, tamanhoMax: number) => {
   if (campo === undefined || campo === null) {
     return true;
   }
   const stringValue = `${campo}`;
 
   return stringValue.length <= tamanhoMax;
+};
+
+export const isMinValue = (campo: string, tamanhoMin: number) => {
+  if (campo === undefined || campo === null) {
+    return false;
+  }
+  const stringValue = `${campo}`;
+
+  return stringValue.length >= tamanhoMin;
 };
 
 export const isEmail = (email: string) => {
@@ -97,7 +106,7 @@ export const getFirstAndLastName = (name: string) => {
   return (fullName.shift() + (fullName && fullName.length ? ' ' + fullName.pop() : '')).toUpperCase();
 };
 
-export const checkBoolean = (value: boolean) => {
+export const parseBoolean = (value: boolean) => {
   if (value) return 'Sim';
   else return 'Não';
 };

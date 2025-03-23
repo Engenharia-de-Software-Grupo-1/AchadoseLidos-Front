@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const MyMap: React.FC = () => {
-  const position: [number, number] = [-7.2290752, -35.8808337];
+  const position = [-7.2290752, -35.8808337];
 
   return (
     <MapContainer center={position} zoom={13} style={{ height: '400px', width: '100%' }}>

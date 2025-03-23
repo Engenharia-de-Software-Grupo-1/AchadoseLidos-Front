@@ -6,19 +6,23 @@ interface ContainerItemsProps {
   backgroundBege: boolean;
   isFirst?: boolean;
 }
- 
-const ContainerItems = ({ title, children, backgroundBege, isFirst }: ContainerItemsProps) => {
+
+const ContainerItems = ({ title, children, backgroundBege }: ContainerItemsProps) => {
+  const getClassName = (classNameBase: string) => {
+    return backgroundBege ? classNameBase + '-event' : classNameBase + '-items';
+  };
+
   return (
     <>
-      <div className={`${backgroundBege ? 'container-carousel-event' : isFirst ? 'container-carousel-items-first' :'container-carousel-items'}`}>
-        <div className={`${backgroundBege ? 'content-title-event' : 'content-title'}`}>
-          <span className={`${backgroundBege ? 'title-carousel-event' : 'title-carousel-items'}`}>
+      <div className={getClassName('container-carousel')}>
+        <div className={getClassName('content-title')}>
+          <span className={getClassName('title-carousel')}>
             {title} {'>'}
           </span>
         </div>
       </div>
 
-      <div className={`${backgroundBege ? 'space-carousel-events' : 'space-carousel-items'}`}>{children}</div>
+      <div className={getClassName('space-carousel')}>{children}</div>
     </>
   );
 };
