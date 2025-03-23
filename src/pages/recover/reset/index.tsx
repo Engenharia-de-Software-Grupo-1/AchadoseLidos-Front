@@ -1,21 +1,15 @@
 import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
-
-import './style.css';
 import FormField from '@components/FormField/formField';
-import { useNotification } from '@contexts/notificationContext';
 import { Button } from 'primereact/button';
 import { useResetRequest } from '@stores/recover/resetRequest';
-import { atualizar_senha } from 'routes/routesRecover';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import './style.css';
 
 const ResetRequestPage = () => {
-  const { showNotification } = useNotification();
-  const { credenciais, setField, validate } = useResetRequest();
+  const { credenciais, setField, finalizeResetRequest } = useResetRequest();
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-
   const token = searchParams.get('token');
 
   useEffect(() => {
@@ -24,36 +18,6 @@ const ResetRequestPage = () => {
       window.history.replaceState({}, document.title, cleanUrl);
     }
   }, [token]);
-
-  const finalizeResetRequest = async () => {
-    if (validate()) {
-      try {
-        await setField('conta.token', token);
-        const response = await atualizar_senha(credenciais.conta);
-
-        if (response.status === 200) {
-          showNotification('success', 'Senha atualizada com sucesso!', '');
-          navigate('/login');
-        }
-      } catch (error) {
-        if (error.response) {
-          const errorData = error.response.data;
-
-          if (errorData.errors && Array.isArray(errorData.errors)) {
-            errorData.errors.forEach((err: { message: string }) => {
-              showNotification('error', err.message, '');
-            });
-          } else {
-            showNotification('error', errorData.mensagem || 'Erro no servidor.', '');
-          }
-        } else if (error.request) {
-          showNotification('error', 'Sem resposta do servidor. Verifique sua conexão.', '');
-        } else {
-          showNotification('error', 'Algo deu errado. Tente novamente mais tarde.', '');
-        }
-      }
-    }
-  };
 
   return (
     <div className="main-recover-two">
@@ -84,7 +48,7 @@ const ResetRequestPage = () => {
                 />
               </FormField>
             </div>
-            <Button className="button" type="submit" label="Atualizar Senha" onClick={finalizeResetRequest} />
+            <Button className="button" type="submit" label="Atualizar Senha" onClick={() => finalizeResetRequest(token)} />
             <div className="footer"></div>
           </div>
         </div>

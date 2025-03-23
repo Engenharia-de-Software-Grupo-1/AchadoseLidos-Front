@@ -1,11 +1,14 @@
 import { createContext, ReactNode, useContext } from 'react';
 import { CredenciaisResetRequest } from '@domains/Credenciais';
 import { useForm } from '@hooks/useForm';
+import { useNotification } from '@contexts/notificationContext';
+import { useNavigate } from 'react-router-dom';
+import { atualizar_senha } from '@routes/routesRecover';
 
 interface ResetRequestContextType {
   credenciais: CredenciaisResetRequest;
   setField: (field: string, value: any) => void;
-  validate: () => boolean;
+  finalizeResetRequest: (token: string | null) => void;
 }
 
 const ResetRequestContext = createContext<ResetRequestContextType | null>(null);
@@ -23,6 +26,9 @@ interface ResetRequestProviderProps {
 }
 
 export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) => {
+  const { showNotification } = useNotification();
+  const navigate = useNavigate();
+
   const aditionalValidate = (
     credenciais: CredenciaisResetRequest,
     validationResults: Record<string, any>
@@ -68,8 +74,38 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
     aditionalValidate,
   });
 
+  const finalizeResetRequest = async (token: string | null) => {
+    if (validate()) {
+      try {
+        await setField('conta.token', token);
+        const response = await atualizar_senha(formData.conta);
+
+        if (response.status === 200) {
+          showNotification('success', 'Senha atualizada com sucesso!', '');
+          navigate('/login');
+        }
+      } catch (error: any) {
+        if (error.response) {
+          const errorData = error.response.data;
+
+          if (errorData.errors && Array.isArray(errorData.errors)) {
+            errorData.errors.forEach((err: { message: string }) => {
+              showNotification('error', err.message, '');
+            });
+          } else {
+            showNotification('error', errorData.mensagem || 'Erro no servidor.', '');
+          }
+        } else if (error.request) {
+          showNotification('error', 'Sem resposta do servidor. Verifique sua conexão.', '');
+        } else {
+          showNotification('error', 'Algo deu errado. Tente novamente mais tarde.', '');
+        }
+      }
+    }
+  };
+
   return (
-    <ResetRequestContext.Provider value={{ credenciais: formData, setField, validate }}>
+    <ResetRequestContext.Provider value={{ credenciais: formData, setField, finalizeResetRequest }}>
       {children}
     </ResetRequestContext.Provider>
   );
