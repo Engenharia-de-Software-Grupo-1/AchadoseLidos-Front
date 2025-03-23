@@ -28,10 +28,6 @@ const Profile = ({ authUser, dataProfile, content }: ProfileProps) => {
               <Link to={`/profile/${role}/edit`}>
                 <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
               </Link>
-            ) : isUser ? (
-              <Link to="/profile/user/edit">
-                <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
-              </Link>
             ) : authUser ? (
               <i className="pi pi-bell" style={{ fontSize: 'x-large' }}/>
             ) : null}

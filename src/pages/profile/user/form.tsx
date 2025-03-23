@@ -7,7 +7,7 @@ import { FieldNamesUser } from '@domains/FieldNames';
 import { useFormUser } from './useForm';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DialogModal from '@components/DialogModal';
+import DialogModal from '@components/DialogModal/dialogModal';
 import { useAuth } from '@contexts/authContext';
 import { deleteUser, getById, updateUser } from 'routes/routesUser';
 import { useNotification } from '@contexts/notificationContext';

@@ -8,8 +8,10 @@ import { Avatar } from 'primereact/avatar';
 import { PanelMenu } from 'primereact/panelmenu';
 import 'primeicons/primeicons.css';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
+import { useNotification } from '@contexts/notificationContext';
+import { useAuth } from '@contexts/authContext';
 
 interface HeaderProps {
   simpleHeader: boolean
