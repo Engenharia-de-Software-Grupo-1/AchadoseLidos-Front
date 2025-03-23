@@ -5,6 +5,7 @@ export interface ProductCardProps {
   name: string;
   owner: string;
   price: number;
+  createdAt: Date;
 }
 
 const productCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
@@ -18,7 +19,7 @@ const productCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         <div className="title">
           <div className="itemTalSeboTalContainer">
             <p className="itemTal">
-              {name.length > 40 ? `${name.substring(0, 37)}...` : name}
+              {name.length > 40 ? `${name.substring(0, 30)}...` : name}
             </p>
             <p className="seboTal">{owner}</p>
           </div>
