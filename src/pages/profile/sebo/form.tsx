@@ -135,7 +135,7 @@ const ProfileSeboForm = () => {
                   setField={handleEnderecoChange}
                   isOptional
                 />
-                // Ainda falta adicionar o checkbox para o campo ehPublico
+                // Ainda falta adicionar o checkbox para o campo ehPublico e horario func
               </div>
             </div>
 
