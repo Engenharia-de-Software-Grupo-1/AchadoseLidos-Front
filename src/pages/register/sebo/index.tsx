@@ -13,7 +13,7 @@ import './style.css';
 
 const RegisterSebo = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { sebo, setField, validateStep, cities, checkTelefone, saveRegisterSebo } = useRegisterSebo();
+  const { sebo, setField, validateStep, cities, saveRegisterSebo } = useRegisterSebo();
   const [_, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const RegisterSebo = () => {
   const stepsItems = [
     {
       label: 'Dados Básicos',
-      component: <TabDadosBasicos sebo={sebo} setField={setField} checkTelefone={checkTelefone}/>,
+      component: <TabDadosBasicos sebo={sebo} setField={setField} />,
     },
     {
       label: 'Endereço',

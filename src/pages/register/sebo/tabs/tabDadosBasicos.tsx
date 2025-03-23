@@ -6,10 +6,9 @@ import { Sebo } from '@domains/Sebo';
 interface TabDadosBasicosProps {
   sebo: Sebo;
   setField: (field: string, value: any) => void;
-  checkTelefone: (checked: boolean) => void;
 }
 
-const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, checkTelefone }) => {
+const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField }) => {
   return (
     <div className="container-register-sebo">
       <div className="container-register">
@@ -66,10 +65,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField, check
 
           <div className="card flex align-items-center gap-4">
             <p className="text-sales">Você concorda em vender produtos via plataforma?</p>
-            <Checkbox onChange={(e) => {
-              checkTelefone(e.checked);
-              setField('concordaVender', e.checked);
-            }} checked={sebo.concordaVender} />
+            <Checkbox onChange={(e) => setField('concordaVender', e.checked)} checked={sebo.concordaVender} />
           </div>
         </div>
       </div>

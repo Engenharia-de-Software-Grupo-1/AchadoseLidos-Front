@@ -1,8 +1,6 @@
-import { useErrorContext } from '@contexts/errorContext';
-import { extractRules, validateRule } from '@utils/formRules';
-import { createContext, ReactNode, useContext, useState } from 'react';
-import { getField } from '@utils/utils';
+import { createContext, ReactNode, useContext } from 'react';
 import { CredenciaisResetRequest } from '@domains/Credenciais';
+import { useForm } from '@hooks/useForm';
 
 interface ResetRequestContextType {
   credenciais: CredenciaisResetRequest;
@@ -25,56 +23,7 @@ interface ResetRequestProviderProps {
 }
 
 export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) => {
-  const [credenciais, setFormData] = useState<CredenciaisResetRequest>({
-    conta: {
-      senha: '',
-      token: '',
-    },
-    confirmaSenha: '',
-  });
-
-  const [rules] = useState<Record<string, Rule[]>>({
-    senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
-    confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
-  });
-
-  const { setErrors, setError } = useErrorContext();
-
-  const validate = (): boolean => {
-    let validationResults = extractRules(rules, credenciais);
-    validationResults = verifyPassword(credenciais, validationResults);
-
-    setErrors(validationResults);
-    return !Object.values(validationResults).some((field) => field.error);
-  };
-
-  const setField = (field: string, value: any) => {
-    setFormData((prev) => {
-      const updatedFormData = { ...prev! };
-
-      const keys = field.split('.');
-      let currentField = updatedFormData;
-
-      keys.forEach((key, index) => {
-        if (index === keys.length - 1) {
-          currentField[key] = value;
-        } else {
-          currentField = currentField[key];
-        }
-      });
-
-      return updatedFormData;
-    });
-
-    const fieldName = getField(field);
-    setError(fieldName, validateRule(value, getRule(fieldName)));
-  };
-
-  const getRule = (field: string): Rule[] => {
-    return rules[field] || [];
-  };
-
-  const verifyPassword = (
+  const aditionalValidate = (
     credenciais: CredenciaisResetRequest,
     validationResults: Record<string, any>
   ): Record<string, any> => {
@@ -104,7 +53,24 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
     return validationResults;
   };
 
+  const { formData, setField, validate } = useForm<CredenciaisResetRequest>({
+    initialData: {
+      conta: {
+        senha: '',
+        token: '',
+      },
+      confirmaSenha: '',
+    },
+    rules: {
+      senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
+      confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
+    },
+    aditionalValidate,
+  });
+
   return (
-    <ResetRequestContext.Provider value={{ credenciais, setField, validate }}>{children}</ResetRequestContext.Provider>
+    <ResetRequestContext.Provider value={{ credenciais: formData, setField, validate }}>
+      {children}
+    </ResetRequestContext.Provider>
   );
 };

@@ -2,11 +2,8 @@ import { createContext, useContext, useState, ReactNode, useCallback } from 'rea
 import { ibge } from 'brasilapi-js';
 import { Sebo } from '@domains/Sebo';
 import { useNotification } from '@contexts/notificationContext';
-import { extractRules, stepRules, validateRule } from '@utils/formRules';
-import { addRuleToField, getField } from '@utils/utils';
-import { useErrorContext } from '@contexts/errorContext';
-import { Rule } from '@domains/Rule';
 import { createSebo } from '@routes/routesSebo';
+import { useForm } from '@hooks/useForm';
 
 interface RegisterSeboContextType {
   sebo: Sebo;
@@ -15,7 +12,6 @@ interface RegisterSeboContextType {
   getRule: (field: string) => {};
   loadCitiesByState: (state: string) => Promise<void>;
   cities: { value: string; text: string }[];
-  checkTelefone: (checked: boolean) => void;
   saveRegisterSebo: (sucessCallback?: () => void) => void;
 }
 
@@ -35,105 +31,17 @@ interface RegisterSeboProviderProps {
 
 export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) => {
   const { showNotification } = useNotification();
-  const [sebo, setFormData] = useState<Sebo>({
-    conta: {
-      email: '',
-      senha: '',
-      confirmaSenha: '',
-      tipo: 'SEBO',
-      status: 'ATIVA',
-    },
-    nome: '',
-    cpfCnpj: '',
-    telefone: '',
-    biografia: '',
-    instagram: '',
-    fotoPerfil: undefined,
-    estanteVirtual: '',
-    curadores: '',
-    concordaVender: false,
-    endereco: {
-      estado: '',
-      cidade: '',
-      cep: '',
-      rua: '',
-      bairro: '',
-      numero: '',
-      complemento: '',
-      ehPublico: false,
-    },
-  });
-
   const [cities, setCities] = useState<{ value: string; text: string }[]>([]);
-  const [rules, setRules] = useState<Record<string, Rule[]>>({
-    nome: [{ rule: 'required' }],
-    cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
-    email: [{ rule: 'required' }, { rule: 'isEmail' }],
-    senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
-    confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
-    estado: [{ rule: 'required' }],
-    cidade: [{ rule: 'required' }],
-    cep: [{ rule: 'required' }],
-    rua: [{ rule: 'required' }],
-    bairro: [{ rule: 'required' }],
-    numero: [{ rule: 'required' }],
-    complemento: [{ rule: 'required' }],
-  });
-  const { setErrors, setError } = useErrorContext();
 
-  const setField = (field: string, value: any) => {
-    setFormData((prev) => {
-      const updatedFormData = { ...prev! };
-
-      const keys = field.split('.');
-      let currentField = updatedFormData;
-
-      keys.forEach((key, index) => {
-        if (index === keys.length - 1) {
-          currentField[key] = value;
-        } else {
-          currentField = currentField[key];
-        }
-      });
-
-      return updatedFormData;
-    });
-
-    const fieldName = getField(field);
-    setError(fieldName, validateRule(value, getRule(fieldName)));
-  };
-
-  const getRule = (field: string): Rule[] => {
-    return rules[field] || [];
-  };
-
-  const checkTelefone = (checked: boolean) => {
-    if (checked) {
-      const updatedRules = addRuleToField(rules, 'telefone', { rule: 'required' });
-      setRules(updatedRules);
+  const checkTelefone = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
+    if (sebo.concordaVender && !sebo.telefone) {
+      validationResults['telefone'] = {
+        error: true,
+        message: 'Campo obrigatório',
+        rules: [],
+      };
     }
-  };
-
-  const validateStep = (stepIndex: number): boolean => {
-    const stepFields: Record<number, string[]> = {
-      0: ['nome', 'cpfCnpj', 'email', 'senha', 'confirmaSenha'],
-      1: ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero'],
-      2: [],
-    };
-
-    let fieldsToValidate = stepFields[stepIndex] || [];
-
-    if (stepIndex === 0 && sebo.concordaVender) {
-      fieldsToValidate.push('telefone');
-    }
-
-    const rulesByStep = stepRules(fieldsToValidate, rules);
-    let validationResults = extractRules(rulesByStep, sebo);
-    validationResults = verifyPassword(sebo, validationResults);
-
-    setErrors(validationResults);
-
-    return !Object.values(validationResults).some((field) => field.error);
+    return validationResults;
   };
 
   const verifyPassword = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
@@ -155,6 +63,12 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     return validationResults;
   };
 
+  const aditionalValidate = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
+    validationResults = verifyPassword(sebo, validationResults);
+    validationResults = checkTelefone(sebo, validationResults);
+    return validationResults;
+  };
+
   const loadCitiesByState = useCallback(async (state: string) => {
     try {
       const response = await ibge.country.getBy(state);
@@ -171,7 +85,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
 
   const saveRegisterSebo = async (sucessCallback?: () => void) => {
     try {
-      const response = await createSebo(sebo);
+      const response = await createSebo(formData);
       showNotification('success', null, 'Sebo cadastrado com sucesso!');
 
       sucessCallback && sucessCallback();
@@ -180,9 +94,68 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     }
   };
 
+  const { formData, setField, validate, getRule } = useForm<Sebo>({
+    initialData: {
+      conta: {
+        email: '',
+        senha: '',
+        confirmaSenha: '',
+        tipo: 'SEBO',
+        status: 'ATIVA',
+      },
+      nome: '',
+      cpfCnpj: '',
+      telefone: '',
+      biografia: '',
+      instagram: '',
+      fotoPerfil: undefined,
+      estanteVirtual: '',
+      curadores: '',
+      concordaVender: false,
+      endereco: {
+        estado: '',
+        cidade: '',
+        cep: '',
+        rua: '',
+        bairro: '',
+        numero: '',
+        complemento: '',
+        ehPublico: false,
+      },
+    },
+    rules: {
+      nome: [{ rule: 'required' }],
+      cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
+      email: [{ rule: 'required' }, { rule: 'isEmail' }],
+      senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
+      confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
+      estado: [{ rule: 'required' }],
+      cidade: [{ rule: 'required' }],
+      cep: [{ rule: 'required' }],
+      rua: [{ rule: 'required' }],
+      bairro: [{ rule: 'required' }],
+      numero: [{ rule: 'required' }],
+      complemento: [{ rule: 'required' }],
+    },
+    stepFields: {
+      0: ['nome', 'cpfCnpj', 'email', 'senha', 'confirmaSenha'],
+      1: ['estado', 'cidade', 'cep', 'rua', 'bairro', 'numero'],
+      2: [],
+    },
+    aditionalValidate,
+  });
+
   return (
     <RegisterSeboContext.Provider
-      value={{ sebo, setField, validateStep, getRule, cities, loadCitiesByState, checkTelefone, saveRegisterSebo }}
+      value={{
+        sebo: formData,
+        setField,
+        validateStep: validate,
+        getRule: getRule,
+        cities,
+        loadCitiesByState,
+        saveRegisterSebo,
+      }}
     >
       {children}
     </RegisterSeboContext.Provider>
