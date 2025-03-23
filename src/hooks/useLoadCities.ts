@@ -1,4 +1,4 @@
-import { useRegisterSebo } from '@stores/register/sebo/store';
+import { useRegisterSebo } from '@stores/register/sebo/registerStore';
 import { useEffect, useRef } from 'react';
 
 export const useLoadCities = (uf: string) => {
