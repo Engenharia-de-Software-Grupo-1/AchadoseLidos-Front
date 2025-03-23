@@ -36,21 +36,19 @@ interface RegisterSeboProviderProps {
 export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) => {
   const { showNotification } = useNotification();
   const [sebo, setFormData] = useState<Sebo>({
-    // falta foto
     conta: {
       email: '',
       senha: '',
       confirmaSenha: '',
       tipo: 'SEBO',
       status: 'ATIVA',
-      createdAt: '',
-      updatedAt: '',
     },
     nome: '',
     cpfCnpj: '',
     telefone: '',
     biografia: '',
     instagram: '',
+    fotoPerfil: undefined,
     estanteVirtual: '',
     curadores: '',
     concordaVender: false,

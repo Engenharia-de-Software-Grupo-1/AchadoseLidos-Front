@@ -20,4 +20,5 @@ export interface Sebo {
   mercadoLivre?: string;
   enjoei?: string;
   amazon?: string;
+  horarioFuncionamento?: string,
 }

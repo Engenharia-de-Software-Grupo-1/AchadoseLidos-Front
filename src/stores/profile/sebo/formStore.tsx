@@ -33,7 +33,6 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
   const { showNotification } = useNotification();
 
   const [sebo, setFormData] = useState<Sebo>({
-    // falta foto
     conta: {
       email: '',
       senha: '',
@@ -48,9 +47,11 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     telefone: '',
     biografia: '',
     instagram: '',
+    fotoPerfil: undefined,
     estanteVirtual: '',
     curadores: '',
     concordaVender: false,
+    horarioFuncionamento: '',
     endereco: {
       estado: '',
       cidade: '',
