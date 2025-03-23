@@ -11,13 +11,16 @@ import { useAuth } from '@contexts/authContext';
 
 const ProfileSebo = ({ id }: { id?: number }) => {
   const { sebo, initialize, loading } = useSebo();
-  const { conta } = useAuth();
+  const { conta, isAuthenticated } = useAuth();
+  const images = ['/images/anarita.JPG'];
 
   useEffect(() => {
-    if (id) {
-      initialize(id);
+    const seboId = conta?.sebo?.id ?? id;
+
+    if (seboId) {
+      initialize(seboId);
     }
-  }, [id, sebo, loading, initialize]);
+  }, [conta?.sebo?.id, id, initialize]);
 
   return (
     <div className="main-profile-sebo">
@@ -28,9 +31,9 @@ const ProfileSebo = ({ id }: { id?: number }) => {
           </div>
         ) : (
           <>
-            <Banner images={sebo?.fotos} showIndicators={false} />
+            <Banner images={images} showIndicators={false} />
             <div className="profile-sebo">
-              <Profile role={'SEBO'} authUser={false} dataProfile={conta} content={sebo} />
+              <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} />
             </div>
 
             <ContainerItems title="Todos os Itens" backgroundBege={false}>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { getPerfilById } from '@routes/routesSebo';
 import { useNotification } from '@contexts/notificationContext';
 import { Sebo } from '@domains/Sebo';
@@ -28,7 +28,7 @@ export const SeboProvider = ({ children }: SeboProviderProps) => {
   const [sebo, setSebo] = useState<Sebo | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const initialize = async (id: number | undefined) => {
+  const initialize = useCallback(async (id: number | undefined) => {
     setLoading(true);
     try {
       const data = await getPerfilById(id);
@@ -38,7 +38,7 @@ export const SeboProvider = ({ children }: SeboProviderProps) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return <ProfileSeboContext.Provider value={{ sebo, initialize, loading }}>{children}</ProfileSeboContext.Provider>;
 };

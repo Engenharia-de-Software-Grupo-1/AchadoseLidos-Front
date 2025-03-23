@@ -6,17 +6,14 @@ import { Link } from 'react-router-dom';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 import { Sebo } from '@domains/Sebo';
 import { Usuario } from '@domains/Usuario';
-import { Conta } from '@domains/Conta';
 
 interface ProfileProps {
   authUser?: boolean;
-  dataProfile?: Conta | null;
-  content?: Sebo | Usuario | null;
-  role?: string;
+  data?: Sebo | Usuario | null;
+  role: string | undefined;
 }
 
-const Profile = ({ authUser, dataProfile, role, content }: ProfileProps) => {
-  const data = content ? content : role === 'SEBO' ? dataProfile?.sebo : dataProfile?.usuario;
+const Profile = ({ authUser, role, data }: ProfileProps) => {
   return (
     <>
       <div className="container-profile">
@@ -27,7 +24,7 @@ const Profile = ({ authUser, dataProfile, role, content }: ProfileProps) => {
             <p className="titulo-profile">{data?.nome}</p>
 
             {role ? (
-              <Link to={`/profile/${role}/edit`}>
+              <Link to={`/profile/${role.toLowerCase()}/edit`}>
                 <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
               </Link>
             ) : authUser ? (
@@ -43,7 +40,7 @@ const Profile = ({ authUser, dataProfile, role, content }: ProfileProps) => {
                 {data?.endereco?.ehPublico && (
                   <IconField iconPosition="left">
                     <i className="pi pi-map-marker mr-2" />
-                    <span className="text-profile">{`${data?.endereco?.rua}, No ${data?.endereco?.numero} - ${data?.sebo.endereco?.bairro}`}</span>
+                    <span className="text-profile">{`${data?.endereco?.rua}, No ${data?.endereco?.numero} - ${data?.endereco?.bairro}`}</span>
                   </IconField>
                 )}
                 {data?.horarioFuncionamento && (
