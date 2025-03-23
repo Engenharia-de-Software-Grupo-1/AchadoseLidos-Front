@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import TabDadosBasicos from './tabs/tabDadosBasicos';
 import TabEndereco from './tabs/tabEndereco';
 import TabDadosPerfil from './tabs/tabPerfil';
-import { useRegisterSebo } from '@stores/register/sebo/store';
+import { useRegisterSebo } from '@stores/register/sebo/registerStore';
 import { useNotification } from '@contexts/notificationContext';
 import { useNavigate } from 'react-router-dom';
 

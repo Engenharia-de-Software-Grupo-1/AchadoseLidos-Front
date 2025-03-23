@@ -2,7 +2,7 @@ import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
 import FormField from '@components/FormField/formField';
 import { Button } from 'primereact/button';
-import { useResetRequest } from '@stores/recover/resetRequest';
+import { useResetRequest } from '@stores/recover/resetStore';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import './style.css';

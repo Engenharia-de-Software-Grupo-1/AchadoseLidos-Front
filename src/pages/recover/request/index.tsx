@@ -2,7 +2,7 @@ import TemplatePage from '@pages/templatePage';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import FormField from '@components/FormField/formField';
-import { useRecoverRequest } from '@stores/recover/recoverRequest';
+import { useRecoverRequest } from '@stores/recover/recoverStore';
 import './style.css';
 
 const RecoverRequestPage = () => {

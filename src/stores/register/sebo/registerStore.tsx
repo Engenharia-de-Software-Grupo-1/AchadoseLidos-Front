@@ -85,7 +85,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
 
   const saveRegisterSebo = async (sucessCallback?: () => void) => {
     try {
-      const response = await createSebo(formData);
+      await createSebo(formData);
       showNotification('success', null, 'Sebo cadastrado com sucesso!');
 
       sucessCallback && sucessCallback();
