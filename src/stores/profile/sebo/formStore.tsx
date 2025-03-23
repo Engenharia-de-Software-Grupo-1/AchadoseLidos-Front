@@ -47,7 +47,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     telefone: '',
     biografia: '',
     instagram: '',
-    fotoPerfil: undefined,
+    fotoPerfil: '',
     estanteVirtual: '',
     curadores: '',
     concordaVender: false,

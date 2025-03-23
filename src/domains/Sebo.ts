@@ -13,7 +13,7 @@ export interface Sebo {
   instagram?: string;
   curadores?: string;
   historia?: string;
-  fotoPerfil?: Foto;
+  fotoPerfil?: string;
   concordaVender: boolean;
   endereco: Endereco;
   fotos?: Foto[];

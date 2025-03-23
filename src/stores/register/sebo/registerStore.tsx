@@ -108,7 +108,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
       telefone: '',
       biografia: '',
       instagram: '',
-      fotoPerfil: undefined,
+      fotoPerfil:  '',
       estanteVirtual: '',
       curadores: '',
       concordaVender: false,

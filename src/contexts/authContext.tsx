@@ -4,8 +4,8 @@ import { perfil } from 'routes/routesAuth';
 
 type AuthContextType = {
   isAuthenticated: boolean;
-    conta: Conta | null;
-  auth_login: (conta: Conta) => void; 
+  conta: Conta | null;
+  auth_login: (conta: Conta) => void;
   auth_logout: () => void;
   validateAuth: () => Promise<void>;
 };
@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [conta, setConta] = useState<Conta | null>(null);
 
   const auth_login = useCallback((conta: Conta) => {
-    console.log('Setting conta:', conta);
     setIsAuthenticated(true);
     setConta(conta);
   }, []);
@@ -27,7 +26,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setConta(null);
   }, []);
 
-    const validateAuth = useCallback(async () => {
+  const validateAuth = useCallback(async () => {
     try {
       const response = await perfil();
       if (response.data.autenticado === true) {
@@ -47,7 +46,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [validateAuth]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated,  conta, auth_login, auth_logout, validateAuth }}>
+    <AuthContext.Provider value={{ isAuthenticated, conta, auth_login, auth_logout, validateAuth }}>
       {children}
     </AuthContext.Provider>
   );

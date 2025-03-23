@@ -36,7 +36,7 @@ const App = () => {
                 path="/profile/sebo"
                 element={
                   <SeboProvider>
-                    <ProfileSebo id={1} />
+                    <ProfileSebo />
                   </SeboProvider>
                 }
               />

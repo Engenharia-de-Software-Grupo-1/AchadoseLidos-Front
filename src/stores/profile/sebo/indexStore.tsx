@@ -2,10 +2,11 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import { getPerfilById } from '@routes/routesSebo';
 import { useNotification } from '@contexts/notificationContext';
 import { Sebo } from '@domains/Sebo';
+import { Conta } from '@domains/Conta';
 
 interface ProfileSeboContextType {
   sebo: Sebo | null;
-  initialize: (id: number) => void;
+  initialize: (id: number | undefined, conta?: Conta) => void;
   loading: boolean;
 }
 
@@ -28,21 +29,17 @@ export const SeboProvider = ({ children }: SeboProviderProps) => {
   const [sebo, setSebo] = useState<Sebo | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const initialize = async (id: number) => {
-    setLoading(true); 
+  const initialize = async (id: number | undefined) => {
+    setLoading(true);
     try {
       const data = await getPerfilById(id);
       setSebo(data);
     } catch (error) {
       showNotification('error', null, 'Erro ao buscar perfil do sebo');
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
-  return (
-    <ProfileSeboContext.Provider value={{ sebo, initialize, loading }}>
-      {children}
-    </ProfileSeboContext.Provider>
-  );
+  return <ProfileSeboContext.Provider value={{ sebo, initialize, loading }}>{children}</ProfileSeboContext.Provider>;
 };

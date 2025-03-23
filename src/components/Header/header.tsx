@@ -39,8 +39,16 @@ export default function Header({ simpleHeader }: HeaderProps) {
 
       auth_logout();
       navigate('/');
-    } catch (err) {
+    } catch (err: any) {
       showNotification('error', err, '');
+    }
+  };
+
+  const redirectProfile = () => {
+    if (conta?.tipo === 'SEBO') {
+      navigate('/profile/sebo');
+    } else {
+      navigate('/profile/user');
     }
   };
 
@@ -65,7 +73,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
 
     const panelMenuItems = isAuthenticated
   ? [
-      { label: 'Meu Perfil', icon: 'pi pi-user' },
+      { label: 'Meu Perfil', icon: 'pi pi-user', command: () => redirectProfile()},
       { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
 
       ...(conta?.tipo === 'SEBO'
@@ -133,7 +141,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
             </>
           )}
           <Avatar
-            image={conta?.usuario?.fotoPerfil || conta?.sebo?.fotoPerfil?.url || 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png'}
+            image={conta?.usuario?.fotoPerfil || conta?.sebo?.fotoPerfil || 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png'}
             shape="circle"
             onClick={() => toggleMenu()}
             style={{ cursor: 'pointer' }}
