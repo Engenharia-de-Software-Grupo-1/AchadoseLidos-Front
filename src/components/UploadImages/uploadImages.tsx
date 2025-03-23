@@ -2,10 +2,8 @@
 import { useRef, useState } from 'react';
 import { Toast } from 'primereact/toast';
 import { FileUpload, FileUploadHeaderTemplateOptions, FileUploadSelectEvent, FileUploadUploadEvent, ItemTemplateOptions, } from 'primereact/fileupload';
-import { ProgressBar } from 'primereact/progressbar';
 import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
-import { Tag } from 'primereact/tag';
 import './style.css';
 
 export default function UploadImages() {
@@ -32,7 +30,7 @@ export default function UploadImages() {
         });
 
         setTotalSize(_totalSize);
-        toast.current?.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
+        toast.current?.show({ severity: 'info', summary: 'Sucesso', detail: 'Arquivo enviado!' });
     };
 
     const onTemplateRemove = (file: File, callback: Function) => {
@@ -46,8 +44,6 @@ export default function UploadImages() {
 
     const headerTemplate = (options: FileUploadHeaderTemplateOptions) => {
         const { className, chooseButton, uploadButton, cancelButton } = options;
-        const value = totalSize / 10000;
-        const formatedValue = fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : '0 B';
 
         return (
             <div className={className} style={{ backgroundColor: 'rgba(207, 179, 88, 0.30)', display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(47, 41, 42, 0.50)' }}>
@@ -58,8 +54,7 @@ export default function UploadImages() {
         );
     };
 
-    const itemTemplate = (inFile: object, props: ItemTemplateOptions) => {
-        const file = inFile as File;
+    const itemTemplate = (file: File, props: ItemTemplateOptions) => {
         return (
             <div className="flex align-items-center flex-wrap">
                 <div className="flex align-items-center" style={{ width: '40%' }}>
@@ -89,9 +84,9 @@ export default function UploadImages() {
         <div className='fileupload-demo'>
             <Toast ref={toast}></Toast>
 
-            <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-            <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-            <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
+            <Tooltip target=".custom-choose-btn" content="Selecione" position="bottom" />
+            <Tooltip target=".custom-upload-btn" content="Enviar" position="bottom" />
+            <Tooltip target=".custom-cancel-btn" content="Remover todos" position="bottom" />
 
             <FileUpload ref={fileUploadRef} name="demo[]" url="/api/upload" multiple accept="image/*" maxFileSize={1000000}
                 onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}

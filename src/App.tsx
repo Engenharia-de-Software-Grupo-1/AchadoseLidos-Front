@@ -14,6 +14,7 @@ import RecoverRequestPage from '@pages/recover/request';
 import { ResetRequestProvider } from '@stores/recover/resetRequest';
 import ResetRequestPage from '@pages/recover/reset';
 import { AuthProvider } from '@contexts/authContext';
+import { SeboProvider } from '@stores/profile/sebo/indexStore';
 
 const App = () => {
   return (
@@ -23,7 +24,6 @@ const App = () => {
           <AuthProvider>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              {/*<Route path="/register" element={<Register />} />  path pra tela inicial de cadastro*/}
               <Route
                 path="/register/sebo"
                 element={
@@ -31,8 +31,15 @@ const App = () => {
                     <RegisterSebo />
                   </RegisterSeboProvider>
                 }
-                />
-              <Route path="/profile/sebo" element={<ProfileSebo />} />
+              />
+              <Route
+                path="/profile/sebo"
+                element={
+                  <SeboProvider>
+                    <ProfileSebo id={1} />
+                  </SeboProvider>
+                }
+              />
               <Route
                 path="/profile/sebo/edit"
                 element={
@@ -40,7 +47,7 @@ const App = () => {
                     <ProfileSeboForm />
                   </ProfileSeboFormProvider>
                 }
-                />
+              />
               <Route
                 path="/login"
                 element={
@@ -48,7 +55,7 @@ const App = () => {
                     <LoginPage />
                   </LoginProvider>
                 }
-                />
+              />
               <Route
                 path="/recover/request"
                 element={
@@ -56,7 +63,7 @@ const App = () => {
                     <RecoverRequestPage />
                   </RecoverRequestProvider>
                 }
-                />
+              />
               <Route
                 path="/recover/reset"
                 element={
@@ -64,8 +71,8 @@ const App = () => {
                     <ResetRequestPage />
                   </ResetRequestProvider>
                 }
-                />
-              </Routes>
+              />
+            </Routes>
           </AuthProvider>
         </NotificationProvider>
       </BrowserRouter>

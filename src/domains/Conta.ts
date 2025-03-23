@@ -8,8 +8,8 @@ export interface Conta {
   confirmaSenha: string;
   tipo: string;
   status: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Conta {

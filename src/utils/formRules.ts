@@ -1,4 +1,4 @@
-import { isCpfCnpj, isEmail, isMaxLength } from './utils';
+import { getTypeCpfCnpj, isEmail, isMaxValue, isMinValue } from './utils';
 
 export const stepRules = (fieldsToValidate: Array<string>, rules: Record<string, Rule[]>) =>
   fieldsToValidate.reduce(
@@ -43,22 +43,25 @@ export const validateRule = (value: string, ruleList: Rule[] = []) => {
     if (rule.rule === 'required') {
       if (value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0)) {
         validationResult.error = true;
-        validationResult.message = 'Por favor, preencha o campo';
+        validationResult.message = 'Campo obrigatório';
       }
-    } else if (rule.rule === 'isCpfCnpj') {
-      if (value && !isCpfCnpj(value)) {
+    } else if (rule.rule === 'getTypeCpfCnpj') {
+      if (value && !getTypeCpfCnpj(value)) {
         validationResult.error = true;
-        validationResult.message = 'Por favor, informe um CPF/CNPJ válido';
+        validationResult.message = 'Informe um CPF/CNPJ válido';
       }
-    } else if (rule.rule === 'isMaxLength') {
-      if (value && rule.maxLength && !isMaxLength(value, rule.maxLength)) {
+    } else if (rule.rule === 'isValidLength') {
+      if (value && rule.maxLength && !isMaxValue(value, rule.maxLength)) {
         validationResult.error = true;
-        validationResult.message = 'Por favor, retifique o tamanho do campo';
+        validationResult.message = 'Limite de caracteres ultrapassado';
+      } else if (value && rule.minLength && !isMinValue(value, rule.minLength)) {
+        validationResult.error = true;
+        validationResult.message = `Mínimo de caracteres: ${rule.minLength}`;
       }
     } else if (rule.rule === 'isEmail') {
       if (value && !isEmail(value)) {
         validationResult.error = true;
-        validationResult.message = 'Por favor, informe um e-mail válido';
+        validationResult.message = 'Informe um e-mail válido';
       }
     }
   });

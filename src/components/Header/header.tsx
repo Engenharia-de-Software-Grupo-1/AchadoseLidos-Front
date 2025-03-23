@@ -112,6 +112,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
         </Link>
       </>
     );
+    
     const end = (
       <div className="flex align-items-center">
         <div className="search-container">

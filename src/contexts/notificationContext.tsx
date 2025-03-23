@@ -1,8 +1,10 @@
 import { createContext, useContext, useRef, ReactNode } from 'react';
 import { Toast } from 'primereact/toast';
 
+type Severity = 'info' | 'success' | 'warn' | 'error';
+
 interface NotificationContextType {
-  showNotification: (severity: 'info' | 'success' | 'warn' | 'error', summary: string | null, detail: string) => void;
+  showNotification: (severity: Severity, summary: string | null, detail: string) => void;
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
@@ -13,9 +15,9 @@ interface NotificationProviderProps {
 
 export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
   const toastRef = useRef<Toast>(null);
-
+  
   const showNotification = (
-    severity: 'info' | 'success' | 'warn' | 'error',
+    severity: Severity,
     summary: string | null,
     detail: string
   ) => {

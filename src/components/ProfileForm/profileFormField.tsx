@@ -3,6 +3,7 @@ import { IconField } from 'primereact/iconfield';
 import { InputText } from 'primereact/inputtext';
 import './style.css';
 import { classNames } from 'primereact/utils';
+import { InputTextarea } from 'primereact/inputtextarea';
 
 type ProfileFormFieldProps = {
   hasSubmissionFailed: boolean;
@@ -56,11 +57,12 @@ const ProfileFormField = ({
       </div>
 
       {isTextArea ? (
-        <textarea
-          className="text-area"
+        <InputTextarea
           value={fieldValue}
           onChange={handleTextAreaChange}
           placeholder={placeholderText}
+          rows={5}
+          cols={30}
         />
       ) : (
         <InputText

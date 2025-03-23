@@ -4,7 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { InputMask } from 'primereact/inputmask';
 import { Sebo } from '@domains/Sebo';
-import { getEstados } from '@services/DadosEstaticosService';
+import { getEstados } from '@services/dadosEstaticosService';
 import { useLoadCities } from '@hooks/useLoadCities';
 
 interface TabEnderecoProps {
@@ -49,7 +49,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, cities }) => 
           <FormField attribute="cep">
             <InputMask
               value={sebo.endereco.cep}
-              mask="99999-999"
+              mask={'99999-999'}
               onChange={(e) => setField('endereco.cep', e.target.value?.replace(/\D/g, '' ))}
               placeholder="CEP *"
             />
@@ -90,7 +90,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, cities }) => 
           <div className="card flex align-items-center gap-4">
             <p className="text-sales">Esse endereço é público?</p>
             <Checkbox
-              onChange={(e) => setField('endereco', { ...sebo.endereco, ehPublico: e.target.value })}
+              onChange={(e) => setField('endereco.ehPublico', e.checked )}
               checked={sebo.endereco.ehPublico}
             />
           </div>

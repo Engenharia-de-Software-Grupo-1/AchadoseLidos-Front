@@ -10,6 +10,7 @@
   box-shadow: var(--Achados-Success);
   overflow: 'hidden';
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .icon-image {
