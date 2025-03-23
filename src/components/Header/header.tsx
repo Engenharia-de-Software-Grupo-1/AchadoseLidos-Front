@@ -72,30 +72,27 @@ export default function Header({ simpleHeader }: HeaderProps) {
     );
 
     const panelMenuItems = isAuthenticated
-  ? [
-      { label: 'Meu Perfil', icon: 'pi pi-user', command: () => redirectProfile()},
-      { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
+      ? [
+          { label: 'Meu Perfil', icon: 'pi pi-user', command: () => redirectProfile() },
+          { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
 
-      ...(conta?.tipo === 'SEBO'
-        ? [
-            { label: 'Meus Produtos', icon: 'pi pi-box' }, 
-          ]
-        : [
-          { label: 'Cesta', icon: 'pi pi-shopping-bag' },
-          { label: 'Favoritos', icon: 'pi pi-heart' },
-        ]),
+          ...(conta?.tipo === 'SEBO'
+            ? [{ label: 'Meus Produtos', icon: 'pi pi-box' }]
+            : [
+                { label: 'Cesta', icon: 'pi pi-shopping-bag' },
+                { label: 'Favoritos', icon: 'pi pi-heart' },
+              ]),
 
-      
-      {
-        label: 'Sair',
-        icon: 'pi pi-sign-out',
-        command: () => handleLogout(),
-      },
-    ]
-  : [
-      { label: 'Entrar', icon: 'pi pi-sign-in', command: () => navigate('/login') },
-      { label: 'Cadastrar', icon: 'pi pi-user-plus', command: () => navigate('/register') },
-    ];
+          {
+            label: 'Sair',
+            icon: 'pi pi-sign-out',
+            command: () => handleLogout(),
+          },
+        ]
+      : [
+          { label: 'Entrar', icon: 'pi pi-sign-in', command: () => navigate('/login') },
+          { label: 'Cadastrar', icon: 'pi pi-user-plus', command: () => navigate('/register') },
+        ];
 
     const items = [
       {
@@ -120,7 +117,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
         </Link>
       </>
     );
-    
+
     const end = (
       <div className="flex align-items-center">
         <div className="search-container">
@@ -129,7 +126,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
             <InputText
               placeholder="O que deseja garimpar?"
               type="text"
-              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}/>
+              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
+            />
           </IconField>
         </div>
 
@@ -141,7 +139,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
             </>
           )}
           <Avatar
-            image={conta?.usuario?.fotoPerfil || conta?.sebo?.fotoPerfil || 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png'}
+            image={conta?.usuario?.fotoPerfil || conta?.sebo?.fotoPerfil || undefined} 
+            icon={!conta?.usuario?.fotoPerfil && !conta?.sebo?.fotoPerfil ? 'pi pi-user' : undefined}
             shape="circle"
             onClick={() => toggleMenu()}
             style={{ cursor: 'pointer' }}

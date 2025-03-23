@@ -12,7 +12,6 @@ import { useAuth } from '@contexts/authContext';
 const ProfileSebo = ({ id }: { id?: number }) => {
   const { sebo, initialize, loading } = useSebo();
   const { conta, isAuthenticated } = useAuth();
-  const images = ['/images/anarita.JPG'];
 
   useEffect(() => {
     const seboId = conta?.sebo?.id ?? id;
@@ -31,7 +30,7 @@ const ProfileSebo = ({ id }: { id?: number }) => {
           </div>
         ) : (
           <>
-            <Banner images={images} showIndicators={false} />
+            <Banner images={sebo?.fotos} showIndicators={false} />
             <div className="profile-sebo">
               <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} />
             </div>
