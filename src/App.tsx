@@ -7,6 +7,13 @@ import ProfileSebo from '@pages/profile/sebo';
 import ProfileSeboForm from '@pages/profile/sebo/form';
 import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
+import LoginPage from '@pages/loginPage';
+import { LoginProvider } from '@stores/login/loginStore';
+import { RecoverRequestProvider } from '@stores/recover/recoverRequest';
+import RecoverRequestPage from '@pages/recover/request';
+import { ResetRequestProvider } from '@stores/recover/resetRequest';
+import ResetRequestPage from '@pages/recover/reset';
+import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
 
 const App = () => {
@@ -14,33 +21,59 @@ const App = () => {
     <ErrorProvider>
       <BrowserRouter>
         <NotificationProvider>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route
-              path="/register/sebo"
-              element={
-                <RegisterSeboProvider>
-                  <RegisterSebo />
-                </RegisterSeboProvider>
-              }
-            />
-            <Route
-              path="/profile/sebo"
-              element={
-                <SeboProvider>
-                  <ProfileSebo id={1}/>
-                </SeboProvider>
-              }
-            />
-            <Route
-              path="/profile/sebo/edit"
-              element={
-                <ProfileSeboFormProvider>
-                  <ProfileSeboForm />
-                </ProfileSeboFormProvider>
-              }
-            />
-          </Routes>
+          <AuthProvider>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/register/sebo"
+                element={
+                  <RegisterSeboProvider>
+                    <RegisterSebo />
+                  </RegisterSeboProvider>
+                }
+              />
+              <Route
+                path="/profile/sebo"
+                element={
+                  <SeboProvider>
+                    <ProfileSebo id={1} />
+                  </SeboProvider>
+                }
+              />
+              <Route
+                path="/profile/sebo/edit"
+                element={
+                  <ProfileSeboFormProvider>
+                    <ProfileSeboForm />
+                  </ProfileSeboFormProvider>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <LoginProvider>
+                    <LoginPage />
+                  </LoginProvider>
+                }
+              />
+              <Route
+                path="/recover/request"
+                element={
+                  <RecoverRequestProvider>
+                    <RecoverRequestPage />
+                  </RecoverRequestProvider>
+                }
+              />
+              <Route
+                path="/recover/reset"
+                element={
+                  <ResetRequestProvider>
+                    <ResetRequestPage />
+                  </ResetRequestProvider>
+                }
+              />
+            </Routes>
+          </AuthProvider>
         </NotificationProvider>
       </BrowserRouter>
     </ErrorProvider>
