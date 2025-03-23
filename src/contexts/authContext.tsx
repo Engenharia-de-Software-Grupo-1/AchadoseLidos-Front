@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [conta, setConta] = useState<Conta | null>(null);
 
   const auth_login = useCallback((conta: Conta) => {
-    console.log('Setting conta:', conta);
     setIsAuthenticated(true);
     setConta(conta);
   }, []);
