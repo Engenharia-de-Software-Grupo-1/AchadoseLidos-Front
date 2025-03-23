@@ -16,15 +16,10 @@ import DialogModal from '@components/DialogModal/dialogModal';
 const ProfileSeboForm = () => {
   const {
     breadcrumbItems,
-    cities,
-    getRule,
-    endereco,
     handleEnderecoChange,
     sebo,
     setField,
-    setSubmitted,
     submitted,
-    validateStep,
     imageProfile,
   } = useForm();
 
@@ -38,7 +33,7 @@ const ProfileSeboForm = () => {
 
         <div className="container-edit-sebo">
           <div className="form-edit-sebo">
-            <ProfilePhoto imageProfile={imageProfile} canUpload />
+            <ProfilePhoto imageProfile={imageProfile} canUpload setField={setField} />
 
             <div className="container-data-form">
               <div className="fields-column">
@@ -144,17 +139,17 @@ const ProfileSeboForm = () => {
               </div>
             </div>
 
-            <div className='container-upload'>
+            <div className="container-upload">
               <UploadImages />
             </div>
 
-            <div className='container-contat-edit-sebo'>
+            <div className="container-contat-edit-sebo">
               <div>
-                <Checkbox className='mr-2' onChange={e => setChecked(e.checked ?? false)} checked={checked} />
-                <span className='span-checkbox'>Você concorda em vender produtos via plataforma?</span>
+                <Checkbox className="mr-2" onChange={(e) => setChecked(e.checked ?? false)} checked={checked} />
+                <span className="span-checkbox">Você concorda em vender produtos via plataforma?</span>
               </div>
 
-              <div className='form-contat-sebo'>
+              <div className="form-contat-sebo">
                 <ProfileFormField
                   labelText="Whatsapp"
                   fieldName={FieldNames.telefone}
@@ -218,7 +213,7 @@ const ProfileSeboForm = () => {
               </div>
             </div>
 
-            <div className='container-historia-sebo'>
+            <div className="container-historia-sebo">
               <ProfileFormField
                 labelText="História (longo)"
                 fieldName={FieldNames.historia}
@@ -231,13 +226,11 @@ const ProfileSeboForm = () => {
               />
             </div>
 
-            <div className='container-buttons'>
-              <Button label="Excluir Conta" className='button-trash' onClick={() => setVisible(true)}/>
-              {visible && (
-                <DialogModal visibleDialog={visible} setVisibleDialog={setVisible}></DialogModal>
-              )}
+            <div className="container-buttons">
+              <Button label="Excluir Conta" className="button-trash" onClick={() => setVisible(true)} />
+              {visible && <DialogModal visibleDialog={visible} setVisibleDialog={setVisible}></DialogModal>}
 
-              <Button label="Salvar" className='button-save' />
+              <Button label="Salvar" className="button-save" />
             </div>
           </div>
         </div>
@@ -247,4 +240,3 @@ const ProfileSeboForm = () => {
 };
 
 export default ProfileSeboForm;
-

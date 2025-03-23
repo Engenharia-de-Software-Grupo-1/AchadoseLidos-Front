@@ -90,7 +90,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, cities }) => 
           <div className="card flex align-items-center gap-4">
             <p className="text-sales">Esse endereço é público?</p>
             <Checkbox
-              onChange={(e) => setField('endereco.ehPublico', e.target.value )}
+              onChange={(e) => setField('endereco.ehPublico', e.checked )}
               checked={sebo.endereco.ehPublico}
             />
           </div>

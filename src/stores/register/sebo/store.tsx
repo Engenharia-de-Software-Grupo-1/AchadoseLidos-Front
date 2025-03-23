@@ -4,8 +4,9 @@ import { Sebo } from '@domains/Sebo';
 import { useNotification } from '@contexts/notificationContext';
 import { extractRules, stepRules, validateRule } from '@utils/formRules';
 import { addRuleToField, getField } from '@utils/utils';
-import { useErrorContext } from 'contexts/errorContext';
+import { useErrorContext } from '@contexts/errorContext';
 import { Rule } from '@domains/Rule';
+import { createSebo } from '@routes/routesSebo';
 
 interface RegisterSeboContextType {
   sebo: Sebo;
@@ -15,6 +16,7 @@ interface RegisterSeboContextType {
   loadCitiesByState: (state: string) => Promise<void>;
   cities: { value: string; text: string }[];
   checkTelefone: (checked: boolean) => void;
+  saveRegisterSebo: (sucessCallback?: () => void) => void;
 }
 
 const RegisterSeboContext = createContext<RegisterSeboContextType | null>(null);
@@ -69,8 +71,8 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     nome: [{ rule: 'required' }],
     cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
     email: [{ rule: 'required' }, { rule: 'isEmail' }],
-    senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
-    confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
+    senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
+    confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
     estado: [{ rule: 'required' }],
     cidade: [{ rule: 'required' }],
     cep: [{ rule: 'required' }],
@@ -169,9 +171,20 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     }
   }, []);
 
+  const saveRegisterSebo = async (sucessCallback?: () => void) => {
+    try {
+      const response = await createSebo(sebo);
+      showNotification('success', null, 'Sebo cadastrado com sucesso!');
+
+      sucessCallback && sucessCallback();
+    } catch (error) {
+      console.error('Erro ao cadastrar sebo:', error);
+    }
+  };
+
   return (
     <RegisterSeboContext.Provider
-      value={{ sebo, setField, validateStep, getRule, cities, loadCitiesByState, checkTelefone }}
+      value={{ sebo, setField, validateStep, getRule, cities, loadCitiesByState, checkTelefone, saveRegisterSebo }}
     >
       {children}
     </RegisterSeboContext.Provider>

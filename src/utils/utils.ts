@@ -17,13 +17,22 @@ export const getTypeCpfCnpj = (cpfCnpj: string) => {
   return null;
 };
 
-export const isValidLength = (campo: string, tamanhoMax: number) => {
+export const isMaxValue = (campo: string, tamanhoMax: number) => {
   if (campo === undefined || campo === null) {
     return true;
   }
   const stringValue = `${campo}`;
 
   return stringValue.length <= tamanhoMax;
+};
+
+export const isMinValue = (campo: string, tamanhoMin: number) => {
+  if (campo === undefined || campo === null) {
+    return false;
+  }
+  const stringValue = `${campo}`;
+
+  return stringValue.length >= tamanhoMin;
 };
 
 export const isEmail = (email: string) => {
