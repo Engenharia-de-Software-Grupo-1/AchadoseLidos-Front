@@ -2,11 +2,10 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import { getPerfilById } from '@routes/routesSebo';
 import { useNotification } from '@contexts/notificationContext';
 import { Sebo } from '@domains/Sebo';
-import { Conta } from '@domains/Conta';
 
 interface ProfileSeboContextType {
   sebo: Sebo | null;
-  initialize: (id: number | undefined, conta?: Conta) => void;
+  initialize: (id: number) => void;
   loading: boolean;
 }
 
