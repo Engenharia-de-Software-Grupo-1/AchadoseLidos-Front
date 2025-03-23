@@ -13,7 +13,7 @@ export interface Produto {
     anoLancamento?: number,
     autores?: string,
     descricao?: string,
-    fotos?: string[],
+    fotos?:  { url: string }[],
     createdAt: Date,
     updatedAt: Date,
     sebo?: Sebo,

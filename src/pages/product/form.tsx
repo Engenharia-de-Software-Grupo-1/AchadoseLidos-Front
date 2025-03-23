@@ -8,13 +8,75 @@ import { ProdutoFieldNames } from '@domains/Produto/ProdutoFieldNames';
 import { ProductFormField } from '@components/ProductDetails/ProductFormFields';
 import { Button } from 'primereact/button';
 import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/ProdutoConstants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getById, updateProduct } from 'routes/routesProduto';
+import { Produto } from '@domains/Produto/Produto';
+import { useNotification } from '@contexts/notificationContext';
+import { uploadImage } from '@utils/cloudinary';
+import { set } from 'cypress/types/lodash';
 
 const ProductForm = () => {
-  const { produto, breadcrumbItems, setField, submitted} =
-    useForm();
-
+  const { id } = useParams();
+  const { produto, breadcrumbItems, setField, submitted } = useForm();
   const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');
+  const { showNotification } = useNotification();
+  const [images, setImages] = useState<{ url: string }[]>();
+
+
+  useEffect(() => {
+    if (id) {
+      setProduct(id);
+    }
+  }, [id]);
+
+  const setProduct = async (id: any) => {
+    try {
+      const product = await getById(id);
+      setImages(product.fotos);
+      (Object.keys(product) as Array<keyof Produto>).forEach((key) => {
+              if (product[key as keyof Produto] !== undefined) {
+          setField(key, product[key]);
+        }
+      });
+    } catch (error) {
+      console.error('Erro ao buscar produto', error);
+    }
+  };
+
+  const handleConfirm = async () => {
+    try {
+        // @ts-ignore
+        const uploadedImages = await uploadImages(produto.fotos || []);
+
+        const formattedImages = uploadedImages.map((url) => ({ url }));
+
+        produto.fotos = formattedImages;
+        await updateProduct({ ...produto, fotos: formattedImages }, id);
+        showNotification('success', 'Produto salvo com sucesso!', '');
+    } catch (error) {
+        console.error('Erro ao salvar produto', error);
+    }
+};
+
+const uploadImages = async (files: File[]): Promise<string[]> => {
+  try {
+      const uploadedUrls: string[] = [];
+
+      for (const file of files) {
+          // Faz o upload do arquivo e adiciona a URL no array
+          const uploadedUrl = await uploadImage(file);
+          if (uploadedUrl) {
+              uploadedUrls.push(uploadedUrl);
+          }
+      }
+
+      return uploadedUrls;
+  } catch (error) {
+      console.error('Erro ao fazer upload de imagens', error);
+      return [];
+  }
+};
 
   return (
     <main className="main-container-edit-product">
@@ -25,8 +87,8 @@ const ProductForm = () => {
           <section className="content-items-product">
             <div className="conatiner-gallery-upload">
               <span className="span-image-product-name">Imagens do produto *</span>
-              <Gallery />
-              <UploadImages setField={setField}/>
+              <Gallery photos={images}/>
+              <UploadImages setField={setField} setImage={setImages}/>
             </div>
 
             <div className="content1-form-edit-product">
@@ -130,8 +192,8 @@ const ProductForm = () => {
 
                 <ProductFormField
                   labelText="Nome dos Autores (separados por vírgula)"
-                  fieldName={ProdutoFieldNames.preco}
-                  fieldValueNumber={produto.preco}
+                  fieldName={ProdutoFieldNames.autores}
+                  fieldValue={produto.autores}
                   setField={setField}
                   hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
                   placeholderText="Autor1, Autor2"
@@ -141,8 +203,8 @@ const ProductForm = () => {
 
                 <ProductFormField
                   labelText="Descrição"
-                  fieldName={ProdutoFieldNames.preco}
-                  fieldValueNumber={produto.preco}
+                  fieldName={ProdutoFieldNames.descricao}
+                  fieldValue={produto.descricao}
                   setField={setField}
                   hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
                   placeholderText="Escreva uma descrição do produto"
@@ -151,7 +213,7 @@ const ProductForm = () => {
                 />
               </div>
 
-              <Button label="Salvar" className="button-save" />
+              <Button label="Salvar" className="button-save" onClick={handleConfirm}/>
             </div>
           </section>
         </section>

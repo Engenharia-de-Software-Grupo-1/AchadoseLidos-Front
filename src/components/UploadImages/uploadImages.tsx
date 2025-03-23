@@ -10,14 +10,17 @@ import {
 import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
 import './style.css';
+import { set } from 'cypress/types/lodash';
 
 interface UploadProps {
-  setField?: (field: string, value: string[]) => void;
+  setField?: (field: string, value: File[]) => void;
+  setImage?: (images: {url: string}[]) => void;
 }
 
-export default function UploadImages({ setField }: UploadProps) {
+export default function UploadImages({ setField, setImage }: UploadProps) {
   const toast = useRef<Toast>(null);
   const [totalSize, setTotalSize] = useState(0);
+  const [imagens, setImagens] = useState<File[]>([]);
   const fileUploadRef = useRef<FileUpload>(null);
 
   const onTemplateSelect = (e: FileUploadSelectEvent) => {
@@ -35,16 +38,23 @@ export default function UploadImages({ setField }: UploadProps) {
     let _totalSize = totalSize;
     const uploadedFiles = event.files.map((file) => {
         _totalSize += file.size || 0;
-        return {
-            name: file.name,
-            url: URL.createObjectURL(file) // Cria um URL temporário para visualização
-        };
+        return file; 
     });
 
-    setTotalSize(_totalSize); // Atualiza o tamanho total
-    if (setField) {
-      setField('fotos', uploadedFiles.map(file => file.url));
-    }
+    setTotalSize(_totalSize);
+
+    // Usa callback para evitar estado desatualizado
+    setImagens((prev) => {
+        const newImagens = [...prev, ...uploadedFiles];
+        setField?.('fotos', newImagens);
+        return newImagens;
+    });
+
+    // @ts-ignore
+    setImage?.((prev) => [
+      ...prev,
+      ...uploadedFiles.map((file) => ({ url: URL.createObjectURL(file) })) 
+  ]);
 };
 
   const onTemplateUpload = (e: FileUploadUploadEvent) => {
@@ -58,11 +68,22 @@ export default function UploadImages({ setField }: UploadProps) {
     toast.current?.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
   };
 
-  const onTemplateRemove = (file: File, callback: Function) => {
-    setTotalSize(totalSize - file.size);
-    callback();
-  };
+ 
 
+  const onTemplateRemove = (file: File, callback: Function) => {
+    setTotalSize((prevSize) => prevSize - file.size);
+
+    setImagens((prev) => {
+        const newImagens = prev.filter((foto) => foto.name !== file.name); // Comparando pelo nome
+
+        setField?.('fotos', newImagens);
+        setImage?.(newImagens.map((f) => ({ url: URL.createObjectURL(f) })));
+
+        return newImagens;
+    });
+
+    callback();
+};
   const onTemplateClear = () => {
     setTotalSize(0);
   };
@@ -152,7 +173,7 @@ export default function UploadImages({ setField }: UploadProps) {
         url="/api/upload"
         multiple
         accept="image/*"
-        maxFileSize={1000000}
+        maxFileSize={10000000000000}
         onUpload={onTemplateUpload}
         onSelect={handleUpload}
         onError={onTemplateClear}

@@ -46,7 +46,7 @@ const App = () => {
                 />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route
-              path="/product/edit"
+              path="/product/:id/edit"
               element={
                 <ProdutoFormProvider>
                   <ProductForm />

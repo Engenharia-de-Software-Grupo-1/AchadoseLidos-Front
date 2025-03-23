@@ -1,15 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Galleria } from 'primereact/galleria';
 import './style.css';
 
 interface GalleryProps {
   position?: string;
+  photos?: { url: string }[];
 }
 
-export default function Gallery({ position }: GalleryProps) {
+export default function Gallery({ position, photos }: GalleryProps) {
   const [images] = useState([
-    { itemImageSrc: '/images/anarita.JPG', thumbnailImageSrc: '/images/anarita.JPG', alt: 'Imagem 1' },
+    {
+      itemImageSrc:
+        'https://fastprint.com.br/wp-content/uploads/2023/06/Detalhe-prod-LivrosDigitalizacaoExpressa-full2x-1010x718-1.jpg.webp',
+      thumbnailImageSrc:
+        'https://fastprint.com.br/wp-content/uploads/2023/06/Detalhe-prod-LivrosDigitalizacaoExpressa-full2x-1010x718-1.jpg.webp',
+      alt: 'Imagem 1',
+    },
   ]);
+
+  const returnImages = (urlImages: { url: string }[]) => {
+    return urlImages
+      .filter((url) => url?.url) // Garante que apenas imagens válidas sejam retornadas
+      .map((url) => ({
+        itemImageSrc: url.url,
+        thumbnailImageSrc: url.url,
+        alt: 'Imagem 1',
+      }));
+  };
 
   const itemTemplate = (item: any) => {
     return <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%', display: 'block' }} />;
@@ -20,10 +37,10 @@ export default function Gallery({ position }: GalleryProps) {
   };
 
   return (
-    <div className={`card-galleria ${position}`} >
+    <div className={`card-galleria ${position}`}>
       <Galleria
-        value={images}
-        numVisible={5}
+        value={photos ? returnImages(photos) : images}
+        numVisible={photos?.length || 1}
         circular
         style={{ width: '100%', height: '400px' }}
         showThumbnails={false}

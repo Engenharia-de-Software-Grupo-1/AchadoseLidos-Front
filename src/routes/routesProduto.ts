@@ -17,7 +17,7 @@ export const createProduct = async (product: Produto) => {
   return response.data;
 };
 
-export const updateProduct = async (product: Produto, id: number) => {
+export const updateProduct = async (product: Produto, id: any) => {
   const response = await api.put<Produto>(`/produtos/${id}`, product, {
     withCredentials: true,
   });
