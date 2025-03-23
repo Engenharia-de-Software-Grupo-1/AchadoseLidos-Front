@@ -28,16 +28,16 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
     validationResults: Record<string, any>
   ): Record<string, any> => {
     if (!credenciais.conta['senha']) {
-      validationResults['senha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
+      validationResults['senha'] = { error: true, message: 'Campo obrigatório', rules: [] };
     }
     if (!credenciais.confirmaSenha) {
-      validationResults['confirmaSenha'] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
+      validationResults['confirmaSenha'] = { error: true, message: 'Campo obrigatório', rules: [] };
     }
 
     if (credenciais.conta.senha && credenciais.conta.senha.length < 8) {
       validationResults['senha'] = {
         error: true,
-        message: 'A senha deve ter pelo menos 8 caracteres',
+        message: 'O campo deve ter pelo menos 8 caracteres',
         rules: [],
       };
     }
