@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import DialogModal from '@components/DialogModal/dialogModal';
 import { useAuth } from '@contexts/authContext';
 import { Button } from 'primereact/button';
-import { useProfileUserForm } from '@stores/profile/user/formStore';
+//@ts-ignore
 import { ProfileFormFieldUser } from '@components/FormField/profileFormFieldUser';
 
 const ProfileUserForm = () => {

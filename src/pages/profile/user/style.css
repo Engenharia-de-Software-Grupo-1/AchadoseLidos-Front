@@ -109,18 +109,18 @@
 }
 
 .button-save {
-  border: 1px solid var(--Achados-Light-Blue);
+  border: 1px solid var(--Achados-Success);
   background: var(--Achados-Success);
 }
 
 .button-trash:hover {
   background: var(--Achados-Red) !important;
-
+  border: 1px solid var(--Achados-Red);
 }
 
 .button-save:hover {
   background: var(--Achados-Success) !important;
-
+  border: 1px solid var(--Achados-Success);
 }
 
 .button-save:focus,

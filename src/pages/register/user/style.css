@@ -66,6 +66,12 @@
   .step-button {
     margin-top: 15px;
     background-color: var(--Achados-Black);
+    border: 1px solid var(--Achados-Black);
+  }
+
+  .step-button:hover {
+    background-color: var(--Achados-Black) !important;
+    border: 1px solid var(--Achados-Black) !important;
   }
   
   .p-inputtext {
