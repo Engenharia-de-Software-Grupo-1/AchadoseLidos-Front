@@ -2,8 +2,6 @@ import { User } from '@domains/User';
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { extractRules, stepRules } from '@utils/formRules';
 
-
-
 interface ProfileUserFormContextType {
     user: User;
     setField: (field: string, value: any) => void;
@@ -13,7 +11,6 @@ interface ProfileUserFormContextType {
 }
 
 export const ProfileUserFormContext = createContext<ProfileUserFormContextType | null>(null);
-
 
 export const useProfileUserForm = (): ProfileUserFormContextType => {
     const context = useContext(ProfileUserFormContext);
@@ -90,4 +87,3 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
         </ProfileUserFormContext.Provider >
     );
 };
-
