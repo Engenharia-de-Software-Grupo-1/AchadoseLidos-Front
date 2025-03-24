@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.6",
-    "@supabase/supabase-js": "^2.49.1",
     "@types/google.maps": "^3.58.1",
     "achadose-lidos-front": "file:.",
     "brasilapi-js": "^1.0.1",
