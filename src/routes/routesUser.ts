@@ -24,7 +24,7 @@ import axios from 'axios';
  };
 
  export const deleteUser = async (id: any) => {
-    const response = await api.delete(`/contas/${id}`, {
+    const response = await api.delete(`/usuarios/${id}`, {
       withCredentials: true,
     });
     return response.data;

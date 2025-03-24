@@ -4,7 +4,7 @@ import { useState } from 'react';
 const useFormUser = () => {
   const [submitted, setSubmitted] = useState(false);
 
-  const { user, setField, validateStep, getRule } = useProfileUserForm();
+  const { user, setField, validateStep, getRule, setUser, updateDataUser, deleteAccount } = useProfileUserForm();
 
 
   const breadcrumbItems = [
@@ -23,6 +23,9 @@ const useFormUser = () => {
     submitted,
     setSubmitted,
     imageProfile,
+    setUser, 
+    updateDataUser, 
+    deleteAccount,
   };
 };
 

@@ -3,7 +3,6 @@ import { Credenciais } from '@domains/Credenciais';
 import { createContext, ReactNode, useContext } from 'react';
 import { useForm } from '@hooks/useForm';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '@contexts/notificationContext';
 import { useAuth } from '@contexts/authContext';
 import { login } from '@routes/routesAuth';
 
@@ -31,10 +30,9 @@ interface LoginProviderProps {
 export const LoginProvider = ({ children }: LoginProviderProps) => {
   const { setError } = useErrorContext();
   const navigate = useNavigate();
-  const { showNotification } = useNotification();
   const { validateAuth } = useAuth();
 
-  const { formData, setField, validate } = useForm<Credenciais>({
+  const { formData, setField, validate, showNotification } = useForm<Credenciais>({
     initialData: {
       senha: '',
       email: '',
@@ -51,7 +49,7 @@ export const LoginProvider = ({ children }: LoginProviderProps) => {
         const response = await login(formData);
 
         if (response.status === 200) {
-          showNotification('success', 'Login realizado com sucesso!', '');
+          showNotification('success', null, 'Login realizado com sucesso!');
           validateAuth();
           navigate('/');
           window.location.reload();
@@ -64,11 +62,11 @@ export const LoginProvider = ({ children }: LoginProviderProps) => {
           setError('senha', {error:true, message:''});
         } else if (error.response) {
           const errorMessage = error.response.data.message || 'Erro no servidor.';
-          showNotification('error', errorMessage, '');
+          showNotification('error', null, errorMessage);
         } else if (error.request) {
-          showNotification('error', 'Sem resposta do servidor. Verifique sua conexão.', '');
+          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
         } else {
-          showNotification('error', 'Algo deu errado. Tente novamente mais tarde.', '');
+          showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
         }
       }
     } 

@@ -2,7 +2,6 @@ import TemplatePage from '@pages/templatePage';
 import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
-import { ProfileFormFieldUser } from '@components/ProfileForm/ProfileFormFieldUser';
 import { FieldNamesUser } from '@domains/FieldNames';
 import { useFormUser } from './useForm';
 import { useEffect, useState } from 'react';
@@ -10,11 +9,11 @@ import DialogModal from '@components/DialogModal/dialogModal';
 import { useAuth } from '@contexts/authContext';
 import { Button } from 'primereact/button';
 import { useProfileUserForm } from '@stores/profile/user/formStore';
+import { ProfileFormFieldUser } from '@components/FormField/profileFormFieldUser';
 
 const ProfileUserForm = () => {
-  const { breadcrumbItems, setField, submitted, user } = useFormUser();
+  const { breadcrumbItems, setField, submitted, user, setUser, updateDataUser, deleteAccount } = useFormUser();
   const { conta } = useAuth();
-  const {setUser, updateDataUser, deleteAccount} = useProfileUserForm();
 
   useEffect(() => {
     setUser();
@@ -96,7 +95,7 @@ const ProfileUserForm = () => {
                     <DialogModal 
                     visibleDialog={visible} 
                     setVisibleDialog={setVisible}
-                    onConfirm={deleteAccount} />}
+                    onClickDelete={deleteAccount} />}
                 </div>
 
                 <div className="form-user-content2">

@@ -7,15 +7,19 @@ import MyMap from '@components/Map/map';
 import ContainerItems from '@components/ContainerItems/containerItems';
 import { useSebo } from '@stores/profile/sebo/indexStore';
 import { useEffect } from 'react';
+import { useAuth } from '@contexts/authContext';
 
-const ProfileSebo = ({ id }: { id: number }) => {
+const ProfileSebo = ({ id }: { id?: number }) => {
   const { sebo, initialize, loading } = useSebo();
+  const { conta, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (id) {
-      initialize(id);
+    const seboId = conta?.sebo?.id ?? id;
+
+    if (seboId) {
+      initialize(seboId);
     }
-  }, [id]);
+  }, [conta?.sebo?.id, id, initialize]);
 
   return (
     <div className="main-profile-sebo">
@@ -28,7 +32,7 @@ const ProfileSebo = ({ id }: { id: number }) => {
           <>
             <Banner images={sebo?.fotos} showIndicators={false} />
             <div className="profile-sebo">
-              <Profile content={sebo} authUser={false} />
+              <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} />
             </div>
 
             <ContainerItems title="Todos os Itens" backgroundBege={false}>
@@ -54,7 +58,7 @@ const ProfileSebo = ({ id }: { id: number }) => {
               </div>
 
               <div className="container-map">
-                <MyMap />
+                <MyMap endereco={sebo?.endereco} />
               </div>
             </div>
           </>

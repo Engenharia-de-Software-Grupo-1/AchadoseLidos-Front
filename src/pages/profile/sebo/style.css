@@ -15,8 +15,6 @@
   border-radius: 32px;
 }
 
-
-
 .content-title-history {
   display: flex;
   padding: 0px 32px;
@@ -167,6 +165,49 @@
   width: 100%;
   align-items: flex-start;
   align-self: stretch;
+}
+
+.checkbox-adress {
+  width: fit-content;
+  display: inline;
+  margin-top: 6px;
+  align-self: flex-end;
+}
+
+.button-save,
+.button-trash {
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+}
+
+.button-trash {
+  background: var(--Achados-Red);
+  border: 1px solid var(--Achados-Red);
+}
+
+.button-save {
+  border: 1px solid var(--Achados-Light-Blue);
+  background: var(--Achados-Success);
+}
+
+.button-trash:hover {
+  background: var(--Achados-Red) !important;
+  border: none;
+}
+
+.button-save:hover {
+  background: var(--Achados-Success) !important;
+  border: none;
+}
+
+.button-save:focus,
+.button-trash:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .container-contat-edit-sebo {

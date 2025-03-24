@@ -11,7 +11,7 @@ const ProfileUser = () => {
 
      useEffect(() => {
        
-      }, [conta]); // Executa sempre que conta mudar
+      }, [conta]);
     
     const breadCrumbItems = [
         { label: 'Usuário', url: '/profile/user' }
@@ -25,12 +25,9 @@ const ProfileUser = () => {
                     <ALBreadCrumb breadcrumbItems={breadCrumbItems} />
 
                     <Profile
-                        imageProfile={conta?.usuario?.fotoPerfil || ''}
-                        titleProfile={conta?.usuario?.nome || ''}
-                        descripProfile={conta?.usuario?.biografia || ''}
-                        dataProfile={conta}
-                        isSebo={false}
-                        isUser={true}
+                        authUser={true}
+                        data={conta?.usuario}
+                        role='USER'
                     />
                 </div>
 
