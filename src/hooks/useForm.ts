@@ -76,5 +76,5 @@ export const useForm = <T>({ initialData, rules = {}, stepFields, aditionalValid
     }
   }, []);
 
-  return { formData, setField, validate, getRule, loadCitiesByState, cities, setFormData };
+  return { formData, setField, validate, getRule, loadCitiesByState, cities, setFormData, showNotification };
 };

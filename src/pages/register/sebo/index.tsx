@@ -14,18 +14,16 @@ import './style.css';
 const RegisterSebo = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { sebo, setField, validateStep, cities, saveRegisterSebo } = useRegisterSebo();
-  const [_, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
   const navigate = useNavigate();
 
-  const nextStep = () => {
-    if (validateStep(activeIndex)) {
-      setSubmitted(true);
+  const nextStep = async () => {
+    const isValid = await validateStep(activeIndex);
+    if (isValid) {
       setActiveIndex(activeIndex + 1);
     } else {
       showNotification('error', null, 'Preencha todos os campos obrigatórios!');
     }
-    setSubmitted(false);
   };
 
   const stepBack = () => {
