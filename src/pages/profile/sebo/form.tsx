@@ -18,11 +18,11 @@ import { Dropdown } from 'primereact/dropdown';
 
 const ProfileSeboForm = () => {
   const { sebo, setField, cities, validate, initialize, loading, updateSebo, deleteSebo } = useProfileSeboForm();
-  const [_, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
   const { conta, handleLogout } = useAuth();
-  const navigate = useNavigate();
   const [visible, setVisible] = useState<boolean>(false);
+
+  const navigate = useNavigate();
   const breadcrumbItems = [
     { label: 'Meu Perfil', url: '/profile/sebo' },
     { label: 'Editar Sebo', url: '/profile/sebo/edit' },
@@ -34,9 +34,8 @@ const ProfileSeboForm = () => {
     }
   }, [conta?.sebo?.id]);
 
-  const finalizeUpdate = () => {
+  const finalizeUpdate = async () => {
     if (validate()) {
-      setSubmitted(true);
       updateSebo(() => {
         navigate('/');
         showNotification('success', null, 'Sebo atualizado com sucesso!');
@@ -44,7 +43,6 @@ const ProfileSeboForm = () => {
     } else {
       showNotification('error', null, 'Preencha todos os campos obrigatórios!');
     }
-    setSubmitted(false);
   };
 
   const deleteContaSebo = () => {
