@@ -3,13 +3,15 @@ import './style.css';
 import { uploadImage } from '@services/cloudinaryService';
 
 interface ProfilePhotoProps {
-  imageProfile: string;
+  imageProfile?: string;
   canUpload?: boolean;
   setField?: (field: string, value: any) => void;
 }
 
+const DEFAULT_AVATAR = '/images/avatar.jpg'; 
+
 const ProfilePhoto = ({ imageProfile, canUpload = false, setField }: ProfilePhotoProps) => {
-  const [image, setImage] = useState(imageProfile);
+  const [image, setImage] = useState(imageProfile || DEFAULT_AVATAR);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +27,7 @@ const ProfilePhoto = ({ imageProfile, canUpload = false, setField }: ProfilePhot
   };
 
   useEffect(() => {
-    setImage(imageProfile);
+    setImage(imageProfile || DEFAULT_AVATAR);
   }, [imageProfile]);
 
   return (
@@ -37,9 +39,7 @@ const ProfilePhoto = ({ imageProfile, canUpload = false, setField }: ProfilePhot
       <div
         className="profile-picture"
         style={{
-          backgroundImage: canUpload
-            ? `linear-gradient(rgba(169, 169, 169, 0.5), rgba(169, 169, 169, 0.5)), url(${image})`
-            : `url(${imageProfile})`,
+          backgroundImage: `url(${image})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',

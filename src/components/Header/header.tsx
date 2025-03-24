@@ -10,8 +10,6 @@ import 'primeicons/primeicons.css';
 import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
-import { logout } from 'routes/routesAuth';
-import { useNotification } from '@contexts/notificationContext';
 import { useAuth } from '@contexts/authContext';
 
 interface HeaderProps {
@@ -21,26 +19,17 @@ interface HeaderProps {
 export default function Header({ simpleHeader }: HeaderProps) {
   const [menuVisible, setMenuVisible] = useState(false);
   const navigate = useNavigate();
-  const { showNotification } = useNotification();
-  const { isAuthenticated, conta, auth_logout } = useAuth();
+  const { isAuthenticated, conta, handleLogout } = useAuth();
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
-  const handleLogout = async () => {
-    try {
-      const response = await logout();
-      if (response.status == 200) {
-        showNotification('success', 'Logout realizado com sucesso!', '');
-      } else {
-        showNotification('error', 'Logout falhou', '');
-      }
-
-      auth_logout();
-      navigate('/');
-    } catch (err) {
-      showNotification('error', err, '');
+  const redirectProfile = () => {
+    if (conta?.tipo === 'SEBO') {
+      navigate('/profile/sebo');
+    } else {
+      navigate('/profile/user');
     }
   };
 
@@ -64,30 +53,27 @@ export default function Header({ simpleHeader }: HeaderProps) {
     );
 
     const panelMenuItems = isAuthenticated
-  ? [
-      { label: 'Meu Perfil', icon: 'pi pi-user' },
-      { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
+      ? [
+          { label: 'Meu Perfil', icon: 'pi pi-user', command: () => redirectProfile() },
+          { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
 
-      ...(conta?.tipo === 'SEBO'
-        ? [
-            { label: 'Meus Produtos', icon: 'pi pi-box' }, 
-          ]
-        : [
-          { label: 'Cesta', icon: 'pi pi-shopping-bag' },
-          { label: 'Favoritos', icon: 'pi pi-heart' },
-        ]),
+          ...(conta?.tipo === 'SEBO'
+            ? [{ label: 'Meus Produtos', icon: 'pi pi-box' }]
+            : [
+                { label: 'Cesta', icon: 'pi pi-shopping-bag' },
+                { label: 'Favoritos', icon: 'pi pi-heart' },
+              ]),
 
-      
-      {
-        label: 'Sair',
-        icon: 'pi pi-sign-out',
-        command: () => handleLogout(),
-      },
-    ]
-  : [
-      { label: 'Entrar', icon: 'pi pi-sign-in', command: () => navigate('/login') },
-      { label: 'Cadastrar', icon: 'pi pi-user-plus', command: () => navigate('/register') },
-    ];
+          {
+            label: 'Sair',
+            icon: 'pi pi-sign-out',
+            command: () => handleLogout(),
+          },
+        ]
+      : [
+          { label: 'Entrar', icon: 'pi pi-sign-in', command: () => navigate('/login') },
+          { label: 'Cadastrar', icon: 'pi pi-user-plus', command: () => navigate('/register') },
+        ];
 
     const items = [
       {
@@ -112,7 +98,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
         </Link>
       </>
     );
-    
+
     const end = (
       <div className="flex align-items-center">
         <div className="search-container">
@@ -121,7 +107,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
             <InputText
               placeholder="O que deseja garimpar?"
               type="text"
-              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}/>
+              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
+            />
           </IconField>
         </div>
 
@@ -133,7 +120,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
             </>
           )}
           <Avatar
-            image={conta?.usuario?.fotoPerfil || conta?.sebo?.fotoPerfil?.url || 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png'}
+            image={conta?.usuario?.fotoPerfil || conta?.sebo?.fotoPerfil || undefined} 
+            icon={!conta?.usuario?.fotoPerfil && !conta?.sebo?.fotoPerfil ? 'pi pi-user' : undefined}
             shape="circle"
             onClick={() => toggleMenu()}
             style={{ cursor: 'pointer' }}

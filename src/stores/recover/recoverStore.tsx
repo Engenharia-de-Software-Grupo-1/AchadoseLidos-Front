@@ -2,7 +2,6 @@ import { createContext, ReactNode, useContext } from 'react';
 import { CredenciaisRecoverRequest } from '@domains/Credenciais';
 import { useForm } from '@hooks/useForm';
 import { recuperar_senha } from '@routes/routesRecover';
-import { useNotification } from '@contexts/notificationContext';
 import { useErrorContext } from '@contexts/errorContext';
 
 interface RecoverRequestContextType {
@@ -27,9 +26,8 @@ interface RecoverRequestProviderProps {
 }
 
 export const RecoverRequestProvider = ({ children }: RecoverRequestProviderProps) => {
-  const { showNotification } = useNotification();
   const { setError } = useErrorContext();
-  const { formData, setField, validate } = useForm<CredenciaisRecoverRequest>({
+  const { formData, setField, validate, showNotification } = useForm<CredenciaisRecoverRequest>({
     initialData: {
       email: '',
     },
@@ -44,16 +42,16 @@ export const RecoverRequestProvider = ({ children }: RecoverRequestProviderProps
         const response = await recuperar_senha(formData);
 
         if (response.status === 200) {
-          showNotification('success', response.data.mensagem, '');
+          showNotification('success', null, response.data.mensagem);
         }
       } catch (error: any) {
         if (error.response) {
           const errorMessage = error.response.data.message || 'Erro no servidor.';
-          showNotification('error', errorMessage, '');
+          showNotification('error', null, errorMessage);
         } else if (error.request) {
-          showNotification('error', 'Sem resposta do servidor. Verifique sua conexão.', '');
+          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
         } else {
-          showNotification('error', 'Algo deu errado. Tente novamente mais tarde.', '');
+          showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
         }
       }
     } else {
