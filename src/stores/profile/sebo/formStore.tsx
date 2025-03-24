@@ -2,7 +2,6 @@ import { createContext, useContext, ReactNode, useState, useCallback } from 'rea
 import { Sebo } from '@domains/Sebo';
 import { useForm } from '@hooks/useForm';
 import { deleteUser, getPerfilById, updateUser } from '@routes/routesSebo';
-import { useNotification } from '@contexts/notificationContext';
 
 interface ProfileSeboFormContextType {
   sebo: Sebo;

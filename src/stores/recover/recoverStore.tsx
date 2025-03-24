@@ -2,7 +2,6 @@ import { createContext, ReactNode, useContext } from 'react';
 import { CredenciaisRecoverRequest } from '@domains/Credenciais';
 import { useForm } from '@hooks/useForm';
 import { recuperar_senha } from '@routes/routesRecover';
-import { useNotification } from '@contexts/notificationContext';
 import { useErrorContext } from '@contexts/errorContext';
 
 interface RecoverRequestContextType {

@@ -3,7 +3,6 @@ import { Credenciais } from '@domains/Credenciais';
 import { createContext, ReactNode, useContext } from 'react';
 import { useForm } from '@hooks/useForm';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '@contexts/notificationContext';
 import { useAuth } from '@contexts/authContext';
 import { login } from '@routes/routesAuth';
 

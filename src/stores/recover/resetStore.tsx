@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useContext } from 'react';
 import { CredenciaisResetRequest } from '@domains/Credenciais';
 import { useForm } from '@hooks/useForm';
-import { useNotification } from '@contexts/notificationContext';
 import { useNavigate } from 'react-router-dom';
 import { atualizar_senha } from '@routes/routesRecover';
 
