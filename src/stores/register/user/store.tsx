@@ -4,12 +4,15 @@ import { useNotification } from '@contexts/notificationContext';
 import { extractRules, stepRules, validateRule } from '@utils/formRules';
 import { addRuleToField, getField } from '@utils/utils';
 import { useErrorContext } from 'contexts/errorContext';
+import { useNavigate } from 'react-router-dom';
+import { registerUser } from '@routes/routesUser';
 
 interface RegisterUserContextType {
   user: User;
   setField: (field: string, value: any) => void;
   validateStep: (stepIndex: number) => boolean;
   getRule: (field: string) => {};
+  finalizeRegister: () => Promise<void>;
 }
 
 const RegisterUserContext = createContext<RegisterUserContextType | null>(null);
@@ -122,8 +125,20 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
       return validationResults;
     };
 
+    const navigate = useNavigate();
+
+    const finalizeRegister = async () => {
+        try {
+            await registerUser(user);
+            showNotification('success', null, 'Usuário cadastrado com sucesso!');
+            navigate('/login');
+        } catch {
+            showNotification('error', null, 'Erro ao cadastrar usuário!');
+        }
+    };
+    
     return (
-        <RegisterUserContext.Provider value={{ user, setField, validateStep, getRule }}>
+        <RegisterUserContext.Provider value={{ user, setField, validateStep, getRule, finalizeRegister }}>
             {children}
         </RegisterUserContext.Provider>
     );
