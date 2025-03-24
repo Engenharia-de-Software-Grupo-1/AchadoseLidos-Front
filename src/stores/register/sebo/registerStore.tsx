@@ -1,6 +1,5 @@
 import { createContext, useContext, ReactNode } from 'react';
 import { Sebo } from '@domains/Sebo';
-import { useNotification } from '@contexts/notificationContext';
 import { createSebo } from '@routes/routesSebo';
 import { useForm } from '@hooks/useForm';
 
@@ -29,7 +28,6 @@ interface RegisterSeboProviderProps {
 }
 
 export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) => {
-  const { showNotification } = useNotification();
 
   const checkTelefone = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
     if (sebo.concordaVender && !sebo.telefone) {

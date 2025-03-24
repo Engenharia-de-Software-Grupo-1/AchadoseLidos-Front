@@ -20,7 +20,7 @@ const ProfileSeboForm = () => {
   const { sebo, setField, cities, validate, initialize, loading, updateSebo, deleteSebo } = useProfileSeboForm();
   const [_, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
-  const { conta, auth_logout } = useAuth();
+  const { conta, handleLogout } = useAuth();
   const navigate = useNavigate();
   const [visible, setVisible] = useState<boolean>(false);
   const breadcrumbItems = [
@@ -50,8 +50,7 @@ const ProfileSeboForm = () => {
   const deleteContaSebo = () => {
     deleteSebo(() => {
       setVisible(false);
-      auth_logout();
-      navigate('/');
+      handleLogout();
       showNotification('success', null, 'Sebo excluído com sucesso!');
     });
   };
@@ -125,12 +124,7 @@ const ProfileSeboForm = () => {
                   </FormField>
 
                   <FormField label="Estado" attribute="estado" editField required adress>
-                    <InputText
-                      value="Paraíba"
-                      disabled
-                      placeholder="Estado *"
-                      style={{ width: '400px' }}
-                    />
+                    <InputText value="Paraíba" disabled placeholder="Estado *" style={{ width: '400px' }} />
                   </FormField>
 
                   <FormField label="Cidade" attribute="cidade" editField required adress>
