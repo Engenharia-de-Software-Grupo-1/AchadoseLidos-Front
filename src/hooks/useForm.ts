@@ -62,9 +62,9 @@ export const useForm = <T>({ initialData, rules = {}, stepFields, aditionalValid
     return rules[field] || [];
   };
 
-  const loadCitiesByState = useCallback(async (state: string) => {
+  const loadCitiesByState = useCallback(async () => {
     try {
-      const response = await ibge.country.getBy(state);
+      const response = await ibge.country.getBy('PB');
       const citiesOptions = response.data.map((city: any) => ({
         value: city.codigo_ibge,
         text: city.nome,

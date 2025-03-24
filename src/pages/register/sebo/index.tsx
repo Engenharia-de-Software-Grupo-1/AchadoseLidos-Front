@@ -68,7 +68,12 @@ const RegisterSebo = () => {
                 <Button
                   className="step-button"
                   label="Finalizar"
-                  onClick={() => saveRegisterSebo(() => navigate('/login'))}
+                  onClick={() =>
+                    saveRegisterSebo(() => {
+                      showNotification('success', null, 'Sebo cadastrado com sucesso!');
+                      navigate('/login');
+                    })
+                  }
                 />
               )}
               {activeIndex < 2 && <Button className="step-button" label="Continuar" onClick={() => nextStep()} />}

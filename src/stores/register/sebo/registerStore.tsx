@@ -9,7 +9,7 @@ interface RegisterSeboContextType {
   setField: (field: string, value: any) => void;
   validateStep: (stepIndex: number) => boolean;
   getRule: (field: string) => {};
-  loadCitiesByState: (state: string) => Promise<void>;
+  loadCitiesByState: () => Promise<void>;
   cities: { value: string; text: string }[];
   saveRegisterSebo: (sucessCallback?: () => void) => void;
 }
@@ -70,8 +70,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   const saveRegisterSebo = async (sucessCallback?: () => void) => {
     try {
       formData.telefone.trim();
-      const response = await createSebo(formData);
-      response.status === 201 && showNotification('success', null, 'Sebo cadastrado com sucesso!');
+      await createSebo(formData);
       sucessCallback && sucessCallback();
     } catch (error) {
       console.error('Erro ao cadastrar sebo:', error);
@@ -97,7 +96,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
       curadores: '',
       concordaVender: false,
       endereco: {
-        estado: '',
+        estado: 'PB',
         cidade: '',
         cep: '',
         rua: '',

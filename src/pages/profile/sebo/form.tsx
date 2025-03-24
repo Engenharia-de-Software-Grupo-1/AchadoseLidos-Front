@@ -14,10 +14,10 @@ import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
 import { useAuth } from '@contexts/authContext';
 import { useNotification } from '@contexts/notificationContext';
 import { useNavigate } from 'react-router-dom';
+import { Dropdown } from 'primereact/dropdown';
 
 const ProfileSeboForm = () => {
-  const { sebo, setField, cities, loadCitiesByState, validate, initialize, loading, updateSebo, deleteSebo } =
-    useProfileSeboForm();
+  const { sebo, setField, cities, validate, initialize, loading, updateSebo, deleteSebo } = useProfileSeboForm();
   const [_, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
   const { conta, auth_logout } = useAuth();
@@ -123,24 +123,28 @@ const ProfileSeboForm = () => {
                       placeholder="00000-000"
                     />
                   </FormField>
-                  {/*
-                  <AddressFormField
-                    labelText="Estado"
-                    fieldName={AddressNames.estado}
-                    fieldValue={sebo?.endereco.estado}
-                    hasSubmissionFailed={submitted}
-                    placeholderText="Estado"
-                    setField={handleEnderecoChange}
-                  />
-                  <AddressFormField
-                    labelText="Cidade"
-                    fieldName={AddressNames.cidade}
-                    fieldValue={sebo?.endereco.cidade}
-                    hasSubmissionFailed={submitted}
-                    placeholderText="Cidade"
-                    setField={handleEnderecoChange}
-                  />
-                  */}
+
+                  <FormField label="Estado" attribute="estado" editField required adress>
+                    <InputText
+                      value="Paraíba"
+                      disabled
+                      placeholder="Estado *"
+                      style={{ width: '400px' }}
+                    />
+                  </FormField>
+
+                  <FormField label="Cidade" attribute="cidade" editField required adress>
+                    <Dropdown
+                      value={sebo?.endereco.cidade}
+                      onChange={(e) => setField('endereco.cidade', e.target.value)}
+                      options={cities}
+                      optionLabel="text"
+                      optionValue="value"
+                      showClear
+                      placeholder="Cidade *"
+                      style={{ width: '400px' }}
+                    />
+                  </FormField>
                   <FormField label="Rua" attribute="rua" editField required adress>
                     <InputText
                       value={sebo?.endereco.rua}

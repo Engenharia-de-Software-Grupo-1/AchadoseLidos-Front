@@ -8,7 +8,7 @@ interface ProfileSeboFormContextType {
   sebo: Sebo;
   setField: (field: string, value: any) => void;
   validate: () => boolean;
-  loadCitiesByState: (state: string) => Promise<void>;
+  loadCitiesByState: () => Promise<void>;
   cities: { value: string; text: string }[];
   initialize: (id: number) => void;
   loading: boolean;
@@ -65,6 +65,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     try {
       const data = await getPerfilById(id);
       setFormData(data);
+      loadCitiesByState();
     } catch (error) {
       showNotification('error', null, 'Erro ao buscar perfil do sebo');
     } finally {
