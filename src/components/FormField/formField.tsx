@@ -35,6 +35,7 @@ const FormField: React.FC<FormFieldProps> = ({
           {(error?.error || required) && <span className="p-error"> *</span>}
         </label>
       )}
+      <div className="input-wrapper">
       {cloneElement(children as React.ReactElement<any>, {
         id: attribute,
         className: classNames({
@@ -43,6 +44,8 @@ const FormField: React.FC<FormFieldProps> = ({
           'short-input': short,
         }),
       })}
+      </div>
+      
       {error?.error && <small className="p-error">{error?.message}</small>}
     </div>
   );

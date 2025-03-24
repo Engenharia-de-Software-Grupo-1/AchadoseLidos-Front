@@ -2,7 +2,7 @@ import { Button } from 'primereact/button';
 import { IconField } from 'primereact/iconfield';
 import { Tag } from 'primereact/tag';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 import { Sebo } from '@domains/Sebo';
 import { Usuario } from '@domains/Usuario';
@@ -14,6 +14,7 @@ interface ProfileProps {
 }
 
 const Profile = ({ authUser, role, data }: ProfileProps) => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="container-profile">
@@ -24,9 +25,12 @@ const Profile = ({ authUser, role, data }: ProfileProps) => {
             <p className="titulo-profile">{data?.nome}</p>
 
             {role ? (
-              <Link to={`/profile/${role.toLowerCase()}/edit`}>
-                <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
-              </Link>
+              <Button
+                label="Editar"
+                icon="pi pi-pencil"
+                className="button-edit"
+                onClick={() => navigate(`/profile/${role.toLowerCase()}/edit`)}
+              />
             ) : authUser ? (
               <i className="pi pi-bell" style={{ fontSize: 'x-large' }} />
             ) : null}

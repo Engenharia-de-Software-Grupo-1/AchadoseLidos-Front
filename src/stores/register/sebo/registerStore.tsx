@@ -1,5 +1,4 @@
-import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-import { ibge } from 'brasilapi-js';
+import { createContext, useContext, ReactNode } from 'react';
 import { Sebo } from '@domains/Sebo';
 import { useNotification } from '@contexts/notificationContext';
 import { createSebo } from '@routes/routesSebo';
@@ -31,7 +30,6 @@ interface RegisterSeboProviderProps {
 
 export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) => {
   const { showNotification } = useNotification();
-  const [cities, setCities] = useState<{ value: string; text: string }[]>([]);
 
   const checkTelefone = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
     if (sebo.concordaVender && !sebo.telefone) {
@@ -69,32 +67,18 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     return validationResults;
   };
 
-  const loadCitiesByState = useCallback(async (state: string) => {
-    try {
-      const response = await ibge.country.getBy(state);
-      const citiesOptions = response.data.map((city: any) => ({
-        value: city.codigo_ibge,
-        text: city.nome,
-      }));
-      setCities(citiesOptions);
-    } catch (error) {
-      showNotification('error', null, 'Erro ao carregar cidades');
-      setCities([]);
-    }
-  }, []);
-
   const saveRegisterSebo = async (sucessCallback?: () => void) => {
     try {
-      await createSebo(formData);
-      showNotification('success', null, 'Sebo cadastrado com sucesso!');
-
+      formData.telefone.trim();
+      const response = await createSebo(formData);
+      response.status === 201 && showNotification('success', null, 'Sebo cadastrado com sucesso!');
       sucessCallback && sucessCallback();
     } catch (error) {
       console.error('Erro ao cadastrar sebo:', error);
     }
   };
 
-  const { formData, setField, validate, getRule } = useForm<Sebo>({
+  const { formData, setField, validate, getRule, loadCitiesByState, cities } = useForm<Sebo>({
     initialData: {
       conta: {
         email: '',
@@ -152,8 +136,8 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
         setField,
         validateStep: validate,
         getRule: getRule,
-        cities,
-        loadCitiesByState,
+        cities: cities,
+        loadCitiesByState: loadCitiesByState,
         saveRegisterSebo,
       }}
     >
