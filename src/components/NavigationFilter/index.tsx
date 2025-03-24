@@ -1,18 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { TreeSelect, TreeSelectChangeEvent, TreeSelectSelectionKeysType } from 'primereact/treeselect';
 import { TreeNode } from 'primereact/treenode';
-import { CategoriaProduto, EstadoConservacaoProduto } from 'constants/ProdutoConstants';
 
-interface _MultipleDemoProps {
-    titulo?: string;
-    autor?: string;
-    categoria?: typeof CategoriaProduto;
-    estadoConservação?: typeof EstadoConservacaoProduto;
-    genero?: string;
-    anoEdição?: number;
-    anoLançamento?: number;
-    faixaPreço?: number;
+interface MultipleDemoProps {
+    tree: TreeNode[];
 }
 
 const mockNodes: TreeNode[] = [
@@ -34,13 +25,12 @@ const mockNodes: TreeNode[] = [
     }
 ];
 
-export default function MultipleDemo() {
+export default function MultipleDemo({tree}: MultipleDemoProps) {
     const [nodes, setNodes] = useState<TreeNode[] | undefined>(mockNodes);
     const [selectedNodeKeys, setSelectedNodeKeys] = useState<TreeSelectSelectionKeysType | TreeSelectSelectionKeysType[] | null>([]);
     
     useEffect(() => {
-        // NodeService.getTreeNodes().then((data) => setNodes(data));
-        setNodes(mockNodes);
+        setNodes(tree);
     }, []);
 
     return (

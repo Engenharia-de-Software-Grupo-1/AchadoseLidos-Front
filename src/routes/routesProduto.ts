@@ -12,7 +12,7 @@ export const getById = async (id: number) => {
   return response.data;
 };
 
-export const getAll = async (body: NavigationPageProps) => {
+export const getAllProducts = async (body: NavigationPageProps) => {
   const response = await api.get<ProductCardProps[]>('/produtos', {
     params: body,
   });

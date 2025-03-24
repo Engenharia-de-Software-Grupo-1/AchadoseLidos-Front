@@ -56,9 +56,22 @@ const App = () => {
                      { field: 'price', order: 'ASC' },
                      { field: 'createdAt', order: 'DESC' },
                    ]}
+                   cardType='productCard' // passar o tipo ou componente do card
                  />
                }
              />
+             <Route
+               path="/navigation/sebos"
+                element={
+                  <NavigationPage
+                    filters={[]}
+                    orders={[
+                      { field: 'name', order: 'ASC' },
+                    ]}
+                    cardType='seboCard'
+                  />
+                }
+              />
           </Routes>
         </NotificationProvider>
       </BrowserRouter>

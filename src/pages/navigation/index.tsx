@@ -1,23 +1,30 @@
 import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
-import MultipleDemo from '@components/NavigationFilter';
 import TemplatePage from '@pages/templatePage';
-import { Button } from 'primereact/button';
 import React from 'react';
 import './style.css';
-import { getAll } from 'routes/routesProduto';
+import { getAllProducts } from 'routes/routesProduto';
 import { Filters, Orders } from 'types/NavigationFilters';
+import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCard';
+import { getAllSebos } from 'routes/routesSebo';
+import ProductFilters from '@components/Filters/productFilters';
+import SeboFilters from '@components/Filters/seboFilters';
 
-const breadcrumbItems = [{ label: 'Buscar', url: '/navigation' }];
+const breadcrumbItems = [{ label: 'Navegar', url: '' }];
 
 export interface NavigationPageProps {
   filters: Filters[];
   orders: Orders[];
+  cardType?: 'productCard' | 'seboCard';
 }
 
 export const NavigationPage = (props: NavigationPageProps) => {
-  const { filters, orders } = props;
+  const { filters, orders, cardType } = props;
+  const isProductCards = cardType === 'productCard';
+  const isSeboCards = cardType === 'seboCard';
+  const [seboCards, setSeboCards] = React.useState<GenericCardProps[]>([]);
   const [cards, setCards] = React.useState<ProductCardProps[]>([]);
+  const [seboNameIcon, setSeboNameIcon] = React.useState('pi pi-arrow-down');
   const [nameIcon, setNameIcon] = React.useState('pi pi-arrow-down');
   const [priceIcon, setPriceIcon] = React.useState('pi pi-arrow-down');
   const [dateIcon, setDateIcon] = React.useState('pi pi-arrow-up');
@@ -34,9 +41,13 @@ export const NavigationPage = (props: NavigationPageProps) => {
     sortCards(dateIcon, 'date');
   }, [dateIcon]);
 
+  React.useEffect(() => {
+    sortCards(seboNameIcon, 'name');
+  }, [seboNameIcon]);
+
   const getFieldUseState = (field: string) => {
     if (field === 'name') {
-      return { icon: nameIcon, setIcon: setNameIcon };
+      return isProductCards ? { icon: nameIcon, setIcon: setNameIcon } : { icon: seboNameIcon, setIcon: setSeboNameIcon };
     } else if (field === 'price') {
       return { icon: priceIcon, setIcon: setPriceIcon };
     }
@@ -49,8 +60,18 @@ export const NavigationPage = (props: NavigationPageProps) => {
         item.order = icon === 'pi pi-arrow-down' ? 'DESC' : 'ASC';
       }
     });
-    getAll({ filters, orders }).then((response) => {
+    isProductCards ? getProducts() : getSebos();
+  };
+
+  const getProducts = () => {
+    getAllProducts({ filters, orders }).then((response) => {
       setCards(response);
+    });
+  };
+
+  const getSebos = () => {
+    getAllSebos({ filters, orders }).then((response) => {
+      setSeboCards(response);
     });
   };
 
@@ -64,15 +85,12 @@ export const NavigationPage = (props: NavigationPageProps) => {
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <div className="nav-center">
-          <div className="nav-filter-column">
-            <div className="nav-filter-column-header">
-              <span className="nav-filter-column-header-text">Filtros</span>
-              <Button className="nav-filter-column-header-button" rounded>
-                Aplicar {'>'}
-              </Button>
-            </div>
-            <MultipleDemo></MultipleDemo>
-          </div>
+          {isProductCards && 
+            <ProductFilters filters={filters}/>
+          }
+          {isSeboCards &&
+            <SeboFilters filters={filters}/>
+          }
           <div className="nav-content-column">
             <div className="nav-filter-display">
               <p className="nav-filter-display-text">
@@ -83,30 +101,39 @@ export const NavigationPage = (props: NavigationPageProps) => {
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
                   Nome
                 </p>
-                <i className={nameIcon} onClick={() => changeOrder('name')} style={{ cursor: 'pointer' }}>
+                <i className={isProductCards ? nameIcon : seboNameIcon} onClick={() => changeOrder('name')} style={{ cursor: 'pointer' }}>
                   {' '}
                 </i>
-                <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
-                  Preco
-                </p>
-                <i className={priceIcon} onClick={() => changeOrder('price')} style={{ cursor: 'pointer' }}>
-                  {' '}
-                </i>
-                <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
-                  Data de Criação
-                </p>
-                <i className={dateIcon} onClick={() => changeOrder('date')} style={{ cursor: 'pointer' }}>
-                  {' '}
-                </i>
+                {isProductCards && (
+                  <>
+                    <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
+                      Preco
+                    </p>
+                    <i className={priceIcon} onClick={() => changeOrder('price')} style={{ cursor: 'pointer' }}>
+                      {' '}
+                    </i>
+                    <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
+                      Data de Criação
+                    </p>
+                    <i className={dateIcon} onClick={() => changeOrder('date')} style={{ cursor: 'pointer' }}>
+                      {' '}
+                    </i>
+                  </>
+                )}
               </div>
             </div>
             <div className="nav-pagination-header">
               <p className="nav-pagination-header-text">1-10 de 20</p>
             </div>
             <div className="nav-content-center">
-              {cards.map((card, index) => (
-                <ProductCard key={index} {...card} />
-              ))}
+              {isProductCards &&
+                cards.map((card, index) => (
+                  <ProductCard key={index} {...card} />
+                ))}
+              {isSeboCards &&
+                seboCards.map((card, index) => (
+                  <GenericCard key={index} {...card} />
+                ))}
             </div>
             <div className="nav-pagination-footer">
               1-20 de 200
