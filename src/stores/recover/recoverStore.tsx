@@ -42,16 +42,16 @@ export const RecoverRequestProvider = ({ children }: RecoverRequestProviderProps
         const response = await recuperar_senha(formData);
 
         if (response.status === 200) {
-          showNotification('success', response.data.mensagem, '');
+          showNotification('success', null, response.data.mensagem);
         }
       } catch (error: any) {
         if (error.response) {
           const errorMessage = error.response.data.message || 'Erro no servidor.';
-          showNotification('error', errorMessage, '');
+          showNotification('error', null, errorMessage);
         } else if (error.request) {
-          showNotification('error', 'Sem resposta do servidor. Verifique sua conexão.', '');
+          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
         } else {
-          showNotification('error', 'Algo deu errado. Tente novamente mais tarde.', '');
+          showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
         }
       }
     } else {

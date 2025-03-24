@@ -79,7 +79,7 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
         const response = await atualizar_senha(formData.conta);
 
         if (response.status === 200) {
-          showNotification('success', 'Senha atualizada com sucesso!', '');
+          showNotification('success', null, 'Senha atualizada com sucesso!');
           navigate('/login');
         }
       } catch (error: any) {
@@ -88,15 +88,15 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
 
           if (errorData.errors && Array.isArray(errorData.errors)) {
             errorData.errors.forEach((err: { message: string }) => {
-              showNotification('error', err.message, '');
+              showNotification('error', null, err.message);
             });
           } else {
-            showNotification('error', errorData.mensagem || 'Erro no servidor.', '');
+            showNotification('error', null, errorData.mensagem || 'Erro no servidor.');
           }
         } else if (error.request) {
-          showNotification('error', 'Sem resposta do servidor. Verifique sua conexão.', '');
+          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
         } else {
-          showNotification('error', 'Algo deu errado. Tente novamente mais tarde.', '');
+          showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
         }
       }
     }

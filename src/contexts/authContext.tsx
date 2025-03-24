@@ -35,15 +35,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await logout();
       if (response.status == 200) {
-        showNotification('success', 'Logout realizado com sucesso!', '');
+        showNotification('success', null, 'Logout realizado com sucesso!');
       } else {
-        showNotification('error', 'Logout falhou', '');
+        showNotification('error', null, 'Logout falhou');
       }
 
       auth_logout();
       navigate('/');
     } catch (err: any) {
-      showNotification('error', err, '');
+      showNotification('error', null, err);
     }
   }, []);
 
