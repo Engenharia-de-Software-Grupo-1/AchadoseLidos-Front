@@ -28,9 +28,8 @@ interface RegisterSeboProviderProps {
 }
 
 export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) => {
-
   const checkTelefone = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
-    if (sebo.concordaVender && !sebo.telefone) {
+    if (sebo.concordaVender && !sebo.telefone.trim()) {
       validationResults['telefone'] = {
         error: true,
         message: 'Campo obrigatório',
@@ -67,7 +66,6 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
 
   const saveRegisterSebo = async (sucessCallback?: () => void) => {
     try {
-      formData.telefone.trim();
       await createSebo(formData);
       sucessCallback && sucessCallback();
     } catch (error) {
@@ -89,7 +87,7 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
       telefone: '',
       biografia: '',
       instagram: '',
-      fotoPerfil:  '',
+      fotoPerfil: '',
       estanteVirtual: '',
       curadores: '',
       concordaVender: false,

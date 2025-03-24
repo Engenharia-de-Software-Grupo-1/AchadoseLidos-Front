@@ -31,8 +31,9 @@ interface ProfileSeboFormProviderProps {
 }
 
 export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderProps) => {
+
   const aditionalValidate = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
-    if (sebo.concordaVender && !sebo.telefone) {
+    if (sebo.concordaVender && !sebo.telefone.trim()) {
       validationResults['telefone'] = {
         error: true,
         message: 'Campo obrigatório',

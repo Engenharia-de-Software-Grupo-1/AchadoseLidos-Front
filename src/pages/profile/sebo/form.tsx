@@ -193,7 +193,7 @@ const ProfileSeboForm = () => {
                 </div>
 
                 <div className="form-contat-sebo">
-                  <FormField label="Whatsapp" attribute="telefone" required={!sebo?.concordaVender} editField short>
+                  <FormField label="Whatsapp" attribute="telefone" required={sebo?.concordaVender} editField short>
                     <InputText
                       value={sebo?.telefone}
                       onChange={(e) => setField('telefone', e.target.value)}
