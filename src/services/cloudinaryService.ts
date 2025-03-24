@@ -27,3 +27,12 @@ export const uploadImage = async (file: File): Promise<string | null> => {
     return null;
   }
 };
+
+export const uploadImagesToCloudinary = async (imageList: File[]): Promise<string[]> => {
+  const uploadedImages = [];
+  for (const file of imageList) {
+    const imageUrl = await uploadImage(file);
+    if (imageUrl) uploadedImages.push(imageUrl);
+  }
+  return uploadedImages;
+};

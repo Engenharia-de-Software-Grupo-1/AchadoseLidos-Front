@@ -2,8 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'http://localhost:3333/api',
-  withCredentials: true
-  
+  withCredentials: true,
 });
 
 export const login = async (data: any) => {
@@ -18,5 +17,12 @@ export const logout = async () => {
 
 export const perfil = async () => {
   const response = await api.get('/contas/perfil');
+  return response;
+};
+
+export const validarEmail = async (email: string) => {
+  const response = await api.get('/contas/validar_email', {
+    params: { email },
+  });
   return response;
 };

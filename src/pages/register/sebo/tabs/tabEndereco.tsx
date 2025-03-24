@@ -4,7 +4,6 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { InputMask } from 'primereact/inputmask';
 import { Sebo } from '@domains/Sebo';
-import { getEstados } from '@services/dadosEstaticosService';
 import { useLoadCities } from '@hooks/useLoadCities';
 
 interface TabEnderecoProps {
@@ -14,20 +13,16 @@ interface TabEnderecoProps {
 }
 
 const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, cities }) => {
-  useLoadCities(sebo.endereco.estado);
+  useLoadCities();
 
   return (
     <div className="container-register-sebo">
       <div className="container-register">
         <div className="container-data">
           <FormField attribute="estado">
-            <Dropdown
-              value={sebo.endereco.estado}
-              onChange={(e) => setField('endereco.estado', e.target.value)}
-              options={getEstados()}
-              optionLabel="text"
-              optionValue="value"
-              showClear
+            <InputText
+              value="Paraíba"
+              disabled
               placeholder="Estado *"
               style={{ width: '400px' }}
             />

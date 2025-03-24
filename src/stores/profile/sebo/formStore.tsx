@@ -1,18 +1,18 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
-import { ibge } from 'brasilapi-js';
+import { createContext, useContext, ReactNode, useState, useCallback } from 'react';
 import { Sebo } from '@domains/Sebo';
-import { useNotification } from '@contexts/notificationContext';
-import { extractRules, stepRules } from '@utils/formRules';
-import { addRuleToField } from '@utils/utils';
-import { Rule } from '@domains/Rule';
+import { useForm } from '@hooks/useForm';
+import { deleteUser, getPerfilById, updateUser } from '@routes/routesSebo';
 
 interface ProfileSeboFormContextType {
   sebo: Sebo;
   setField: (field: string, value: any) => void;
-  validateStep: (stepIndex: number) => boolean;
-  getRule: (field: string) => {};
-  loadCitiesByState: (state: string) => Promise<void>;
+  validate: () => boolean;
+  loadCitiesByState: () => Promise<void>;
   cities: { value: string; text: string }[];
+  initialize: (id: number) => void;
+  loading: boolean;
+  updateSebo: (sucessCallback?: () => void) => void;
+  deleteSebo: (sucessCallback?: () => void) => void;
 }
 
 const ProfileSeboFormContext = createContext<ProfileSeboFormContextType | null>(null);
@@ -30,109 +30,80 @@ interface ProfileSeboFormProviderProps {
 }
 
 export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderProps) => {
-  const { showNotification } = useNotification();
+  const aditionalValidate = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
+    if (sebo.concordaVender && !sebo.telefone.trim()) {
+      validationResults['telefone'] = {
+        error: true,
+        message: 'Campo obrigatório',
+        rules: [],
+      };
+    }
+    return validationResults;
+  };
 
-  const [sebo, setFormData] = useState<Sebo>({
-    conta: {
-      email: '',
-      senha: '',
-      confirmaSenha: '',
-      tipo: 'SEBO',
-      status: 'ATIVA',
-      createdAt: '',
-      updatedAt: '',
+  const { formData, setField, validate, loadCitiesByState, cities, setFormData, showNotification } = useForm<Sebo>({
+    initialData: null,
+    rules: {
+      nome: [{ rule: 'required' }],
+      cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
+      estado: [{ rule: 'required' }],
+      cidade: [{ rule: 'required' }],
+      cep: [{ rule: 'required' }],
+      rua: [{ rule: 'required' }],
+      bairro: [{ rule: 'required' }],
+      numero: [{ rule: 'required' }],
     },
-    nome: '',
-    cpfCnpj: '',
-    telefone: '',
-    biografia: '',
-    instagram: '',
-    fotoPerfil: undefined,
-    estanteVirtual: '',
-    curadores: '',
-    concordaVender: false,
-    horarioFuncionamento: '',
-    endereco: {
-      estado: '',
-      cidade: '',
-      cep: '',
-      rua: '',
-      bairro: '',
-      numero: '',
-      complemento: '',
-      ehPublico: false,
-    },
+    aditionalValidate,
   });
 
-  const [cities, setCities] = useState<{ value: string; text: string }[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const setField = (field: string, value: any) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const rules: Record<string, Rule[]> = {
-    nome: [{ rule: 'required' }],
-    cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
-    email: [{ rule: 'required' }, { rule: 'isEmail' }],
-    senha: [{ rule: 'required' }],
-    confirmaSenha: [{ rule: 'required' }],
-    estado: [{ rule: 'required' }],
-    cidade: [{ rule: 'required' }],
-    cep: [{ rule: 'required' }],
-    rua: [{ rule: 'required' }],
-    bairro: [{ rule: 'required' }],
-    numero: [{ rule: 'required' }],
-    complemento: [{ rule: 'required' }],
-  };
-
-  const getRule = (field: string) => {
-    return rules[field] ? rules[field] : {};
-  };
-
-  const validateStep = (): boolean => {
-    let fieldsToValidate = [
-      'nome',
-      'cpfCnpj',
-      'email',
-      'senha',
-      'confirmaSenha',
-      'estado',
-      'cidade',
-      'cep',
-      'rua',
-      'bairro',
-      'numero',
-    ];
-
-    if (sebo.concordaVender) {
-      addRuleToField(rules, 'telefone', { rule: 'required' });
-      fieldsToValidate.push('telefone');
-    }
-
-    const rulesByStep = stepRules(fieldsToValidate, rules);
-
-    const validationResults = extractRules(rulesByStep, sebo);
-
-    const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
-    return !hasError;
-  };
-
-  const loadCitiesByState = async (state: string): Promise<void> => {
+  const initialize = useCallback(async (id: number | undefined) => {
+    setLoading(true);
     try {
-      const response = await ibge.country.getBy(state);
-      const citiesOptions = response.data.map((city) => ({
-        value: city.codigo_ibge,
-        text: city.nome,
-      }));
-      setCities(citiesOptions);
+      const data = await getPerfilById(id);
+      setFormData(data);
+      loadCitiesByState();
     } catch (error) {
-      showNotification('error', null, 'Erro ao carregar cidades');
-      setCities([]);
+      showNotification('error', null, 'Erro ao buscar perfil do sebo');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const updateSebo = async (sucessCallback?: () => void) => {
+    try {
+      formData.telefone.trim();
+      await updateUser(formData, formData?.id);
+      sucessCallback && sucessCallback();
+    } catch (error) {
+      console.error('Erro ao cadastrar sebo:', error);
+    }
+  };
+
+  const deleteSebo = async (sucessCallback?: () => void) => {
+    try {
+      await deleteUser(formData?.id);
+      sucessCallback && sucessCallback();
+    } catch (error) {
+      console.error('Erro ao cadastrar sebo:', error);
     }
   };
 
   return (
-    <ProfileSeboFormContext.Provider value={{ sebo, setField, validateStep, getRule, cities, loadCitiesByState }}>
+    <ProfileSeboFormContext.Provider
+      value={{
+        sebo: formData,
+        setField,
+        cities,
+        loadCitiesByState,
+        validate,
+        initialize,
+        loading,
+        updateSebo,
+        deleteSebo,
+      }}
+    >
       {children}
     </ProfileSeboFormContext.Provider>
   );
