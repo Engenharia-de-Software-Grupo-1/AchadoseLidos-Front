@@ -304,10 +304,12 @@
 
 .field-input-genero{
   width: 14.5rem !important;
+  align-items: center;
 }
 
 .field-input-category {
   width: 14.5rem !important;
+  align-items: center;
 }
 
 .taxt-area-short {

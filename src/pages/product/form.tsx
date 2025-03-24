@@ -15,6 +15,7 @@ import { Produto } from '@domains/Produto/Produto';
 import { useNotification } from '@contexts/notificationContext';
 import { uploadImage } from '@utils/cloudinary';
 import { set } from 'cypress/types/lodash';
+import { param } from 'cypress/types/jquery';
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -78,6 +79,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
   }
 };
 
+
   return (
     <main className="main-container-edit-product">
       <TemplatePage simpleFooter simpleHeader={false}>
@@ -88,7 +90,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
             <div className="conatiner-gallery-upload">
               <span className="span-image-product-name">Imagens do produto *</span>
               <Gallery photos={images}/>
-              <UploadImages setField={setField} setImage={setImages}/>
+              <UploadImages setField={setField} setImage={setImages} image={images}/>
             </div>
 
             <div className="content1-form-edit-product">
@@ -104,7 +106,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
 
                 <div className="content-price-form">
                   <ProductFormField
-                    labelText="Preco"
+                    labelText="Preço"
                     fieldName={ProdutoFieldNames.preco}
                     fieldValuePrice={produto.preco}
                     setField={setField}
