@@ -1,4 +1,3 @@
-
 /// <reference types="vite/client" />
   
 export const uploadImage = async (file: File): Promise<string | null> => {
