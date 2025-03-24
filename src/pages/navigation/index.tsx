@@ -9,6 +9,7 @@ import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCa
 import { getAllSebos } from 'routes/routesSebo';
 import ProductFilters from '@components/Filters/productFilters';
 import SeboFilters from '@components/Filters/seboFilters';
+import { Button } from 'primereact/button';
 
 const breadcrumbItems = [{ label: 'Navegar', url: '' }];
 
@@ -47,7 +48,9 @@ export const NavigationPage = (props: NavigationPageProps) => {
 
   const getFieldUseState = (field: string) => {
     if (field === 'name') {
-      return isProductCards ? { icon: nameIcon, setIcon: setNameIcon } : { icon: seboNameIcon, setIcon: setSeboNameIcon };
+      return isProductCards
+        ? { icon: nameIcon, setIcon: setNameIcon }
+        : { icon: seboNameIcon, setIcon: setSeboNameIcon };
     } else if (field === 'price') {
       return { icon: priceIcon, setIcon: setPriceIcon };
     }
@@ -85,23 +88,28 @@ export const NavigationPage = (props: NavigationPageProps) => {
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <div className="nav-center">
-          {isProductCards && 
-            <ProductFilters filters={filters}/>
-          }
-          {isSeboCards &&
-            <SeboFilters filters={filters}/>
-          }
+          {isProductCards && <ProductFilters filters={filters} />}
+          {isSeboCards && <SeboFilters filters={filters} />}
           <div className="nav-content-column">
             <div className="nav-filter-display">
               <p className="nav-filter-display-text">
                 Resultados de pesquisa para: <br />
                 Filtro 1, Filtro 2.
               </p>
+              {/* {isSebo && (
+                <Button icon="pi pi-plus" className="nav-pagination-header-button">
+                  Adicionar
+                </Button>
+              )} */}
               <div className="nav-filter-display-order">
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
                   Nome
                 </p>
-                <i className={isProductCards ? nameIcon : seboNameIcon} onClick={() => changeOrder('name')} style={{ cursor: 'pointer' }}>
+                <i
+                  className={isProductCards ? nameIcon : seboNameIcon}
+                  onClick={() => changeOrder('name')}
+                  style={{ cursor: 'pointer' }}
+                >
                   {' '}
                 </i>
                 {isProductCards && (
@@ -126,14 +134,8 @@ export const NavigationPage = (props: NavigationPageProps) => {
               <p className="nav-pagination-header-text">1-10 de 20</p>
             </div>
             <div className="nav-content-center">
-              {isProductCards &&
-                cards.map((card, index) => (
-                  <ProductCard key={index} {...card} />
-                ))}
-              {isSeboCards &&
-                seboCards.map((card, index) => (
-                  <GenericCard key={index} {...card} />
-                ))}
+              {isProductCards && cards.map((card, index) => <ProductCard key={index} {...card} />)}
+              {isSeboCards && seboCards.map((card, index) => <GenericCard key={index} {...card} />)}
             </div>
             <div className="nav-pagination-footer">
               1-20 de 200
@@ -145,34 +147,4 @@ export const NavigationPage = (props: NavigationPageProps) => {
       </TemplatePage>
     </main>
   );
-
-  //mock
-  // cards.push({
-  //   name: 'Diário de uma Ana Rita',
-  //   owner: 'Lupa',
-  //   price: 1000000,
-  //   image: 'images/anarita.JPG',
-  //   createdAt: new Date('2025-09-01'),
-  // });
-  // cards.push({
-  //   name: 'As crônicas de Naiara',
-  //   owner: 'SeboDeolane',
-  //   price: 99.05,
-  //   image: 'images/naiara.jpeg',
-  //   createdAt: new Date('2025-09-02'),
-  // });
-  // cards.push({
-  //   name: 'Eliane e a pedra Filosofal',
-  //   owner: 'Lupa',
-  //   price: 67.8,
-  //   image: 'images/eliane.jpeg',
-  //   createdAt: new Date('2025-09-02'),
-  // });
-  // cards.push({
-  //   name: 'A Helena que roubava livros, sacolas carteiras e corações',
-  //   owner: 'Cata Livros',
-  //   price: 37.25,
-  //   image: 'images/helena.jpeg',
-  //   createdAt: new Date('2025-09-02'),
-  // });
 };

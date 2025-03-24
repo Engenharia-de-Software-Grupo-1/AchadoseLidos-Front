@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import { MultiSelect } from 'primereact/multiselect';
-import { CategoriaProduto, EstadoConservacaoProduto } from 'constants/ProdutoConstants';
 
 interface BasicDemoProps {
-  type: typeof CategoriaProduto | typeof EstadoConservacaoProduto | readonly string[];
-  placeholder: string;
+  type: { [key: string]: string } | readonly string[];
   className: string;
-  gender?: string;
   onChange?: (e: any) => void;
   disabled?: boolean;
 }
 
-export default function BasicDemo({ type, className, placeholder, onChange, disabled }: BasicDemoProps) {
+export default function BasicDemo({ type, className, onChange, disabled }: BasicDemoProps) {
   const [selectedValues, setSelectedValues] = useState('');
-  const fieldOptions = Object.keys(type).map((key) => ({
-    label: key,
-    value: type[key as keyof typeof type],
-  }));
+  const fieldOptions = Array.isArray(type)
+    ? type.map((item) => ({ label: item, value: item }))
+    : Object.keys(type).map((key) => ({
+        label: key,
+        value: (type as { [key: string]: string })[key],
+      }));
 
   return (
     <div className={className}>
@@ -25,7 +24,7 @@ export default function BasicDemo({ type, className, placeholder, onChange, disa
         onChange={onChange ? onChange : (e) => setSelectedValues(e.value)}
         options={fieldOptions}
         optionLabel="label"
-        placeholder={placeholder}
+        placeholder={'Selecione'}
         maxSelectedLabels={6}
         className="w-full md:w-20rem"
         disabled={disabled}

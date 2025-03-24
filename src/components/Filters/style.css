@@ -93,3 +93,11 @@
   border-radius: 2px;
   background: var(--Achados-White);
 }
+
+.nav-filter-column-price-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 6px;
+  align-items: center;
+}

@@ -12,7 +12,7 @@
 .nav-center {
   display: flex;
   width: 100%;
-  max-width: 100%;
+  max-width: 99%;
   flex-direction: row;
   gap: 32px;
   flex-shrink: 0;
@@ -82,9 +82,35 @@
 .nav-pagination-header {
   display: flex;
   height: 37px;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 10px;
   align-self: stretch;
+}
+
+.nav-pagination-header-button {
+  display: flex;
+  padding: 8px 16px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  border-radius: 16px;
+  border: 1px solid var(--Achados-Success);
+  background: var(--Achados-Success);
+}
+
+.nav-pagination-header-button-text {
+  color: var(--Achados-Lighter-Offwhite);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normalu;
 }
 
 .nav-pagination-header-text {
