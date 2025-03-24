@@ -75,8 +75,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
   const updateSebo = async (sucessCallback?: () => void) => {
     try {
       formData.telefone.trim();
-      const response = await updateUser(formData, formData?.id);
-      response.status === 200 && showNotification('success', null, 'Sebo atualizado com sucesso!');
+      await updateUser(formData, formData?.id);
       sucessCallback && sucessCallback();
     } catch (error) {
       console.error('Erro ao cadastrar sebo:', error);
@@ -85,8 +84,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
 
   const deleteSebo = async (sucessCallback?: () => void) => {
     try {
-      const response = await deleteUser(formData?.id);
-      response.status === 204 && showNotification('success', null, 'Sebo excluído com sucesso!');
+      await deleteUser(formData?.id);
       sucessCallback && sucessCallback();
     } catch (error) {
       console.error('Erro ao cadastrar sebo:', error);

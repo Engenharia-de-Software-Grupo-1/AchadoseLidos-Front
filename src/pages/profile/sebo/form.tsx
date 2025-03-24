@@ -37,7 +37,10 @@ const ProfileSeboForm = () => {
   const finalizeUpdate = () => {
     if (validate()) {
       setSubmitted(true);
-      updateSebo(() => navigate('/'));
+      updateSebo(() => {
+        navigate('/');
+        showNotification('success', null, 'Sebo atualizado com sucesso!');
+      });
     } else {
       showNotification('error', null, 'Preencha todos os campos obrigatórios!');
     }
@@ -49,6 +52,7 @@ const ProfileSeboForm = () => {
       setVisible(false);
       auth_logout();
       navigate('/');
+      showNotification('success', null, 'Sebo excluído com sucesso!');
     });
   };
 
