@@ -31,10 +31,9 @@ interface LoginProviderProps {
 export const LoginProvider = ({ children }: LoginProviderProps) => {
   const { setError } = useErrorContext();
   const navigate = useNavigate();
-  const { showNotification } = useNotification();
   const { validateAuth } = useAuth();
 
-  const { formData, setField, validate } = useForm<Credenciais>({
+  const { formData, setField, validate, showNotification } = useForm<Credenciais>({
     initialData: {
       senha: '',
       email: '',

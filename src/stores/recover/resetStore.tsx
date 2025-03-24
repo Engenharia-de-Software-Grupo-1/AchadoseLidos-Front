@@ -26,7 +26,6 @@ interface ResetRequestProviderProps {
 }
 
 export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) => {
-  const { showNotification } = useNotification();
   const navigate = useNavigate();
 
   const aditionalValidate = (
@@ -59,7 +58,7 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
     return validationResults;
   };
 
-  const { formData, setField, validate } = useForm<CredenciaisResetRequest>({
+  const { formData, setField, validate, showNotification } = useForm<CredenciaisResetRequest>({
     initialData: {
       conta: {
         senha: '',

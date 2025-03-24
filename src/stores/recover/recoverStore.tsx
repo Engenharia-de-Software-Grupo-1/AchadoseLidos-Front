@@ -27,9 +27,8 @@ interface RecoverRequestProviderProps {
 }
 
 export const RecoverRequestProvider = ({ children }: RecoverRequestProviderProps) => {
-  const { showNotification } = useNotification();
   const { setError } = useErrorContext();
-  const { formData, setField, validate } = useForm<CredenciaisRecoverRequest>({
+  const { formData, setField, validate, showNotification } = useForm<CredenciaisRecoverRequest>({
     initialData: {
       email: '',
     },

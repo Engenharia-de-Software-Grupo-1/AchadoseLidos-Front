@@ -43,7 +43,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     return validationResults;
   };
 
-  const { formData, setField, validate, loadCitiesByState, cities, setFormData } = useForm<Sebo>({
+  const { formData, setField, validate, loadCitiesByState, cities, setFormData, showNotification } = useForm<Sebo>({
     initialData: null,
     rules: {
       nome: [{ rule: 'required' }],
@@ -58,7 +58,6 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     aditionalValidate,
   });
 
-  const { showNotification } = useNotification();
   const [loading, setLoading] = useState<boolean>(false);
 
   const initialize = useCallback(async (id: number | undefined) => {
