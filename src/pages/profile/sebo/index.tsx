@@ -58,7 +58,7 @@ const ProfileSebo = ({ id }: { id?: number }) => {
               </div>
 
               <div className="container-map">
-                <MyMap />
+                <MyMap endereco={sebo?.endereco} />
               </div>
             </div>
           </>
