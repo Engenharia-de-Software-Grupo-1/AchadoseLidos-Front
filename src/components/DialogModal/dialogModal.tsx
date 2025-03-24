@@ -15,7 +15,7 @@ export default function DialogModal({ visibleDialog, setVisibleDialog, onConfirm
       <Button
         label="OK"
         onClick={() => {
-          if (onConfirm) onConfirm(); 
+          onConfirm && onConfirm(); 
           setVisibleDialog(false);
         }}
         className="button-confirm-dialog"
