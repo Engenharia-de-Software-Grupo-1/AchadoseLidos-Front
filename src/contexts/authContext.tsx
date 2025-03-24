@@ -8,6 +8,7 @@ type AuthContextType = {
   auth_login: (conta: Conta) => void; 
   auth_logout: () => void;
   validateAuth: () => Promise<void>;
+  authChecked: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -15,39 +16,46 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [conta, setConta] = useState<Conta | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
 
   const auth_login = useCallback((conta: Conta) => {
-    console.log('Setting conta:', conta);
     setIsAuthenticated(true);
     setConta(conta);
+    localStorage.setItem('auth', JSON.stringify(conta));
   }, []);
 
   const auth_logout = useCallback(() => {
     setIsAuthenticated(false);
     setConta(null);
+    localStorage.removeItem('auth');
+
   }, []);
 
     const validateAuth = useCallback(async () => {
     try {
       const response = await perfil();
-      if (response.data.autenticado === true) {
-        setIsAuthenticated(true);
+      if (response.data.autenticado) {
         auth_login(response.data.conta);
       } else {
         auth_logout();
       }
     } catch (err) {
-      console.error('Validation error:', err);
       auth_logout();
+    } finally {
+      setAuthChecked(true);
     }
   }, [auth_login, auth_logout]);
 
   useEffect(() => {
+    const storedAuth = localStorage.getItem('auth');
+    if (storedAuth) {
+      auth_login(JSON.parse(storedAuth));
+    }
     validateAuth();
-  }, [validateAuth]);
+  }, [validateAuth, auth_login]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated,  conta, auth_login, auth_logout, validateAuth }}>
+    <AuthContext.Provider value={{ isAuthenticated,  conta, auth_login, auth_logout, validateAuth, authChecked }}>
       {children}
     </AuthContext.Provider>
   );
