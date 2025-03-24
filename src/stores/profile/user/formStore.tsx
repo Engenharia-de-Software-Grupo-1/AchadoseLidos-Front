@@ -1,6 +1,10 @@
 import { User } from '@domains/User';
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { extractRules, stepRules } from '@utils/formRules';
+import { deleteUser, getById, updateUser } from '@routes/routesUser';
+import { useAuth } from '@contexts/authContext';
+import { useNotification } from '@contexts/notificationContext';
+import { useNavigate } from 'react-router-dom';
 
 interface ProfileUserFormContextType {
     user: User;
@@ -8,6 +12,9 @@ interface ProfileUserFormContextType {
     validateStep: (stepIndex: number) => boolean;
     getRule: (field: string) => {};
     submitted: boolean;
+    setUser: () => void;
+    updateDataUser: () => void;
+    deleteAccount: () => void;
 }
 
 export const ProfileUserFormContext = createContext<ProfileUserFormContextType | null>(null);
@@ -79,10 +86,55 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
         return !hasError;
     };
 
+    const { conta,  auth_logout } = useAuth();
+
+    const navigate = useNavigate();
+
+    const setUser = async () => {
+      try {
+        if (conta?.usuario?.id !== undefined) {
+          const usuario = await getById(conta.usuario.id);
+          (Object.keys(usuario) as Array<keyof typeof usuario>).forEach((key) => {
+            if (usuario[key] !== undefined) {
+              setField(key as string, usuario[key]);
+            }
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const { showNotification } = useNotification();
+
+    const updateDataUser = async () => {
+      try {
+        if (conta?.usuario?.id !== undefined) {
+          await updateUser(user, conta.usuario.id);
+          showNotification('success', 'Dados atualizados com sucesso!', '');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const deleteAccount = async () => {
+      try {
+          if (conta?.usuario?.id !== undefined) {
+              await deleteUser(conta.usuario.id);
+              showNotification('success', 'Conta excluída com sucesso!', '');
+              auth_logout();
+              navigate('/');
+          }
+      } catch (error) {
+          console.error(error);
+      }
+    };
+
     const [submitted] = useState<boolean>(false);
 
     return (
-        <ProfileUserFormContext.Provider value={{ user, setField, validateStep, getRule, submitted }}>
+        <ProfileUserFormContext.Provider value={{ user, setField, validateStep, getRule, submitted, setUser, updateDataUser, deleteAccount }}>
             {children}
         </ProfileUserFormContext.Provider >
     );

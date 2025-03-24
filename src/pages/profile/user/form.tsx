@@ -6,63 +6,21 @@ import { ProfileFormFieldUser } from '@components/ProfileForm/ProfileFormFieldUs
 import { FieldNamesUser } from '@domains/FieldNames';
 import { useFormUser } from './useForm';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import DialogModal from '@components/DialogModal/dialogModal';
 import { useAuth } from '@contexts/authContext';
-import { deleteUser, getById, updateUser } from 'routes/routesUser';
-import { useNotification } from '@contexts/notificationContext';
 import { Button } from 'primereact/button';
+import { useProfileUserForm } from '@stores/profile/user/formStore';
 
 const ProfileUserForm = () => {
   const { breadcrumbItems, setField, submitted, user } = useFormUser();
-  const { conta,  auth_logout } = useAuth();
-  const navigate = useNavigate();
-  const { showNotification } = useNotification();
+  const { conta } = useAuth();
+  const {setUser, updateDataUser, deleteAccount} = useProfileUserForm();
 
   useEffect(() => {
     setUser();
   }, [conta]);
 
-  const setUser = async () => {
-    try {
-      if (conta?.usuario?.id !== undefined) {
-        const usuario = await getById(conta.usuario.id);
-        (Object.keys(usuario) as Array<keyof typeof usuario>).forEach((key) => {
-          if (usuario[key] !== undefined) {
-            setField(key as string, usuario[key]);
-          }
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const [visible, setVisible] = useState<boolean>(false);
-
-  const updateDataUser = async () => {
-    try {
-      if (conta?.usuario?.id !== undefined) {
-        await updateUser(user, conta.usuario.id);
-        showNotification('success', 'Dados atualizados com sucesso!', '');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const deleteAccount = async () => {
-    try {
-        if (conta?.usuario?.id !== undefined) {
-            await deleteUser(conta.usuario.id);
-            showNotification('success', 'Conta excluída com sucesso!', '');
-            auth_logout();
-            navigate('/');
-        }
-    } catch (error) {
-        console.error(error);
-    }
-  };
 
   return (
     <main className="container-profile-user-form">
