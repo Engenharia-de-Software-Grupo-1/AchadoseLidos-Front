@@ -5,8 +5,12 @@
   margin-bottom: 8px;
 }
 
+.input-wrapper{
+  width: fit-content;
+}
+
 .address-form-field {
-  width: 70%;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   gap: 4px;

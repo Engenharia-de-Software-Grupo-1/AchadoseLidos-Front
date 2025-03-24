@@ -168,7 +168,7 @@
 }
 
 .checkbox-adress {
-  width: 70%;
+  width: fit-content;
   display: inline;
   margin-top: 6px;
   align-self: flex-end;
