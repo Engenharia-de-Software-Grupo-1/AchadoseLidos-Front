@@ -63,18 +63,18 @@ const RegisterSebo = () => {
               readOnly
             />
             <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-              {activeIndex !== 0 &&
-              <Button className="step-button" label="Voltar" onClick={() => stepBack()} />}
+              {activeIndex !== 0 && <Button className="step-button" label="Voltar" onClick={() => stepBack()} />}
               {activeIndex === 2 && (
-                <Button className="step-button" label="Finalizar" onClick={() => saveRegisterSebo(() => navigate('/'))} />
+                <Button
+                  className="step-button"
+                  label="Finalizar"
+                  onClick={() => saveRegisterSebo(() => navigate('/'))}
+                />
               )}
-              {activeIndex < 2 && (
-              <Button className="step-button" label="Continuar" onClick={() => nextStep()} />
-              )}
-
+              {activeIndex < 2 && <Button className="step-button" label="Continuar" onClick={() => nextStep()} />}
             </div>
-            <p className="login" style={{ color: '#2F292A', textAlign: 'center' }}>
-              Já tem uma conta? Entrar
+            <p className="login" style={{ textAlign: 'center' }}>
+              Já tem uma conta? <a href="/login">Entrar</a>
             </p>
           </div>
         </div>
