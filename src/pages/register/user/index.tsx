@@ -6,7 +6,7 @@ import TabDadosBasicos from './tabs/tabDadosBasicos';
 import TabDadosPerfil from './tabs/tabPerfil';
 import { useRegisterUser } from '@stores/register/user/store';
 import { useNotification } from '@contexts/notificationContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './style.css';
 import { registerUser } from 'routes/routesUser';
@@ -75,7 +75,7 @@ const RegisterUser = () => {
                 {activeIndex === 1 && <Button className="step-button" label="Finalizar" onClick={(e) => finalizeRegister()} />}
             </div>
             <p className="login" style={{ color: '#2F292A', textAlign: 'center' }}>
-              Já tem uma conta? Entrar
+              Já tem uma conta? <Link to="/login">Entrar</Link> 
             </p>
           </div>
         </div>

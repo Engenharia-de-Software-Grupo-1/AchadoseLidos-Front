@@ -7,7 +7,7 @@ import TabEndereco from './tabs/tabEndereco';
 import TabDadosPerfil from './tabs/tabPerfil';
 import { useRegisterSebo } from '@stores/register/sebo/registerStore';
 import { useNotification } from '@contexts/notificationContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './style.css';
 
@@ -74,7 +74,7 @@ const RegisterSebo = () => {
 
             </div>
             <p className="login" style={{ color: '#2F292A', textAlign: 'center' }}>
-              Já tem uma conta? Entrar
+              Já tem uma conta? <Link to="/login">Entrar</Link>
             </p>
           </div>
         </div>
