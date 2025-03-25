@@ -9,6 +9,13 @@ import axios from 'axios';
    return response.data;
  };
 
+ export const getOthersUsersById = async (id: any) => {
+    const response = await api.get(`/usuarios/${id}`, {
+      withCredentials: true,
+    });
+    return response.data;
+ };
+
  export const getById = async (id: any) => {
     const response = await api.get(`/usuarios/perfil/${id}`, {
       withCredentials: true,

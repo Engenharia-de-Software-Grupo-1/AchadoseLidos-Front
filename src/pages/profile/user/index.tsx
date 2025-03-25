@@ -3,18 +3,35 @@ import './style.css';
 import Profile from '@components/ProfileUsers/profileUsers';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import { useAuth } from '@contexts/authContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Usuario } from '@domains/Usuario';
+import { getOthersUsersById } from '@routes/routesUser';
 
 const ProfileUser = () => {
-
+    const { id } = useParams();
     const {conta} = useAuth();
+    const [data, setData] = useState<Usuario>();
+
+    const getUserById = async (id: string) => {
+        try {
+            const response = await getOthersUsersById(id);
+            setData(response);
+        } catch (error) {
+            console.error('Erro ao buscar usuário por id', error);
+        }
+    };
 
      useEffect(() => {
-       
-      }, [conta]);
+        if (id){
+            getUserById(id);
+        } else {
+            setData(conta?.usuario);
+        }
+      }, [conta, id]);
     
     const breadCrumbItems = [
-        { label: 'Usuário', url: '/profile/user' }
+        { label: 'Usuário', url: id ? `/profile/user/${id}` : '/profile/user' }
     ];
 
     return (
@@ -25,9 +42,9 @@ const ProfileUser = () => {
                     <ALBreadCrumb breadcrumbItems={breadCrumbItems} />
 
                     <Profile
-                        authUser={true}
-                        data={conta?.usuario}
-                        role='USER'
+                        authUser={id ? false : true}
+                        data={data}
+                        role={id ?  undefined: 'USER'}
                     />
                 </div>
             </TemplatePage>

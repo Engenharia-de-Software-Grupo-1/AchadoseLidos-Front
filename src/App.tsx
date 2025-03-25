@@ -71,7 +71,7 @@ const App = () => {
                   </ResetRequestProvider>
                 }
               />
-              <Route path="/profile/user" element={<ProfileUser />} />
+              <Route path="/profile/user/:id?" element={<ProfileUser />} />
               <Route
                 path="/profile/user/edit"
                 element={

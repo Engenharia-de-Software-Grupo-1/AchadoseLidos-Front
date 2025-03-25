@@ -28,49 +28,51 @@ interface RegisterUserProviderProps {
 }
 
 export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) => {
-      try {
-        const response = await validarEmail(formData?.conta?.email);
-        return response.status === 200;
-      } catch (error) {
-        console.error('Erro ao validar e-mail:', error);
-        return false;
+
+  const validateEmail = async (): Promise<boolean> => {
+    try {
+      const response = await validarEmail(formData?.conta?.email);
+      return response.status === 200;
+    } catch (error) {
+      console.error('Erro ao validar e-mail:', error);
+      return false;
+    }
+  };
+
+  const verifyPassword = (user: User, validationResults: Record<string, any>): Record<string, any> => {
+    const passwordFields = ['senha', 'confirmaSenha'];
+    passwordFields.forEach((field) => {
+      //@ts-ignore
+      if (!user.conta[field]) {
+        validationResults[field] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
       }
-    };
+    });
 
-    const verifyPassword = (user: User, validationResults: Record<string, any>): Record<string, any> => {
-      const passwordFields = ['senha', 'confirmaSenha'];
-      passwordFields.forEach((field) => {
-        //@ts-ignore
-        if (!user.conta[field]) {
-          validationResults[field] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
-        }
-      });
-  
-      if (user.conta.senha && user.conta.confirmaSenha && user.conta.senha !== user.conta.confirmaSenha) {
-          validationResults['confirmaSenha'] = {
-            error: true,
-            message: 'Por favor, coloque senhas equivalentes',
-            rules: [],
-          };
-        }
-      
-        return validationResults;
+    if (user.conta.senha && user.conta.confirmaSenha && user.conta.senha !== user.conta.confirmaSenha) {
+      validationResults['confirmaSenha'] = {
+        error: true,
+        message: 'Por favor, coloque senhas equivalentes',
+        rules: [],
       };
-  
-    const validateStep = async (stepIndex: number): Promise<boolean> => {
-      if (stepIndex === 0) {
-        const emailIsValid = await validateEmail();
-        !emailIsValid && showNotification('error', null, 'Email já está associado a uma conta');
-      }
-      return validate(stepIndex);
-    };
+    }
 
-    const aditionalValidate = (user: User, validationResults: Record<string, any>): Record<string, any> => {
-        validationResults = verifyPassword(user, validationResults);
-        return validationResults;
-      };
+    return validationResults;
+  };
 
-    const { formData, setField, validate, getRule, showNotification } = useForm<User>({
+  const validateStep = async (stepIndex: number): Promise<boolean> => {
+    if (stepIndex === 0) {
+      const emailIsValid = await validateEmail();
+      !emailIsValid && showNotification('error', null, 'Email já está associado a uma conta');
+    }
+    return validate(stepIndex);
+  };
+
+  const aditionalValidate = (user: User, validationResults: Record<string, any>): Record<string, any> => {
+    validationResults = verifyPassword(user, validationResults);
+    return validationResults;
+  };
+
+  const { formData, setField, validate, getRule, showNotification } = useForm<User>({
     initialData: {
       conta: {
         email: '',
@@ -80,16 +82,17 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
         status: 'ATIVA',
         createdAt: '',
         updatedAt: '',
-        },
-        nome: '',
-        cpf: '',
-        telefone: '',
-        biografia: '',
-        instagram: '',
-        twitter: '',
-        skoob: '',
-        goodreads: '',
-    }, rules:{
+      },
+      nome: '',
+      cpf: '',
+      telefone: '',
+      biografia: '',
+      instagram: '',
+      twitter: '',
+      skoob: '',
+      goodreads: '',
+    },
+    rules: {
       nome: [{ rule: 'required' }],
       cpf: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
       email: [{ rule: 'required' }, { rule: 'isEmail' }],
@@ -99,21 +102,21 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
     aditionalValidate,
   });
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const finalizeRegister = async () => {
-        try {
-            await registerUser(formData);
-            showNotification('success', null, 'Usuário cadastrado com sucesso!');
-            navigate('/login');
-        } catch {
-            showNotification('error', null, 'Erro ao cadastrar usuário!');
-        }
-    };
-    
-    return (
-        <RegisterUserContext.Provider value={{ user: formData, setField, validateStep, getRule, finalizeRegister }}>
-            {children}
-        </RegisterUserContext.Provider>
-    );
+  const finalizeRegister = async () => {
+    try {
+      await registerUser(formData);
+      showNotification('success', null, 'Usuário cadastrado com sucesso!');
+      navigate('/login');
+    } catch {
+      showNotification('error', null, 'Erro ao cadastrar usuário!');
+    }
+  };
+
+  return (
+    <RegisterUserContext.Provider value={{ user: formData, setField, validateStep, getRule, finalizeRegister }}>
+      {children}
+    </RegisterUserContext.Provider>
+  );
 };
