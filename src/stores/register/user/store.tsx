@@ -1,16 +1,15 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 import { User } from '@domains/User';
 import { useNotification } from '@contexts/notificationContext';
-import { extractRules, stepRules, validateRule } from '@utils/formRules';
-import { addRuleToField, getField } from '@utils/utils';
-import { useErrorContext } from 'contexts/errorContext';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '@routes/routesUser';
+import { useForm } from '@hooks/useForm';
+import { validarEmail } from '@routes/routesAuth';
 
 interface RegisterUserContextType {
   user: User;
   setField: (field: string, value: any) => void;
-  validateStep: (stepIndex: number) => boolean;
+  validateStep: (stepIndex: number) => Promise<boolean>;
   getRule: (field: string) => {};
   finalizeRegister: () => Promise<void>;
 }
@@ -29,11 +28,55 @@ interface RegisterUserProviderProps {
   children: ReactNode;
 }
 
+
 export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) => {
     const { showNotification } = useNotification();
-    const [user, setFormData] = useState<User>({
-        
-        conta: {
+    const validateEmail = async (): Promise<boolean> => {
+      try {
+        const response = await validarEmail(formData?.conta?.email);
+        return response.status === 200;
+      } catch (error) {
+        console.error('Erro ao validar e-mail:', error);
+        return false;
+      }
+    };
+
+    const verifyPassword = (user: User, validationResults: Record<string, any>): Record<string, any> => {
+      const passwordFields = ['senha', 'confirmaSenha'];
+      passwordFields.forEach((field) => {
+        //@ts-ignore
+        if (!user.conta[field]) {
+          validationResults[field] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
+        }
+      });
+  
+      if (user.conta.senha && user.conta.confirmaSenha && user.conta.senha !== user.conta.confirmaSenha) {
+          validationResults['confirmaSenha'] = {
+            error: true,
+            message: 'Por favor, coloque senhas equivalentes',
+            rules: [],
+          };
+        }
+      
+        return validationResults;
+      };
+  
+    const validateStep = async (stepIndex: number): Promise<boolean> => {
+      if (stepIndex === 0) {
+        const emailIsValid = await validateEmail();
+        !emailIsValid && showNotification('error', null, 'Email já está associado a uma conta');
+      }
+      return validate(stepIndex);
+    };
+
+    const aditionalValidate = (user: User, validationResults: Record<string, any>): Record<string, any> => {
+        validationResults = verifyPassword(user, validationResults);
+        return validationResults;
+      };
+
+    const { formData, setField, validate, getRule} = useForm<User>({
+    initialData: {
+      conta: {
         email: '',
         senha: '',
         confirmaSenha: '',
@@ -50,86 +93,21 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
         twitter: '',
         skoob: '',
         goodreads: '',
-    });
-
-    const { setErrors, setError } = useErrorContext();
-    const setField = (field: string, value: any) => {
-        setFormData((prev) => {
-          const updatedFormData = { ...prev! };
-    
-          const keys = field.split('.');
-          let currentField = updatedFormData;
-    
-          keys.forEach((key, index) => {
-            if (index === keys.length - 1) {
-              currentField[key] = value;
-            } else {
-              currentField = currentField[key];
-            }
-          });
-    
-          return updatedFormData;
-        });
-
-    const fieldName = getField(field);
-
-    setError(fieldName, validateRule(value, getRule(fieldName)));
-    };
-
-    const [rules, setRules] = useState<Record<string, Rule[]>>({
-        nome: [{ rule: 'required' }],
-        cpf: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
-        email: [{ rule: 'required' }, { rule: 'isEmail' }],
-        senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
-        confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }],
-      });
-
-    const getRule = (field: string) => {
-        return rules[field] || [];
-    };
-    
-    const validateStep = (stepIndex: number): boolean => {
-        const stepFields: Record<number, string[]> = {
-          0: ['nome', 'cpf', 'email', 'senha', 'confirmaSenha'],
-          1: [] 
-        };
-
-        let fieldsToValidate = stepFields[stepIndex] || [];
-    
-  
-    const rulesByStep = stepRules(fieldsToValidate, rules);
-    let validationResults = extractRules(rulesByStep, user);
-    validationResults = verifyPassword(user, validationResults);
-  
-    setErrors(validationResults);
-    
-    return !Object.values(validationResults).some((field) => field.error);
-  };
-
-  const verifyPassword = (user: User, validationResults: Record<string, any>): Record<string, any> => {
-    const passwordFields = ['senha', 'confirmaSenha'];
-    passwordFields.forEach((field) => {
-      if (!user.conta[field]) {
-        validationResults[field] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
-      }
-    });
-
-    if (user.conta.senha && user.conta.confirmaSenha && user.conta.senha !== user.conta.confirmaSenha) {
-        validationResults['confirmaSenha'] = {
-          error: true,
-          message: 'Por favor, coloque senhas equivalentes',
-          rules: [],
-        };
-      }
-    
-      return validationResults;
-    };
+    }, rules:{
+      nome: [{ rule: 'required' }],
+      cpf: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
+      email: [{ rule: 'required' }, { rule: 'isEmail' }],
+      senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
+      confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
+    },
+    aditionalValidate,
+  });
 
     const navigate = useNavigate();
 
     const finalizeRegister = async () => {
         try {
-            await registerUser(user);
+            await registerUser(formData);
             showNotification('success', null, 'Usuário cadastrado com sucesso!');
             navigate('/login');
         } catch {
@@ -138,7 +116,7 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
     };
     
     return (
-        <RegisterUserContext.Provider value={{ user, setField, validateStep, getRule, finalizeRegister }}>
+        <RegisterUserContext.Provider value={{ user: formData, setField, validateStep, getRule, finalizeRegister }}>
             {children}
         </RegisterUserContext.Provider>
     );

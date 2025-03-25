@@ -15,8 +15,8 @@ const RegisterUser = () => {
   const [_, setSubmitted] = useState(false);
   const { showNotification } = useNotification();
 
-  const nextStep = (e: any) => {
-    if (validateStep(activeIndex)) {
+  const nextStep = async (e: any) => {
+    if (await validateStep(activeIndex)) {
       setSubmitted(true);
       setActiveIndex(activeIndex + 1);
     } else {
@@ -24,7 +24,7 @@ const RegisterUser = () => {
     }
     setSubmitted(false);
   };
-
+  
   const stepBack = (e: any) => {
     setActiveIndex(activeIndex - 1);
   };
