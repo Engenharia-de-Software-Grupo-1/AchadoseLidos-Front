@@ -1,36 +1,56 @@
-
-import React from 'react'; 
-import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import './style.css';
 
 export interface GenericCardProps {
-    tag: string;
-    title: string;
-    description: string;
-    buttonLabel: string;
+  imageUrl: string;
+  topLabel: string;
+  title: string;
+  description: string;
+  bottomLabel?: string;
+  isButtonVisible: boolean;
 }
 
-const GenericCard: React.FC<GenericCardProps> = ({tag, title, description, buttonLabel}) =>  {
-    const header = (
-        <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
-    );
-    const footer = (
-        <>
-            <Button label="Save" icon="pi pi-check" />
-            <Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} />
-        </>
-    );
-
-    return (
-        <div className="card flex justify-content-center">
-            <Card title="Advanced Card" subTitle="Card subtitle" footer={footer} header={header} className="md:w-25rem">
-                <p className="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
-                    numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-                </p>
-            </Card>
+const GenericCard: React.FC<GenericCardProps> = ({
+  imageUrl,
+  topLabel,
+  title,
+  description,
+  bottomLabel,
+  isButtonVisible,
+}) => { 
+  return (
+    <div className="notebook-card">
+      <div className="card-header">
+        <div className="header-bg"></div>
+        <div className="header-frills">
+          {Array.from({ length: 11 }).map((_, index) => (
+            <div key={index} className="frill-circle"></div>
+          ))}
         </div>
-    );
+      </div>
+      <div className="card-content">
+        <div className="image-container">
+          <img src={imageUrl} alt={title} className="card-image" />
+          <div className="tag-container">
+            <div className="tag">{topLabel}</div>
+          </div>
+        </div>
+        <div className="info-container">
+          <div className="text-info">
+            <div className="card-title">{title}</div>
+            <div className="description">{description}</div>
+          </div>
+          <div className="status">
+            {isButtonVisible ? (
+              <Button className="visit-button">Visitar</Button>
+            ) : (
+              <div className="bottom-label">{bottomLabel}</div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
-        
+
 export default GenericCard;
