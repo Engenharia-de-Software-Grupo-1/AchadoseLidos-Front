@@ -37,7 +37,6 @@ const Profile = ({ authUser, role, data }: ProfileProps) => {
           </div>
 
           <p className="descrip-profile">{data?.biografia}</p>
-
           {role === 'SEBO' ? (
             <>
               <div className="information-profile">

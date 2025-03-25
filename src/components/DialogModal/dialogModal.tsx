@@ -16,16 +16,25 @@ export default function DialogModal({ visibleDialog, setVisibleDialog, onClickDe
         </div>
     );
 
-    return (
-        <div className="card flex justify-content-center">
-            <Dialog header="Está certo disso?" visible={visibleDialog} style={{ width: '50vw' }} onHide={() => { if (!visibleDialog) return; setVisibleDialog(false); }} footer={footerContent}>
-                <div className='container-dialog-text'>
-                    <i className="pi pi-exclamation-triangle" style={{ color: '#DB9146' }}></i>
-                    <p className="m-0 paragraph-modal">
-                        Você tem certeza que deseja excluir sua conta? Todos os seus dados serão apagados.
-                    </p>
-                </div>
-            </Dialog>
+  return (
+    <div className="card flex justify-content-center">
+      <Dialog
+        header="Está certo disso?"
+        visible={visibleDialog}
+        style={{ width: '50vw' }}
+        onHide={() => {
+          if (!visibleDialog) return;
+          setVisibleDialog(false);
+        }}
+        footer={footerContent}
+      >
+        <div className="container-dialog-text">
+          <i className="pi pi-exclamation-triangle" style={{ color: '#DB9146' }}></i>
+          <p className="m-0 paragraph-modal">
+            Você tem certeza que deseja excluir sua conta? Todos os seus dados serão apagados.
+          </p>
         </div>
-    );
+      </Dialog>
+    </div>
+  );
 }

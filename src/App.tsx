@@ -13,6 +13,12 @@ import { RecoverRequestProvider } from '@stores/recover/recoverStore';
 import RecoverRequestPage from '@pages/recover/request';
 import { ResetRequestProvider } from '@stores/recover/resetStore';
 import ResetRequestPage from '@pages/recover/reset';
+import RegisterUser from '@pages/register/user';
+import { RegisterUserProvider } from '@stores/register/user/store';
+import RegistrationPage from '@pages/registrationPage';
+import ProfileUser from '@pages/profile/user';
+import ProfileUserForm from '@pages/profile/user/form';
+import { ProfileUserFormProvider } from '@stores/profile/user/formStore';
 import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
 
@@ -24,6 +30,7 @@ const App = () => {
           <AuthProvider>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/register" element={<RegistrationPage />} />
               <Route
                 path="/register/sebo"
                 element={
@@ -33,19 +40,11 @@ const App = () => {
                 }
               />
               <Route
-                path="/profile/sebo"
+                path="/register/user"
                 element={
-                  <SeboProvider>
-                    <ProfileSebo />
-                  </SeboProvider>
-                }
-              />
-              <Route
-                path="/profile/sebo/edit"
-                element={
-                  <ProfileSeboFormProvider>
-                    <ProfileSeboForm />
-                  </ProfileSeboFormProvider>
+                  <RegisterUserProvider>
+                    <RegisterUser />
+                  </RegisterUserProvider>
                 }
               />
               <Route
@@ -70,6 +69,31 @@ const App = () => {
                   <ResetRequestProvider>
                     <ResetRequestPage />
                   </ResetRequestProvider>
+                }
+              />
+              <Route path="/profile/user/:id?" element={<ProfileUser />} />
+              <Route
+                path="/profile/user/edit"
+                element={
+                  <ProfileUserFormProvider>
+                    <ProfileUserForm />
+                  </ProfileUserFormProvider>
+                }
+              />
+              <Route
+                path="/profile/sebo"
+                element={
+                  <SeboProvider>
+                    <ProfileSebo id={1} />
+                  </SeboProvider>
+                }
+              />
+              <Route
+                path="/profile/sebo/edit"
+                element={
+                  <ProfileSeboFormProvider>
+                    <ProfileSeboForm />
+                  </ProfileSeboFormProvider>
                 }
               />
             </Routes>
