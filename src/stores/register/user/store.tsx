@@ -28,7 +28,6 @@ interface RegisterUserProviderProps {
 }
 
 export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) => {
-    const validateEmail = async (): Promise<boolean> => {
       try {
         const response = await validarEmail(formData?.conta?.email);
         return response.status === 200;
