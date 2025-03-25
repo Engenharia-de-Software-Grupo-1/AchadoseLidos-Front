@@ -9,23 +9,16 @@ import { ProductFormField } from '@components/ProductDetails/ProductFormFields';
 import { Button } from 'primereact/button';
 import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/ProdutoConstants';
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { createProduct, getById, updateProduct } from 'routes/routesProduto';
-import { Produto } from '@domains/Produto/Produto';
-import { useNotification } from '@contexts/notificationContext';
-import { uploadImage } from '@utils/cloudinary';
+import { useParams } from 'react-router-dom';
 
 interface ProdutoFormProps {
   isRegister?: boolean;
 }
 
-const ProductForm = ({isRegister}: ProdutoFormProps) => {
+const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
   const { id } = useParams();
-  const { produto, setField, submitted } = useForm();
+  const { produto, setField, submitted, setProduct, images, setImages, handleConfirm} = useForm();
   const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');
-  const { showNotification } = useNotification();
-  const [images, setImages] = useState<{ url: string }[]>();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -37,65 +30,7 @@ const ProductForm = ({isRegister}: ProdutoFormProps) => {
     { label: isRegister ? 'Meus Produtos' : 'Meu Produto', url: isRegister ? '/meus-produtos' : `/product/${id}` }, 
     { label: isRegister ? 'Cadastrar Produto': 'Editar Produto', url:  isRegister? '/register/product' :`/product/${id}/edit` },
   ];
-
-
-  const setProduct = async (id: any) => {
-    try {
-      const product = await getById(id);
-      setImages(product.fotos);
-      (Object.keys(product) as Array<keyof Produto>).forEach((key) => {
-              if (product[key as keyof Produto] !== undefined) {
-          setField(key, product[key]);
-        }
-      });
-    } catch (error) {
-      console.error('Erro ao buscar produto', error);
-    }
-  };
-
-  const handleConfirm = async () => {
-    try {
-        // @ts-ignore
-        const uploadedImages = await uploadImages(produto.fotos || []);
-
-        const formattedImages = uploadedImages.map((url) => ({ url }));
-
-        produto.fotos = formattedImages;
-
-        if (!isRegister) {
-          await updateProduct({ ...produto, fotos: formattedImages }, id);
-          navigate(`/product/${id}`);
-          window.location.reload();
-        } else {
-          await createProduct({ ...produto, fotos: formattedImages });
-          //navigate('/meus-produtos');
-          //window.location.reload();
-        }
-        showNotification('success', 'Produto salvo com sucesso!', '');
-    } catch (error) {
-        console.error('Erro ao salvar produto', error);
-    }
-};
-
-const uploadImages = async (files: File[]): Promise<string[]> => {
-  try {
-      const uploadedUrls: string[] = [];
-
-      for (const file of files) {
-          // Faz o upload do arquivo e adiciona a URL no array
-          const uploadedUrl = await uploadImage(file);
-          if (uploadedUrl) {
-              uploadedUrls.push(uploadedUrl);
-          }
-      }
-
-      return uploadedUrls;
-  } catch (error) {
-      console.error('Erro ao fazer upload de imagens', error);
-      return [];
-  } 
-};
-
+  
   return (
     <main className="main-container-edit-product">
       <TemplatePage simpleFooter simpleHeader={false}>
@@ -116,7 +51,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                   fieldName={ProdutoFieldNames.nome}
                   fieldValue={produto.nome}
                   setField={setField}
-                  hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                  hasSubmissionFailed={submitted} 
                   placeholderText="Nome do Produto"
                 />
 
@@ -126,7 +61,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                     fieldName={ProdutoFieldNames.preco}
                     fieldValuePrice={produto.preco}
                     setField={setField}
-                    hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                    hasSubmissionFailed={submitted} 
                     placeholderText="R$ 0.00"
                     isPrice
                     isShortInput
@@ -137,7 +72,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                     fieldName={ProdutoFieldNames.estoque}
                     fieldValueStock={produto.qtdEstoque}
                     setField={setField}
-                    hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                    hasSubmissionFailed={submitted} 
                     placeholderText="0"
                     isStock
                     isShortInput
@@ -150,7 +85,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                     fieldName={ProdutoFieldNames.anoEdicao}
                     fieldValueNumber={produto.anoEdicao}
                     setField={setField}
-                    hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                    hasSubmissionFailed={submitted} 
                     placeholderText="0000"
                     isYear
                     isOptional
@@ -161,7 +96,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                     fieldName={ProdutoFieldNames.anoLancamento}
                     fieldValueNumber={produto.anoLancamento}
                     setField={setField}
-                    hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                    hasSubmissionFailed={submitted} 
                     placeholderText="0000"
                     isYear
                     isShortInput
@@ -175,7 +110,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                     fieldName={ProdutoFieldNames.categoria}
                     fieldValue={produto.categoria}
                     setField={setField}
-                    hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                    hasSubmissionFailed={submitted} 
                     placeholderText="Categoria"
                     isCategory
                     setGenero={setGenero}
@@ -188,7 +123,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                     fieldName={ProdutoFieldNames.genero}
                     fieldValues={produto.generos}
                     setField={setField}
-                    hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                    hasSubmissionFailed={submitted} 
                     placeholderText="Gênero"
                     isGenero
                     isShortInput
@@ -200,7 +135,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                     fieldName={ProdutoFieldNames.estado}
                     fieldValue={produto.estadoConservacao}
                     setField={setField}
-                    hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                    hasSubmissionFailed={submitted} 
                     placeholderText="Estado"
                     isCategory
                     isShortInput
@@ -213,7 +148,7 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                   fieldName={ProdutoFieldNames.autores}
                   fieldValue={produto.autores}
                   setField={setField}
-                  hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                  hasSubmissionFailed={submitted} 
                   placeholderText="Autor1, Autor2"
                   isTextArea
                   isOptional
@@ -224,14 +159,14 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
                   fieldName={ProdutoFieldNames.descricao}
                   fieldValue={produto.descricao}
                   setField={setField}
-                  hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
+                  hasSubmissionFailed={submitted} 
                   placeholderText="Escreva uma descrição do produto"
                   isTextArea
                   isOptional
                 />
               </div>
 
-              <Button label="Salvar" className="button-save" onClick={handleConfirm}/>
+              <Button label="Salvar" className="button-save" onClick={() => handleConfirm(isRegister, id)}/>
             </div>
           </section>
         </section>

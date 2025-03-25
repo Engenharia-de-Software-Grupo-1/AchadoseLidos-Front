@@ -4,21 +4,19 @@ import { useState } from 'react';
 const useForm = () => {
   const [submitted, setSubmitted] = useState(false);
 
-  const { produto, setField, validateStep, getRule } = useProdutoForm();
-
-
-
-
-  const imageProduct = '/images/anarita.JPG';
+  const { produto, setField, validate, getRule, setProduct, images, setImages, handleConfirm } = useProdutoForm();
 
   return {
     produto,
     setField,
-    validateStep,
+    validate,
     getRule,
     submitted,
     setSubmitted,
-    imageProduct,
+    setProduct,
+    images,
+    setImages,
+    handleConfirm, 
   };
 };
 

@@ -1,6 +1,5 @@
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProductDetails from '@components/ProductDetails/ProductDetails';
-import { useNotification } from '@contexts/notificationContext';
 import { Produto } from '@domains/Produto/Produto';
 import TemplatePage from '@pages/templatePage';
 import { useEffect, useState } from 'react';
@@ -12,7 +11,6 @@ const breadcrumbItems = [{ label: 'Página do produto', url: '/product-page' }];
 const ProductPage = () => {
   const { id } = useParams();
   const [produto, setProduto] = useState<Produto | null>(null);
-  const { showNotification } = useNotification();
 
   const fetchProduto = async () => {
     try {
@@ -30,7 +28,6 @@ const ProductPage = () => {
   }, [id]);
 
   if (!produto) {
-    showNotification('error', 'Produto não encontrado!', '');
     return null;
   }
 

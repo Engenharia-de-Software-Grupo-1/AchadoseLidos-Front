@@ -1,14 +1,20 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
-import { useNotification } from '@contexts/notificationContext';
-import { extractRules, stepRules } from '@utils/formRules';
+import { createContext, useContext, ReactNode, useState } from 'react';
 import { Produto } from '@domains/Produto/Produto';
-import { ProdutoFieldNames } from '@domains/Produto/ProdutoFieldNames';
+import { useForm } from '@hooks/useForm';
+import { createProduct, getById, updateProduct } from '@routes/routesProduto';
+import { set } from 'cypress/types/lodash';
+import { useNavigate } from 'react-router-dom';
+import { uploadImage } from '@services/cloudinaryService';
 
 interface ProdutoFormContextType {
   produto: Produto;
   setField: (field: string, value: any) => void;
-  validateStep: (stepIndex: number) => boolean;
+  validate: (stepIndex: number) => boolean;
   getRule: (field: string) => {};
+  images: { url: string }[] | undefined;
+  setProduct: (id: any) => void;
+  setImages: (images: { url: string }[]) => void;
+  handleConfirm: (isRegister: boolean, id: any) => void;
 }
 
 const ProdutoFormContext = createContext<ProdutoFormContextType | null>(null);
@@ -26,60 +32,92 @@ interface ProdutoFormProviderProps {
 }
 
 export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
-  const { showNotification } = useNotification();
-  const [Produto, setFormData] = useState<Produto>({
-    // falta foto
+    const [images, setImages] = useState<{ url: string }[]>();
+    const navigate = useNavigate();
+  
+  const { formData, setField, validate, setFormData, showNotification, getRule } = useForm<Produto>({
+  initialData: {
     nome: '',
     preco: 0,
-    categoria: 'LIVRO',
+    categoria: 'Livro',
     qtdEstoque: 0,
     anoEdicao: 0,
     anoLancamento: 0,
-    estadoConservacao: 'EXCELENTE',
+    estadoConservacao: 'Novo',
     autores: '',
     descricao: '',
     status: 'ATIVO',
     createdAt: new Date(),
     updatedAt: new Date(),
-  });
-
-  const setField = (field: string, value: any) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const rules: Record<string, Rule[]> = {
+    generos: [],
+  }, rules: {
     nomeProduto: [{ rule: 'required' }],
     preco: [{ rule: 'required' }],
     categoria: [{ rule: 'required' }],
     estoque: [{ rule: 'required' }],
     estado: [{ rule: 'required' }],
+  }
+  });
+
+  const setProduct = async (id: any) => {
+      try {
+        const product = await getById(id);
+        setImages(product.fotos);
+        setFormData(product);
+        (Object.keys(product) as Array<keyof Produto>).forEach((key) => {
+                if (product[key as keyof Produto] !== undefined) {
+            setField(key, product[key]);
+          }
+        });
+      } catch (error) {
+        console.error('Erro ao buscar produto', error);
+      }
+    };
+
+    const handleConfirm = async (isRegister: boolean, id:any) => {
+      try {
+          // @ts-ignore
+          const uploadedImages = await uploadImages(formData.fotos || []);
+  
+          const formattedImages = uploadedImages.map((url) => ({ url }));
+  
+          formData.fotos = formattedImages;
+  
+          if (!isRegister) {
+            await updateProduct({ ...formData, fotos: formattedImages }, id);
+            navigate(`/product/${id}`);
+            //window.location.reload();
+          } else {
+            await createProduct({ ...formData, fotos: formattedImages });
+            //navigate('/meus-produtos');
+            //window.location.reload();
+          }
+          showNotification('success', 'Produto salvo com sucesso!', '');
+      } catch (error) {
+          console.error('Erro ao salvar produto', error);
+      }
   };
-
-  const getRule = (field: string) => {
-    return rules[field] ? rules[field] : {};
+  
+  const uploadImages = async (files: File[]): Promise<string[]> => {
+    try {
+        const uploadedUrls: string[] = [];
+  
+        for (const file of files) {
+            const uploadedUrl = await uploadImage(file);
+            if (uploadedUrl) {
+                uploadedUrls.push(uploadedUrl);
+            }
+        }
+  
+        return uploadedUrls;
+    } catch (error) {
+        console.error('Erro ao fazer upload de imagens', error);
+        return [];
+    } 
   };
-
-  const validateStep = (stepIndex: number): boolean => {
-    let fieldsToValidate = [
-      'nomeProduto',
-      'preco',
-      'categoria',
-      'estoque',
-      'confirmaSenha',
-      'estado',
-    ];
-
-
-    const rulesByStep = stepRules(fieldsToValidate, rules);
-
-    const validationResults = extractRules(rulesByStep, Produto);
-
-    const hasError = Object.keys(validationResults).some((field) => validationResults[field].error);
-    return !hasError;
-  };
-
+  
   return (
-    <ProdutoFormContext.Provider value={{ produto: Produto, setField, validateStep, getRule }}>
+    <ProdutoFormContext.Provider value={{ produto: formData, setField, validate, getRule, images, setProduct, setImages, handleConfirm}}>
       {children}
     </ProdutoFormContext.Provider>
   );

@@ -4,13 +4,11 @@ import {
   FileUpload,
   FileUploadHeaderTemplateOptions,
   FileUploadSelectEvent,
-  FileUploadUploadEvent,
   ItemTemplateOptions,
 } from 'primereact/fileupload';
 import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
 import './style.css';
-import { set } from 'cypress/types/lodash';
 
 interface UploadProps {
   setField?: (field: string, value: File[]) => void;
@@ -26,7 +24,7 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
   const [nameImages, setNameImages] = useState<string[]>([]);
   const [namesImagesProcessed, setNamesImagesProcessed] = useState<File[]>([]);
 
-  const loadedImages = useRef(new Set<string>()); // Evita imagens duplicadas ao recarregar
+  const loadedImages = useRef(new Set<string>());
 
   const loadExistingImages = async () => {
     if (!fileUploadRef.current || !image?.length) return;
@@ -37,18 +35,18 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
 
     const imageFiles: File[] = await Promise.all(
       image.map(async (img: Image, index: number): Promise<File> => {
-        if (loadedImages.current.has(img.url)) return null as unknown as File; // Já carregada, ignora
+        if (loadedImages.current.has(img.url)) return null as unknown as File;
 
         const response = await fetch(img.url);
         const blob = await response.blob();
         const file = new File([blob], `imagem-${index}.jpg`, { type: blob.type });
 
-        loadedImages.current.add(img.url); // Marca como carregada
+        loadedImages.current.add(img.url);
         return file;
       })
     );
 
-    const validImageFiles = imageFiles.filter((file) => file); 
+    const validImageFiles = imageFiles.filter((file) => file);
     setNamesImagesProcessed(validImageFiles);
 
     if (validImageFiles.length > 0) {
@@ -72,7 +70,7 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
     setTotalSize(_totalSize);
 
     setImagens((prev) => {
-      const existingFileNames = new Set(prev.map((file) => file.name)); 
+      const existingFileNames = new Set(prev.map((file) => file.name));
       const uniqueFiles = uploadedFiles.filter((file) => !existingFileNames.has(file.name));
       setImage?.(uniqueFiles.map((file) => ({ url: URL.createObjectURL(file) })));
       setField?.('fotos', uniqueFiles);
@@ -83,10 +81,10 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
 
   const onTemplateRemove = (file: File, callback: Function) => {
     setTotalSize((prevSize) => prevSize - file.size);
-  
+
     setNamesImagesProcessed((prev) => {
       const updatedNamesImagesProcessed = prev.filter((image) => image.name !== file.name);
-      
+
       // Atualiza a galeria garantindo que um novo array é passado
       setImage?.(updatedNamesImagesProcessed.map((file) => ({ url: URL.createObjectURL(file) })));
       setField?.('fotos', updatedNamesImagesProcessed);
@@ -94,9 +92,7 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
     });
 
     callback();
-};
-
-
+  };
 
   const onTemplateClear = () => {
     setTotalSize(0);
