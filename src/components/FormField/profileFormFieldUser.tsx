@@ -49,7 +49,7 @@ const ProfileFormFieldUser = ({
           </label>
         )}
 
-        {!!iconName && ( // isto é uma tooltip. ainda falta a mensagem da tooltip
+        {!!iconName && ( 
           <IconField className="label-icon">
             <i className={`pi pi-${iconName}`} />
           </IconField>

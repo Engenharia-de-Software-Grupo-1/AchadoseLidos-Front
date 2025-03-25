@@ -30,7 +30,6 @@ const ProfileUser = () => {
                         role='USER'
                     />
                 </div>
-
             </TemplatePage>
         </div>
     );
