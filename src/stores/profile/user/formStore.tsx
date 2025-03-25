@@ -33,7 +33,7 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
   const { conta, handleLogout } = useAuth();
   const navigate = useNavigate();
 
-  const { formData, setField, validate, setFormData } = useForm<User>({
+  const { formData, setField, validate, setFormData, showNotification } = useForm<User>({
     initialData: {
       conta: {
         email: '',
@@ -77,8 +77,6 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
       console.error(error);
     }
   };
-
-  const { showNotification } = useNotification();
 
   const updateDataUser = async () => {
     try {

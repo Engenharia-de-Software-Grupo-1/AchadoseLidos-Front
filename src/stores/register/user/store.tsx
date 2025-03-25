@@ -1,6 +1,5 @@
 import { createContext, useContext, ReactNode } from 'react';
 import { User } from '@domains/User';
-import { useNotification } from '@contexts/notificationContext';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '@routes/routesUser';
 import { useForm } from '@hooks/useForm';
@@ -28,9 +27,7 @@ interface RegisterUserProviderProps {
   children: ReactNode;
 }
 
-
 export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) => {
-    const { showNotification } = useNotification();
     const validateEmail = async (): Promise<boolean> => {
       try {
         const response = await validarEmail(formData?.conta?.email);
@@ -74,7 +71,7 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
         return validationResults;
       };
 
-    const { formData, setField, validate, getRule} = useForm<User>({
+    const { formData, setField, validate, getRule, showNotification } = useForm<User>({
     initialData: {
       conta: {
         email: '',
