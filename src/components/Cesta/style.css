@@ -1,0 +1,132 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cesta-container {
+  display:flex;
+  width:80%;
+  justify-content: center;
+}
+
+.cesta-container .p-inputtext {
+  width: 5rem;
+}
+
+.p-inputnumber-button {
+  background-color: unset;
+}
+
+.p-inputnumber-button {
+  border:none;
+}
+
+.readonly-input {
+    pointer-events: none; /* Prevent clicks on the input field */
+    background-color: transparent; /* Remove background color */
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove focus/hover effects */
+}
+
+.p-inputnumber-buttons-horizontal .p-inputnumber-button {
+    pointer-events: auto; /* Allow clicks on buttons */
+}
+
+.empty-cesta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+}
+
+.empty-cesta h3 {
+    margin: 1rem 0 0.5rem;
+    color: #444;
+}
+
+.empty-cesta p {
+    margin-bottom: 1.5rem;
+}
+
+.p-accordion {
+  width: 100% !important;
+}
+
+.p-accordion-content {
+  padding: 0;
+}
+
+.p-accordion-header-link, th {
+  background-color: var(--Achados-Lighter-OffWhite);
+  border-radius:0;
+}
+
+.p-accordion-header-link{
+  border:none;
+}
+
+th {
+
+}
+
+tr {
+    border-color:var(--Achados-Black-50);
+
+  background-color: white;
+}
+
+[data-pc-section="footercell"] {
+  background-color: var(--Achados-Lighter-OffWhite);
+  border:none;
+}
+
+
+.p-accordion-tab-active .hidden-on-expand {
+  display: none;
+}
+
+.hidden-on-expand {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Collapsed header styling */
+.accordion-header-collapsed {
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.header-grid > div {
+  padding: 0 0.5rem;
+}
+
+.price-col, .qty-col {
+  text-align: left;
+}
+
+/* Hide non-essential elements when expanded */
+.p-accordion-tab-active .store-info .text-sm,
+.p-accordion-tab-active .qty-col,
+.p-accordion-tab-active .price-col,
+.p-accordion-tab-active .category-info {
+  display: none;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: 
+    1.1fr    /* Product image */
+    2.1fr    /* Product name */
+    1.7fr    /* Product category */
+    1.4fr    /* Unit Price */
+    2fr  /* Quantity */
+    1fr;  /* Actions */
+  align-items: left;
+}

@@ -60,7 +60,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           ...(conta?.tipo === 'SEBO'
             ? [{ label: 'Meus Produtos', icon: 'pi pi-box' }]
             : [
-                { label: 'Cesta', icon: 'pi pi-shopping-bag' },
+                { label: 'Cesta', icon: 'pi pi-shopping-bag', command: () => navigate('/profile/cesta') },
                 { label: 'Favoritos', icon: 'pi pi-heart' },
               ]),
 
