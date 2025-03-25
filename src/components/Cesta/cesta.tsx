@@ -18,8 +18,6 @@ const CestaComponent = () => {
     const [deletingIds, setDeletingIds] = useState<number[]>([]);
     const [updatingProducts, setUpdatingProducts] = useState<Set<number>>(new Set());
 
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -171,18 +169,17 @@ const CestaComponent = () => {
 
       const calculateStoreTotals = (produtos: ProdutoCesta[]) => {
         return produtos.reduce((acc, produto) => ({
-        unitPriceTotal: acc.unitPriceTotal + produto.produto.preco,
         quantityTotal: acc.quantityTotal + produto.quantidade,
         lineTotal: acc.lineTotal + (produto.produto.preco * produto.quantidade)
-        }), { unitPriceTotal: 0, quantityTotal: 0, lineTotal: 0 });
-  };
+        }), { quantityTotal: 0, lineTotal: 0 });
+    };
 
 
     return (
         <div className="cesta-container">
             <Accordion multiple activeIndex={0}>
                 {cestas.map((store) => {
-                    const { unitPriceTotal, quantityTotal, lineTotal } = calculateStoreTotals(store.produtos);
+                    const { quantityTotal, lineTotal } = calculateStoreTotals(store.produtos);
 
                     return (
                         <AccordionTab 

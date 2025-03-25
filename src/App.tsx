@@ -16,6 +16,7 @@ import ResetRequestPage from '@pages/recover/reset';
 import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
 import CestaPage from '@pages/cestaPage';
+import { CestaProvider } from '@stores/cesta/cestaStore';
 
 const App = () => {
   return (
@@ -75,7 +76,11 @@ const App = () => {
               />
               <Route
               path="/profile/cesta"
-              element={<CestaPage/>}/>
+              element={
+                <CestaProvider>
+                  <CestaPage/>
+                </CestaProvider>
+              }/>
             </Routes>
           </AuthProvider>
         </NotificationProvider>
