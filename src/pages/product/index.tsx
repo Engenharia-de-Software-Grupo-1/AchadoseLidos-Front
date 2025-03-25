@@ -41,19 +41,6 @@ const ProductPage = () => {
         <ProductDetails
           id={id? id : ''}
           data={produto}
-          productName={produto.nome}
-          seboName={produto.sebo?.nome}
-          bairro={produto.sebo?.endereco?.bairro}
-          tags={[
-            { severity: 'info', value: produto?.categoria },
-            { severity: 'info', value: produto?.estadoConservacao },
-          ]}
-          stock={produto?.qtdEstoque}
-          price={produto?.preco}
-          editionYear={2001}
-          releaseYear={2022}
-          author={produto?.autores}
-          description={produto?.descricao}
         />
       </TemplatePage>
     </main>
