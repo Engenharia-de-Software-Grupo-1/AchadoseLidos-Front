@@ -77,37 +77,52 @@ const App = () => {
                 }
               />
               <Route path="/product/:id" element={<ProductPage />} />
-            <Route
-              path="/product/edit"
-              element={
-                <ProdutoFormProvider>
-                  <ProductForm />
-                </ProdutoFormProvider>
-              }
-            />
-            <Route
-               path="/navigation"
-               element={
-                 <NavigationPage
-                   filters={[]}
-                   orders={[
-                     { field: 'name', order: 'ASC' },
-                     { field: 'price', order: 'ASC' },
-                     { field: 'createdAt', order: 'DESC' },
-                   ]}
-                   cardType='productCard' // passar o tipo ou componente do card
-                 />
-               }
-             />
-             <Route
-               path="/navigation/sebos"
+              <Route
+                path="/product/edit"
+                element={
+                  <ProdutoFormProvider>
+                    <ProductForm />
+                  </ProdutoFormProvider>
+                }
+              />
+              <Route
+                path="/navigation"
                 element={
                   <NavigationPage
                     filters={[]}
                     orders={[
                       { field: 'name', order: 'ASC' },
+                      { field: 'price', order: 'ASC' },
+                      { field: 'createdAt', order: 'DESC' },
                     ]}
+                    cardType='productCard'
+                    meusProdutos={false}
+                  />
+                }
+              />
+              <Route
+                path="/navigation/sebos"
+                element={
+                  <NavigationPage
+                    filters={[]}
+                    orders={[{ field: 'name', order: 'ASC' }]}
                     cardType='seboCard'
+                    meusProdutos={false}
+                  />
+                }
+              />
+              <Route
+                path="/meus-produtos"
+                element={
+                  <NavigationPage
+                    filters={[]}
+                    orders={[
+                      { field: 'name', order: 'ASC' },
+                      { field: 'price', order: 'ASC' },
+                      { field: 'createdAt', order: 'DESC' },
+                    ]}
+                    cardType='productCard'
+                    meusProdutos={true}
                   />
                 }
               />

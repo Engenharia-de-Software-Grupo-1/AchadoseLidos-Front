@@ -8,7 +8,7 @@ export interface ProductCardProps {
   createdAt: Date;
 }
 
-const productCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
+const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const { image, name, owner, price } = props;
 
   return (
@@ -62,4 +62,4 @@ const productCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   );
 };
 
-export default productCard;
+export default ProductCard;

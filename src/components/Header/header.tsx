@@ -33,6 +33,11 @@ export default function Header({ simpleHeader }: HeaderProps) {
     }
   };
 
+  const redirectMyProducts = () => {
+    navigate('/meus-produtos');
+    window.location.reload();
+  };
+
   let content = <></>;
 
   if (simpleHeader) {
@@ -58,7 +63,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
 
           ...(conta?.tipo === 'SEBO'
-            ? [{ label: 'Meus Produtos', icon: 'pi pi-box' }]
+            ? [{ label: 'Meus Produtos', icon: 'pi pi-box', command: () => redirectMyProducts() }]
             : [
                 { label: 'Cesta', icon: 'pi pi-shopping-bag' },
                 { label: 'Favoritos', icon: 'pi pi-heart' },

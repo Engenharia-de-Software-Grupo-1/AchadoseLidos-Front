@@ -10,7 +10,7 @@ export interface GenericCardProps {
     buttonLabel: string;
 }
 
-const GenericCard: React.FC<GenericCardProps> = () =>  {
+const GenericCard: React.FC<GenericCardProps> = ({tag, title, description, buttonLabel}) =>  {
     const header = (
         <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
     );

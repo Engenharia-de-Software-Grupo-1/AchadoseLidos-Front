@@ -1,48 +1,64 @@
-import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
-import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
-import TemplatePage from '@pages/templatePage';
-import React from 'react';
 import './style.css';
-import { getAllProducts } from 'routes/routesProduto';
-import { Filters, Orders } from 'types/NavigationFilters';
+import { useEffect, useState } from 'react';
+import TemplatePage from '@pages/templatePage';
+import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
 import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCard';
-import { getAllSebos } from 'routes/routesSebo';
+import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProductFilters from '@components/Filters/productFilters';
 import SeboFilters from '@components/Filters/seboFilters';
+import { Filters, Orders } from 'types/NavigationFilters';
+import { getAllProducts } from 'routes/routesProduto';
+import { getAllSebos } from 'routes/routesSebo';
+import { useAuth } from '@contexts/authContext';
+import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 
-const breadcrumbItems = [{ label: 'Navegar', url: '' }];
 
 export interface NavigationPageProps {
   filters: Filters[];
   orders: Orders[];
   cardType?: 'productCard' | 'seboCard';
+  meusProdutos?: boolean;
 }
 
 export const NavigationPage = (props: NavigationPageProps) => {
-  const { filters, orders, cardType } = props;
+  const { filters, orders, cardType, meusProdutos } = props;
+  const [cards, setCards] = useState<ProductCardProps[]>([]);
+  const [seboCards, setSeboCards] = useState<GenericCardProps[]>([]);
+  const [seboNameIcon, setSeboNameIcon] = useState('pi pi-arrow-down');
+  const [nameIcon, setNameIcon] = useState('pi pi-arrow-down');
+  const [priceIcon, setPriceIcon] = useState('pi pi-arrow-down');
+  const [dateIcon, setDateIcon] = useState('pi pi-arrow-up');
+  const navigate = useNavigate();
+  const { conta } = useAuth();
   const isProductCards = cardType === 'productCard';
   const isSeboCards = cardType === 'seboCard';
-  const [seboCards, setSeboCards] = React.useState<GenericCardProps[]>([]);
-  const [cards, setCards] = React.useState<ProductCardProps[]>([]);
-  const [seboNameIcon, setSeboNameIcon] = React.useState('pi pi-arrow-down');
-  const [nameIcon, setNameIcon] = React.useState('pi pi-arrow-down');
-  const [priceIcon, setPriceIcon] = React.useState('pi pi-arrow-down');
-  const [dateIcon, setDateIcon] = React.useState('pi pi-arrow-up');
+  const isSebo = conta?.tipo === 'SEBO';
+  const seboProductsRoute = Boolean(meusProdutos);
+  const breadcrumbItems = getBreadcrumbItems();
 
-  React.useEffect(() => {
+  function getBreadcrumbItems() {
+    if (meusProdutos) {
+      return [{ label: 'Meus produtos', url: '/meus-produtos' }];
+    } else {
+      const urlString = isProductCards ? '' : '/sebos';
+      return [{ label: 'Navegar', url: `/navigation${urlString}` }];
+    }
+  }
+
+  useEffect(() => {
     sortCards(nameIcon, 'name');
   }, [nameIcon]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     sortCards(priceIcon, 'price');
   }, [priceIcon]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     sortCards(dateIcon, 'date');
   }, [dateIcon]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     sortCards(seboNameIcon, 'name');
   }, [seboNameIcon]);
 
@@ -67,9 +83,16 @@ export const NavigationPage = (props: NavigationPageProps) => {
   };
 
   const getProducts = () => {
-    getAllProducts({ filters, orders }).then((response) => {
-      setCards(response);
-    });
+    if (meusProdutos) {
+      // getMyProducts({ filters, orders }).then((response) => {
+      //   setCards(response);
+      // });
+      return;      
+    } else {
+      getAllProducts({ filters, orders }).then((response) => {
+        setCards(response);
+      });
+    }
   };
 
   const getSebos = () => {
@@ -96,11 +119,6 @@ export const NavigationPage = (props: NavigationPageProps) => {
                 Resultados de pesquisa para: <br />
                 Filtro 1, Filtro 2.
               </p>
-              {/* {isSebo && (
-                <Button icon="pi pi-plus" className="nav-pagination-header-button">
-                  Adicionar
-                </Button>
-              )} */}
               <div className="nav-filter-display-order">
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
                   Nome
@@ -132,6 +150,11 @@ export const NavigationPage = (props: NavigationPageProps) => {
             </div>
             <div className="nav-pagination-header">
               <p className="nav-pagination-header-text">1-10 de 20</p>
+              {isSebo && isProductCards && seboProductsRoute ? (
+                <Button icon="pi pi-plus" className="nav-pagination-header-button" onClick={() => navigate('/product/edit')}>
+                  Adicionar produto
+                </Button>
+              ) : null}
             </div>
             <div className="nav-content-center">
               {isProductCards && cards.map((card, index) => <ProductCard key={index} {...card} />)}
