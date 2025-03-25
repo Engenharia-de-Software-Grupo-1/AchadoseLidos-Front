@@ -50,16 +50,25 @@ const App = () => {
                     <ProfileSeboForm />
                   </ProfileSeboFormProvider>
                 }
-                />
-            <Route path="/product/:id" element={<ProductPage />} />
-            <Route
-              path="/product/:id/edit"
-              element={
-                <ProdutoFormProvider>
-                  <ProductForm />
-                </ProdutoFormProvider>
-              }
-            />
+              />
+              <Route path="/product/:id" element={<ProductPage />} />
+              <Route
+                path="/product/:id/edit"
+                element={
+                  <ProdutoFormProvider>
+                    <ProductForm />
+                  </ProdutoFormProvider>
+                }
+              />
+              <Route
+                path="/register/product"
+                element={
+                  <ProdutoFormProvider>
+                    <ProductForm isRegister />
+                  </ProdutoFormProvider>
+                }
+              />
+
               <Route
                 path="/login"
                 element={

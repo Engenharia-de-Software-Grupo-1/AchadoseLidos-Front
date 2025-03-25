@@ -10,78 +10,100 @@ import {
 import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
 import './style.css';
+import { set } from 'cypress/types/lodash';
 
 interface UploadProps {
   setField?: (field: string, value: File[]) => void;
-  setImage?: (images: {url: string}[]) => void;
-  image?: {url: string}[];
+  setImage?: (images: { url: string }[]) => void;
+  image?: { url: string }[];
 }
 
 export default function UploadImages({ setField, setImage, image }: UploadProps) {
-
   const toast = useRef<Toast>(null);
   const [totalSize, setTotalSize] = useState(0);
   const [imagens, setImagens] = useState<File[]>([]);
   const fileUploadRef = useRef<FileUpload>(null);
+  const [nameImages, setNameImages] = useState<string[]>([]);
+  const [namesImagesProcessed, setNamesImagesProcessed] = useState<File[]>([]);
 
-  // const loadExistingImages = async () => {
-  //   if (!fileUploadRef.current || !image?.length) return;
+  const loadedImages = useRef(new Set<string>()); // Evita imagens duplicadas ao recarregar
 
-  //   interface Image {
-  //     url: string;
-  //   }
+  const loadExistingImages = async () => {
+    if (!fileUploadRef.current || !image?.length) return;
 
-  //   const imageFiles: File[] = await Promise.all(
-  //     image.map(async (img: Image, index: number): Promise<File> => {
-  //       const response = await fetch(img.url);
-  //       const blob = await response.blob();
-  //       return new File([blob], `imagem-${index}.jpg`, { type: blob.type });
-  //     })
-  //   );
+    interface Image {
+      url: string;
+    }
 
-  //   //@ts-ignore
-  //   fileUploadRef.current.setFiles(imageFiles);
-  // };
+    const imageFiles: File[] = await Promise.all(
+      image.map(async (img: Image, index: number): Promise<File> => {
+        if (loadedImages.current.has(img.url)) return null as unknown as File; // Já carregada, ignora
+
+        const response = await fetch(img.url);
+        const blob = await response.blob();
+        const file = new File([blob], `imagem-${index}.jpg`, { type: blob.type });
+
+        loadedImages.current.add(img.url); // Marca como carregada
+        return file;
+      })
+    );
+
+    const validImageFiles = imageFiles.filter((file) => file); 
+    setNamesImagesProcessed(validImageFiles);
+
+    if (validImageFiles.length > 0) {
+      setNameImages(validImageFiles.map((file) => file.name));
+      //@ts-ignore
+      fileUploadRef.current.setFiles(validImageFiles);
+    }
+  };
 
   useEffect(() => {
-    // loadExistingImages();
+    loadExistingImages();
   }, [image]);
 
   const handleUpload = (event: FileUploadSelectEvent) => {
     let _totalSize = totalSize;
     const uploadedFiles = event.files.map((file) => {
-        _totalSize += file.size || 0;
-        return file; 
+      _totalSize += file.size || 0;
+      return file;
     });
 
     setTotalSize(_totalSize);
 
-    // Usa callback para evitar estado desatualizado
     setImagens((prev) => {
-        const newImagens = [...prev, ...uploadedFiles];
-        setField?.('fotos', newImagens);
-        return newImagens;
-    });
+      const existingFileNames = new Set(prev.map((file) => file.name)); 
+      const uniqueFiles = uploadedFiles.filter((file) => !existingFileNames.has(file.name));
+      setImage?.(uniqueFiles.map((file) => ({ url: URL.createObjectURL(file) })));
+      setField?.('fotos', uniqueFiles);
 
-    // @ts-ignore
-    setImage?.((prev) => [
-      ...prev,
-      ...uploadedFiles.map((file) => ({ url: URL.createObjectURL(file) })) 
-  ]);
-};
+      return [...prev, ...uniqueFiles];
+    });
+  };
 
   const onTemplateRemove = (file: File, callback: Function) => {
     setTotalSize((prevSize) => prevSize - file.size);
+  
+    setNamesImagesProcessed((prev) => {
+      const updatedNamesImagesProcessed = prev.filter((image) => image.name !== file.name);
+      
+      // Atualiza a galeria garantindo que um novo array é passado
+      setImage?.(updatedNamesImagesProcessed.map((file) => ({ url: URL.createObjectURL(file) })));
+      setField?.('fotos', updatedNamesImagesProcessed);
+      return updatedNamesImagesProcessed;
+    });
+
     callback();
 };
+
+
+
   const onTemplateClear = () => {
     setTotalSize(0);
   };
 
   const headerTemplate = (options: FileUploadHeaderTemplateOptions) => {
-    const { className, chooseButton, uploadButton, cancelButton } = options;
-    const value = totalSize / 10000;
-    const formatedValue = fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : '0 B';
+    const { className, chooseButton, cancelButton } = options;
 
     return (
       <div
@@ -105,7 +127,7 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
       <div className="flex align-items-center flex-wrap">
         <div className="flex align-items-center" style={{ width: '40%' }}>
           <img alt={file.name} role="presentation" src={URL.createObjectURL(file)} width={100} />
-          <span className="flex flex-column text-left ml-3">{file.name}</span>
+          <span className="flex flex-column text-left ml-3">Imagem do produto</span>
         </div>
         <Button
           icon="pi pi-times-circle"
@@ -154,7 +176,6 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
       <FileUpload
         ref={fileUploadRef}
         name="demo[]"
-  
         multiple
         accept="image/*"
         maxFileSize={10000000000000}

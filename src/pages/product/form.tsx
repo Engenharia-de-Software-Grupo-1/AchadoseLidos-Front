@@ -9,18 +9,23 @@ import { ProductFormField } from '@components/ProductDetails/ProductFormFields';
 import { Button } from 'primereact/button';
 import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/ProdutoConstants';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getById, updateProduct } from 'routes/routesProduto';
+import { useParams, useNavigate } from 'react-router-dom';
+import { createProduct, getById, updateProduct } from 'routes/routesProduto';
 import { Produto } from '@domains/Produto/Produto';
 import { useNotification } from '@contexts/notificationContext';
 import { uploadImage } from '@utils/cloudinary';
 
-const ProductForm = () => {
+interface ProdutoFormProps {
+  isRegister?: boolean;
+}
+
+const ProductForm = ({isRegister}: ProdutoFormProps) => {
   const { id } = useParams();
   const { produto, setField, submitted } = useForm();
   const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');
   const { showNotification } = useNotification();
   const [images, setImages] = useState<{ url: string }[]>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -29,8 +34,8 @@ const ProductForm = () => {
   }, [id]);
 
   const breadcrumbItems = [
-    { label: 'Meu Produto', url: `/product/${id}` },
-    { label: 'Editar Produto', url: `/product/${id}/edit` },
+    { label: isRegister ? 'Meus Produtos' : 'Meu Produto', url: isRegister ? '/meus-produtos' : `/product/${id}` }, 
+    { label: isRegister ? 'Cadastrar Produto': 'Editar Produto', url:  isRegister? '/register/product' :`/product/${id}/edit` },
   ];
 
 
@@ -56,7 +61,16 @@ const ProductForm = () => {
         const formattedImages = uploadedImages.map((url) => ({ url }));
 
         produto.fotos = formattedImages;
-        await updateProduct({ ...produto, fotos: formattedImages }, id);
+
+        if (!isRegister) {
+          await updateProduct({ ...produto, fotos: formattedImages }, id);
+          navigate(`/product/${id}`);
+          window.location.reload();
+        } else {
+          await createProduct({ ...produto, fotos: formattedImages });
+          //navigate('/meus-produtos');
+          //window.location.reload();
+        }
         showNotification('success', 'Produto salvo com sucesso!', '');
     } catch (error) {
         console.error('Erro ao salvar produto', error);

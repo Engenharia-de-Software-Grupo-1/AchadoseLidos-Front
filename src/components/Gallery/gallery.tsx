@@ -29,11 +29,15 @@ export default function Gallery({ position, photos }: GalleryProps) {
   };
 
   const itemTemplate = (item: any) => (
-    <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%', display: 'block' }} />
+    item.itemImageSrc && (
+      <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%', display: 'block' }} />
+    )
   );
 
   const thumbnailTemplate = (item: any) => (
+    item.thumbnailImageSrc && (
     <img src={item.thumbnailImageSrc} alt={item.alt} style={{ display: 'block' }} />
+    )
   );
 
   return (

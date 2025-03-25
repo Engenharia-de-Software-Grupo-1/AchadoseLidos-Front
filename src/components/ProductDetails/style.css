@@ -363,6 +363,7 @@
 .field-input-genero {
   width: 14.5rem !important;
   align-items: center;
+  color: var(--Achados-Black) !important;
 }
 
 .field-input-category {
