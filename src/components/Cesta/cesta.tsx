@@ -120,6 +120,10 @@ const CestaComponent = () => {
         }
     };
 
+    const handleFinalizarPedido = () => {
+        showNotification('error', 'not yet implemented', '');
+    };
+
 
     // Updated template with loading states
     const quantidadeBodyTemplate = (rowData: ProdutoCesta) => {
@@ -271,15 +275,18 @@ const CestaComponent = () => {
                                     style={{ minWidth: '8rem'}}
                                     align="center"
                                     footer={
-                                    <div className="flex justify-content-end">
+                                    <div className={'flex justify-content-end'}>
                                         <Button 
+                                            className={`${store.sebo.concordaVender ? '' : 'disabled-button' }`}
                                             label="Confirmar Pedido" 
                                             style={{
-                                                backgroundColor: 'var(--Achados-Success)', 
+                                                backgroundColor: store.sebo.concordaVender ? 'var(--Achados-Success)' : 'var(--Achados-Highlight-Green)', 
                                                 border: 'none',
                                                 padding: '0.5rem 1rem',
                                             }}
-                                            
+                                            tooltip={store.sebo.concordaVender ? '' : 'Esse sebo não vende produtos via plataforma, pedidos são realizados apenas presencialmente.' }
+                                            tooltipOptions={{ position: 'top' }}
+                                            onClick={() => store.sebo.concordaVender ? handleFinalizarPedido() : showNotification('warn', 'Sebo não faz vendas via plataforma', '')}
                                         />
                                     </div>
                                     }

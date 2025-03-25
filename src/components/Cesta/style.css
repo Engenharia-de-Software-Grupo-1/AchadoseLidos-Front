@@ -130,3 +130,7 @@ tr {
     1fr;  /* Actions */
   align-items: left;
 }
+
+.disabled-button {
+  box-shadow: none;
+}
