@@ -1,0 +1,27 @@
+.favorito-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh; /* Ajuste a altura conforme necessário */
+  }
+  
+  .empty-favorito {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25vh;
+    gap: 1rem;
+  }
+  
+  .empty-favorito h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--Achados-Black);
+  }
+  
+  .empty-favorito p {
+    font-size: 1rem;
+    color: var(--Achados-Grey);
+  }
+  

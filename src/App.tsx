@@ -21,6 +21,8 @@ import ProfileUserForm from '@pages/profile/user/form';
 import { ProfileUserFormProvider } from '@stores/profile/user/formStore';
 import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
+import FavoritosPage from '@pages/favoritosPage';
+import { FavoritoProvider } from '@stores/favorito/favoritoStore';
 
 const App = () => {
   return (
@@ -96,6 +98,11 @@ const App = () => {
                   </ProfileSeboFormProvider>
                 }
               />
+              <Route path="/profile/user/favoritos" element={
+                <FavoritoProvider>
+                  <FavoritosPage />
+                </FavoritoProvider>
+              } />
             </Routes>
           </AuthProvider>
         </NotificationProvider>
