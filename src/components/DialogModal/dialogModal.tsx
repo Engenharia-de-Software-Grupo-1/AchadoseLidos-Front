@@ -1,4 +1,3 @@
-
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import './style.css';
@@ -6,13 +5,14 @@ import './style.css';
 interface DialogModalProps {
     visibleDialog: boolean;
     setVisibleDialog: (visible: boolean) => void;
+    onClickDelete: (sucessCallback?: () => void) => void;
 }
 
-export default function DialogModal({ visibleDialog, setVisibleDialog }: DialogModalProps) {
+export default function DialogModal({ visibleDialog, setVisibleDialog, onClickDelete }: DialogModalProps) {
     const footerContent = (
         <div>
             <Button label="Cancel" onClick={() => setVisibleDialog(false)} className="p-button-text button-cancel-dialog" />
-            <Button label="OK" onClick={() => setVisibleDialog(false)} className='button-confirm-dialog'/>
+            <Button label="OK" onClick={() => onClickDelete()} className='button-confirm-dialog'/>
         </div>
     );
 

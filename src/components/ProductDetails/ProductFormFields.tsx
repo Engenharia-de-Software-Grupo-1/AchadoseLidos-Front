@@ -6,11 +6,9 @@ import { Produto } from '@domains/Produto/Produto';
 import { InputNumber, InputNumberChangeEvent } from 'primereact/inputnumber';
 import { InputNumberValueChangeEvent } from 'primereact/inputnumber';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { CategoriaProduto, GeneroProduto } from 'constants/ProdutoConstants';
-import { useEffect, useMemo, useState } from 'react';
+import { GeneroProduto } from 'constants/ProdutoConstants';
+import { useEffect, useState } from 'react';
 import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { set } from 'cypress/types/lodash';
-
 
 type ProductFormFieldProps = {
   hasSubmissionFailed: boolean;
@@ -98,12 +96,10 @@ const ProductFormField = ({
     setField(fieldName, e.target.value);
   };
 
-
-    useEffect(() => {
-      const generos = genero ? GeneroProduto[genero] : [];
-      setOptionsGenero([...generos]);
-    }, [genero]);
- 
+  useEffect(() => {
+    const generos = genero ? GeneroProduto[genero] : [];
+    setOptionsGenero([...generos]);
+  }, [genero]);
 
   return (
     <div
@@ -188,14 +184,15 @@ const ProductFormField = ({
           highlightOnSelect={false}
         />
       ) : isGenero ? (
-        <MultiSelect 
-        value={fieldValues ? fieldValues : []} 
-        onChange={handleMultiChange}
-        options={optionsGenero}
-        placeholder={placeholderText} 
-        maxSelectedLabels={3} 
-        className="w-full md:w-15rem field-input field-input-genero" />
-      ) :(
+        <MultiSelect
+          value={fieldValues ? fieldValues : []}
+          onChange={handleMultiChange}
+          options={optionsGenero}
+          placeholder={placeholderText}
+          maxSelectedLabels={3}
+          className="w-full md:w-15rem field-input field-input-genero"
+        />
+      ) : (
         <InputText
           className={classNames('field-input', {
             'short-input': isShortInput,

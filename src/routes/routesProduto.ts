@@ -5,7 +5,7 @@ const api = axios.create({
   baseURL: 'http://localhost:3333/api',
 });
 
-export const getById = async (id: number) => {
+export const getById = async (id: any) => {
   const response = await api.get<Produto>(`/produtos/${id}`);
   return response.data;
 };

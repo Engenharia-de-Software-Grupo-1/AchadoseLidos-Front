@@ -24,6 +24,7 @@
   align-self: stretch;
   border-radius: 16px;
   background-color: var(--Achados-Lighter-OffWhite);
+  overflow-y: auto;
 }
 
 .product-details-frame {
@@ -110,9 +111,14 @@
   color: var(--Achados-Red) !important;
 }
 
-.p-button-success {
-  /* background-color: var(--Achados-Success) !important; Cor de fundo padrão */
+.button-cesta {
+  background-color: var(--Achados-Success) !important;
   border-color: var(--Achados-Success) !important;
+}
+
+.ex-button:hover {
+  background-color: var(--Achados-Red) !important;
+  color: var(--Achados-OffWhite) !important;
 }
 
 .product-ediction-year {
@@ -122,6 +128,58 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+.product-ediction-year-span {
+  color: #000;
+
+  /* Bold / Paragraph */
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+}
+
+.product-ediction-year-p {
+  color: #000;
+
+  /* Regular / Paragraph */
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.product-ediction-description {
+  color: #000;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.product-ediction-p {
+  color: #000;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  align-self: stretch;
+  text-align: justify;
 }
 
 .profile-form-field {
@@ -259,7 +317,7 @@
   background: transparent;
 }
 
-.field-input-price input{
+.field-input-price input {
   height: 36px;
   width: 227px;
   border: none;
@@ -290,7 +348,7 @@
   color: var(--Achados-Black);
 }
 
-.field-input-year input{
+.field-input-year input {
   height: 36px;
   width: 227px;
   border: none;
@@ -302,7 +360,7 @@
   border: 1px var(--Achados-Black) solid;
 }
 
-.field-input-genero{
+.field-input-genero {
   width: 14.5rem !important;
   align-items: center;
 }
@@ -314,4 +372,13 @@
 
 .taxt-area-short {
   background: var(--Achados-White);
+}
+
+.achados-h4 {
+  color: var(--Achados-Black);
+  font-family: Poppins;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }

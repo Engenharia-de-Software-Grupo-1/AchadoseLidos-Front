@@ -10,17 +10,21 @@ import { getById } from 'routes/routesProduto';
 const breadcrumbItems = [{ label: 'Página do produto', url: '/product-page' }];
 
 const ProductPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const [produto, setProduto] = useState<Produto | null>(null);
   const { showNotification } = useNotification();
 
   const fetchProduto = async () => {
-    const data = await getById(Number(id));
-    setProduto(data);
+    try {
+      const data = await getById(Number(id));
+      setProduto(data);
+    } catch (error) {
+      console.error('Erro ao buscar produto', error);
+    }
   };
 
   useEffect(() => {
-    if (id !== null) { 
+    if (id) {
       fetchProduto();
     }
   }, [id]);
@@ -35,6 +39,8 @@ const ProductPage = () => {
       <TemplatePage simpleHeader={false} simpleFooter={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <ProductDetails
+          id={id? id : ''}
+          data={produto}
           productName={produto.nome}
           seboName={produto.sebo?.nome}
           bairro={produto.sebo?.endereco?.bairro}
@@ -44,10 +50,10 @@ const ProductPage = () => {
           ]}
           stock={produto?.qtdEstoque}
           price={produto?.preco}
-          editionYear={produto?.anoEdicao}
-          releaseYear={produto?.anoLancamento}
+          editionYear={2001}
+          releaseYear={2022}
           author={produto?.autores}
-        description={produto?.descricao}
+          description={produto?.descricao}
         />
       </TemplatePage>
     </main>

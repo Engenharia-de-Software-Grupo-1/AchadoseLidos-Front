@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from '@pages/homePage';
 import RegisterSebo from '@pages/register/sebo';
-import { RegisterSeboProvider } from '@stores/register/sebo/store';
+import { RegisterSeboProvider } from '@stores/register/sebo/registerStore';
 import { NotificationProvider } from '@contexts/notificationContext';
 import ProfileSebo from '@pages/profile/sebo';
 import ProfileSeboForm from '@pages/profile/sebo/form';
@@ -12,11 +12,12 @@ import { ProdutoFormProvider } from '@stores/product/formStore';
 import ProductForm from '@pages/product/form';
 import LoginPage from '@pages/loginPage';
 import { LoginProvider } from '@stores/login/loginStore';
-import { RecoverRequestProvider } from '@stores/recover/recoverRequest';
+import { RecoverRequestProvider } from '@stores/recover/recoverStore';
 import RecoverRequestPage from '@pages/recover/request';
-import { ResetRequestProvider } from '@stores/recover/resetRequest';
+import { ResetRequestProvider } from '@stores/recover/resetStore';
 import ResetRequestPage from '@pages/recover/reset';
 import { AuthProvider } from '@contexts/authContext';
+import { SeboProvider } from '@stores/profile/sebo/indexStore';
 
 const App = () => {
   return (
@@ -26,7 +27,6 @@ const App = () => {
           <AuthProvider>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              {/*<Route path="/register" element={<Register />} />  path pra tela inicial de cadastro*/}
               <Route
                 path="/register/sebo"
                 element={
@@ -34,8 +34,15 @@ const App = () => {
                     <RegisterSebo />
                   </RegisterSeboProvider>
                 }
-                />
-              <Route path="/profile/sebo" element={<ProfileSebo />} />
+              />
+              <Route
+                path="/profile/sebo"
+                element={
+                  <SeboProvider>
+                    <ProfileSebo />
+                  </SeboProvider>
+                }
+              />
               <Route
                 path="/profile/sebo/edit"
                 element={
@@ -60,7 +67,7 @@ const App = () => {
                     <LoginPage />
                   </LoginProvider>
                 }
-                />
+              />
               <Route
                 path="/recover/request"
                 element={
@@ -68,7 +75,7 @@ const App = () => {
                     <RecoverRequestPage />
                   </RecoverRequestProvider>
                 }
-                />
+              />
               <Route
                 path="/recover/reset"
                 element={
@@ -76,8 +83,8 @@ const App = () => {
                     <ResetRequestPage />
                   </ResetRequestProvider>
                 }
-                />
-              </Routes>
+              />
+            </Routes>
           </AuthProvider>
         </NotificationProvider>
       </BrowserRouter>

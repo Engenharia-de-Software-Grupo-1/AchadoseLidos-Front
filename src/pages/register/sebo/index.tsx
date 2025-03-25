@@ -5,39 +5,28 @@ import { Button } from 'primereact/button';
 import TabDadosBasicos from './tabs/tabDadosBasicos';
 import TabEndereco from './tabs/tabEndereco';
 import TabDadosPerfil from './tabs/tabPerfil';
-import { useRegisterSebo } from '@stores/register/sebo/store';
+import { useRegisterSebo } from '@stores/register/sebo/registerStore';
 import { useNotification } from '@contexts/notificationContext';
-import { registerSebo } from '../../../routes/routesSebo';
+import { useNavigate } from 'react-router-dom';
 
 import './style.css';
 
 const RegisterSebo = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { sebo, setField, validateStep, cities } = useRegisterSebo();
-  const [submitted, setSubmitted] = useState(false);
+  const { sebo, setField, validateStep, cities, saveRegisterSebo } = useRegisterSebo();
   const { showNotification } = useNotification();
+  const navigate = useNavigate();
 
-  const finalizeRegister = async () => {
-    try {
-      const response = await registerSebo(sebo);
-      alert('Sebo cadastrado com sucesso!');
-    } catch (error) {
-      console.error('Erro ao cadastrar sebo:', error);
-    }
-  };
-  
-
-  const nextStep = (e: any) => {
-    if (validateStep(activeIndex)) {
-      setSubmitted(true);
+  const nextStep = async () => {
+    const isValid = await validateStep(activeIndex);
+    if (isValid) {
       setActiveIndex(activeIndex + 1);
     } else {
-      showNotification('error', null, 'Verifique os campos do formulário!');
+      showNotification('error', null, 'Preencha todos os campos obrigatórios!');
     }
-    setSubmitted(false);
   };
 
-  const stepBack = (e: any) => {
+  const stepBack = () => {
     setActiveIndex(activeIndex - 1);
   };
 
@@ -72,18 +61,23 @@ const RegisterSebo = () => {
               readOnly
             />
             <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-              {activeIndex !== 0 && activeIndex < 3 && 
-              <Button className="step-button" label="Voltar" onClick={(e) => stepBack(e)} />}
+              {activeIndex !== 0 && <Button className="step-button" label="Voltar" onClick={() => stepBack()} />}
               {activeIndex === 2 && (
-                <Button className="step-button" label="Finalizar" onClick={finalizeRegister} />
+                <Button
+                  className="step-button"
+                  label="Finalizar"
+                  onClick={() =>
+                    saveRegisterSebo(() => {
+                      showNotification('success', null, 'Sebo cadastrado com sucesso!');
+                      navigate('/login');
+                    })
+                  }
+                />
               )}
-              {activeIndex < 2 && (
-              <Button className="step-button" label="Continuar" onClick={(e) => nextStep(e)} />
-              )}
-
+              {activeIndex < 2 && <Button className="step-button" label="Continuar" onClick={() => nextStep()} />}
             </div>
-            <p className="login" style={{ color: '#2F292A', textAlign: 'center' }}>
-              Já tem uma conta? Entrar
+            <p className="login" style={{ textAlign: 'center' }}>
+              Já tem uma conta? <a href="/login">Entrar</a>
             </p>
           </div>
         </div>

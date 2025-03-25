@@ -5,8 +5,12 @@
   margin-bottom: 8px;
 }
 
+.input-wrapper{
+  width: fit-content;
+}
+
 .address-form-field {
-  width: 70%;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -69,6 +73,7 @@
   line-height: normal;
 }
 
+<<<<<<< HEAD:src/components/ProfileForm/style.css
 .change-password-button-rose,
 .change-password-button {
   display: flex;
@@ -115,6 +120,8 @@
   flex-shrink: 0;
 }
 
+=======
+>>>>>>> main:src/components/FormField/style.css
 .error-message {
   color: red;
 }

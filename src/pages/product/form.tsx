@@ -14,22 +14,25 @@ import { getById, updateProduct } from 'routes/routesProduto';
 import { Produto } from '@domains/Produto/Produto';
 import { useNotification } from '@contexts/notificationContext';
 import { uploadImage } from '@utils/cloudinary';
-import { set } from 'cypress/types/lodash';
-import { param } from 'cypress/types/jquery';
 
 const ProductForm = () => {
   const { id } = useParams();
-  const { produto, breadcrumbItems, setField, submitted } = useForm();
+  const { produto, setField, submitted } = useForm();
   const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');
   const { showNotification } = useNotification();
   const [images, setImages] = useState<{ url: string }[]>();
-
 
   useEffect(() => {
     if (id) {
       setProduct(id);
     }
   }, [id]);
+
+  const breadcrumbItems = [
+    { label: 'Meu Produto', url: `/product/${id}` },
+    { label: 'Editar Produto', url: `/product/${id}/edit` },
+  ];
+
 
   const setProduct = async (id: any) => {
     try {
@@ -76,9 +79,8 @@ const uploadImages = async (files: File[]): Promise<string[]> => {
   } catch (error) {
       console.error('Erro ao fazer upload de imagens', error);
       return [];
-  }
+  } 
 };
-
 
   return (
     <main className="main-container-edit-product">

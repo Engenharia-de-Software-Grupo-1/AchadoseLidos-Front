@@ -1,13 +1,16 @@
 import { useErrorContext } from '@contexts/errorContext';
 import { Credenciais } from '@domains/Credenciais';
-import { extractRules, validateRule } from '@utils/formRules';
-import { createContext, ReactNode, useContext, useState } from 'react';
-import { getField } from '@utils/utils';
+import { createContext, ReactNode, useContext } from 'react';
+import { useForm } from '@hooks/useForm';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@contexts/authContext';
+import { login } from '@routes/routesAuth';
 
 interface LoginContextType {
   credenciais: Credenciais;
   setField: (field: string, value: any) => void;
   validate: () => boolean;
+  finalizeLogin: () => void;
 }
 
 const LoginContext = createContext<LoginContextType | null>(null);
@@ -25,49 +28,48 @@ interface LoginProviderProps {
 }
 
 export const LoginProvider = ({ children }: LoginProviderProps) => {
-  const [credenciais, setFormData] = useState<Credenciais>({
-    senha: '',
-    email: '',
+  const { setError } = useErrorContext();
+  const navigate = useNavigate();
+  const { validateAuth } = useAuth();
+
+  const { formData, setField, validate, showNotification } = useForm<Credenciais>({
+    initialData: {
+      senha: '',
+      email: '',
+    },
+    rules: {
+      senha: [{ rule: 'required' }],
+      email: [{ rule: 'isEmail' }, { rule: 'required' }],
+    },
   });
 
-  const [rules] = useState<Record<string, Rule[]>>({
-    senha: [{ rule: 'required' }],
-    email: [{ rule: 'isEmail' }, { rule: 'required' }],
-  });
+  const finalizeLogin = async () => {
+    if (validate()) {
+      try {
+        const response = await login(formData);
 
-  const { setErrors, setError } = useErrorContext();
-
-  const validate = (): boolean => {
-    let validationResults = extractRules(rules, credenciais);
-    setErrors(validationResults);
-    return !Object.values(validationResults).some((field) => field.error);
-  };
-
-  const setField = (field: string, value: any) => {
-    setFormData((prev) => {
-      const updatedFormData = { ...prev! };
-
-      const keys = field.split('.');
-      let currentField = updatedFormData;
-
-      keys.forEach((key, index) => {
-        if (index === keys.length - 1) {
-          currentField[key] = value;
-        } else {
-          currentField = currentField[key];
+        if (response.status === 200) {
+          showNotification('success', null, 'Login realizado com sucesso!');
+          validateAuth();
+          navigate('/');
         }
-      });
-
-      return updatedFormData;
-    });
-
-    const fieldName = getField(field);
-    setError(fieldName, validateRule(value, getRule(fieldName)));
+      } catch (error: any) {
+        if (error.response.status === 401) {
+          setError('senha', {error:true, message:'Senha incorreta.'});
+        } else if (error.response.status === 404) {
+          setError('email', {error:true, message:'Email inválido.'});
+          setError('senha', {error:true, message:''});
+        } else if (error.response) {
+          const errorMessage = error.response.data.message || 'Erro no servidor.';
+          showNotification('error', null, errorMessage);
+        } else if (error.request) {
+          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
+        } else {
+          showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
+        }
+      }
+    } 
   };
 
-  const getRule = (field: string): Rule[] => {
-    return rules[field] || [];
-  };
-
-  return <LoginContext.Provider value={{ credenciais, setField, validate }}>{children}</LoginContext.Provider>;
+  return <LoginContext.Provider value={{ credenciais: formData, setField, validate, finalizeLogin }}>{children}</LoginContext.Provider>;
 };

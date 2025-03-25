@@ -1,5 +1,5 @@
 import { useProdutoForm } from '@stores/product/formStore';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const useForm = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -7,10 +7,7 @@ const useForm = () => {
   const { produto, setField, validateStep, getRule } = useProdutoForm();
 
 
-  const breadcrumbItems = [
-    { label: 'Meu Produto', url: '/product' },
-    { label: 'Editar Produto', url: '/product/edit' },
-  ];
+
 
   const imageProduct = '/images/anarita.JPG';
 
@@ -19,7 +16,6 @@ const useForm = () => {
     setField,
     validateStep,
     getRule,
-    breadcrumbItems,
     submitted,
     setSubmitted,
     imageProduct,

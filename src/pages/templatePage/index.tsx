@@ -1,13 +1,13 @@
 import Menu from '@components/Header/header';
 import './style.css';
-import React from 'react';
+import { classNames } from 'primereact/utils';
 
 interface TemplatePageProps {
-  children: React.ReactNode;
-  simpleHeader: boolean;
-  simpleFooter: boolean;
-  backgroundFooterDiff?: boolean;
-  contents?: boolean;
+  children: React.ReactNode
+  simpleHeader: boolean
+  simpleFooter: boolean
+  backgroundFooterDiff?: boolean
+  contents?: boolean
 }
 
 const TemplatePage: React.FC<TemplatePageProps> = ({
@@ -20,7 +20,7 @@ const TemplatePage: React.FC<TemplatePageProps> = ({
   const footer = simpleFooter ? (
     <footer className="container-footer" />
   ) : (
-    <footer className={`initial-footer ${backgroundFooterDiff ? 'backgroundDiff' : ''}`}>
+    <footer className={classNames('initial-footer', {'backgroundDiff': backgroundFooterDiff})}>
       <p className="text-footer">ACHADOS E LIDOS</p>
     </footer>
   );

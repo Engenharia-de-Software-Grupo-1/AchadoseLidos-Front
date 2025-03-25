@@ -1,260 +1,271 @@
 import TemplatePage from '@pages/templatePage';
 import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
-import { useBreadcrumb } from '@hooks/useBreadcrumb';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
-import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
-import { ProfileFormField } from '@components/ProfileForm/ProfileFormField';
-import { FieldNames } from '@domains/FieldNames';
-import { IconField } from 'primereact/iconfield';
-import { AddressFormField } from '@components/ProfileForm/AddressFormField';
-import { AddressNames } from '@domains/AddressNames';
-import { useForm } from './useForm';
 import { Checkbox } from 'primereact/checkbox';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UploadImages from '@components/UploadImages/uploadImages';
 import { Button } from 'primereact/button';
-import DialogModal from '@components/DialogModal';
+import DialogModal from '@components/DialogModal/dialogModal';
+import FormField from '@components/FormField/formField';
+import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from 'primereact/inputtextarea';
+import { useProfileSeboForm } from '@stores/profile/sebo/formStore';
+import { useAuth } from '@contexts/authContext';
+import { useNotification } from '@contexts/notificationContext';
+import { useNavigate } from 'react-router-dom';
+import { Dropdown } from 'primereact/dropdown';
 
 const ProfileSeboForm = () => {
-  const {
-    breadcrumbItems,
-    cities,
-    getRule,
-    endereco,
-    handleEnderecoChange,
-    sebo,
-    setField,
-    setSubmitted,
-    submitted,
-    validateStep,
-    imageProfile,
-  } = useForm();
-
-
-  const [checked, setChecked] = useState<boolean>(false);
+  const { sebo, setField, cities, validate, initialize, loading, updateSebo, deleteSebo } = useProfileSeboForm();
+  const { showNotification } = useNotification();
+  const { conta, handleLogout } = useAuth();
   const [visible, setVisible] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+  const breadcrumbItems = [
+    { label: 'Meu Perfil', url: '/profile/sebo' },
+    { label: 'Editar Sebo', url: '/profile/sebo/edit' },
+  ];
+
+  useEffect(() => {
+    if (conta?.sebo?.id) {
+      initialize(conta.sebo.id);
+    }
+  }, [conta?.sebo?.id]);
+
+  const finalizeUpdate = async () => {
+    if (validate()) {
+      updateSebo(() => {
+        navigate('/');
+        showNotification('success', null, 'Sebo atualizado com sucesso!');
+      });
+    } else {
+      showNotification('error', null, 'Preencha todos os campos obrigatórios!');
+    }
+  };
+
+  const deleteContaSebo = () => {
+    deleteSebo(() => {
+      setVisible(false);
+      handleLogout();
+      showNotification('success', null, 'Sebo excluído com sucesso!');
+    });
+  };
 
   return (
     <div className="container-main-edit-sebo">
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
 
-        <div className="container-edit-sebo">
-          <div className="form-edit-sebo">
-            <ProfilePhoto imageProfile={imageProfile} canUpload />
-
-            <div className="container-data-form">
-              <div className="fields-column">
-                <ProfileFormField
-                  labelText="Nome"
-                  fieldName={FieldNames.nome}
-                  fieldValue={sebo.nome}
-                  setField={setField}
-                  hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
-                  placeholderText="Nome do Sebo" // também falta adicionar as rules que Eliane criou, se elas forem necessárias aqui especificamente
-                />
-
-                <ProfileFormField
-                  labelText="CPF/CNPJ"
-                  fieldName={FieldNames.cpfCnpj}
-                  fieldValue={sebo.cpfCnpj}
-                  setField={setField}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="000.000.000-00"
-                  isShortInput
-                />
-
-                <ProfileFormField
-                  labelText="Biografia curta"
-                  fieldName={FieldNames.briefBio}
-                  fieldValue={sebo.biografia}
-                  hasSubmissionFailed={submitted}
-                  setField={setField}
-                  iconName="info-circle"
-                  placeholderText="Escreva uma breve biografia sobre o Sebo"
-                  isTextArea
-                  isOptional
-                />
-
-                <ProfileFormField
-                  labelText="Nome dos Curadores (separados por vírgula)"
-                  fieldName={FieldNames.curadores}
-                  fieldValue={sebo.curadores}
-                  hasSubmissionFailed={submitted}
-                  setField={setField}
-                  placeholderText="Fulaninha, Fulaninho"
-                  isTextArea
-                  isOptional
-                />
-              </div>
-
-              <div className="fields-column">
-                <AddressFormField
-                  labelText="CEP"
-                  fieldName={AddressNames.cep}
-                  fieldValue={sebo.endereco.cep}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="00000-000"
-                  setField={handleEnderecoChange}
-                />
-                <AddressFormField
-                  labelText="Estado"
-                  fieldName={AddressNames.estado}
-                  fieldValue={sebo.endereco.estado}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Estado"
-                  setField={handleEnderecoChange}
-                />
-                <AddressFormField
-                  labelText="Cidade"
-                  fieldName={AddressNames.cidade}
-                  fieldValue={sebo.endereco.cidade}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Cidade"
-                  setField={handleEnderecoChange}
-                />
-                <AddressFormField
-                  labelText="Rua"
-                  fieldName={AddressNames.rua}
-                  fieldValue={sebo.endereco.rua}
-                  hasSubmissionFailed={submitted}
-                  placeholderText='Rua "Nome da Rua"'
-                  setField={handleEnderecoChange}
-                />
-                <AddressFormField
-                  labelText="Bairro"
-                  fieldName={AddressNames.bairro}
-                  fieldValue={sebo.endereco.bairro}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Bairro"
-                  setField={handleEnderecoChange}
-                />
-                <AddressFormField
-                  labelText="Número"
-                  fieldName={AddressNames.numero}
-                  fieldValue={sebo.endereco.numero}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Número"
-                  setField={handleEnderecoChange}
-                />
-                <AddressFormField
-                  labelText="Complemento"
-                  fieldName={AddressNames.complemento}
-                  fieldValue={sebo.endereco.complemento}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Complemento"
-                  setField={handleEnderecoChange}
-                  isOptional
-                />
-                // Ainda falta adicionar o checkbox para o campo ehPublico
-              </div>
-            </div>
-
-            <div className='container-upload'>
-              <UploadImages />
-            </div>
-
-            <div className='container-contat-edit-sebo'>
-              <div>
-                <Checkbox className='mr-2' onChange={e => setChecked(e.checked ?? false)} checked={checked} />
-                <span className='span-checkbox'>Você concorda em vender produtos via plataforma?</span>
-              </div>
-
-              <div className='form-contat-sebo'>
-
-                <ProfileFormField
-                  labelText="Whatsapp"
-                  fieldName={FieldNames.telefone}
-                  fieldValue={sebo.telefone}
-                  setField={setField}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Whatsapp"
-                  isOptional={!checked}
-                  isShortInput
-                />
-                <ProfileFormField
-                  labelText="Instagram"
-                  fieldName={FieldNames.instagram}
-                  fieldValue={sebo.instagram}
-                  setField={setField}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Instagram"
-                  isOptional
-                  isShortInput
-                />
-                <ProfileFormField
-                  labelText="Estante Virtual"
-                  fieldName={FieldNames.estanteVirtual}
-                  fieldValue={sebo.estanteVirtual}
-                  setField={setField}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Estante Virtual"
-                  isOptional
-                  isShortInput
-                />
-                <ProfileFormField
-                  labelText="Mercado Livre"
-                  fieldName={FieldNames.mercadoLivre}
-                  fieldValue={sebo.mercadoLivre}
-                  setField={setField}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Mercado Livre"
-                  isOptional
-                  isShortInput
-                />
-                <ProfileFormField
-                  labelText="Enjoei"
-                  fieldName={FieldNames.enjoei}
-                  fieldValue={sebo.enjoei}
-                  setField={setField}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Enjoei"
-                  isOptional
-                  isShortInput
-                />
-                <ProfileFormField
-                  labelText="Amazon"
-                  fieldName={FieldNames.amazon}
-                  fieldValue={sebo.amazon}
-                  setField={setField}
-                  hasSubmissionFailed={submitted}
-                  placeholderText="Amazon"
-                  isOptional
-                  isShortInput
-                />
-
-              </div>
-            </div>
-
-            <div className='container-historia-sebo'>
-              <ProfileFormField
-                labelText="História (longo)"
-                fieldName={FieldNames.historia}
-                fieldValue={sebo.historia}
-                setField={setField}
-                hasSubmissionFailed={submitted} // tem que alterar isso. submitted ainda nao diz se a submissao falhou
-                placeholderText="Conte sua história" // também falta adicionar as rules que Eliane criou, se elas forem necessárias aqui especificamente
-                isTextArea
-                isOptional
-              />
-            </div>
-
-            <div className='container-buttons'>
-              <Button label="Excluir Conta" className='button-trash' onClick={() => setVisible(true)}/>
-              {visible && (
-                <DialogModal visibleDialog={visible} setVisibleDialog={setVisible}></DialogModal>
-              )}
-
-              <Button label="Salvar" className='button-save' />
-            </div>
-
+        {loading ? (
+          <div className="loading-spinner">
+            <i className="pi pi-spinner mr-2" />
           </div>
-        </div>
+        ) : (
+          <div className="container-edit-sebo">
+            <div className="form-edit-sebo">
+              <ProfilePhoto imageProfile={sebo?.fotoPerfil} canUpload setField={setField} />
+
+              <div className="container-data-form">
+                <div className="fields-column">
+                  <FormField label="Nome" attribute="nome" required editField>
+                    <InputText
+                      value={sebo?.nome}
+                      onChange={(e) => setField('nome', e.target.value)}
+                      placeholder="Digite o nome do Sebo"
+                    />
+                  </FormField>
+                  <FormField label="CPF/CNPJ" attribute="cpfCnpj" required editField short>
+                    <InputText
+                      value={sebo?.cpfCnpj}
+                      onChange={(e) => setField('cpfCnpj', e.target.value)}
+                      placeholder="000.000.000-00"
+                    />
+                  </FormField>
+                  <FormField label="Biografia curta" attribute="biografia" editField>
+                    <InputTextarea
+                      style={{ height: 'auto' }}
+                      value={sebo?.biografia}
+                      onChange={(e) => setField('biografia', e.target.value)}
+                      placeholder="Escreva uma breve biografia sobre o Sebo"
+                      rows={5}
+                      cols={30}
+                    />
+                  </FormField>
+                  <FormField label="Nome dos Curadores" attribute="curadores" editField>
+                    <InputTextarea
+                      style={{ height: 'auto' }}
+                      value={sebo?.curadores}
+                      onChange={(e) => setField('curadores', e.target.value)}
+                      placeholder="Digite o nome dos curadores(separados por vírgula)"
+                      rows={5}
+                      cols={30}
+                    />
+                  </FormField>
+                  <FormField label="Horário de Funcionamento" attribute="horarioFuncionamento" editField>
+                    <InputText
+                      value={sebo?.horarioFuncionamento}
+                      onChange={(e) => setField('horarioFuncionamento', e.target.value)}
+                      placeholder="Horário de Funcionamento"
+                    />
+                  </FormField>
+                </div>
+
+                <div className="fields-column">
+                  <FormField label="CEP" attribute="cep" editField required adress>
+                    <InputText
+                      value={sebo?.endereco.cep}
+                      onChange={(e) => setField('endereco.cep', e.target.value)}
+                      placeholder="00000-000"
+                    />
+                  </FormField>
+
+                  <FormField label="Estado" attribute="estado" editField required adress>
+                    <InputText value="Paraíba" disabled placeholder="Estado *" style={{ width: '400px' }} />
+                  </FormField>
+
+                  <FormField label="Cidade" attribute="cidade" editField required adress>
+                    <Dropdown
+                      value={sebo?.endereco.cidade}
+                      onChange={(e) => setField('endereco.cidade', e.target.value)}
+                      options={cities}
+                      optionLabel="text"
+                      optionValue="value"
+                      showClear
+                      placeholder="Cidade *"
+                      style={{ width: '400px' }}
+                    />
+                  </FormField>
+                  <FormField label="Rua" attribute="rua" editField required adress>
+                    <InputText
+                      value={sebo?.endereco.rua}
+                      onChange={(e) => setField('endereco.rua', e.target.value)}
+                      placeholder='Rua "Nome da Rua"'
+                    />
+                  </FormField>
+                  <FormField label="Bairro" attribute="bairro" editField required adress>
+                    <InputText
+                      value={sebo?.endereco.bairro}
+                      onChange={(e) => setField('endereco.bairro', e.target.value)}
+                      placeholder="Bairro"
+                    />
+                  </FormField>
+                  <FormField label="Número" attribute="numero" editField required adress>
+                    <InputText
+                      value={sebo?.endereco.numero}
+                      onChange={(e) => setField('endereco.numero', e.target.value)}
+                      placeholder="Número"
+                    />
+                  </FormField>
+                  <FormField label="Complemento" attribute="complemento" editField adress>
+                    <InputText
+                      value={sebo?.endereco.complemento}
+                      onChange={(e) => setField('endereco.complemento', e.target.value)}
+                      placeholder="Complemento"
+                    />
+                  </FormField>
+                  <div className="checkbox-adress">
+                    <Checkbox
+                      className="mr-2"
+                      onChange={(e) => setField('endereco.ehPublico', e.checked)}
+                      checked={sebo?.endereco.ehPublico}
+                    />
+                    <span className="span-checkbox">Este endereço é público?</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="container-upload">
+                <UploadImages />
+              </div>
+
+              <div className="container-contat-edit-sebo">
+                <div>
+                  <Checkbox
+                    className="mr-2"
+                    onChange={(e) => setField('concordaVender', e.checked)}
+                    checked={sebo?.concordaVender}
+                  />
+                  <span className="span-checkbox">Você concorda em vender produtos via plataforma?</span>
+                </div>
+
+                <div className="form-contat-sebo">
+                  <FormField label="Whatsapp" attribute="telefone" required={sebo?.concordaVender} editField short>
+                    <InputText
+                      value={sebo?.telefone}
+                      onChange={(e) => setField('telefone', e.target.value)}
+                      placeholder="Whatsapp"
+                    />
+                  </FormField>
+                  <FormField label="Instagram" attribute="instagram" editField short>
+                    <InputText
+                      value={sebo?.instagram}
+                      onChange={(e) => setField('instagram', e.target.value)}
+                      placeholder="Instagram"
+                    />
+                  </FormField>
+                  <FormField label="Estante Virtual" attribute="estanteVirtual" editField short>
+                    <InputText
+                      value={sebo?.estanteVirtual}
+                      onChange={(e) => setField('estanteVirtual', e.target.value)}
+                      placeholder="Estante Virtual"
+                    />
+                  </FormField>
+                  <FormField label="Mercado Livre" attribute="mercadoLivre" editField short>
+                    <InputText
+                      value={sebo?.mercadoLivre}
+                      onChange={(e) => setField('mercadoLivre', e.target.value)}
+                      placeholder="Mercado Livre"
+                    />
+                  </FormField>
+                  <FormField label="Enjoei" attribute="enjoei" editField short>
+                    <InputText
+                      value={sebo?.enjoei}
+                      onChange={(e) => setField('enjoei', e.target.value)}
+                      placeholder="Enjoei"
+                    />
+                  </FormField>
+                  <FormField label="Amazon" attribute="amazon" editField short>
+                    <InputText
+                      value={sebo?.amazon}
+                      onChange={(e) => setField('amazon', e.target.value)}
+                      placeholder="Amazon"
+                    />
+                  </FormField>
+                </div>
+              </div>
+
+              <div className="container-historia-sebo">
+                <FormField label="História (longo)" attribute="historia" editField>
+                  <InputTextarea
+                    style={{ height: 'auto' }}
+                    value={sebo?.historia}
+                    onChange={(e) => setField('historia', e.target.value)}
+                    placeholder="Conte sua história"
+                    rows={5}
+                    cols={30}
+                  />
+                </FormField>
+              </div>
+
+              <div className="container-buttons">
+                <Button label="Excluir Conta" className="button-trash" onClick={() => setVisible(true)} />
+                {visible && (
+                  <DialogModal
+                    visibleDialog={visible}
+                    setVisibleDialog={setVisible}
+                    onClickDelete={deleteContaSebo}
+                  ></DialogModal>
+                )}
+                <Button label="Salvar" className="button-save" type="submit" onClick={() => finalizeUpdate()} />
+              </div>
+            </div>
+          </div>
+        )}
       </TemplatePage>
     </div>
   );
 };
 
 export default ProfileSeboForm;
-

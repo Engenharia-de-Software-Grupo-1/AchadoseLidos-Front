@@ -1,4 +1,3 @@
-import { Foto } from '../Foto';
 import { Sebo } from '../Sebo';
 import { CategoriaProduto, EstadoConservacaoProduto, StatusProduto } from 'constants/ProdutoConstants';
 

@@ -1,12 +1,10 @@
-import { useRegisterSebo } from '@stores/register/sebo/store';
+import { useRegisterSebo } from '@stores/register/sebo/registerStore';
 import { useEffect } from 'react';
 
-export const useLoadCities = (uf: string) => {
+export const useLoadCities = () => {
   const { loadCitiesByState } = useRegisterSebo();
 
   useEffect(() => {
-    if (uf) {
-      loadCitiesByState(uf);
-    }
-  }, [uf, loadCitiesByState]);
+      loadCitiesByState();
+  }, [loadCitiesByState]);
 };

@@ -28,13 +28,13 @@ export default function Gallery({ position, photos }: GalleryProps) {
       }));
   };
 
-  const itemTemplate = (item: any) => {
-    return <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%', display: 'block' }} />;
-  };
+  const itemTemplate = (item: any) => (
+    <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%', display: 'block' }} />
+  );
 
-  const thumbnailTemplate = (item: any) => {
-    return <img src={item.thumbnailImageSrc} alt={item.alt} style={{ display: 'block' }} />;
-  };
+  const thumbnailTemplate = (item: any) => (
+    <img src={item.thumbnailImageSrc} alt={item.alt} style={{ display: 'block' }} />
+  );
 
   return (
     <div className={`card-galleria ${position}`}>
