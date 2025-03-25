@@ -167,6 +167,13 @@
   align-self: stretch;
 }
 
+.checkbox-adress {
+  width: fit-content;
+  display: inline;
+  margin-top: 6px;
+  align-self: flex-end;
+}
+
 .button-save,
 .button-trash {
   display: flex;

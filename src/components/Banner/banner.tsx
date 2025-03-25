@@ -2,23 +2,27 @@ import { Carousel } from 'primereact/carousel';
 import './style.css';
 
 interface BannerProps {
-  images: string[]
-  showIndicators: boolean
+  images?: string[];
+  showIndicators: boolean;
 }
 
-export default function Banner({ images, showIndicators }: BannerProps) {
+const DEFAULT_BANNER = '/images/banner.jpg';
+
+export default function Banner({ images = [], showIndicators }: BannerProps) {
   const responsiveOptions = [{ breakpoint: '1400px', numVisible: 1, numScroll: 1 }];
 
-  const imageTemplate = (imageUrl: string) => (
+  const imagesToShow = images.length > 0 ? images : [DEFAULT_BANNER];
+
+  const imageTemplate = (image: string) => (
     <div className="carousel-item">
-      <img src={imageUrl} alt="Banner" className="carousel-image" />
+      <img src={ image } alt="Banner" className="carousel-image" />
     </div>
   );
 
   return (
     <div className="carousel-container">
       <Carousel
-        value={images}
+        value={imagesToShow}
         numVisible={1}
         numScroll={1}
         responsiveOptions={responsiveOptions}

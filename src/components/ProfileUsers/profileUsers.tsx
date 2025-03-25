@@ -2,66 +2,74 @@ import { Button } from 'primereact/button';
 import { IconField } from 'primereact/iconfield';
 import { Tag } from 'primereact/tag';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
+import { Sebo } from '@domains/Sebo';
+import { Usuario } from '@domains/Usuario';
 
-// trocar pra trazer o objeto sebo pra renderizar as infos
 interface ProfileProps {
-  imageProfile: string;
-  titleProfile: string;
-  descripProfile: string;
-  isSebo: boolean;
-  authUser: boolean;
+  authUser?: boolean;
+  data?: Sebo | Usuario | null;
+  role: string | undefined;
 }
 
-const Profile = ({ imageProfile, titleProfile, descripProfile, isSebo, authUser }: ProfileProps) => {
+const Profile = ({ authUser, role, data }: ProfileProps) => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="container-profile">
-        <ProfilePhoto imageProfile={imageProfile} />
+        <ProfilePhoto imageProfile={data?.fotoPerfil || ''} />
 
         <div className="profile-description">
           <div className="content-title-profile">
-            <p className="titulo-profile">{titleProfile}</p>
+            <p className="titulo-profile">{data?.nome}</p>
 
-            {isSebo ? (
-              <Link to="/profile/sebo/edit">
-                <Button label="Editar" icon="pi pi-pencil" className="button-edit" />
-              </Link>
+            {role ? (
+              <Button
+                label="Editar"
+                icon="pi pi-pencil"
+                className="button-edit"
+                onClick={() => navigate(`/profile/${role.toLowerCase()}/edit`)}
+              />
             ) : authUser ? (
-              <img src="/images/bell.svg"></img>
+              <i className="pi pi-bell" style={{ fontSize: 'x-large' }} />
             ) : null}
           </div>
 
-          <p className="descrip-profile">{descripProfile}</p>
+          <p className="descrip-profile">{data?.biografia}</p>
 
-          {isSebo ? (
+          {role === 'SEBO' ? (
             <>
               <div className="information-profile">
-                <IconField iconPosition="left">
-                  <i className="pi pi-map-marker mr-2" />
-                  <span className="text-profile">Rua Exemplo de Rua, No 306 - Bairro Tal</span>
-                </IconField>
-
-                <IconField iconPosition="left">
-                  <i className="pi pi-clock mr-2" />
-                  <span className="text-profile">Horário de Funcionamento: Segunda a Sexta, 9h às 18h</span>
-                </IconField>
+                {data?.endereco?.ehPublico && (
+                  <IconField iconPosition="left">
+                    <i className="pi pi-map-marker mr-2" />
+                    <span className="text-profile">{`${data?.endereco?.rua}, No ${data?.endereco?.numero} - ${data?.endereco?.bairro}`}</span>
+                  </IconField>
+                )}
+                {data?.horarioFuncionamento && (
+                  <IconField iconPosition="left">
+                    <i className="pi pi-clock mr-2" />
+                    <span className="text-profile">{`Horário de Funcionamento: ${data?.horarioFuncionamento}`}</span>
+                  </IconField>
+                )}
               </div>
 
               <div className="tags-profile">
-                <Tag className="mr-2 mt-2" icon="pi pi-whatsapp" value="(83)9888-8888"></Tag>
-                <Tag className="mr-2 mt-2" icon="pi pi-book" value="/fulano_detal"></Tag>
-                <Tag className="mr-2 mt-2" icon="pi pi-instagram" value="@fulano_detal"></Tag>
-                <Tag className="mr-2 mt-2" icon="pi pi-facebook" value="@fulano_detal"></Tag>
+                {data?.telefone && <Tag className="mr-2 mt-2" icon="pi pi-whatsapp" value={`${data?.telefone}`} />}
+                {data?.estanteVirtual && (
+                  <Tag className="mr-2 mt-2" icon="pi pi-book" value={`/${data?.estanteVirtual}`} />
+                )}
+                {data?.instagram && <Tag className="mr-2 mt-2" icon="pi pi-instagram" value={`${data?.instagram}`} />}
+                {data?.amazon && <Tag className="mr-2 mt-2" icon="pi pi-amazon" value={`${data?.amazon}`} />}
               </div>
             </>
           ) : (
             <div className="tags-profile-user">
-              <Tag className="mr-2 mt-4" icon="pi pi-whatsapp" value="(83)9888-8888"></Tag>
-              <Tag className="mr-2 mt-4" icon="pi pi-book" value="/fulano_detal"></Tag>
-              <Tag className="mr-2 mt-4" icon="pi pi-instagram" value="@fulano_detal"></Tag>
-              <Tag className="mr-2 mt-4" icon="pi pi-facebook" value="@fulano_detal"></Tag>
+              {data?.goodreads && <Tag className="mr-2 mt-4" icon="pi pi-book" value={data.goodreads} />}
+              {data?.skoob && <Tag className="mr-2 mt-4" icon="pi pi-book" value={data.skoob} />}
+              {data?.instagram && <Tag className="mr-2 mt-4" icon="pi pi-instagram" value={data.instagram} />}
+              {data?.twitter && <Tag className="mr-2 mt-4" icon="pi pi-twitter" value={data.twitter} />}
             </div>
           )}
         </div>

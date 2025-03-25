@@ -1,6 +1,5 @@
 import { Conta } from './Conta';
 import { Endereco } from './Endereco';
-import { Foto } from './Foto';
 
 export interface Sebo {
   id?: number;
@@ -13,11 +12,12 @@ export interface Sebo {
   instagram?: string;
   curadores?: string;
   historia?: string;
-  fotoPerfil?: Foto;
+  fotoPerfil?: string;
   concordaVender: boolean;
   endereco: Endereco;
-  fotos?: Array<Foto>;
+  fotos?: string[];
   mercadoLivre?: string;
   enjoei?: string;
   amazon?: string;
+  horarioFuncionamento?: string,
 }
