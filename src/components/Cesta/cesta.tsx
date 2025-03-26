@@ -112,7 +112,7 @@ const CestaComponent = () => {
                 <div className="accordion-header-collapsed">
                   <div className="header-grid">
                     <div className="store-info">
-                      <span className="font-bold">{store.sebo.nome}</span>
+                      <span className="font-bold highlight">{store.sebo.nome}</span>
                     </div>
                     <div className="name-info"></div>
                     <div className="category-info">Total:</div>

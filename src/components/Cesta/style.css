@@ -134,3 +134,14 @@ tr {
 .disabled-button {
   box-shadow: none;
 }
+
+.highlight {
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-color: var(--Achados-Highlight-Green);
+  text-decoration-thickness: 40%;
+  text-underline-offset: -30%;
+  text-underline-position: from-font;
+}
