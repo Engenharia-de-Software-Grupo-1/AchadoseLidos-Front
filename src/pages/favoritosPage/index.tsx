@@ -14,7 +14,7 @@ const FavoritosPage: React.FC = () => {
             <ALBreadCrumb breadcrumbItems={breadCrumbItems} style={{backgroundColor: 'var(--Achados-OffWhite)'}} />
             <div className="main-favoritos">
                 <h1 className='title-fav'>Favoritos</h1>
-                <div>
+                <div className="component-fav">
                     <FavoritoComponent />
                 </div>
             </div>

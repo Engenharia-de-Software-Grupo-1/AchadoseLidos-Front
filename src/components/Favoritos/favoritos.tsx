@@ -6,6 +6,7 @@ import { Button } from 'primereact/button';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import './style.css';
 import ProductCard from '@components/ProductCard/productCard';
+import { useMockFavorito } from '@hooks/useMockFavoritos';
 
 const FavoritosPage: React.FC = () => {
   const { 
@@ -14,7 +15,7 @@ const FavoritosPage: React.FC = () => {
     deletingIds, 
     fetchFavoritoData, 
     handleRemoverFavorito 
-  } = useFavorito();
+  } = useMockFavorito(); //useFavorito();
 
   useEffect(() => {
     fetchFavoritoData();
@@ -46,41 +47,31 @@ const FavoritosPage: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Meus Favoritos</h1>
+    <div className="contanier-fav">
       
       {favoritos.map((favorito, index) => (
         <ContainerItems 
-          key={favorito.sebo.id} 
-          title={favorito.sebo.nome} 
-          backgroundBege={index % 2 === 0}
-          isFirst={index === 0}
-        >
-          <div className="flex overflow-x-auto space-x-4 pb-4">
-            {favorito.produtos.map((itemFavorito: ProdutoFavorito) => (
-              <div 
-                key={itemFavorito.produto.id} 
-                className="flex-shrink-0 w-48 border rounded-lg p-4 relative"
-              >
+        key={favorito.sebo.id} 
+        title={favorito.sebo.nome} 
+        backgroundBege={index % 2 === 0}
+        isFirst={index === 0}
+      >
+        <div className="carrosel-fav">
+          {favorito.produtos.map((itemFavorito: ProdutoFavorito) => (
+            <div key={itemFavorito.produto.id} className="carrosel-item-fav">
+              <div className="favorite-card-wrapper">
                 <ProductCard
-                    image={itemFavorito.produto.fotos[0]}
-                    name={itemFavorito.produto.nome}
-                    owner={favorito.sebo.nome}
-                    price={itemFavorito.produto.preco}
-                    createdAt = { new Date() }
+                  image={itemFavorito.produto.fotos[0]}
+                  name={itemFavorito.produto.nome}
+                  owner={favorito.sebo.nome}
+                  price={itemFavorito.produto.preco}
+                  createdAt={new Date()}
                 />
-                
-                <button
-                  onClick={() => handleRemoverFavorito(itemFavorito.produto.id)}
-                  disabled={deletingIds.includes(itemFavorito.produto.id)}
-                  className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-600 disabled:opacity-50"
-                >
-                  {deletingIds.includes(itemFavorito.produto.id) ? '...' : '✕'}
-                </button>
               </div>
-            ))}
-          </div>
-        </ContainerItems>
+            </div>
+          ))}
+        </div>
+      </ContainerItems>
       ))}
     </div>
   );
