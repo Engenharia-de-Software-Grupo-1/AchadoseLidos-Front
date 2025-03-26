@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 import { Favorito, ProdutoFavorito } from '@domains/Favoritos';
 import { getFavoritos, adicionarFavorito, removerFavorito } from '@routes/routesFavorito';
 import { useNotification } from '@contexts/notificationContext';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 interface FavoritoContextType {
   favoritos: Favorito[];
@@ -13,6 +14,8 @@ interface FavoritoContextType {
   handleRemoverFavorito: (productId: number) => Promise<void>;
   isProdutoFavoritado: (productId: number) => boolean;
   getFavoritosAgrupados: () => Favorito[];
+  handleSeboClick: (seboId: number) => void;
+  handleProdutoClick: (produtoId: number) => void;
 }
 
 const FavoritoContext = createContext<FavoritoContextType | undefined>(undefined);
@@ -91,6 +94,16 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return favoritos;
   };
 
+  const navigate = useNavigate();
+
+  const handleSeboClick = (seboId: number) => {
+    navigate(`/profile/sebo/${seboId}`);
+  };
+
+  const handleProdutoClick = (produtoId: number) => {
+    navigate(`/product-page/${produtoId}`);
+  };
+
   return (
     <FavoritoContext.Provider value={{
       favoritos,
@@ -101,7 +114,9 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       handleAdicionarFavorito,
       handleRemoverFavorito,
       isProdutoFavoritado,
-      getFavoritosAgrupados
+      getFavoritosAgrupados,
+      handleSeboClick,
+      handleProdutoClick
     }}>
       {children}
     </FavoritoContext.Provider>
