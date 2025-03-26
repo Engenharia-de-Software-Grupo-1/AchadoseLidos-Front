@@ -72,6 +72,7 @@
   display: inline-block; /* Para respeitar white-space: nowrap */
   flex: 0 0 auto;
   width: 200px; /* Define tamanho fixo dos cards */
+  cursor: pointer;
 }
 
 .favorite-card-wrapper {

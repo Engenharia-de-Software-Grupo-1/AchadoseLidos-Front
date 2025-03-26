@@ -82,6 +82,104 @@ export const mockFavoritosData = [
               nome: 'Sebo Mundo das Ideias'
             }
           }
+        },
+        {
+          produto: {
+            id: 204,
+            nome: 'A Revolução dos Bichos - Edição Limitada',
+            preco: 42.75,
+            fotos: [
+              'https://example.com/revolucao-bichos.jpg'
+            ],
+            sebo: {
+              id: 2,
+              nome: 'Sebo Mundo das Ideias'
+            }
+          }
+        },
+        {
+          produto: {
+            id: 205,
+            nome: 'A Revolução dos Bichos - Edição Limitada',
+            preco: 42.75,
+            fotos: [
+              'https://example.com/revolucao-bichos.jpg'
+            ],
+            sebo: {
+              id: 2,
+              nome: 'Sebo Mundo das Ideias'
+            }
+          }
+        },
+        {
+          produto: {
+            id: 206,
+            nome: 'A Revolução dos Bichos - Edição Limitada',
+            preco: 42.75,
+            fotos: [
+              'https://example.com/revolucao-bichos.jpg'
+            ],
+            sebo: {
+              id: 2,
+              nome: 'Sebo Mundo das Ideias'
+            }
+          }
+        },
+        {
+          produto: {
+            id: 207,
+            nome: 'A Revolução dos Bichos - Edição Limitada',
+            preco: 42.75,
+            fotos: [
+              'https://example.com/revolucao-bichos.jpg'
+            ],
+            sebo: {
+              id: 2,
+              nome: 'Sebo Mundo das Ideias'
+            }
+          }
+        },
+        {
+          produto: {
+            id: 208,
+            nome: 'A Revolução dos Bichos - Edição Limitada',
+            preco: 42.75,
+            fotos: [
+              'https://example.com/revolucao-bichos.jpg'
+            ],
+            sebo: {
+              id: 2,
+              nome: 'Sebo Mundo das Ideias'
+            }
+          }
+        },
+        {
+          produto: {
+            id: 209,
+            nome: 'A Revolução dos Bichos - Edição Limitada',
+            preco: 42.75,
+            fotos: [
+              'https://example.com/revolucao-bichos.jpg'
+            ],
+            sebo: {
+              id: 2,
+              nome: 'Sebo Mundo das Ideias'
+            }
+          }
+        },
+        {
+          produto: {
+            id: 209,
+            nome: 'A Revolução dos Bichos - Edição Limitada',
+            preco: 42.75,
+            fotos: [
+              'https://example.com/revolucao-bichos.jpg'
+            ],
+            sebo: {
+              id: 2,
+              nome: 'Sebo Mundo das Ideias'
+            }
+          }
         }
       ]
     },
