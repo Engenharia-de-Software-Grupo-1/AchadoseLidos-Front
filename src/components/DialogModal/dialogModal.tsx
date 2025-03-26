@@ -9,7 +9,7 @@ interface DialogModalProps {
     message: string;
 }
 
-export default function DialogModal({ visibleDialog, setVisibleDialog, onClickDelete, mensage }: DialogModalProps) {
+export default function DialogModal({ visibleDialog, setVisibleDialog, onClickDelete, message }: DialogModalProps) {
     const footerContent = (
         <div>
             <Button label="Cancel" onClick={() => setVisibleDialog(false)} className="p-button-text button-cancel-dialog" />
