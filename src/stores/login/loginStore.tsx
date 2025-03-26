@@ -52,6 +52,7 @@ export const LoginProvider = ({ children }: LoginProviderProps) => {
           showNotification('success', null, 'Login realizado com sucesso!');
           validateAuth();
           navigate('/');
+          window.location.reload();
         }
       } catch (error: any) {
         if (error.response.status === 401) {
