@@ -4,7 +4,7 @@ import { useState } from 'react';
 const useForm = () => {
   const [submitted, setSubmitted] = useState(false);
 
-  const { produto, setField, validate, getRule, setProduct, images, setImages, handleConfirm } = useProdutoForm();
+  const { produto, setField, validate, getRule, setProduct, images, setImages, handleConfirm, errors } = useProdutoForm();
 
   return {
     produto,
@@ -16,7 +16,8 @@ const useForm = () => {
     setProduct,
     images,
     setImages,
-    handleConfirm, 
+    handleConfirm,
+    errors,  
   };
 };
 

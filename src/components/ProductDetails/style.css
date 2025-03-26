@@ -302,7 +302,7 @@
 }
 
 .error-message {
-  color: red;
+  color: red !important;
 }
 
 .field-input-price {
@@ -329,6 +329,11 @@
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--Achados-Black) !important;
+}
+
+.empty-input-error .field-input-stock {
+  border: 1px solid red !important;
+  border-bottom: 1px solid red !important;
 }
 
 .field-input-stock input {

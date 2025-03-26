@@ -84,8 +84,6 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
 
     setNamesImagesProcessed((prev) => {
       const updatedNamesImagesProcessed = prev.filter((image) => image.name !== file.name);
-
-      // Atualiza a galeria garantindo que um novo array é passado
       setImage?.(updatedNamesImagesProcessed.map((file) => ({ url: URL.createObjectURL(file) })));
       setField?.('fotos', updatedNamesImagesProcessed);
       return updatedNamesImagesProcessed;
@@ -96,7 +94,13 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
 
   const onTemplateClear = () => {
     setTotalSize(0);
+    setImagens([]);
+    setNamesImagesProcessed([]);
+    setImage?.([]);
+    setField?.('fotos', []);
   };
+
+  console.log('imagens', image);
 
   const headerTemplate = (options: FileUploadHeaderTemplateOptions) => {
     const { className, chooseButton, cancelButton } = options;

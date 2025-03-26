@@ -2,19 +2,19 @@ import { createContext, useContext, ReactNode, useState } from 'react';
 import { Produto } from '@domains/Produto/Produto';
 import { useForm } from '@hooks/useForm';
 import { createProduct, getById, updateProduct } from '@routes/routesProduto';
-import { set } from 'cypress/types/lodash';
 import { useNavigate } from 'react-router-dom';
 import { uploadImage } from '@services/cloudinaryService';
 
 interface ProdutoFormContextType {
   produto: Produto;
   setField: (field: string, value: any) => void;
-  validate: (stepIndex: number) => boolean;
+  validate: () => boolean;
   getRule: (field: string) => {};
   images: { url: string }[] | undefined;
   setProduct: (id: any) => void;
   setImages: (images: { url: string }[]) => void;
   handleConfirm: (isRegister: boolean, id: any) => void;
+  errors: any;
 }
 
 const ProdutoFormContext = createContext<ProdutoFormContextType | null>(null);
@@ -35,7 +35,7 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
     const [images, setImages] = useState<{ url: string }[]>();
     const navigate = useNavigate();
   
-  const { formData, setField, validate, setFormData, showNotification, getRule } = useForm<Produto>({
+  const { formData, setFormData, showNotification, getRule } = useForm<Produto>({
   initialData: {
     nome: '',
     preco: 0,
@@ -51,14 +51,56 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
     updatedAt: new Date(),
     generos: [],
   }, rules: {
-    nomeProduto: [{ rule: 'required' }],
+    nome: [{ rule: 'required' }],
     preco: [{ rule: 'required' }],
     categoria: [{ rule: 'required' }],
     estoque: [{ rule: 'required' }],
+    genero: [{ rule: 'required' }],
     estado: [{ rule: 'required' }],
   }
   });
 
+  const [errors, setErrors] = useState<any>({});
+
+  const validate = (): boolean => {
+    const validationResults = {
+      nome: formData.nome.trim() === '',
+      preco: formData.preco <= 0,
+      categoria: formData.categoria.trim() === '',
+      genero: formData.generos.length === 0,
+      estoque: formData.qtdEstoque <= 0,
+      estado: formData.estadoConservacao.trim() === '',
+    };
+
+    const errors = Object.keys(validationResults).reduce((acc, field) => {
+      if (validationResults[field]) {
+        acc[field] = { error: true, message: `${field} é obrigatório!` };
+      }
+      return acc;
+    }, {});
+
+    setErrors(errors);
+    return !Object.values(errors).some((field) => field.error);
+  };
+
+  const setField = (fieldName: string, value: any) => {
+    setFormData((prev) => ({ ...prev, [fieldName]: value }));
+  
+    setErrors((prevErrors) => {
+      if (prevErrors[fieldName]) {
+        const updatedErrors = { ...prevErrors };
+        
+        // Remove erro caso o campo não esteja mais vazio ou inválido
+        if (Array.isArray(value) ? value.length > 0 : value) {
+          delete updatedErrors[fieldName];
+        }
+    
+        return updatedErrors;
+      }
+      return prevErrors;
+    });
+  };
+  
   const setProduct = async (id: any) => {
       try {
         const product = await getById(id);
@@ -117,7 +159,7 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
   };
   
   return (
-    <ProdutoFormContext.Provider value={{ produto: formData, setField, validate, getRule, images, setProduct, setImages, handleConfirm}}>
+    <ProdutoFormContext.Provider value={{ produto: formData, setField, validate, getRule, images, setProduct, setImages, handleConfirm, errors }}>
       {children}
     </ProdutoFormContext.Provider>
   );

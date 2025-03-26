@@ -10,6 +10,7 @@ import { Button } from 'primereact/button';
 import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/ProdutoConstants';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNotification } from '@contexts/notificationContext';
 
 interface ProdutoFormProps {
   isRegister?: boolean;
@@ -17,8 +18,9 @@ interface ProdutoFormProps {
 
 const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
   const { id } = useParams();
-  const { produto, setField, submitted, setProduct, images, setImages, handleConfirm} = useForm();
+  const { produto, setField, submitted, setProduct, images, setImages, handleConfirm, validate, errors } = useForm();
   const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');
+  const { showNotification } = useNotification();
 
   useEffect(() => {
     if (id) {
@@ -30,6 +32,15 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
     { label: isRegister ? 'Meus Produtos' : 'Meu Produto', url: isRegister ? '/meus-produtos' : `/product/${id}` }, 
     { label: isRegister ? 'Cadastrar Produto': 'Editar Produto', url:  isRegister? '/register/product' :`/product/${id}/edit` },
   ];
+
+  const handleSave = () => {
+    const isValid = validate();
+    if (!isValid) {
+      showNotification('error', 'Erro ao salvar produto', 'Preencha todos os campos obrigatórios!');
+      return;
+    }
+    handleConfirm(isRegister, id);
+  };
   
   return (
     <main className="main-container-edit-product">
@@ -51,7 +62,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                   fieldName={ProdutoFieldNames.nome}
                   fieldValue={produto.nome}
                   setField={setField}
-                  hasSubmissionFailed={submitted} 
+                  hasSubmissionFailed={!!errors.nome} 
                   placeholderText="Nome do Produto"
                 />
 
@@ -61,7 +72,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.preco}
                     fieldValuePrice={produto.preco}
                     setField={setField}
-                    hasSubmissionFailed={submitted} 
+                    hasSubmissionFailed={!!errors.preco} 
                     placeholderText="R$ 0.00"
                     isPrice
                     isShortInput
@@ -72,7 +83,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.estoque}
                     fieldValueStock={produto.qtdEstoque}
                     setField={setField}
-                    hasSubmissionFailed={submitted} 
+                    hasSubmissionFailed={!!errors.estoque} 
                     placeholderText="0"
                     isStock
                     isShortInput
@@ -110,7 +121,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.categoria}
                     fieldValue={produto.categoria}
                     setField={setField}
-                    hasSubmissionFailed={submitted} 
+                    hasSubmissionFailed={!!errors.categoria} 
                     placeholderText="Categoria"
                     isCategory
                     setGenero={setGenero}
@@ -123,7 +134,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.genero}
                     fieldValues={produto.generos}
                     setField={setField}
-                    hasSubmissionFailed={submitted} 
+                    hasSubmissionFailed={!!errors.genero} 
                     placeholderText="Gênero"
                     isGenero
                     isShortInput
@@ -135,7 +146,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.estado}
                     fieldValue={produto.estadoConservacao}
                     setField={setField}
-                    hasSubmissionFailed={submitted} 
+                    hasSubmissionFailed={!!errors.estado} 
                     placeholderText="Estado"
                     isCategory
                     isShortInput
@@ -166,7 +177,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                 />
               </div>
 
-              <Button label="Salvar" className="button-save" onClick={() => handleConfirm(isRegister, id)}/>
+              <Button label="Salvar" className="button-save" onClick={handleSave}/>
             </div>
           </section>
         </section>

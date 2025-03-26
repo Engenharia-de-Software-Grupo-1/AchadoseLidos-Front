@@ -179,7 +179,9 @@ const ProductFormField = ({
           onChange={handleInputDropdownChange}
           options={options}
           placeholder={placeholderText}
-          className="w-full field-input field-input-category"
+          className={classNames('w-full field-input field-input-category', {
+            'empty-input-error': shouldShowError,
+          })}
           checkmark={true}
           highlightOnSelect={false}
         />
@@ -190,7 +192,9 @@ const ProductFormField = ({
           options={optionsGenero}
           placeholder={placeholderText}
           maxSelectedLabels={3}
-          className="w-full md:w-15rem field-input field-input-genero"
+          className={classNames('w-full md:w-15rem field-input field-input-genero', {
+            'empty-input-error': shouldShowError,
+          })}
         />
       ) : (
         <InputText
@@ -203,8 +207,6 @@ const ProductFormField = ({
           placeholder={placeholderText}
         />
       )}
-
-      {shouldShowError && <text className="error-message">Insira o campo acima</text>}
     </div>
   );
 };

@@ -19,26 +19,54 @@ export default function Gallery({ position, photos }: GalleryProps) {
   ]);
 
   const returnImages = (urlImages: { url: string }[]) => {
+    if (!urlImages || urlImages.length === 0) {
+      return [
+        {
+          itemImageSrc: '', // Pode ser um caminho de placeholder, se necessário
+          thumbnailImageSrc: '',
+          alt: 'Nenhuma imagem disponível',
+          empty: true, // Flag para identificar que é um template vazio
+        },
+      ];
+    }
+
     return urlImages
-      .filter((url) => url?.url) // Garante que apenas imagens válidas sejam retornadas
+      .filter((url) => url?.url)
       .map((url) => ({
         itemImageSrc: url.url,
         thumbnailImageSrc: url.url,
-        alt: 'Imagem 1',
+        alt: 'Imagem',
       }));
   };
 
-  const itemTemplate = (item: any) => (
-    item.itemImageSrc && (
-      <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%', display: 'block' }} />
-    )
-  );
+  const emptyTemplate = () => {
+    return (
+      <div className="flex align-items-center flex-column">
+        <i
+          className="pi pi-image mt-3 p-5"
+          style={{
+            fontSize: '5em',
+            borderRadius: '50%',
+            color: 'var(--surface-d)',
+          }}
+        ></i>
+      </div>
+    );
+  };
 
-  const thumbnailTemplate = (item: any) => (
-    item.thumbnailImageSrc && (
-    <img src={item.thumbnailImageSrc} alt={item.alt} style={{ display: 'block' }} />
-    )
-  );
+  const itemTemplate = (item: any) =>
+    item.itemImageSrc ? (
+      <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%', display: 'block' }} />
+    ) : (
+      emptyTemplate()
+    );
+
+  const thumbnailTemplate = (item: any) =>
+    item.thumbnailImageSrc ? (
+      <img src={item.thumbnailImageSrc} alt={item.alt} style={{ display: 'block' }} />
+    ) : (
+      emptyTemplate()
+    );
 
   return (
     <div className={`card-galleria ${position}`}>
