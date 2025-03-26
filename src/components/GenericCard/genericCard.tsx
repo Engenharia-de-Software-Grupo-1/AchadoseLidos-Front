@@ -17,7 +17,7 @@ const GenericCard: React.FC<GenericCardProps> = ({
   description,
   bottomLabel,
   isButtonVisible,
-}) => { 
+}) => {
   return (
     <div className="notebook-card">
       <div className="card-header">
@@ -31,9 +31,11 @@ const GenericCard: React.FC<GenericCardProps> = ({
       <div className="card-content">
         <div className="image-container">
           <img src={imageUrl} alt={title} className="card-image" />
-          <div className="tag-container">
-            <div className="tag">{topLabel}</div>
-          </div>
+          {!isButtonVisible && (
+            <div className="tag-container">
+              <div className="tag">{topLabel}</div>
+            </div>
+          )}
         </div>
         <div className="info-container">
           <div className="text-info">
