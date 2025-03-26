@@ -1,6 +1,6 @@
 .nav-page {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   background-color: var(--Achados-OffWhite);
   display: flex;
   flex-direction: column;
@@ -23,9 +23,10 @@
 
 .nav-content-column {
   display: flex;
-  width: 100%;
+  width: 91%;
   height: 100%;
   flex-direction: column;
+  padding: 0px 0px 0px 16px;
   gap: 32px;
   flex-shrink: 0;
 }
@@ -129,7 +130,7 @@
 .nav-content-center {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   align-self: stretch;
 }
@@ -140,4 +141,29 @@
   align-self: stretch;
   display: flex;
   gap: 10px;
+}
+
+.empty-filter {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding-bottom: 200px;
+  padding-top: 150px;
+  gap: 32px;
+}
+
+.empty-filter-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.empty-filter-text {
+  color: var(--Achados-Black-50);
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  /* font-weight: 500; */
 }

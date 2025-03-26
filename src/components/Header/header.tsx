@@ -20,6 +20,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
   const [menuVisible, setMenuVisible] = useState(false);
   const navigate = useNavigate();
   const { isAuthenticated, conta, handleLogout } = useAuth();
+  const [searchedProduct, setSearchedProduct] = useState('');
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -80,22 +81,6 @@ export default function Header({ simpleHeader }: HeaderProps) {
           { label: 'Cadastrar', icon: 'pi pi-user-plus', command: () => navigate('/register') },
         ];
 
-    const items = [
-      {
-        label: 'Categorias',
-        items: [
-          {
-            label: 'Livros',
-            template: itemRenderer,
-          },
-          {
-            label: 'Discos',
-            template: itemRenderer,
-          },
-        ],
-      },
-    ];
-
     const start = (
       <>
         <Link to="/">
@@ -113,6 +98,12 @@ export default function Header({ simpleHeader }: HeaderProps) {
               placeholder="O que deseja garimpar?"
               type="text"
               style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
+              onChange={(e) => setSearchedProduct(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  navigate(`/navigation?search=${searchedProduct}`);
+                }
+              }}
             />
           </IconField>
         </div>
@@ -143,7 +134,6 @@ export default function Header({ simpleHeader }: HeaderProps) {
 
     content = (
       <Menubar
-        model={items}
         start={start}
         end={end}
         style={{ background: '#2F292A', border: 'none', borderRadius: '0%' }}

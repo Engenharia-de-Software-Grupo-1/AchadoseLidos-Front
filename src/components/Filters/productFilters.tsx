@@ -20,7 +20,7 @@ const ProductFilters: React.FC<ProductFilters> = ({ filters }) => {
     <div className="nav-filter-column">
       <div className="nav-filter-column-header">
         <span className="nav-filter-column-header-text">Filtros</span>
-        <Button className="nav-filter-column-header-button" rounded>
+        <Button className="nav-filter-column-header-button" rounded onClick={() => ('Aplicar')}>
           Aplicar {'>'}
         </Button>
       </div>

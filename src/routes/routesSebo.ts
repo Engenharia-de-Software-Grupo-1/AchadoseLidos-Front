@@ -1,6 +1,7 @@
 import { GenericCardProps } from '@components/GenericCard/genericCard';
-import { NavigationPageProps } from '@pages/navigation';
+import { Sebo } from '@domains/Sebo';
 import axios from 'axios';
+import { FilterOrders } from 'types/NavigationFilters';
 
 const api = axios.create({
   baseURL: 'http://localhost:3333/api',
@@ -25,8 +26,8 @@ export const getById = async (id: any) => {
   return response.data;
 };
 
-export const getAll = async () => {
-  const response = await api.get('/sebos', {
+export const getAll = async (): Promise<Sebo[]> => {
+  const response = await api.get<Sebo[]>('/sebos', {
     withCredentials: true,
   });
   return response.data;
@@ -46,8 +47,8 @@ export const deleteUser = async (id: any) => {
   return response.data;
 };
 
-export const getAllSebos = async (body: NavigationPageProps) => {
-  const response = await api.get<GenericCardProps[]>('/sebos', {
+export const getAllSebosByFilterAndOrders = async (body: FilterOrders) => {
+  const response = await api.get<Sebo[]>('/sebos', {
     params: body,
   });
   return response.data;

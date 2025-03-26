@@ -10,7 +10,6 @@ import { ErrorProvider } from '@contexts/errorContext';
 import ProductPage from '@pages/product/index';
 import { ProdutoFormProvider } from '@stores/product/formStore';
 import ProductForm from '@pages/product/form';
-import { NavigationPage } from '@pages/navigation/index';
 import LoginPage from '@pages/loginPage';
 import { LoginProvider } from '@stores/login/loginStore';
 import { RecoverRequestProvider } from '@stores/recover/recoverStore';
@@ -19,6 +18,8 @@ import { ResetRequestProvider } from '@stores/recover/resetStore';
 import ResetRequestPage from '@pages/recover/reset';
 import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
+import { ProductNavigationPage } from '@pages/navigation/productNavigationPage';
+import { SeboNavigationPage } from '@pages/navigation/seboNavigationPage';
 
 const App = () => {
   return (
@@ -86,42 +87,35 @@ const App = () => {
                 }
               />
               <Route
-                path="/navigation"
+                path="/navigation/products"
                 element={
-                  <NavigationPage
+                  <ProductNavigationPage
                     filters={[]}
                     orders={[
                       { field: 'name', order: 'ASC' },
                       { field: 'price', order: 'ASC' },
                       { field: 'createdAt', order: 'DESC' },
                     ]}
-                    cardType='productCard'
                     meusProdutos={false}
                   />
                 }
               />
+
               <Route
                 path="/navigation/sebos"
-                element={
-                  <NavigationPage
-                    filters={[]}
-                    orders={[{ field: 'name', order: 'ASC' }]}
-                    cardType='seboCard'
-                    meusProdutos={false}
-                  />
-                }
+                element={<SeboNavigationPage filters={[]} orders={[{ field: 'name', order: 'ASC' }]} />}
               />
+
               <Route
-                path="/meus-produtos"
+                path="/navigation/meus-produtos"
                 element={
-                  <NavigationPage
+                  <ProductNavigationPage
                     filters={[]}
                     orders={[
                       { field: 'name', order: 'ASC' },
                       { field: 'price', order: 'ASC' },
                       { field: 'createdAt', order: 'DESC' },
                     ]}
-                    cardType='productCard'
                     meusProdutos={true}
                   />
                 }
