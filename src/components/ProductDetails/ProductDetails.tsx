@@ -74,7 +74,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                   setVisibleDialog={setVisible}
                   visibleDialog={visible}
                   onClickDelete={handleDeleteProduct}
-                  mensage='Você tem certeza que deseja excluir? Todos os dados deste produto serão apagados.'
+                  message='Você tem certeza que deseja excluir? Todos os dados deste produto serão apagados.'
                 />
               )}
               <Link to={`/product/${id}/edit`}>

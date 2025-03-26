@@ -10,7 +10,7 @@ import { Button } from 'primereact/button';
 import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/ProdutoConstants';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useNotification } from '@contexts/notificationContext';
+import { useErrorContext } from '@contexts/errorContext';
 
 interface ProdutoFormProps {
   isRegister?: boolean;
@@ -18,9 +18,9 @@ interface ProdutoFormProps {
 
 const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
   const { id } = useParams();
-  const { produto, setField, submitted, setProduct, images, setImages, handleConfirm, validate, errors } = useForm();
+  const { produto, setField, submitted, setProduct, images, setImages, handleSave } = useForm();
   const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');
-  const { showNotification } = useNotification();
+  const { errors } = useErrorContext();
 
   useEffect(() => {
     if (id) {
@@ -32,15 +32,6 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
     { label: isRegister ? 'Meus Produtos' : 'Meu Produto', url: isRegister ? '/meus-produtos' : `/product/${id}` }, 
     { label: isRegister ? 'Cadastrar Produto': 'Editar Produto', url:  isRegister? '/register/product' :`/product/${id}/edit` },
   ];
-
-  const handleSave = () => {
-    const isValid = validate();
-    if (!isValid) {
-      showNotification('error', 'Erro ao salvar produto', 'Preencha todos os campos obrigatórios!');
-      return;
-    }
-    handleConfirm(isRegister, id);
-  };
   
   return (
     <main className="main-container-edit-product">
@@ -62,7 +53,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                   fieldName={ProdutoFieldNames.nome}
                   fieldValue={produto.nome}
                   setField={setField}
-                  hasSubmissionFailed={!!errors.nome} 
+                  hasSubmissionFailed={errors?.nome?.error ? errors.nome.error : false} 
                   placeholderText="Nome do Produto"
                 />
 
@@ -72,7 +63,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.preco}
                     fieldValuePrice={produto.preco}
                     setField={setField}
-                    hasSubmissionFailed={!!errors.preco} 
+                    hasSubmissionFailed={errors?.preco?.error ? errors.preco.error : false} 
                     placeholderText="R$ 0.00"
                     isPrice
                     isShortInput
@@ -80,10 +71,10 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
 
                   <ProductFormField
                     labelText="Estoque"
-                    fieldName={ProdutoFieldNames.estoque}
+                    fieldName={ProdutoFieldNames.qtdEstoque}
                     fieldValueStock={produto.qtdEstoque}
                     setField={setField}
-                    hasSubmissionFailed={!!errors.estoque} 
+                    hasSubmissionFailed={errors?.qtdEstoque?.error ? errors.qtdEstoque.error : false} 
                     placeholderText="0"
                     isStock
                     isShortInput
@@ -92,7 +83,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
 
                 <div className="content-price-form">
                   <ProductFormField
-                    labelText="Ano-Edição"
+                    labelText="Ano Edição"
                     fieldName={ProdutoFieldNames.anoEdicao}
                     fieldValueNumber={produto.anoEdicao}
                     setField={setField}
@@ -103,7 +94,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                   />
 
                   <ProductFormField
-                    labelText="Ano-Lançamento"
+                    labelText="Ano Lançamento"
                     fieldName={ProdutoFieldNames.anoLancamento}
                     fieldValueNumber={produto.anoLancamento}
                     setField={setField}
@@ -121,7 +112,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.categoria}
                     fieldValue={produto.categoria}
                     setField={setField}
-                    hasSubmissionFailed={!!errors.categoria} 
+                    hasSubmissionFailed={errors?.categoria?.error ? errors.categoria.error : false} 
                     placeholderText="Categoria"
                     isCategory
                     setGenero={setGenero}
@@ -134,7 +125,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.genero}
                     fieldValues={produto.generos}
                     setField={setField}
-                    hasSubmissionFailed={!!errors.genero} 
+                    hasSubmissionFailed={errors?.generos?.error ? errors.generos.error : false} 
                     placeholderText="Gênero"
                     isGenero
                     isShortInput
@@ -143,10 +134,10 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
 
                   <ProductFormField
                     labelText="Estado"
-                    fieldName={ProdutoFieldNames.estado}
+                    fieldName={ProdutoFieldNames.estadoConservacao}
                     fieldValue={produto.estadoConservacao}
                     setField={setField}
-                    hasSubmissionFailed={!!errors.estado} 
+                    hasSubmissionFailed={errors?.estadoConservacao?.error ? errors.estadoConservacao.error : false} 
                     placeholderText="Estado"
                     isCategory
                     isShortInput
@@ -177,7 +168,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                 />
               </div>
 
-              <Button label="Salvar" className="button-save" onClick={handleSave}/>
+              <Button label="Salvar" className="button-save" onClick={() => handleSave(isRegister, id)}/>
             </div>
           </section>
         </section>

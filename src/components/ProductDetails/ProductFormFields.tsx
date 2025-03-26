@@ -9,6 +9,7 @@ import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { GeneroProduto } from 'constants/ProdutoConstants';
 import { useEffect, useState } from 'react';
 import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
+import { InputTextarea } from 'primereact/inputtextarea';
 
 type ProductFormFieldProps = {
   hasSubmissionFailed: boolean;
@@ -67,15 +68,7 @@ const ProductFormField = ({
     setField(fieldName, e.target.value);
   };
 
-  const handlePriceChange = (e: InputNumberValueChangeEvent) => {
-    setField(fieldName, e.value ? e.value : 0);
-  };
-
-  const handleStockChange = (e: InputNumberValueChangeEvent) => {
-    setField(fieldName, e.value ? e.value : 0);
-  };
-
-  const handleNumberChange = (e: InputNumberChangeEvent) => {
+  const handleNumberChange = (e: InputNumberValueChangeEvent | InputNumberChangeEvent) => {
     setField(fieldName, e.value ? e.value : 0);
   };
 
@@ -120,7 +113,7 @@ const ProductFormField = ({
       </div>
 
       {isTextArea ? (
-        <textarea
+        <InputTextarea
           className={classNames('text-area', {
             'taxt-area-short': isTextArea,
           })}
@@ -139,7 +132,7 @@ const ProductFormField = ({
           variant="filled"
           style={{ width: '230px' }}
           value={fieldValuePrice}
-          onValueChange={handlePriceChange}
+          onValueChange={handleNumberChange}
           mode="decimal"
           minFractionDigits={2}
         />
@@ -154,7 +147,7 @@ const ProductFormField = ({
           })}
           style={{ width: '230px' }}
           value={fieldValueStock}
-          onValueChange={handleStockChange}
+          onValueChange={handleNumberChange}
           mode="decimal"
           showButtons
           min={0}

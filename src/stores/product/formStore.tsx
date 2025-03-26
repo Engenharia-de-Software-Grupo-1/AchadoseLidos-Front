@@ -3,7 +3,7 @@ import { Produto } from '@domains/Produto/Produto';
 import { useForm } from '@hooks/useForm';
 import { createProduct, getById, updateProduct } from '@routes/routesProduto';
 import { useNavigate } from 'react-router-dom';
-import { uploadImage } from '@services/cloudinaryService';
+import { uploadImagesToCloudinary } from '@services/cloudinaryService';
 
 interface ProdutoFormContextType {
   produto: Produto;
@@ -13,8 +13,9 @@ interface ProdutoFormContextType {
   images: { url: string }[] | undefined;
   setProduct: (id: any) => void;
   setImages: (images: { url: string }[]) => void;
-  handleConfirm: (isRegister: boolean, id: any) => void;
-  errors: any;
+  handleSave: (isRegister: boolean, id: any) => void;
+  submitted: boolean;
+  setSubmitted: (submitted: boolean) => void;
 }
 
 const ProdutoFormContext = createContext<ProdutoFormContextType | null>(null);
@@ -33,9 +34,10 @@ interface ProdutoFormProviderProps {
 
 export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
   const [images, setImages] = useState<{ url: string }[]>();
+  const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
 
-  const { formData, setFormData, showNotification, getRule } = useForm<Produto>({
+  const { formData, setFormData, showNotification, getRule, validate, setField } = useForm<Produto>({
     initialData: {
       nome: '',
       preco: 0,
@@ -47,60 +49,18 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
       autores: '',
       descricao: '',
       status: 'ATIVO',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      fotos: [],
       generos: [],
     },
     rules: {
-      nome: [{ rule: 'required' }],
+      nome: [{ rule: 'required' }], 
       preco: [{ rule: 'required' }],
       categoria: [{ rule: 'required' }],
-      estoque: [{ rule: 'required' }],
-      genero: [{ rule: 'required' }],
-      estado: [{ rule: 'required' }],
+      qtdEstoque: [{ rule: 'required' }],
+      generos: [{ rule: 'required' }],
+      estadoConservacao: [{ rule: 'required' }],
     },
   });
-
-  const [errors, setErrors] = useState<any>({});
-
-  const validate = (): boolean => {
-    const validationResults = {
-      nome: formData.nome.trim() === '',
-      preco: formData.preco <= 0,
-      categoria: formData.categoria.trim() === '',
-      genero: formData.generos.length === 0,
-      estoque: formData.qtdEstoque <= 0,
-      estado: formData.estadoConservacao.trim() === '',
-    };
-
-    const errors = Object.keys(validationResults).reduce((acc, field) => {
-      if (validationResults[field]) {
-        acc[field] = { error: true, message: `${field} é obrigatório!` };
-      }
-      return acc;
-    }, {});
-
-    setErrors(errors);
-    return !Object.values(errors).some((field) => field.error);
-  };
-
-  const setField = (fieldName: string, value: any) => {
-    setFormData((prev) => ({ ...prev, [fieldName]: value }));
-
-    setErrors((prevErrors) => {
-      if (prevErrors[fieldName]) {
-        const updatedErrors = { ...prevErrors };
-
-        // Remove erro caso o campo não esteja mais vazio ou inválido
-        if (Array.isArray(value) ? value.length > 0 : value) {
-          delete updatedErrors[fieldName];
-        }
-
-        return updatedErrors;
-      }
-      return prevErrors;
-    });
-  };
 
   const setProduct = async (id: any) => {
     try {
@@ -119,11 +79,14 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
 
   const handleConfirm = async (isRegister: boolean, id: any) => {
     try {
-      // @ts-ignore
-      const uploadedImages = await uploadImages(formData.fotos || []);
+      const newImages = formData.fotos ? formData.fotos.filter((foto: any) => !foto.url) : [];
+      let formattedImages = formData.fotos; 
 
-      const formattedImages = uploadedImages.map((url) => ({ url }));
-
+      if (newImages.length > 0) {
+        //@ts-ignore
+        const uploadedImages = await uploadImagesToCloudinary(newImages);
+        formattedImages = uploadedImages.map((url: string) => ({ url }));
+      }
       formData.fotos = formattedImages;
 
       if (!isRegister) {
@@ -141,27 +104,29 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
     }
   };
 
-  const uploadImages = async (files: File[]): Promise<string[]> => {
-    try {
-      const uploadedUrls: string[] = [];
-
-      for (const file of files) {
-        const uploadedUrl = await uploadImage(file);
-        if (uploadedUrl) {
-          uploadedUrls.push(uploadedUrl);
-        }
-      }
-
-      return uploadedUrls;
-    } catch (error) {
-      console.error('Erro ao fazer upload de imagens', error);
-      return [];
+  const handleSave = (isRegister: boolean, id: any) => {
+    const isValid = validate();
+    if (!isValid) {
+      showNotification('error', 'Erro ao salvar produto', 'Preencha todos os campos obrigatórios!');
+      return;
     }
+    handleConfirm(isRegister, id);
   };
 
   return (
     <ProdutoFormContext.Provider
-      value={{ produto: formData, setField, validate, getRule, images, setProduct, setImages, handleConfirm, errors }}
+      value={{
+        produto: formData,
+        setField,
+        validate,
+        getRule,
+        images,
+        setProduct,
+        setImages,
+        handleSave,
+        submitted,
+        setSubmitted,
+      }}
     >
       {children}
     </ProdutoFormContext.Provider>

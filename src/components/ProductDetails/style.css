@@ -222,6 +222,7 @@
   border-radius: 4px;
   padding: 8px;
   height: 100px;
+  width: 100% !important;
   color: var(--Achados-Black);
   background-color: transparent;
   font-family: Poppins;

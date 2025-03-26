@@ -69,7 +69,7 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
 
     setTotalSize(_totalSize);
 
-    setImagens(uploadedFiles); // Substitui todas as imagens antigas pelas novas
+    setImagens(uploadedFiles);
     setImage?.(uploadedFiles.map((file) => ({ url: URL.createObjectURL(file) })));
     setField?.('fotos', uploadedFiles);
   };

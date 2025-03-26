@@ -256,7 +256,7 @@ const ProfileSeboForm = () => {
                     visibleDialog={visible}
                     setVisibleDialog={setVisible}
                     onClickDelete={deleteContaSebo}
-                    mensage='Você tem certeza que deseja excluir sua conta? Todos os seus dados serão apagados.'
+                    message='Você tem certeza que deseja excluir sua conta? Todos os seus dados serão apagados.'
                   ></DialogModal>
                 )}
                 <Button label="Salvar" className="button-save" type="submit" onClick={() => finalizeUpdate()} />

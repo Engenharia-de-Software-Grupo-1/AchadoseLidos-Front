@@ -13,8 +13,8 @@ export interface Produto {
     autores?: string,
     descricao?: string,
     fotos?:  { url: string }[],
-    createdAt: Date,
-    updatedAt: Date,
+    createdAt?: Date,
+    updatedAt?: Date,
     sebo?: Sebo,
     generos:  string[],
 }
