@@ -7,6 +7,9 @@ import ProfileSebo from '@pages/profile/sebo';
 import ProfileSeboForm from '@pages/profile/sebo/form';
 import { ProfileSeboFormProvider } from '@stores/profile/sebo/formStore';
 import { ErrorProvider } from '@contexts/errorContext';
+import ProductPage from '@pages/product/index';
+import { ProdutoFormProvider } from '@stores/product/formStore';
+import ProductForm from '@pages/product/form';
 import LoginPage from '@pages/loginPage';
 import { LoginProvider } from '@stores/login/loginStore';
 import { RecoverRequestProvider } from '@stores/recover/recoverStore';
@@ -49,6 +52,24 @@ const App = () => {
                   </RegisterUserProvider>
                 }
               />
+              <Route path="/product/:id" element={<ProductPage />} />
+              <Route
+                path="/product/:id/edit"
+                element={
+                  <ProdutoFormProvider>
+                    <ProductForm />
+                  </ProdutoFormProvider>
+                }
+              />
+              <Route
+                path="/register/product"
+                element={
+                  <ProdutoFormProvider>
+                    <ProductForm isRegister />
+                  </ProdutoFormProvider>
+                }
+              />
+
               <Route
                 path="/login"
                 element={

@@ -73,6 +73,52 @@
   line-height: normal;
 }
 
+.change-password-button-rose,
+.change-password-button {
+  display: flex;
+  border-color: transparent;
+  border-radius: 4px;
+  justify-content: space-between;
+  background-color: var(--Achados-Black);
+  align-items: center;
+  color: var(--Achados-OffWhite);
+  padding: 8px 12px;
+  width: 30%;
+  max-width: 150px;
+  height: 37px;
+  overflow: hidden;
+}
+
+.change-password-button-rose {
+  background: var(--Achados-OffWhite);
+  color: var(--Achados-Black);
+}
+
+.change-password-button-rose text {
+  color: var(--Achados-Black);
+}
+
+.change-password-button-rose:hover,
+.change-password-button:hover {
+  cursor: pointer;
+}
+
+.change-password-button-rose text,
+.change-password-button text {
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'liga' off, 'clig' off;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.change-password-button-rose div,
+.change-password-button div {
+  flex-shrink: 0;
+}
+
 .error-message {
   color: red;
 }

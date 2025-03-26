@@ -1,0 +1,391 @@
+.container-product-page {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--Achados-OffWhite);
+}
+
+.product-frame {
+  display: flex;
+  padding: 0px 64px;
+  height: 87%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.product-columns-frame {
+  display: flex;
+  padding: 16px 0px;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 16px;
+  background-color: var(--Achados-Lighter-OffWhite);
+  overflow-y: auto;
+}
+
+.product-details-frame {
+  display: flex;
+  padding: 32px 64px;
+  flex-direction: column;
+  align-items: left;
+  gap: 12px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.product-details-frame {
+  display: flex;
+  padding: 32px 64px;
+  flex-direction: column;
+  align-items: left;
+  gap: 12px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.product-title-frame {
+  display: flex;
+  width: 198px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.product-stock {
+  color: rgba(0, 0, 0, 0.5);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0px;
+}
+
+.product-Achados-SubH1 {
+  color: #000;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+
+  font-family: Poppins;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0px;
+}
+
+.product-sebo {
+  color: #000;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 6px;
+}
+
+.product-tags {
+  display: flex;
+  gap: 10px;
+}
+
+.product-actions-frame {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.favorite-button:hover {
+  background-color: var(--Achados-Pink) !important;
+  color: var(--Achados-Red) !important;
+}
+
+.button-cesta {
+  background-color: var(--Achados-Success) !important;
+  border-color: var(--Achados-Success) !important;
+}
+
+.ex-button:hover {
+  background-color: var(--Achados-Red) !important;
+  color: var(--Achados-OffWhite) !important;
+}
+
+.product-ediction-year {
+  color: #000;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.product-ediction-year-span {
+  color: #000;
+
+  /* Bold / Paragraph */
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+}
+
+.product-ediction-year-p {
+  color: #000;
+
+  /* Regular / Paragraph */
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.product-ediction-description {
+  color: #000;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.product-ediction-p {
+  color: #000;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  align-self: stretch;
+  text-align: justify;
+}
+
+.profile-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.address-form-field {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-self: flex-end;
+}
+
+.field-input {
+  border: 1px var(--Achados-Black) solid;
+  border-radius: 4px;
+  background: var(--Achados-White);
+  height: 36px;
+  width: 100%;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+
+.short-input {
+  width: 50%;
+}
+
+.empty-input-error {
+  && {
+    border: 1px solid red;
+  }
+}
+
+.text-area {
+  border: 1px var(--Achados-Black) solid;
+  border-radius: 4px;
+  padding: 8px;
+  height: 100px;
+  width: 100% !important;
+  color: var(--Achados-Black);
+  background-color: transparent;
+  font-family: Poppins;
+  font-size: 14px;
+}
+
+.field-input {
+  font-family: Poppins;
+}
+
+.field-label {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  padding-left: 2px;
+  color: var(--Achados-Black);
+  font-family: Poppins;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.label-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label-icon i {
+  line-height: normal;
+}
+
+.change-password-button-rose,
+.change-password-button {
+  display: flex;
+  border-color: transparent;
+  border-radius: 4px;
+  justify-content: space-between;
+  background-color: var(--Achados-Black);
+  align-items: center;
+  color: var(--Achados-OffWhite);
+  padding: 8px 12px;
+  width: 30%;
+  max-width: 150px;
+  height: 37px;
+  overflow: hidden;
+}
+
+.change-password-button-rose {
+  background: var(--Achados-OffWhite);
+  color: var(--Achados-Black);
+}
+
+.change-password-button-rose text {
+  color: var(--Achados-Black);
+}
+
+.change-password-button-rose:hover,
+.change-password-button:hover {
+  cursor: pointer;
+}
+
+.change-password-button-rose text,
+.change-password-button text {
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.change-password-button-rose div,
+.change-password-button div {
+  flex-shrink: 0;
+}
+
+.error-message {
+  color: red !important;
+}
+
+.field-input-price {
+  display: flex;
+  height: 60px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 0 0;
+  border: none;
+  background: transparent;
+}
+
+.field-input-price input {
+  height: 36px;
+  width: 227px;
+  border: none;
+  box-shadow: none;
+  background-color: transparent !important;
+}
+
+.field-input-stock {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--Achados-Black) !important;
+}
+
+.empty-input-error .field-input-stock {
+  border: 1px solid red !important;
+  border-bottom: 1px solid red !important;
+}
+
+.field-input-stock input {
+  width: 151px;
+  height: 36px;
+  border: none;
+  box-shadow: none;
+  background-color: transparent !important;
+}
+
+.field-input-stock button {
+  background: transparent !important;
+  border: none;
+}
+
+.field-input-stock button svg {
+  color: var(--Achados-Black);
+}
+
+.field-input-year input {
+  height: 36px;
+  width: 227px;
+  border: none;
+  box-shadow: none;
+  border-bottom: 1px solid var(--Achados-Black) !important;
+}
+
+.field-input-year {
+  border: 1px var(--Achados-Black) solid;
+}
+
+.field-input-genero {
+  width: 14.5rem !important;
+  align-items: center;
+  color: var(--Achados-Black) !important;
+}
+
+.field-input-category {
+  width: 14.5rem !important;
+  align-items: center;
+}
+
+.taxt-area-short {
+  background: var(--Achados-White);
+}
+
+.achados-h4 {
+  color: var(--Achados-Black);
+  font-family: Poppins;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

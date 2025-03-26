@@ -13,7 +13,7 @@ import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
 import { useAuth } from '@contexts/authContext';
 
 interface HeaderProps {
-  simpleHeader: boolean
+  simpleHeader: boolean;
 }
 
 export default function Header({ simpleHeader }: HeaderProps) {
