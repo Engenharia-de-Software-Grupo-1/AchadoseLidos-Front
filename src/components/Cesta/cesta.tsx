@@ -52,6 +52,8 @@ const CestaComponent = () => {
           onValueChange={(e) => handleChange(e.value)}
           mode="decimal"
           showButtons
+          tooltip={'A quantidade de produtos adicionáveis é limitada automaticamente pelo estoque.' }
+          tooltipOptions={{ position: 'top' }}
           min={1}
           max={maxQuantity}
           disabled={isUpdating}
