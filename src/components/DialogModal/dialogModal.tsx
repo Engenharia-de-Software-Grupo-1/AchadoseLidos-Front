@@ -23,7 +23,7 @@ export default function DialogModal({ visibleDialog, setVisibleDialog, onClickDe
                 <div className='container-dialog-text'>
                     <i className="pi pi-exclamation-triangle" style={{ color: '#DB9146' }}></i>
                     <p className="m-0 paragraph-modal">
-                        {mensage}
+                        {message}
                     </p>
                 </div>
             </Dialog>
