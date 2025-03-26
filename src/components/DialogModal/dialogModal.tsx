@@ -6,7 +6,7 @@ interface DialogModalProps {
     visibleDialog: boolean;
     setVisibleDialog: (visible: boolean) => void;
     onClickDelete: (sucessCallback?: () => void) => void;
-    mensage: string;
+    message: string;
 }
 
 export default function DialogModal({ visibleDialog, setVisibleDialog, onClickDelete, mensage }: DialogModalProps) {
