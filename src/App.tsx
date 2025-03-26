@@ -75,7 +75,7 @@ const App = () => {
                 }
               />
               <Route
-              path="/profile/cesta"
+              path="/profile/user/cesta"
               element={
                 <CestaProvider>
                   <CestaPage/>
