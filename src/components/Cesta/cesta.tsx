@@ -52,9 +52,9 @@ const CestaComponent = () => {
           onValueChange={(e) => handleChange(e.value)}
           mode="decimal"
           showButtons
-          tooltip={'A quantidade de produtos adicionáveis é limitada automaticamente pelo estoque.' }
+          tooltip={maxQuantity == 0 ? 'Produto fora de estoque.' :'Quantidade limitada pelo estoque.' }
           tooltipOptions={{ position: 'top' }}
-          min={1}
+          min={maxQuantity == 0 ? 0 : 1}
           max={maxQuantity}
           disabled={isUpdating}
           decrementButtonIcon={
@@ -129,86 +129,86 @@ const CestaComponent = () => {
                 dataKey="produto.id"
               >
                 <Column
-                                    header="Imagem"
-                                    body={(rowData: ProdutoCesta) => (
-                                        rowData.produto.fotos?.length > 0 ? (
-                                            <img
-                                                src={rowData.produto.fotos[0]} 
-                                                alt={rowData.produto.nome}
-                                                style={{ width: '6rem', height: 'auto', borderRadius: '4px' }}
-                                            />
-                                        ) : (
-                                            <i className="pi pi-image" style={{ fontSize: '2rem', color: '#ccc' }}></i>
-                                        )
-                                    )}
-                                    style={{ minWidth: '8rem' }}
-                                    align="center" 
-                                />
-                                <Column 
-                                    field="produto.nome" 
-                                    header="Nome" 
-                                    sortable 
-                                    style={{ minWidth: '16rem' }} 
-                                />
-                                <Column 
-                                    field="produto.categoria" 
-                                    header="Categoria" 
-                                    style={{ minWidth: '12rem' }} 
-                                    footer='Total: '
-                                />
-                                <Column
-                                    header="Preço"
-                                    sortable
-                                    style={{ minWidth: '10rem' }}
-                                    body={(rowData: ProdutoCesta) => (
-                                        `R$ ${rowData.produto.preco.toFixed(2)}`
-                                    )}
-                                    footer={() => (
-                                        <div className="font-bold numeric">
-                                        R$ {lineTotal.toFixed(2)}
-                                        </div>
-                                    )}
-                                />
-                                <Column
-                                    header="Quantidade"
-                                    style={{ minWidth: '5rem' }}
-                                    body={(rowData: ProdutoCesta) => 
-                                        quantidadeBodyTemplate(rowData)
-                                    }
-                                    footer={() => (
-                                        <div className="font-bold numeric">{quantityTotal}</div>
-                                    )}
-                                />
-                                <Column
-                                    header="Ações"
-                                    body={(rowData: ProdutoCesta) => (
-                                        <Button
-                                            icon="pi pi-trash"
-                                            className="p-button-rounded p-button-danger p-button-text"
-                                            onClick={() => handleDeleteItem(rowData.produto.id)}
-                                            loading={deletingIds.includes(rowData.produto.id)}
-                                            style={{backgroundColor: 'unset', }}
-                                        />
-                                    )}
-                                    style={{ minWidth: '8rem'}}
-                                    align="center"
-                                    footer={
-                                    <div className={'flex justify-content-end'}>
-                                        <Button 
-                                            className={`${store.sebo.concordaVender ? '' : 'disabled-button' }`}
-                                            label="Confirmar Pedido" 
-                                            style={{
-                                                backgroundColor: store.sebo.concordaVender ? 'var(--Achados-Success)' : 'var(--Achados-Highlight-Green)', 
-                                                border: 'none',
-                                                padding: '0.5rem 1rem',
-                                            }}
-                                            tooltip={store.sebo.concordaVender ? '' : 'Esse sebo não vende produtos via plataforma, pedidos são realizados apenas presencialmente.' }
-                                            tooltipOptions={{ position: 'top' }}
-                                            onClick={() => store.sebo.concordaVender ? handleFinalizarPedido() : showNotification('warn', 'Sebo não faz vendas via plataforma', '')}
-                                        />
-                                    </div>
-                                    }
-                                    />
+                header="Imagem"
+                body={(rowData: ProdutoCesta) => (
+                    rowData.produto.fotos?.length > 0 ? (
+                        <img
+                            src={rowData.produto.fotos[0]} 
+                            alt={rowData.produto.nome}
+                            style={{ width: '6rem', height: 'auto', borderRadius: '4px' }}
+                        />
+                    ) : (
+                        <i className="pi pi-image" style={{ fontSize: '2rem', color: '#ccc' }}></i>
+                    )
+                )}
+                style={{ minWidth: '8rem' }}
+                align="center" 
+            />
+            <Column 
+                field="produto.nome" 
+                header="Nome" 
+                sortable 
+                style={{ minWidth: '16rem' }} 
+            />
+            <Column 
+                field="produto.categoria" 
+                header="Categoria" 
+                style={{ minWidth: '12rem' }} 
+                footer='Total: '
+            />
+            <Column
+                header="Preço"
+                sortable
+                style={{ minWidth: '10rem' }}
+                body={(rowData: ProdutoCesta) => (
+                    `R$ ${rowData.produto.preco.toFixed(2)}`
+                )}
+                footer={() => (
+                    <div className="font-bold numeric">
+                    R$ {lineTotal.toFixed(2)}
+                    </div>
+                )}
+            />
+            <Column
+                header="Quantidade"
+                style={{ minWidth: '5rem' }}
+                body={(rowData: ProdutoCesta) => 
+                    quantidadeBodyTemplate(rowData)
+                }
+                footer={() => (
+                    <div className="font-bold numeric">{quantityTotal}</div>
+                )}
+            />
+            <Column
+                header="Ações"
+                body={(rowData: ProdutoCesta) => (
+                    <Button
+                        icon="pi pi-trash"
+                        className="p-button-rounded p-button-danger p-button-text"
+                        onClick={() => handleDeleteItem(rowData.produto.id)}
+                        loading={deletingIds.includes(rowData.produto.id)}
+                        style={{backgroundColor: 'unset', }}
+                    />
+                )}
+                style={{ minWidth: '8rem'}}
+                align="center"
+                footer={
+                <div className={'flex justify-content-end'}>
+                    <Button 
+                        className={`${store.sebo.concordaVender ? '' : 'disabled-button' }`}
+                        label="Confirmar Pedido" 
+                        style={{
+                            backgroundColor: store.sebo.concordaVender ? 'var(--Achados-Success)' : 'var(--Achados-Highlight-Green)', 
+                            border: 'none',
+                            padding: '0.5rem 1rem',
+                        }}
+                        tooltip={store.sebo.concordaVender ? '' : 'Esse sebo não vende produtos via plataforma, pedidos são realizados apenas presencialmente.' }
+                        tooltipOptions={{ position: 'top' }}
+                        onClick={() => store.sebo.concordaVender ? handleFinalizarPedido() : showNotification('warn', 'Sebo não faz vendas via plataforma', '')}
+                    />
+                </div>
+                }
+                />
               </DataTable>
             </AccordionTab>
           );
