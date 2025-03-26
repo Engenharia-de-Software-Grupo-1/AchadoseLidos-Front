@@ -13,7 +13,7 @@ import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
 import { useAuth } from '@contexts/authContext';
 
 interface HeaderProps {
-  simpleHeader: boolean
+  simpleHeader: boolean;
 }
 
 export default function Header({ simpleHeader }: HeaderProps) {
@@ -60,7 +60,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           ...(conta?.tipo === 'SEBO'
             ? [{ label: 'Meus Produtos', icon: 'pi pi-box' }]
             : [
-                { label: 'Cesta', icon: 'pi pi-shopping-bag' },
+                { label: 'Cesta', icon: 'pi pi-shopping-bag', command: () => navigate('/profile/user/cesta') },
                 { label: 'Favoritos', icon: 'pi pi-heart', command: () => navigate('/profile/user/favoritos') },
               ]),
 

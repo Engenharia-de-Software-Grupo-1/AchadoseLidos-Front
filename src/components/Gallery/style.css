@@ -19,3 +19,14 @@
 .p-link {
   background-color: transparent;
 }
+
+.product-card-galleria {
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
