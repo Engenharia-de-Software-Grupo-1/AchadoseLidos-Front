@@ -195,16 +195,16 @@ const CestaComponent = () => {
                 footer={
                 <div className={'flex justify-content-end'}>
                     <Button 
-                        className={`${store.sebo.concordaVender ? '' : 'disabled-button' }`}
+                        className={`${(store.sebo.concordaVender && quantityTotal > 0) ? '' : 'disabled-button' }`}
                         label="Confirmar Pedido" 
                         style={{
-                            backgroundColor: store.sebo.concordaVender ? 'var(--Achados-Success)' : 'var(--Achados-Highlight-Green)', 
+                            backgroundColor: (store.sebo.concordaVender && quantityTotal > 0) ? 'var(--Achados-Success)' : 'var(--Achados-Highlight-Green)', 
                             border: 'none',
                             padding: '0.5rem 1rem',
                         }}
                         tooltip={store.sebo.concordaVender ? '' : 'Esse sebo não vende produtos via plataforma, pedidos são realizados apenas presencialmente.' }
                         tooltipOptions={{ position: 'top' }}
-                        onClick={() => store.sebo.concordaVender ? handleFinalizarPedido() : showNotification('warn', 'Sebo não faz vendas via plataforma', '')}
+                        onClick={() => (store.sebo.concordaVender && quantityTotal > 0) ? handleFinalizarPedido() : showNotification('warn', 'Não é possível finalizar este pedido', '')}
                     />
                 </div>
                 }
