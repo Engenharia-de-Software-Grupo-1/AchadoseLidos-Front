@@ -95,7 +95,6 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
     setField?.('fotos', []);
   };
 
-  console.log('imagens', image);
 
   const headerTemplate = (options: FileUploadHeaderTemplateOptions) => {
     const { className, chooseButton, cancelButton } = options;
