@@ -19,6 +19,4 @@ export interface ProdutoCesta {
   };
 }
 
-
-
 export type CestaResponse = Cesta[];
