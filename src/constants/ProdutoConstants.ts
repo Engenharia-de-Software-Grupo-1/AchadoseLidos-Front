@@ -125,7 +125,6 @@ export const GeneroProduto = {
     'Autoajuda',
     'Gastronomia',
     'Religião',
-
     'Rock',
     'MPB',
     'Funk',
