@@ -21,6 +21,8 @@ import ProfileUserForm from '@pages/profile/user/form';
 import { ProfileUserFormProvider } from '@stores/profile/user/formStore';
 import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
+import CestaPage from '@pages/cestaPage';
+import { CestaProvider } from '@stores/cesta/cestaStore';
 
 const App = () => {
   return (
@@ -71,6 +73,15 @@ const App = () => {
                   </ResetRequestProvider>
                 }
               />
+
+              <Route
+              path="/profile/user/cesta"
+              element={
+                <CestaProvider>
+                  <CestaPage/>
+                </CestaProvider>
+              }/>
+              
               <Route path="/profile/user/:id?" element={<ProfileUser />} />
               <Route
                 path="/profile/user/edit"

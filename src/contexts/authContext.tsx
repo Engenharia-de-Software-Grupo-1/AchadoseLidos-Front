@@ -11,6 +11,7 @@ type AuthContextType = {
   auth_logout: () => void;
   validateAuth: () => Promise<void>;
   handleLogout: () => Promise<void>;
+  authChecked: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -20,15 +21,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [conta, setConta] = useState<Conta | null>(null);
   const { showNotification } = useNotification();
   const navigate = useNavigate();
+  const [authChecked, setAuthChecked] = useState(false);
 
   const auth_login = useCallback((conta: Conta) => {
     setIsAuthenticated(true);
     setConta(conta);
+    localStorage.setItem('auth', JSON.stringify(conta));
   }, []);
 
   const auth_logout = useCallback(() => {
     setIsAuthenticated(false);
     setConta(null);
+    localStorage.removeItem('auth');
+
   }, []);
 
   const handleLogout = useCallback(async () => {
@@ -50,24 +55,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const validateAuth = useCallback(async () => {
     try {
       const response = await perfil();
-      if (response.data.autenticado === true) {
-        setIsAuthenticated(true);
+      if (response.data.autenticado) {
         auth_login(response.data.conta);
       } else {
         auth_logout();
       }
     } catch (err) {
-      console.error('Validation error:', err);
       auth_logout();
+    } finally {
+      setAuthChecked(true);
     }
   }, [auth_login, auth_logout]);
 
   useEffect(() => {
+    const storedAuth = localStorage.getItem('auth');
+    if (storedAuth) {
+      auth_login(JSON.parse(storedAuth));
+    }
     validateAuth();
-  }, [validateAuth]);
+  }, [validateAuth, auth_login]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, conta, auth_login, auth_logout, validateAuth, handleLogout }}>
+    <AuthContext.Provider value={{ isAuthenticated,  conta, auth_login, auth_logout, validateAuth, handleLogout, authChecked }}>
       {children}
     </AuthContext.Provider>
   );
