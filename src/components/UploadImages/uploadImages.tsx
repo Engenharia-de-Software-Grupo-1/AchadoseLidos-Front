@@ -69,14 +69,9 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
 
     setTotalSize(_totalSize);
 
-    setImagens((prev) => {
-      const existingFileNames = new Set(prev.map((file) => file.name));
-      const uniqueFiles = uploadedFiles.filter((file) => !existingFileNames.has(file.name));
-      setImage?.(uniqueFiles.map((file) => ({ url: URL.createObjectURL(file) })));
-      setField?.('fotos', uniqueFiles);
-
-      return [...prev, ...uniqueFiles];
-    });
+    setImagens(uploadedFiles); // Substitui todas as imagens antigas pelas novas
+    setImage?.(uploadedFiles.map((file) => ({ url: URL.createObjectURL(file) })));
+    setField?.('fotos', uploadedFiles);
   };
 
   const onTemplateRemove = (file: File, callback: Function) => {
