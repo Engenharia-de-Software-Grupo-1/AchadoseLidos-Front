@@ -4,38 +4,34 @@ import TemplatePage from '@pages/templatePage';
 import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import SeboFilters from '@components/Filters/seboFilters';
-import { Filters, Orders } from 'types/NavigationFilters';
+import { Sorter } from 'types/NavigationFilters';
 import { getAll, getAllSebosByFilterAndOrders } from 'routes/routesSebo';
 import { Sebo } from '@domains/Sebo';
 import { useSorting } from '@hooks/useSorting';
+import { useSeboFilterStore } from '@stores/filters/seboFilterStore';
 
 interface SeboNavigationPageProps {
-  filters: Filters[];
-  orders: Orders[];
+  sorters: Sorter[];
 }
 
-export const SeboNavigationPage = ({ filters, orders }: SeboNavigationPageProps) => {
+export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
+  const { filters } = useSeboFilterStore();
   const [seboCards, setSeboCards] = useState<GenericCardProps[]>([]);
   const breadcrumbItems = [{ label: 'Sebo', url: '/sebos' }];
-  const { nameIcon, changeOrder } = useSorting(orders);
+  const { nameIcon, changeOrder } = useSorting(sorters);
 
   useEffect(() => {
     getSebos();
-  }, [filters, orders]);
+  }, [filters, sorters]);
 
   const getSebos = async () => {
-    let response;
-    if (filters.length !== 0 && orders.length !== 0) {
-      response = await getAllSebosByFilterAndOrders({ filters, orders: orders });
-    } else {
-      response = await getAll();
-    }
+    const response = await getAll();
     setSeboCards(
       response.map((sebo: Sebo) => ({
         id: sebo.id,
         title: sebo.nome,
         description: sebo.endereco?.bairro || 'Campina Grande',
-        imageUrl: sebo.fotoPerfil || '/public/images/sebo.jpg',
+        imageUrl: sebo.fotoPerfil && sebo.fotoPerfil !== '' ? sebo.fotoPerfil : '/images/sem_foto.png',
         topLabel: sebo.endereco?.bairro || 'Campina Grande',
         isButtonVisible: true,
       }))
@@ -58,7 +54,7 @@ export const SeboNavigationPage = ({ filters, orders }: SeboNavigationPageProps)
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <div className="nav-content-center">
-          <SeboFilters filters={filters} />
+          <SeboFilters />
           <div className="nav-content-column">
             <div className="nav-filter-display">
               <p className="nav-filter-display-text">
@@ -69,13 +65,19 @@ export const SeboNavigationPage = ({ filters, orders }: SeboNavigationPageProps)
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
                   Nome
                 </p>
-                <i className={nameIcon} onClick={() => changeOrder('name')} style={{ cursor: 'pointer' }} />
+                <i className={nameIcon} onClick={() => changeOrder('nome')} style={{ cursor: 'pointer' }} />
               </div>
             </div>
-            {seboCards.length > 0
-              ? seboCards.map((card, index) => <GenericCard key={index} {...card} />)
-              : handleEmptyContent('Nenhum sebo encontrado!')}
-            {seboCards.length > 0 && (
+            {seboCards.length > 0 ? (
+              <div className="nav-content-center-sebo">
+                {seboCards.map((card, index) => (
+                  <GenericCard key={index} {...card} />
+                ))}
+              </div>
+            ) : (
+              handleEmptyContent('Nenhum sebo encontrado!')
+            )}
+            {seboCards.length > 4 && (
               <div className="nav-pagination-footer">
                 1-20 de 200
                 <i className="pi pi-angle-left"></i>

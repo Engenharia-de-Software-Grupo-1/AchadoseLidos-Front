@@ -1,4 +1,3 @@
-import { GenericCardProps } from '@components/GenericCard/genericCard';
 import { Sebo } from '@domains/Sebo';
 import axios from 'axios';
 import { FilterOrders } from 'types/NavigationFilters';

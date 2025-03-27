@@ -23,7 +23,7 @@
 
 .nav-content-column {
   display: flex;
-  width: 91%;
+  width: 70%;
   height: 100%;
   flex-direction: column;
   padding: 0px 0px 0px 16px;
@@ -130,9 +130,18 @@
 .nav-content-center {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
+  /* flex-wrap: nowrap; */
   align-self: stretch;
+  height: 100%;
+}
+
+.nav-content-center-sebo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-self: stretch;
+  height: 100%;
 }
 
 .nav-pagination-footer {

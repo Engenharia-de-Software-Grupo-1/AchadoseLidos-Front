@@ -88,37 +88,17 @@ const App = () => {
               />
               <Route
                 path="/navigation/products"
-                element={
-                  <ProductNavigationPage
-                    filters={[]}
-                    orders={[
-                      { field: 'name', order: 'ASC' },
-                      { field: 'price', order: 'ASC' },
-                      { field: 'createdAt', order: 'DESC' },
-                    ]}
-                    meusProdutos={false}
-                  />
-                }
+                element={<ProductNavigationPage sorters={[{ campo: 'nome', ordem: 'ASC' }]} meusProdutos={false} />}
               />
 
               <Route
                 path="/navigation/sebos"
-                element={<SeboNavigationPage filters={[]} orders={[{ field: 'name', order: 'ASC' }]} />}
+                element={<SeboNavigationPage sorters={[{ campo: 'nome', ordem: 'ASC' }]} />}
               />
 
               <Route
                 path="/navigation/meus-produtos"
-                element={
-                  <ProductNavigationPage
-                    filters={[]}
-                    orders={[
-                      { field: 'name', order: 'ASC' },
-                      { field: 'price', order: 'ASC' },
-                      { field: 'createdAt', order: 'DESC' },
-                    ]}
-                    meusProdutos={true}
-                  />
-                }
+                element={<ProductNavigationPage sorters={[{ campo: 'nome', ordem: 'ASC' }]} meusProdutos={true} />}
               />
             </Routes>
           </AuthProvider>

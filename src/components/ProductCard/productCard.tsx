@@ -1,8 +1,8 @@
 import './style.css';
 
 export interface ProductCardProps {
-  image: string;
   name: string;
+  image: string;
   owner: string;
   price: number;
   createdAt: Date;

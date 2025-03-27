@@ -4,43 +4,49 @@ import TemplatePage from '@pages/templatePage';
 import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProductFilters from '@components/Filters/productFilters';
-import { Filters, Orders } from 'types/NavigationFilters';
-import { getAllProducts, getProductsByFiltersAndOrders, getProductsBySeboId } from 'routes/routesProduto';
+import { Sorter } from 'types/NavigationFilters';
+import { getAllProducts } from 'routes/routesProduto';
 import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useSorting } from '@hooks/useSorting';
+import { useFilterStore } from '@stores/filters/productFilterStore';
 
 interface ProductNavigationPageProps {
-  filters: Filters[];
-  orders: Orders[];
+  sorters: Sorter[];
   meusProdutos?: boolean;
 }
 
-export const ProductNavigationPage = ({ filters, orders, meusProdutos }: ProductNavigationPageProps) => {
+export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigationPageProps) => {
+  const {filters} = useFilterStore();
   const [productCards, setProductCards] = useState<ProductCardProps[]>([]);
   const navigate = useNavigate();
   const { conta } = useAuth();
   const isSebo = conta?.tipo === 'SEBO';
-  const { nameIcon, priceIcon, dateIcon, changeOrder } = useSorting(orders);
+  const { nameIcon, changeOrder } = useSorting(sorters);
   const breadcrumbItems = meusProdutos
     ? [{ label: 'Meus produtos', url: '/meus-produtos' }]
     : [{ label: 'Produtos', url: '/products' }];
 
   useEffect(() => {
+    if (meusProdutos && (conta?.id && isSebo)) {
+      filters.push({ campo: 'seboId', operador: '=', valor: conta?.id.toString() });
+    }
     getProducts();
-  }, [filters, orders]);
+  }, [filters, sorters, nameIcon]);
 
   const getProducts = async () => {
-    let response;
-    if (meusProdutos && isSebo) {
-      response = await getProductsBySeboId(0);
-    } else if (filters.length !== 0 && orders.length !== 0) {
-      response = await getProductsByFiltersAndOrders({ filters, orders: orders });
-    } else {
-      response = await getAllProducts();
-    }
-    setProductCards(response);
+    const response = await getAllProducts({ filters, sorters: sorters });
+    const produtos = response.map((item) => {
+      return {
+        name: item.nome,
+        image: item.fotos && item.fotos.length > 0 ? item.fotos[0] : '/images/sem_foto.png',
+        owner: item.sebo.nome,
+        price: item.preco,
+        createdAt: item.createdAt,
+      };
+    });
+    setProductCards(produtos);
   };
 
   const handleEmptyContent = (message: string) => (
@@ -59,7 +65,7 @@ export const ProductNavigationPage = ({ filters, orders, meusProdutos }: Product
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <div className="nav-content-center">
-          <ProductFilters filters={filters} />
+          <ProductFilters/>
           <div className="nav-content-column">
             <div className="nav-filter-display">
               <p className="nav-filter-display-text">
@@ -70,17 +76,7 @@ export const ProductNavigationPage = ({ filters, orders, meusProdutos }: Product
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
                   Nome
                 </p>
-                <i className={nameIcon} onClick={() => changeOrder('name')} style={{ cursor: 'pointer' }} />
-
-                <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
-                  Preço
-                </p>
-                <i className={priceIcon} onClick={() => changeOrder('price')} style={{ cursor: 'pointer' }} />
-
-                <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
-                  Data de Criação
-                </p>
-                <i className={dateIcon} onClick={() => changeOrder('date')} style={{ cursor: 'pointer' }} />
+                <i className={nameIcon} onClick={() => changeOrder('nome')} style={{ cursor: 'pointer' }} />
               </div>
             </div>
             {isSebo && meusProdutos && (
@@ -93,9 +89,14 @@ export const ProductNavigationPage = ({ filters, orders, meusProdutos }: Product
               </Button>
             )}
             {productCards.length > 0
-              ? productCards.map((card, index) => <ProductCard key={index} {...card} />)
+              ? 
+              <div className="nav-content-center">
+                {productCards.map((card, index) => (
+                  <ProductCard key={index} {...card} />
+                ))}
+              </div>
               : handleEmptyContent('Nenhum produto encontrado!')}
-            {productCards.length > 0 && (
+            {productCards.length > 12 && (
               <div className="nav-pagination-footer">
                 1-20 de 200
                 <i className="pi pi-angle-left"></i>

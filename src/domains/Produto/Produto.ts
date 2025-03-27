@@ -1,4 +1,3 @@
-import { Foto } from '../Foto';
 import { Sebo } from '../Sebo';
 import { CategoriaProduto, EstadoConservacaoProduto, StatusProduto } from 'constants/ProdutoConstants';
 
@@ -13,8 +12,8 @@ export interface Produto {
     anoLancamento?: number,
     autores?: string,
     descricao?: string,
-    fotos?: Foto[],
+    fotos?: string[],
     createdAt: Date,
     updatedAt: Date,
-    sebo?: Sebo,
+    sebo: Sebo,
 }

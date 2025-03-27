@@ -1,15 +1,15 @@
-export interface Filters {
-  field: string;
-  operator: string;
-  value: string;
+export interface Filter {
+  campo: string;
+  operador: string;
+  valor: string | string[] | number;
 }
   
-export interface Orders {
-  field: string;
-  order: string;
+export interface Sorter {
+  campo: string;
+  ordem: string;
 }
 
 export interface FilterOrders {
-  filters: Filters[];
-  orders: Orders[];
+  filters: Filter[];
+  sorters: Sorter[];
 }
