@@ -10,7 +10,7 @@ export const getFavoritos = async () => {
   };
   
 export const adicionarFavorito = async (productId: number) => {
-  return await api.post('/favorito/create', { productId });
+  return await api.post('/favoritos', { produtoId: Number(productId)}, { withCredentials: true });
 };
 
 export const removerFavorito = async (productId: number) => {

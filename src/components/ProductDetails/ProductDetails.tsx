@@ -9,6 +9,7 @@ import { deleteProduct } from '@routes/routesProduto';
 import { useNotification } from '@contexts/notificationContext';
 import DialogModal from '@components/DialogModal/dialogModal';
 import { useState } from 'react';
+import { adicionarFavorito } from '@routes/routesFavorito';
 interface ProdutoDetalhesProps {
   data: Produto;
   id: any;
@@ -27,6 +28,15 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
       navigate('/');
     } catch (error) {
       console.error('Erro ao deletar produto', error);
+    }
+  };
+
+  const addFavorites = async() => {
+    try {
+      await adicionarFavorito(id);
+      showNotification('success', 'Produto adicionado aos favoritos!', '');
+    } catch (error) {
+      console.error('Erro ao adicionar produto aos favoritos', error);
     }
   };
 
@@ -53,7 +63,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
 
           {conta?.tipo === 'USUARIO' && (
             <div className="product-actions-frame">
-              <Button icon="pi pi-heart" rounded severity="danger" aria-label="Favorite" className="favorite-button" />
+              <Button icon="pi pi-heart" rounded severity="danger" aria-label="Favorite" className="favorite-button" onClick={addFavorites} />
               <Button label="Adicionar à cesta" severity="success" className="button-cesta" rounded />
             </div>
           )}
