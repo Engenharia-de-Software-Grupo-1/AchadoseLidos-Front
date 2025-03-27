@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFavorito } from '@stores/favorito/favoritoStore';
 import { Favorito, ProdutoFavorito } from '@domains/Favoritos';
 import ContainerItems from '@components/ContainerItems/containerItems';
@@ -10,25 +10,38 @@ import { useMockFavorito } from '@hooks/useMockFavoritos';
 import { Carousel } from 'primereact/carousel';
 import { useNavigate } from 'react-router-dom';
 import { forInRight } from 'cypress/types/lodash';
+import { getFavoritos } from '@routes/routesFavorito';
 
 const FavoritosPage: React.FC = () => {
+  const [favoritos, setFavoritos] = useState<Favorito[]>([]);
+  const navigate = useNavigate();
   const { 
-    favoritos, 
+   // favoritos, 
     loading, 
     deletingIds, 
     fetchFavoritoData, 
     handleRemoverFavorito 
-  } = useMockFavorito(); //useFavorito();
+  } = useFavorito();
 
   useEffect(() => {
-    fetchFavoritoData();
+    myFavoritos();
   }, []);
 
-  if (loading) {
-    return <div className="flex justify-content-center p-4">
-      <ProgressSpinner />
-    </div>;
-  }
+  const myFavoritos = async() => {
+    try {
+      const favoritos = await getFavoritos();
+      console.log(favoritos);
+      setFavoritos(favoritos);
+    } catch(error) {
+      console.error('Erro ao buscar favoritos', error);
+    }
+  };
+
+  // if (loading) {
+  //   return <div className="flex justify-content-center p-4">
+  //     <ProgressSpinner />
+  //   </div>;
+  // }
 
   if (!favoritos || favoritos.length === 0) {
     return (
@@ -48,7 +61,7 @@ const FavoritosPage: React.FC = () => {
       </div>
     );
   }
-  const navigate = useNavigate();
+ 
 
   const handleSeboClick = (seboId: number) => {
     navigate(`/profile/sebo/${seboId}`);
@@ -67,17 +80,18 @@ const FavoritosPage: React.FC = () => {
           backgroundBege={index % 2 === 0}
           isFirst={index === 0}
         >
+          <div className='carrousel-fav-t'>
           <Carousel
             value={favorito.produtos}
             itemTemplate={(itemFavorito: ProdutoFavorito) => (
-              <div key={itemFavorito.produto.id} className="carrosel-item-fav" onClick={() => handleProductClick(itemFavorito.produto.id)}>
+              <div key={itemFavorito.produto.id} className="carrosel-item-favsssssssssssss" onClick={() => handleProductClick(itemFavorito.produto.id)}>
                 <div className="favorite-card-wrapper">
                   <ProductCard
-                    image={itemFavorito.produto.fotos[0]}
+                    image={itemFavorito.produto.fotos?.[0]}
                     name={itemFavorito.produto.nome}
                     owner={favorito.sebo.nome}
                     price={itemFavorito.produto.preco}
-                    createdAt={new Date()}
+                    backgroundBege
                   />
                 </div>
               </div>
@@ -116,7 +130,9 @@ const FavoritosPage: React.FC = () => {
             showIndicators={false}
 
           />
+          </div>
         </ContainerItems>
+        
       ))}
     </div>
   );

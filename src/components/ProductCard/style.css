@@ -153,12 +153,31 @@
     height: 12px;
     transform: rotate(90deg);
   }
+
+  .furosChild-b {
+    align-self: stretch;
+    position: relative;
+    border-radius: 50%;
+    background-color: var(--Achados-Lighter-OffWhite);
+    height: 12px;
+    transform: rotate(90deg);
+  }
+  
   
   .furosChild-1 {
     align-self: stretch;
     position: relative;
     border-radius: 50%;
     background-color: #f5ecdd;
+    height: 12px;
+    transform: rotate(-90deg);
+  }
+
+  .furosChild-1b {
+    align-self: stretch;
+    position: relative;
+    border-radius: 50%;
+    background-color:var(--Achados-Lighter-OffWhite);
     height: 12px;
     transform: rotate(-90deg);
   }

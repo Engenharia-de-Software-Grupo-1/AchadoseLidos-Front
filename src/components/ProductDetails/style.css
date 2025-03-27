@@ -106,9 +106,25 @@
   align-self: stretch;
 }
 
+.favorite-button-isFavorite {
+  background-color: var(--Achados-Red) !important;
+  color: var(--Achados-Pink) !important;
+}
+
+.favorite-button-isFavorite:hover {
+  background-color: var(--Achados-Red) !important;
+  color: var(--Achados-Pink) !important;
+}
+
+.favorite-button{
+  background-color: var(--Achados-Pink);
+  color: var(--Achados-Red);
+  border: none;
+}
+
 .favorite-button:hover {
-  background-color: var(--Achados-Pink) !important;
-  color: var(--Achados-Red) !important;
+  background-color: var(--Achados-Red) !important;
+  color: var(--Achados-Pink) !important;
 }
 
 .button-cesta {

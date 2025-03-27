@@ -5,11 +5,11 @@ export interface ProductCardProps {
   name: string;
   owner: string;
   price: number;
-  createdAt: Date;
+  backgroundBege?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
-  const { image, name, owner, price } = props;
+  const { image, name, owner, price, backgroundBege } = props;
 
   return (
     <div className="card-container">
@@ -31,32 +31,32 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           </div>
         </div>
       <div className="furos">
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
       </div>
       <div className="furos-1">
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
       </div>
     </div>
   );

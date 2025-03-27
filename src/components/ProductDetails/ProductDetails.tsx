@@ -9,7 +9,8 @@ import { deleteProduct } from '@routes/routesProduto';
 import { useNotification } from '@contexts/notificationContext';
 import DialogModal from '@components/DialogModal/dialogModal';
 import { useState } from 'react';
-import { adicionarFavorito } from '@routes/routesFavorito';
+import { adicionarFavorito, removerFavorito } from '@routes/routesFavorito';
+
 interface ProdutoDetalhesProps {
   data: Produto;
   id: any;
@@ -20,6 +21,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
   const { showNotification } = useNotification();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(true);
 
   const handleDeleteProduct = async () => {
     try {
@@ -31,15 +33,34 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   };
 
-  const addFavorites = async() => {
+  const addFavorites = async () => {
     try {
-      await adicionarFavorito(id);
+      if (conta?.usuario?.id !== undefined) {
+        await adicionarFavorito(id, conta.usuario.id);
+        setIsFavorite(true);
+      } else {
+        console.error('Usuário não possui um ID válido.');
+      }
       showNotification('success', 'Produto adicionado aos favoritos!', '');
     } catch (error) {
       console.error('Erro ao adicionar produto aos favoritos', error);
     }
   };
 
+  const removeFavorites = async () => {
+    try {
+      if (!conta?.usuario?.id) {
+        console.error('Usuário não possui um ID válido.');
+        return;
+      }
+      await removerFavorito(id, conta.usuario.id);
+      setIsFavorite(false);
+      showNotification('success', 'Produto removido dos favoritos!', '');
+    } catch (error) {
+      console.error('Erro ao remover produto dos favoritos', error);
+    }
+  };
+  
   return (
     <main className="product-frame">
       <section className="product-columns-frame">
@@ -50,7 +71,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
         <section className="product-details-frame">
           <span className="achados-h4">{data.nome}</span>
           <p className="product-sebo">
-            {data.sebo?.endereco.bairro ? `${data.sebo.nome} - ${data.sebo.endereco.bairro}` : `${data.sebo?.nome}`}
+            {data.sebo?.endereco?.bairro ? `${data.sebo.nome} - ${data.sebo.endereco.bairro}` : `${data.sebo?.nome}`}
           </p>
 
           <div className="product-tags">
@@ -63,7 +84,30 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
 
           {conta?.tipo === 'USUARIO' && (
             <div className="product-actions-frame">
-              <Button icon="pi pi-heart" rounded severity="danger" aria-label="Favorite" className="favorite-button" onClick={addFavorites} />
+              {isFavorite ? (
+                <>
+                  <Button
+                    icon="pi pi-heart"
+                    rounded
+                    severity="danger"
+                    aria-label="Favorite"
+                    className="favorite-button-isFavorite"
+                    onClick={removeFavorites}
+                  />
+                </>
+              ) : (
+                <>
+                  <Button
+                    icon="pi pi-heart"
+                    rounded
+                    severity="danger"
+                    aria-label="Favorite"
+                    className="favorite-button"
+                    onClick={addFavorites}
+                  />
+                </>
+              )}
+
               <Button label="Adicionar à cesta" severity="success" className="button-cesta" rounded />
             </div>
           )}
@@ -84,7 +128,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                   setVisibleDialog={setVisible}
                   visibleDialog={visible}
                   onClickDelete={handleDeleteProduct}
-                  message='Você tem certeza que deseja excluir? Todos os dados deste produto serão apagados.'
+                  message="Você tem certeza que deseja excluir? Todos os dados deste produto serão apagados."
                 />
               )}
               <Link to={`/product/${id}/edit`}>

@@ -81,3 +81,11 @@
   flex-direction: column;
   
 }
+
+.carrousel-fav-t {
+  width: 100%;
+}
+
+.p-carousel-items-container {
+  width: 0 !important;
+}
