@@ -10,6 +10,7 @@ import { useNotification } from '@contexts/notificationContext';
 import DialogModal from '@components/DialogModal/dialogModal';
 import { useEffect, useState } from 'react';
 import { useFavorito } from '@stores/favorito/favoritoStore';
+import { addProductCesta } from '@routes/routesCesta';
 
 interface ProdutoDetalhesProps {
   data: Produto;
@@ -43,6 +44,15 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
       isFavoriteProduct(id);
     }
   }, [favoritos]);
+
+  const addCesta = async() => {
+    try {
+      await addProductCesta(id);
+      showNotification('success', 'Produto adicionado na cesta com sucesso!', '');
+    } catch (error) {
+      console.error('Erro ao adicionar produto na cesta', error);
+    }
+  };
 
   return (
     <main className="product-frame">
@@ -91,7 +101,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                 </>
               )}
 
-              <Button label="Adicionar à cesta" severity="success" className="button-cesta" rounded />
+              <Button label="Adicionar à cesta" severity="success" className="button-cesta" rounded onClick={addCesta}/>
             </div>
           )}
           {conta?.tipo === 'SEBO' && (
