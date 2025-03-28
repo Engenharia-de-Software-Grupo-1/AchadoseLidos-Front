@@ -44,7 +44,6 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
   const verifyPassword = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
     const passwordFields = ['senha', 'confirmaSenha'];
     passwordFields.forEach((field) => {
-      //@ts-ignore
       if (!sebo.conta[field]) {
         validationResults[field] = { error: true, message: 'Campo obrigatório', rules: [] };
       }
