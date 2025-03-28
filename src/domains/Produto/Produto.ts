@@ -2,6 +2,7 @@ import { Sebo } from '../Sebo';
 import { CategoriaProduto, EstadoConservacaoProduto, StatusProduto } from 'constants/ProdutoConstants';
 
 export interface Produto {
+    id:number,
     nome: string,
     status: keyof typeof StatusProduto,
     preco: number,
@@ -17,4 +18,11 @@ export interface Produto {
     updatedAt?: Date,
     sebo?: Sebo,
     generos:  string[],
+}
+
+export interface ProdutoPedido {
+  produto: Produto;
+  quantidade: number;
+  selected?: boolean;
+  status: number;
 }
