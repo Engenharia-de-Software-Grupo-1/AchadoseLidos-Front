@@ -31,32 +31,14 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           </div>
         </div>
       <div className="furos">
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
-        <div className={backgroundBege ? 'furosChild-b': 'furosChild'} />
+        {[...Array(12)].map((_, i) => (  
+          <div key={i} className={backgroundBege ? 'furosChild-b': 'furosChild'} />  
+        ))}  
       </div>
       <div className="furos-1">
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
-        <div className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />
+        {[...Array(12)].map((_, i) => (  
+          <div key={i} className={backgroundBege ? 'furosChild-1b':'furosChild-1'} />  
+        ))}  
       </div>
     </div>
   );
