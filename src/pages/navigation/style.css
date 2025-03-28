@@ -23,7 +23,7 @@
 
 .nav-content-column {
   display: flex;
-  width: 70%;
+  width: 72%;
   height: 100%;
   flex-direction: column;
   padding: 0px 0px 0px 16px;
@@ -138,6 +138,7 @@
   flex-direction: row;
   align-self: stretch;
   height: 100%;
+  flex-wrap: wrap;
   background: var(--Achados-OffWhite);
 }
 

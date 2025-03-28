@@ -100,8 +100,8 @@ const HomePage = () => {
           <div className="carrousel-sebo">
             <Carousel
               value={sebos}
-              numVisible={3}
-              numScroll={3}
+              numVisible={4}
+              numScroll={4}
               itemTemplate={(sebo: GenericCardProps) => <GenericCard {...sebo} />}
             />
           </div>

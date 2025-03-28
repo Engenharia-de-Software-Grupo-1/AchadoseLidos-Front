@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useSorting } from '@hooks/useSorting';
 import { useProductFilterStore } from '@stores/filters/productFilterStore';
+import { Paginator } from 'primereact/paginator';
 
 interface ProductNavigationPageProps {
   sorters: Sorter[];
@@ -18,15 +19,17 @@ interface ProductNavigationPageProps {
 }
 
 export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigationPageProps) => {
-  const { filters } = useProductFilterStore();
-  const [productCards, setProductCards] = useState<ProductCardProps[]>([]);
-  const navigate = useNavigate();
-  const { conta } = useAuth();
-  const isSebo = conta?.tipo === 'SEBO';
-  const { nameIcon, changeOrder } = useSorting(sorters);
   const breadcrumbItems = meusProdutos
     ? [{ label: 'Meus produtos', url: '/navigation/meus-produtos' }]
     : [{ label: 'Produtos', url: '/navigation/products' }];
+  const navigate = useNavigate();
+  const { nameIcon, changeOrder } = useSorting(sorters);
+  const { filters } = useProductFilterStore();
+  const { conta } = useAuth();
+  const isSebo = conta?.tipo === 'SEBO';
+  const [productCards, setProductCards] = useState<ProductCardProps[]>([]);
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(12);
 
   useEffect(() => {
     getProducts();
@@ -65,7 +68,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
 
   return (
     <div className="nav-page">
-      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
+      <TemplatePage simpleHeader={true} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <div className="nav-content-center">
           <ProductFilters />
@@ -83,7 +86,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
               </div>
             </div>
             {isSebo && meusProdutos && (
-              <div className='nav-pagination-header-button-container'>
+              <div className="nav-pagination-header-button-container">
                 <Button
                   icon="pi pi-plus"
                   className="nav-pagination-header-button"
@@ -94,20 +97,24 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
               </div>
             )}
             {productCards.length > 0 ? (
-              <div className="nav-content-center">
-                {productCards.map((card, index) => (
+              <>
+                <div className="nav-content-center">
+                  {productCards.slice(first, first + rows).map((card, index) => (
                   <ProductCard key={index} {...card} />
-                ))}
-              </div>
+                  ))}
+                </div>
+                <Paginator
+                  first={first}
+                  rows={rows}
+                  totalRecords={productCards.length}
+                  onPageChange={(e) => {
+                    setFirst(e.first);
+                    setRows(e.rows);
+                  }}
+                ></Paginator>
+              </>
             ) : (
               handleEmptyContent('Nenhum produto encontrado!')
-            )}
-            {productCards.length > 12 && (
-              <div className="nav-pagination-footer">
-                1-20 de 200
-                <i className="pi pi-angle-left"></i>
-                <i className="pi pi-angle-right"></i>
-              </div>
             )}
           </div>
         </div>
