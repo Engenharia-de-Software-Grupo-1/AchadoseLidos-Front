@@ -19,6 +19,7 @@
 
 .p-menubar {
   width:100%;
+  justify-content: center;
 }
 
 .simple-header {
@@ -107,4 +108,11 @@
 .p-icon-field.p-icon-field-left {
   display: flex;
   justify-content: center;
+}
+
+@media screen and (max-width: 750px) {
+  .iconGroup > button[aria-label="Favoritos"],
+  .iconGroup > button[aria-label="Cesta"] {
+    display: none !important;
+  }
 }
