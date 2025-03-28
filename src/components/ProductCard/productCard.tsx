@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         <div className="title">
           <div className="product-info-container">
             <p className="nome-item">
-              {name.length > 40 ? `${name.substring(0, 30)}...` : name}
+              {name?.length > 40 ? `${name.substring(0, 30)}...` : name}
             </p>
             <p className="nome-sebo">{owner}</p>
           </div>
@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         <div className="foto">
           <img className="foto-produto" src={image} alt="Imagem do Produto" />
           <div className="price-tag">
-            <div className="money-text">R$ {price.toFixed(2).replace('.', ',')}</div>
+            <div className="money-text">R$ {price?.toFixed(2).replace('.', ',')}</div>
           </div>
         </div>
       <div className="furos">

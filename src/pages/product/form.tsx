@@ -11,16 +11,19 @@ import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'const
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useErrorContext } from '@contexts/errorContext';
+import { useAuth } from '@contexts/authContext';
+import Atention from '@components/Attention';
 
 interface ProdutoFormProps {
   isRegister?: boolean;
 }
 
-const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
+const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
   const { id } = useParams();
   const { produto, setField, submitted, setProduct, images, setImages, handleSave } = useForm();
   const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');
   const { errors } = useErrorContext();
+  const { conta } = useAuth();
 
   useEffect(() => {
     if (id) {
@@ -29,10 +32,13 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
   }, [id]);
 
   const breadcrumbItems = [
-    { label: isRegister ? 'Meus Produtos' : 'Meu Produto', url: isRegister ? '/meus-produtos' : `/product/${id}` }, 
-    { label: isRegister ? 'Cadastrar Produto': 'Editar Produto', url:  isRegister? '/register/product' :`/product/${id}/edit` },
+    { label: isRegister ? 'Meus Produtos' : 'Meu Produto', url: isRegister ? '/meus-produtos' : `/product/${id}` },
+    {
+      label: isRegister ? 'Cadastrar Produto' : 'Editar Produto',
+      url: isRegister ? '/register/product' : `/product/${id}/edit`,
+    },
   ];
-  
+
   return (
     <main className="main-container-edit-product">
       <TemplatePage simpleFooter simpleHeader={false}>
@@ -42,8 +48,8 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
           <section className="content-items-product">
             <div className="conatiner-gallery-upload">
               <span className="span-image-product-name">Imagens do produto *</span>
-              <Gallery photos={images}/>
-              <UploadImages setField={setField} setImage={setImages} image={images}/>
+              <Gallery photos={images} />
+              <UploadImages setField={setField} setImage={setImages} image={images} />
             </div>
 
             <div className="content1-form-edit-product">
@@ -53,7 +59,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                   fieldName={ProdutoFieldNames.nome}
                   fieldValue={produto.nome}
                   setField={setField}
-                  hasSubmissionFailed={errors?.nome?.error ? errors.nome.error : false} 
+                  hasSubmissionFailed={errors?.nome?.error ? errors.nome.error : false}
                   placeholderText="Nome do Produto"
                 />
 
@@ -63,7 +69,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.preco}
                     fieldValuePrice={produto.preco}
                     setField={setField}
-                    hasSubmissionFailed={errors?.preco?.error ? errors.preco.error : false} 
+                    hasSubmissionFailed={errors?.preco?.error ? errors.preco.error : false}
                     placeholderText="R$ 0.00"
                     isPrice
                     isShortInput
@@ -74,7 +80,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.qtdEstoque}
                     fieldValueStock={produto.qtdEstoque}
                     setField={setField}
-                    hasSubmissionFailed={errors?.qtdEstoque?.error ? errors.qtdEstoque.error : false} 
+                    hasSubmissionFailed={errors?.qtdEstoque?.error ? errors.qtdEstoque.error : false}
                     placeholderText="0"
                     isStock
                     isShortInput
@@ -87,7 +93,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.anoEdicao}
                     fieldValueNumber={produto.anoEdicao}
                     setField={setField}
-                    hasSubmissionFailed={submitted} 
+                    hasSubmissionFailed={submitted}
                     placeholderText="0000"
                     isYear
                     isOptional
@@ -98,7 +104,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.anoLancamento}
                     fieldValueNumber={produto.anoLancamento}
                     setField={setField}
-                    hasSubmissionFailed={submitted} 
+                    hasSubmissionFailed={submitted}
                     placeholderText="0000"
                     isYear
                     isShortInput
@@ -112,7 +118,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.categoria}
                     fieldValue={produto.categoria}
                     setField={setField}
-                    hasSubmissionFailed={errors?.categoria?.error ? errors.categoria.error : false} 
+                    hasSubmissionFailed={errors?.categoria?.error ? errors.categoria.error : false}
                     placeholderText="Categoria"
                     isCategory
                     setGenero={setGenero}
@@ -125,7 +131,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.genero}
                     fieldValues={produto.generos}
                     setField={setField}
-                    hasSubmissionFailed={errors?.generos?.error ? errors.generos.error : false} 
+                    hasSubmissionFailed={errors?.generos?.error ? errors.generos.error : false}
                     placeholderText="Gênero"
                     isGenero
                     isShortInput
@@ -137,7 +143,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                     fieldName={ProdutoFieldNames.estadoConservacao}
                     fieldValue={produto.estadoConservacao}
                     setField={setField}
-                    hasSubmissionFailed={errors?.estadoConservacao?.error ? errors.estadoConservacao.error : false} 
+                    hasSubmissionFailed={errors?.estadoConservacao?.error ? errors.estadoConservacao.error : false}
                     placeholderText="Estado"
                     isCategory
                     isShortInput
@@ -150,7 +156,7 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                   fieldName={ProdutoFieldNames.autores}
                   fieldValue={produto.autores}
                   setField={setField}
-                  hasSubmissionFailed={submitted} 
+                  hasSubmissionFailed={submitted}
                   placeholderText="Autor1, Autor2"
                   isTextArea
                   isOptional
@@ -161,14 +167,14 @@ const ProductForm = ({isRegister = false}: ProdutoFormProps) => {
                   fieldName={ProdutoFieldNames.descricao}
                   fieldValue={produto.descricao}
                   setField={setField}
-                  hasSubmissionFailed={submitted} 
+                  hasSubmissionFailed={submitted}
                   placeholderText="Escreva uma descrição do produto"
                   isTextArea
                   isOptional
                 />
+                {conta?.tipo === 'SEBO' && !conta?.sebo?.concordaVender && <Atention />}
               </div>
-
-              <Button label="Salvar" className="button-save" onClick={() => handleSave(isRegister, id)}/>
+              <Button label="Salvar" className="button-save" onClick={() => handleSave(isRegister, id)} />
             </div>
           </section>
         </section>

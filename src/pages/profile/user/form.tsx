@@ -9,10 +9,12 @@ import DialogModal from '@components/DialogModal/dialogModal';
 import { useAuth } from '@contexts/authContext';
 import { Button } from 'primereact/button';
 import { ProfileFormFieldUser } from '@components/FormField/profileFormFieldUser';
+import { useErrorContext } from '@contexts/errorContext';
 
 const ProfileUserForm = () => {
   const { breadcrumbItems, setField, submitted, user, setUser, updateDataUser, deleteAccount } = useFormUser();
   const { conta } = useAuth();
+  const { errors } = useErrorContext();
 
   useEffect(() => {
     setUser();
@@ -26,12 +28,8 @@ const ProfileUserForm = () => {
         <section className="container-profile-user-form-edit">
           <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
 
-          <div className="container-image-form">
-            <ProfilePhoto
-              imageProfile={user.fotoPerfil || ''}
-              canUpload
-              setField={setField}
-            />
+          <div className="container-image-form-user">
+            <ProfilePhoto imageProfile={user.fotoPerfil || ''} canUpload setField={setField} />
 
             <ProfileFormFieldUser
               labelText="Biografia Curta"
@@ -56,7 +54,7 @@ const ProfileUserForm = () => {
                     fieldName={FieldNamesUser.nome}
                     fieldValue={user.nome}
                     setField={setField}
-                    hasSubmissionFailed={submitted}
+                    hasSubmissionFailed={errors.nome?.error ? true : false}
                     placeholderText="Nome Completo *"
                   />
 
@@ -65,7 +63,7 @@ const ProfileUserForm = () => {
                     fieldName={FieldNamesUser.cpf}
                     fieldValue={user.cpf}
                     setField={setField}
-                    hasSubmissionFailed={submitted}
+                    hasSubmissionFailed={errors.cpf?.error ? true : false}
                     placeholderText="CPF *"
                   />
 
@@ -90,11 +88,14 @@ const ProfileUserForm = () => {
                   />
 
                   <Button label="Excluir Conta" className="button-trash" onClick={() => setVisible(true)} />
-                  {visible && 
-                    <DialogModal 
-                    visibleDialog={visible} 
-                    setVisibleDialog={setVisible}
-                    onClickDelete={deleteAccount} />}
+                  {visible && (
+                    <DialogModal
+                      message="Você tem certeza que deseja excluir sua conta? Todos os seus dados serão apagados."
+                      visibleDialog={visible}
+                      setVisibleDialog={setVisible}
+                      onClickDelete={deleteAccount}
+                    />
+                  )}
                 </div>
 
                 <div className="form-user-content2">
@@ -103,7 +104,7 @@ const ProfileUserForm = () => {
                     fieldName={FieldNamesUser.telefone}
                     fieldValue={user.telefone}
                     setField={setField}
-                    hasSubmissionFailed={submitted}
+                    hasSubmissionFailed={errors.telefone?.error ? true : false}
                     placeholderText="Telefone *"
                   />
                   <ProfileFormFieldUser

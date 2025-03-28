@@ -76,7 +76,7 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setFavoritos(prev => 
           prev.map(sebo => ({
             ...sebo,
-            produtos: sebo.produtos.filter(p => p.produto.id !== productId)
+            produtos: sebo.produtos.filter(p => p.id !== productId)
           })).filter(sebo => sebo.produtos.length > 0) 
         );
         await fetchFavoritoData();
@@ -96,7 +96,7 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const isFavoriteProduct = (id: any) => {
     const isFavorited = favoritos.some(favorito =>
       favorito.produtos.some(item =>
-        Number(item.produto.id) === Number(id)  // Acesse o id correto do produto
+        item?.id && Number(item.id) === Number(id)  // Acesse o id correto do produto
       )
     );
     setIsFavorite(isFavorited);
