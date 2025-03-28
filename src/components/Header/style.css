@@ -57,7 +57,7 @@
   justify-content: center;
   width: 100%;
   flex-grow: 1;
-  padding:0 0 0 2rem;
+  padding:0 0 0 1rem;
 }
 
 .search-container .p-inputtext {
