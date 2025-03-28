@@ -9,6 +9,7 @@ import { getAll } from 'routes/routesSebo';
 import { Sebo } from '@domains/Sebo';
 import { useSorting } from '@hooks/useSorting';
 import { useSeboFilterStore } from '@stores/filters/seboFilterStore';
+import { Paginator } from 'primereact/paginator';
 
 interface SeboNavigationPageProps {
   sorters: Sorter[];
@@ -19,6 +20,8 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
   const [seboCards, setSeboCards] = useState<GenericCardProps[]>([]);
   const breadcrumbItems = [{ label: 'Sebos', url: '/navigation/sebos' }];
   const { nameIcon, changeOrder } = useSorting(sorters);
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(4);
 
   useEffect(() => {
     getSebos();
@@ -34,6 +37,7 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
         imageUrl: sebo.fotoPerfil ? sebo.fotoPerfil : '/images/sem_foto.png',
         topLabel: sebo.endereco?.bairro || 'Campina Grande',
         isButtonVisible: true,
+        isOffWhiteFrills: true,
       }))
     );
   };
@@ -51,7 +55,7 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
 
   return (
     <div className="nav-page">
-      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
+      <TemplatePage simpleHeader={true} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <div className="nav-content-center">
           <SeboFilters />
@@ -69,21 +73,25 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
               </div>
             </div>
             {seboCards.length > 0 ? (
-              <div className="nav-content-center-sebo">
-                {seboCards.map((card, index) => (
-                  <GenericCard key={index} {...card} />
-                ))}
-              </div>
+              <>
+                <div className="nav-content-center-sebo">
+                  {seboCards.slice(first, first + rows).map((card, index) => (
+                    <GenericCard key={index} {...card} />
+                  ))}
+                </div>
+                <Paginator
+                  first={first}
+                  rows={rows}
+                  totalRecords={seboCards.length}
+                  onPageChange={(e) => {
+                    setFirst(e.first);
+                    setRows(e.rows);
+                  }}
+                ></Paginator>
+              </>
             ) : (
               handleEmptyContent('Nenhum sebo encontrado!')
             )}
-            {seboCards.length > 2 && (
-              <div className="nav-pagination-footer">
-                1-20 de 200
-                <i className="pi pi-angle-left"></i>
-                <i className="pi pi-angle-right"></i>
-              </div>
-            )}{' '}
           </div>
         </div>
       </TemplatePage>

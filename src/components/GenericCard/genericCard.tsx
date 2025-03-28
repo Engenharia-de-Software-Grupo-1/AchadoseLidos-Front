@@ -1,5 +1,6 @@
 import { Button } from 'primereact/button';
 import './style.css';
+import { useNavigate } from 'react-router-dom';
 
 export interface GenericCardProps {
   imageUrl: string;
@@ -8,6 +9,7 @@ export interface GenericCardProps {
   description: string;
   bottomLabel?: string;
   isButtonVisible: boolean;
+  isOffWhiteFrills?: boolean;
 }
 
 const GenericCard: React.FC<GenericCardProps> = ({
@@ -17,14 +19,21 @@ const GenericCard: React.FC<GenericCardProps> = ({
   description,
   bottomLabel,
   isButtonVisible,
+  isOffWhiteFrills,
 }) => {
+  const navigate = useNavigate();
+  
+  const handleVisitClick = () => {
+    navigate('/profile/sebo');
+  };
+
   return (
     <div className="notebook-card">
       <div className="card-header">
         <div className="header-bg"></div>
         <div className="header-frills">
           {Array.from({ length: 11 }).map((_, index) => (
-            <div key={index} className="frill-circle"></div>
+            <div key={index} className={isOffWhiteFrills ? 'frill-circle' : 'frill-circle-white'}></div>
           ))}
         </div>
       </div>
@@ -44,7 +53,9 @@ const GenericCard: React.FC<GenericCardProps> = ({
           </div>
           <div className="status">
             {isButtonVisible ? (
-              <Button className="visit-button">Visitar</Button>
+              <Button onClick={handleVisitClick} className="visit-button">
+                Visitar
+              </Button>
             ) : (
               <div className="bottom-label">{bottomLabel}</div>
             )}

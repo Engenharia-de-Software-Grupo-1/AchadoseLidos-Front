@@ -4,7 +4,7 @@ import TemplatePage from '@pages/templatePage';
 import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProductFilters from '@components/Filters/productFilters';
-import { Sorter } from 'types/NavigationFilters';
+import { Filter, Sorter } from 'types/NavigationFilters';
 import { getAllProducts } from 'routes/routesProduto';
 import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
@@ -25,21 +25,19 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   const navigate = useNavigate();
   const { nameIcon, changeOrder } = useSorting(sorters);
   const { filters } = useProductFilterStore();
+  const [productCards, setProductCards] = useState<ProductCardProps[]>([]);
+  const [first, setFirst] = useState(0);  
+  const [rows, setRows] = useState(12);
   const { conta } = useAuth();
   const isSebo = conta?.tipo === 'SEBO';
-  const [productCards, setProductCards] = useState<ProductCardProps[]>([]);
-  const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(12);
+  const _ = meusProdutos ? filters : filters.push({ campo: 'seboId', operador: '=', valor: conta?.id || -1 });
 
   useEffect(() => {
-    getProducts();
-  }, [filters, sorters, nameIcon]);
-
-  useEffect(() => {
-    if (meusProdutos && conta?.id && isSebo) {
-      filters.push({ campo: 'seboId', operador: '=', valor: conta?.id.toString() });
+    if (meusProdutos && conta?.id && isSebo) { // corrigir lógica da página meus-produtos
+      filters.push({ campo: 'seboId', operador: '=', valor: conta?.id || -1 });
     }
-  }, [meusProdutos]);
+    getProducts();
+  }, [filters, sorters, nameIcon, meusProdutos]);
 
   const getProducts = async () => {
     const response = await getAllProducts({ filters, sorters: sorters });
@@ -49,7 +47,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
         image: item.fotos && item.fotos.length > 0 ? item.fotos[0] : '/images/sem_foto.png',
         owner: item.sebo.nome,
         price: item.preco,
-        createdAt: item.createdAt,
+        colorFrills: '1',
       };
     });
     setProductCards(produtos);
@@ -100,7 +98,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
               <>
                 <div className="nav-content-center">
                   {productCards.slice(first, first + rows).map((card, index) => (
-                  <ProductCard key={index} {...card} />
+                    <ProductCard key={index} {...card} />
                   ))}
                 </div>
                 <Paginator

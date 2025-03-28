@@ -9,18 +9,19 @@ import { PanelMenu } from 'primereact/panelmenu';
 import 'primeicons/primeicons.css';
 import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
 import { useAuth } from '@contexts/authContext';
+import { useProductFilterStore } from '@stores/filters/productFilterStore';
 
 interface HeaderProps {
   simpleHeader: boolean
 }
 
 export default function Header({ simpleHeader }: HeaderProps) {
-  const [menuVisible, setMenuVisible] = useState(false);
   const navigate = useNavigate();
+  const [menuVisible, setMenuVisible] = useState(false);
   const { isAuthenticated, conta, handleLogout } = useAuth();
   const [searchedProduct, setSearchedProduct] = useState('');
+  const { filters } = useProductFilterStore();
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -35,7 +36,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
   };
 
   const redirectMyProducts = () => {
-    navigate('/meus-produtos');
+    filters.push({ campo: 'seboId', operador: '=', valor: conta?.id ? conta.id.toString() :  '' });
+    navigate('/navigation/meus-produtos');
     window.location.reload();
   };
 

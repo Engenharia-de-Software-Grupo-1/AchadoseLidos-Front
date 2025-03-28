@@ -29,7 +29,7 @@ const HomePage = () => {
             image: item.fotos && item.fotos.length > 0 ? item.fotos[0] : '/images/sem_foto.png',
             owner: item.sebo.nome,
             price: item.preco,
-            createdAt: item.createdAt,
+            colorFrills: '2',
           };
         })
       );
@@ -47,7 +47,7 @@ const HomePage = () => {
             image: item.fotos && item.fotos.length > 0 ? item.fotos[0] : '/images/sem_foto.png',
             owner: item.sebo.nome,
             price: item.preco,
-            createdAt: item.createdAt,
+            colorFrills: '3',
           };
         })
       );
@@ -66,6 +66,7 @@ const HomePage = () => {
           imageUrl: sebo.fotoPerfil ? sebo.fotoPerfil : '/images/sem_foto.png',
           topLabel: sebo.endereco?.bairro || 'Campina Grande',
           isButtonVisible: true,
+          isOffWhiteFrills: false,
         }))
       );
     };
@@ -76,7 +77,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
+    <TemplatePage simpleHeader={true} simpleFooter={false} backgroundFooterDiff={true}>
       <div className="main-context">
         <Banner images={images} showIndicators={true} />
         <div>
@@ -90,8 +91,8 @@ const HomePage = () => {
           <div className="carrousel-product">
             <Carousel
               value={produtos}
-              numVisible={3}
-              numScroll={3}
+              numVisible={11}
+              numScroll={10}
               itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
             />
           </div>
@@ -100,8 +101,8 @@ const HomePage = () => {
           <div className="carrousel-sebo">
             <Carousel
               value={sebos}
-              numVisible={4}
-              numScroll={4}
+              numVisible={6}
+              numScroll={6}
               itemTemplate={(sebo: GenericCardProps) => <GenericCard {...sebo} />}
             />
           </div>
@@ -110,8 +111,8 @@ const HomePage = () => {
           <div className="carrousel-product">
             <Carousel
               value={livros}
-              numVisible={3}
-              numScroll={3}
+              numVisible={11}
+              numScroll={10}
               itemTemplate={(livro: ProductCardProps) => <ProductCard {...livro} />}
             />
           </div>

@@ -37,6 +37,13 @@
   border-radius: 50%;
 }
 
+.frill-circle-white {
+  width: 14px;
+  height: 14px;
+  background: var(--Achados-Lighter-OffWhite);
+  border-radius: 50%;
+}
+
 .card-content {
   display: flex;
   padding: 0px 30px 28px 30px;

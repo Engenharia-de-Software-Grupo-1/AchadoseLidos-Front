@@ -5,11 +5,20 @@ export interface ProductCardProps {
   image: string;
   owner: string;
   price: number;
-  createdAt: Date;
+  colorFrills: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
-  const { image, name, owner, price } = props;
+  const { image, name, owner, price, colorFrills } = props;
+  
+  const getClassName = () => {
+    if (colorFrills == '1') {
+      return ['furosChild', 'furosChild-1'];
+    } else if (colorFrills == '2') {
+      return ['furosChild-loffWhite', 'furosChild-1-loffWhite'];
+    }
+    return ['furosChild-White', 'furosChild-1-White'];
+  };
 
   return (
     <div className="card-container">
@@ -31,32 +40,14 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           </div>
         </div>
       <div className="furos">
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
-        <div className="furosChild" />
+        {Array.from({ length: 12 }).map((_, index) => (
+          <div key={index} className={getClassName()[0]} />
+        ))}
       </div>
       <div className="furos-1">
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
-        <div className="furosChild-1" />
+        {Array.from({ length: 12 }).map((_, index) => (
+          <div key={index} className={getClassName()[1]} />
+        ))}
       </div>
     </div>
   );
