@@ -1,10 +1,10 @@
 .favorito-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60vh; /* Ajuste a altura conforme necessário */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Ajuste a altura conforme necessário */
 }
-  
+
 .empty-favorito {
   text-align: center;
   display: flex;
@@ -51,7 +51,6 @@
 }
 
 .carrosel-fav {
-
   gap: 1rem;
   padding: 1rem 0;
   scroll-behavior: smooth;
@@ -79,13 +78,22 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  
 }
 
 .carrousel-fav-t {
   width: 100%;
+  overflow: hidden;
+  height: 300px;
 }
 
-.p-carousel-items-container {
-  width: 0 !important;
+.carrousel-fav-t .p-carousel-items-container {
+  /* width: 0 !important; */
+  flex: 0 0 auto !important;
+}
+
+.carrousel-fav-t .p-carousel .p-carousel-item {
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: unset !important;
 }

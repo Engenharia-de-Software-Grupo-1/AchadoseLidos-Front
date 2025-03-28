@@ -110,8 +110,9 @@
   .fotoChild {
     width: 161px;
     position: relative;
-    background-color: #d9d9d9;
     height: 157px;
+    object-fit: contain;
+    image-rendering: smooth;
   }
   
   .money-text {
@@ -149,7 +150,7 @@
     align-self: stretch;
     position: relative;
     border-radius: 50%;
-    background-color: #f5ecdd;
+    background-color: #e2e2e2;
     height: 12px;
     transform: rotate(90deg);
   }
@@ -158,7 +159,7 @@
     align-self: stretch;
     position: relative;
     border-radius: 50%;
-    background-color: var(--Achados-Lighter-OffWhite);
+    background-color: #e2e2e2;
     height: 12px;
     transform: rotate(90deg);
   }
@@ -168,7 +169,7 @@
     align-self: stretch;
     position: relative;
     border-radius: 50%;
-    background-color: #f5ecdd;
+    background-color: #e2e2e2;
     height: 12px;
     transform: rotate(-90deg);
   }
@@ -177,7 +178,7 @@
     align-self: stretch;
     position: relative;
     border-radius: 50%;
-    background-color:var(--Achados-Lighter-OffWhite);
+    background-color:#e2e2e2;
     height: 12px;
     transform: rotate(-90deg);
   }
