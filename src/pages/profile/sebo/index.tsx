@@ -11,14 +11,20 @@ import { useAuth } from '@contexts/authContext';
 import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
 import { getAllProducts } from '@routes/routesProduto';
 import { Carousel } from 'primereact/carousel';
+import { useParams } from 'react-router-dom';
 
-const ProfileSebo = ({ id }: { id?: number }) => {
+const ProfileSebo = () => {
   const { sebo, initialize, loading } = useSebo();
+  const { id } = useParams<{ id: string }>();
   const [produtos, setProdutos] = useState<ProductCardProps[]>([]);
   const { conta, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    const seboId = conta?.sebo?.id ?? id;
+    let seboId = conta?.sebo?.id;
+    
+    if (id) {
+      seboId = Number(id);
+    }
 
     if (seboId) {
       initialize(seboId);

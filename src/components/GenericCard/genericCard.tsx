@@ -8,8 +8,9 @@ export interface GenericCardProps {
   title: string;
   description: string;
   bottomLabel?: string;
+  seboId?: number;
   isButtonVisible: boolean;
-  isOffWhiteFrills?: boolean;
+  isOffWhiteFrills: boolean;
 }
 
 const GenericCard: React.FC<GenericCardProps> = ({
@@ -18,13 +19,14 @@ const GenericCard: React.FC<GenericCardProps> = ({
   title,
   description,
   bottomLabel,
+  seboId,
   isButtonVisible,
   isOffWhiteFrills,
 }) => {
   const navigate = useNavigate();
-  
+
   const handleVisitClick = () => {
-    navigate('/profile/sebo');
+    navigate(`/profile/sebo/${seboId?.toString()}`);
   };
 
   return (

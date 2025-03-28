@@ -38,7 +38,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/profile/sebo"
+                path="/profile/sebo/:id?"
                 element={
                   <SeboProvider>
                     <ProfileSebo />

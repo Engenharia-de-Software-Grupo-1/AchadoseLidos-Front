@@ -60,7 +60,7 @@ const HomePage = () => {
       });
       setSebos(
         response.map((sebo: Sebo) => ({
-          id: sebo.id,
+          seboId: sebo.id,
           title: sebo.nome,
           description: sebo.endereco?.bairro || 'Campina Grande',
           imageUrl: sebo.fotoPerfil ? sebo.fotoPerfil : '/images/sem_foto.png',

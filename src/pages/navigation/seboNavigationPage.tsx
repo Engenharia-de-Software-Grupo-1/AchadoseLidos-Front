@@ -36,6 +36,7 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
         description: sebo.endereco?.bairro || 'Campina Grande',
         imageUrl: sebo.fotoPerfil ? sebo.fotoPerfil : '/images/sem_foto.png',
         topLabel: sebo.endereco?.bairro || 'Campina Grande',
+        seboId: sebo.id,
         isButtonVisible: true,
         isOffWhiteFrills: true,
       }))

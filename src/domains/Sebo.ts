@@ -2,7 +2,7 @@ import { Conta } from './Conta';
 import { Endereco } from './Endereco';
 
 export interface Sebo {
-  id?: number;
+  id: number;
   conta: Conta;
   nome: string;
   cpfCnpj: string;
