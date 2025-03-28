@@ -8,8 +8,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { deleteProduct } from '@routes/routesProduto';
 import { useNotification } from '@contexts/notificationContext';
 import DialogModal from '@components/DialogModal/dialogModal';
-import { useState } from 'react';
-import { adicionarFavorito, removerFavorito } from '@routes/routesFavorito';
+import { useEffect, useState } from 'react';
+import { useFavorito } from '@stores/favorito/favoritoStore';
 
 interface ProdutoDetalhesProps {
   data: Produto;
@@ -21,7 +21,8 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
   const { showNotification } = useNotification();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(true);
+  const { isFavorite, isFavoriteProduct, fetchFavoritoData, favoritos, handleAdicionarFavorito, handleRemoverFavorito } =
+    useFavorito();
 
   const handleDeleteProduct = async () => {
     try {
@@ -33,34 +34,16 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   };
 
-  const addFavorites = async () => {
-    try {
-      if (conta?.usuario?.id !== undefined) {
-        await adicionarFavorito(id, conta.usuario.id);
-        setIsFavorite(true);
-      } else {
-        console.error('Usuário não possui um ID válido.');
-      }
-      showNotification('success', 'Produto adicionado aos favoritos!', '');
-    } catch (error) {
-      console.error('Erro ao adicionar produto aos favoritos', error);
-    }
-  };
+  useEffect(() => {
+    fetchFavoritoData();
+  }, []);
 
-  const removeFavorites = async () => {
-    try {
-      if (!conta?.usuario?.id) {
-        console.error('Usuário não possui um ID válido.');
-        return;
-      }
-      await removerFavorito(id, conta.usuario.id);
-      setIsFavorite(false);
-      showNotification('success', 'Produto removido dos favoritos!', '');
-    } catch (error) {
-      console.error('Erro ao remover produto dos favoritos', error);
+  useEffect(() => {
+    if (favoritos.length > 0) {
+      isFavoriteProduct(id);
     }
-  };
-  
+  }, [favoritos]);
+
   return (
     <main className="product-frame">
       <section className="product-columns-frame">
@@ -92,7 +75,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                     severity="danger"
                     aria-label="Favorite"
                     className="favorite-button-isFavorite"
-                    onClick={removeFavorites}
+                    onClick={() => handleRemoverFavorito(id)}
                   />
                 </>
               ) : (
@@ -103,7 +86,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                     severity="danger"
                     aria-label="Favorite"
                     className="favorite-button"
-                    onClick={addFavorites}
+                    onClick={() => handleAdicionarFavorito(id)}
                   />
                 </>
               )}

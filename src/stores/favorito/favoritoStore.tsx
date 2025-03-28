@@ -1,8 +1,12 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Favorito, ProdutoFavorito } from '@domains/Favoritos';
 import { getFavoritos, adicionarFavorito, removerFavorito } from '@routes/routesFavorito';
 import { useNotification } from '@contexts/notificationContext';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { useAuth } from '@contexts/authContext';
+import { set } from 'cypress/types/lodash';
+import { use } from 'chai';
+import { is } from 'cypress/types/bluebird';
 
 interface FavoritoContextType {
   favoritos: Favorito[];
@@ -12,10 +16,11 @@ interface FavoritoContextType {
   fetchFavoritoData: () => Promise<void>;
   handleAdicionarFavorito: (productId: number) => Promise<void>;
   handleRemoverFavorito: (productId: number) => Promise<void>;
-  isProdutoFavoritado: (productId: number) => boolean;
   getFavoritosAgrupados: () => Favorito[];
   handleSeboClick: (seboId: number) => void;
   handleProdutoClick: (produtoId: number) => void;
+  isFavoriteProduct: (id: any) => void;
+  isFavorite: boolean;
 }
 
 const FavoritoContext = createContext<FavoritoContextType | undefined>(undefined);
@@ -26,25 +31,17 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [loading, setLoading] = useState(true);
   const [deletingIds, setDeletingIds] = useState<number[]>([]);
   const [addingIds, setAddingIds] = useState<number[]>([]);
+  const { conta } = useAuth();
+  const [isFavorite, setIsFavorite] = useState(false);
+
 
   const fetchFavoritoData = async () => {
     try {
       setLoading(true);
       const response = await getFavoritos();
-      if (response.status === 200) {
-        setFavoritos(response.data);
-      }
+      setFavoritos(response);
     } catch (error: any) {
-      if (error.response?.status === 401) {
-        showNotification('warn', null, 'Faça login para acessar seus favoritos.');
-      } else if (error.response) {
-        const errorMessage = error.response.data.message || 'Erro no servidor.';
-        showNotification('error', null, errorMessage);
-      } else if (error.request) {
-        showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
-      } else {
-        showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
-      }
+      console.error('Erro ao buscar favoritos', error);
     } finally {
       setLoading(false);
     }
@@ -52,30 +49,42 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const handleAdicionarFavorito = async (productId: number) => {
     setAddingIds(prev => [...prev, productId]);
-
     try {
-      await adicionarFavorito(productId);
+      if (conta?.usuario?.id !== undefined) {
+        await adicionarFavorito(productId, conta.usuario.id);
+      } else {
+        showNotification('error', 'Usuário não autenticado', '');
+      }
       await fetchFavoritoData(); // Recarrega os dados para garantir consistência
       showNotification('success', 'Item favoritado!', '');
     } catch (error) {
-      showNotification('error', 'Falha ao favoritar item', '');
+      console.error('Erro ao adicionar favorito', error);
+      showNotification('error', 'Falha ao adicionar favorito', '');
     } finally {
       setAddingIds(prev => prev.filter(id => id !== productId));
     }
   };
 
+  useEffect(() => {}, [isFavorite]);
+
   const handleRemoverFavorito = async (productId: number) => {
     setDeletingIds(prev => [...prev, productId]);
 
     try {
-      await removerFavorito(productId);
-      // Atualização otimista mantendo a estrutura de agrupamento
-      setFavoritos(prev => 
-        prev.map(sebo => ({
-          ...sebo,
-          produtos: sebo.produtos.filter(p => p.produto.id !== productId)
-        })).filter(sebo => sebo.produtos.length > 0) // Remove sebos sem produtos
-      );
+      if (conta?.usuario?.id !== undefined) {
+        await removerFavorito(productId, conta.usuario.id);
+        setFavoritos(prev => 
+          prev.map(sebo => ({
+            ...sebo,
+            produtos: sebo.produtos.filter(p => p.produto.id !== productId)
+          })).filter(sebo => sebo.produtos.length > 0) 
+        );
+        await fetchFavoritoData();
+        setIsFavorite(false);
+      } else {
+        showNotification('error', 'Usuário não autenticado', '');
+      }
+      
       showNotification('success', 'Item removido dos favoritos!', '');
     } catch (error) {
       showNotification('error', 'Falha ao remover favorito', '');
@@ -84,10 +93,13 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  const isProdutoFavoritado = (productId: number) => {
-    return favoritos.some(sebo => 
-      sebo.produtos.some(p => p.produto.id === productId)
+  const isFavoriteProduct = (id: any) => {
+    const isFavorited = favoritos.some(favorito =>
+      favorito.produtos.some(item =>
+        Number(item.produto.id) === Number(id)  // Acesse o id correto do produto
+      )
     );
+    setIsFavorite(isFavorited);
   };
 
   const getFavoritosAgrupados = () => {
@@ -113,7 +125,8 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       fetchFavoritoData,
       handleAdicionarFavorito,
       handleRemoverFavorito,
-      isProdutoFavoritado,
+      isFavoriteProduct,
+      isFavorite,
       getFavoritosAgrupados,
       handleSeboClick,
       handleProdutoClick

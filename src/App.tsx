@@ -54,7 +54,14 @@ const App = () => {
                   </RegisterUserProvider>
                 }
               />
-              <Route path="/product/:id" element={<ProductPage />} />
+              <Route
+                path="/product/:id"
+                element={
+                  <FavoritoProvider>
+                    <ProductPage />
+                  </FavoritoProvider>
+                }
+              />
               <Route
                 path="/product/:id/edit"
                 element={
@@ -98,13 +105,14 @@ const App = () => {
               />
 
               <Route
-              path="/profile/user/cesta"
-              element={
-                <CestaProvider>
-                  <CestaPage/>
-                </CestaProvider>
-              }/>
-              
+                path="/profile/user/cesta"
+                element={
+                  <CestaProvider>
+                    <CestaPage />
+                  </CestaProvider>
+                }
+              />
+
               <Route path="/profile/user/:id?" element={<ProfileUser />} />
               <Route
                 path="/profile/user/edit"
@@ -130,11 +138,14 @@ const App = () => {
                   </ProfileSeboFormProvider>
                 }
               />
-              <Route path="/profile/user/favoritos" element={
-                <FavoritoProvider>
-                  <FavoritosPage />
-                </FavoritoProvider>
-              } />
+              <Route
+                path="/profile/user/favoritos"
+                element={
+                  <FavoritoProvider>
+                    <FavoritosPage />
+                  </FavoritoProvider>
+                }
+              />
             </Routes>
           </AuthProvider>
         </NotificationProvider>

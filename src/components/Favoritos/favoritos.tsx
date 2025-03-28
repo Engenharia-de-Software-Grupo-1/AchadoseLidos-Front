@@ -13,10 +13,10 @@ import { forInRight } from 'cypress/types/lodash';
 import { getFavoritos } from '@routes/routesFavorito';
 
 const FavoritosPage: React.FC = () => {
-  const [favoritos, setFavoritos] = useState<Favorito[]>([]);
+  // const [favoritos, setFavoritos] = useState<Favorito[]>([]);
   const navigate = useNavigate();
   const { 
-   // favoritos, 
+    favoritos, 
     loading, 
     deletingIds, 
     fetchFavoritoData, 
@@ -24,24 +24,14 @@ const FavoritosPage: React.FC = () => {
   } = useFavorito();
 
   useEffect(() => {
-    myFavoritos();
+    fetchFavoritoData();
   }, []);
 
-  const myFavoritos = async() => {
-    try {
-      const favoritos = await getFavoritos();
-      console.log(favoritos);
-      setFavoritos(favoritos);
-    } catch(error) {
-      console.error('Erro ao buscar favoritos', error);
-    }
-  };
-
-  // if (loading) {
-  //   return <div className="flex justify-content-center p-4">
-  //     <ProgressSpinner />
-  //   </div>;
-  // }
+  if (loading) {
+    return <div className="flex justify-content-center p-4">
+      <ProgressSpinner />
+    </div>;
+  }
 
   if (!favoritos || favoritos.length === 0) {
     return (
