@@ -25,10 +25,13 @@ export const getById = async (id: any) => {
   return response.data;
 };
 
-export const getAll = async (): Promise<Sebo[]> => {
+export const getAll = async (body: FilterOrders): Promise<Sebo[]> => {
   const response = await api.get<Sebo[]>('/sebos', {
-    withCredentials: true,
-  });
+      params: {
+        filters: JSON.stringify(body.filters),
+        sorters: JSON.stringify(body.sorters)
+      }
+    });
   return response.data;
 };
 

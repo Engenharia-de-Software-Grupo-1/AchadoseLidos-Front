@@ -12,11 +12,6 @@ export const getById = async (id: number) => {
   return response.data;
 };
 
-// export const getAllProducts = async (body: FilterOrders) => {
-//   const response = await api.get<Produto[]>('/produtos', { params: body });
-//   return response.data;
-// };
-
 export const getAllProducts = async (body: FilterOrders) => {
   const response = await api.get<Produto[]>('/produtos', {
     params: {

@@ -4,7 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import React from 'react';
 import { MultiSelect } from 'primereact/multiselect';
 import { InputNumber } from 'primereact/inputnumber';
-import { useFilterStore } from '../../stores/filters/productFilterStore';
+import { useProductFilterStore } from '../../stores/filters/productFilterStore';
 import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/ProdutoConstants';
 
 export const ProductFilters: React.FC = () => {
@@ -22,7 +22,7 @@ export const ProductFilters: React.FC = () => {
     setSelectedCategories,
     setEstadoConservacao,
     applyFilters,
-  } = useFilterStore();
+  } = useProductFilterStore();
 
   return (
     <div className="nav-filter-column">
@@ -58,14 +58,17 @@ export const ProductFilters: React.FC = () => {
       <div className="nav-filter-column-dropdown">
         <MultiSelect
           value={selectedCategories}
-          onChange={(e) => setSelectedCategories(e.value)}
+          onChange={(e) => {
+            setSelectedCategories(e.value);
+            setGenre([]);
+          }}
           options={Object.keys(CategoriaProduto).map((key) => ({
             label: key,
             value: CategoriaProduto[key as keyof typeof CategoriaProduto],
           }))}
           optionLabel="label"
           maxSelectedLabels={6}
-          className="w-full md:w-20rem"
+          className="w-full md:w-20rem" 
           placeholder={'Selecione'}
         />
       </div>
@@ -97,6 +100,7 @@ export const ProductFilters: React.FC = () => {
           <InputNumber
             value={firstPrice}
             onValueChange={(e) => setFirstPrice(e.value ?? 0)}
+            placeholder='R$ 00,00'
             mode="currency"
             currency="BRL"
             locale="pt-BR"
@@ -109,6 +113,7 @@ export const ProductFilters: React.FC = () => {
           <InputNumber
             value={secondPrice}
             onValueChange={(e) => setSecondPrice(e.value ?? 0)}
+            placeholder='R$ 00,00'
             mode="currency"
             currency="BRL"
             locale="pt-BR"

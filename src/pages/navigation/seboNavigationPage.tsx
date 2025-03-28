@@ -5,7 +5,7 @@ import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCa
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import SeboFilters from '@components/Filters/seboFilters';
 import { Sorter } from 'types/NavigationFilters';
-import { getAll, getAllSebosByFilterAndOrders } from 'routes/routesSebo';
+import { getAll } from 'routes/routesSebo';
 import { Sebo } from '@domains/Sebo';
 import { useSorting } from '@hooks/useSorting';
 import { useSeboFilterStore } from '@stores/filters/seboFilterStore';
@@ -17,21 +17,21 @@ interface SeboNavigationPageProps {
 export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
   const { filters } = useSeboFilterStore();
   const [seboCards, setSeboCards] = useState<GenericCardProps[]>([]);
-  const breadcrumbItems = [{ label: 'Sebo', url: '/sebos' }];
+  const breadcrumbItems = [{ label: 'Sebos', url: '/navigation/sebos' }];
   const { nameIcon, changeOrder } = useSorting(sorters);
 
   useEffect(() => {
     getSebos();
-  }, [filters, sorters]);
+  }, [filters, sorters, nameIcon]);
 
   const getSebos = async () => {
-    const response = await getAll();
+    const response = await getAll({ filters, sorters });
     setSeboCards(
       response.map((sebo: Sebo) => ({
         id: sebo.id,
         title: sebo.nome,
         description: sebo.endereco?.bairro || 'Campina Grande',
-        imageUrl: sebo.fotoPerfil && sebo.fotoPerfil !== '' ? sebo.fotoPerfil : '/images/sem_foto.png',
+        imageUrl: sebo.fotoPerfil ? sebo.fotoPerfil : '/images/sem_foto.png',
         topLabel: sebo.endereco?.bairro || 'Campina Grande',
         isButtonVisible: true,
       }))
@@ -77,7 +77,7 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
             ) : (
               handleEmptyContent('Nenhum sebo encontrado!')
             )}
-            {seboCards.length > 4 && (
+            {seboCards.length > 2 && (
               <div className="nav-pagination-footer">
                 1-20 de 200
                 <i className="pi pi-angle-left"></i>

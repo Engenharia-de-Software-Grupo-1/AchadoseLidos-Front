@@ -100,3 +100,11 @@
   gap: 6px;
   align-items: center;
 }
+
+.nav-filter-column-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 8px;
+  gap: 8px;
+}

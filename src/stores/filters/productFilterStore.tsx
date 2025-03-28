@@ -18,7 +18,7 @@ interface FilterState {
   applyFilters: () => void;
 }
 
-export const useFilterStore = create<FilterState>((set, get) => ({
+export const useProductFilterStore = create<FilterState>((set, get) => ({
   name: '',
   genre: [],
   firstPrice: null,
@@ -40,8 +40,8 @@ export const useFilterStore = create<FilterState>((set, get) => ({
 
     if (name) filters.push({ campo: 'nome', operador: 'like', valor: name });
     if (genre.length > 0) filters.push({ campo: 'generos', operador: 'hasSome', valor: genre });
-    if (firstPrice !== null) filters.push({ campo: 'preco', operador: '>=', valor: firstPrice });
-    if (secondPrice !== null && secondPrice != 0) filters.push({ campo: 'preco', operador: '<=', valor: secondPrice });
+    if (firstPrice && firstPrice != 0) filters.push({ campo: 'preco', operador: '>=', valor: firstPrice });
+    if (secondPrice && secondPrice != 0) filters.push({ campo: 'preco', operador: '<=', valor: secondPrice });
     if (selectedCategories.length > 0) filters.push({ campo: 'categoria', operador: 'in', valor: selectedCategories });
     if (estadoConservacao.length > 0) filters.push({ campo: 'estadoConservacao', operador: 'in', valor: estadoConservacao });
 

@@ -10,7 +10,7 @@ import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useSorting } from '@hooks/useSorting';
-import { useFilterStore } from '@stores/filters/productFilterStore';
+import { useProductFilterStore } from '@stores/filters/productFilterStore';
 
 interface ProductNavigationPageProps {
   sorters: Sorter[];
@@ -18,22 +18,25 @@ interface ProductNavigationPageProps {
 }
 
 export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigationPageProps) => {
-  const {filters} = useFilterStore();
+  const { filters } = useProductFilterStore();
   const [productCards, setProductCards] = useState<ProductCardProps[]>([]);
   const navigate = useNavigate();
   const { conta } = useAuth();
   const isSebo = conta?.tipo === 'SEBO';
   const { nameIcon, changeOrder } = useSorting(sorters);
   const breadcrumbItems = meusProdutos
-    ? [{ label: 'Meus produtos', url: '/meus-produtos' }]
-    : [{ label: 'Produtos', url: '/products' }];
+    ? [{ label: 'Meus produtos', url: '/navigation/meus-produtos' }]
+    : [{ label: 'Produtos', url: '/navigation/products' }];
 
   useEffect(() => {
-    if (meusProdutos && (conta?.id && isSebo)) {
-      filters.push({ campo: 'seboId', operador: '=', valor: conta?.id.toString() });
-    }
     getProducts();
   }, [filters, sorters, nameIcon]);
+
+  useEffect(() => {
+    if (meusProdutos && conta?.id && isSebo) {
+      filters.push({ campo: 'seboId', operador: '=', valor: conta?.id.toString() });
+    }
+  }, [meusProdutos]);
 
   const getProducts = async () => {
     const response = await getAllProducts({ filters, sorters: sorters });
@@ -65,7 +68,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <div className="nav-content-center">
-          <ProductFilters/>
+          <ProductFilters />
           <div className="nav-content-column">
             <div className="nav-filter-display">
               <p className="nav-filter-display-text">
@@ -80,22 +83,25 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
               </div>
             </div>
             {isSebo && meusProdutos && (
-              <Button
-                icon="pi pi-plus"
-                className="nav-pagination-header-button"
-                onClick={() => navigate('/product/edit')}
-              >
-                Adicionar produto
-              </Button>
+              <div className='nav-pagination-header-button-container'>
+                <Button
+                  icon="pi pi-plus"
+                  className="nav-pagination-header-button"
+                  onClick={() => navigate('/product/edit')}
+                >
+                  Adicionar produto
+                </Button>
+              </div>
             )}
-            {productCards.length > 0
-              ? 
+            {productCards.length > 0 ? (
               <div className="nav-content-center">
                 {productCards.map((card, index) => (
                   <ProductCard key={index} {...card} />
                 ))}
               </div>
-              : handleEmptyContent('Nenhum produto encontrado!')}
+            ) : (
+              handleEmptyContent('Nenhum produto encontrado!')
+            )}
             {productCards.length > 12 && (
               <div className="nav-pagination-footer">
                 1-20 de 200

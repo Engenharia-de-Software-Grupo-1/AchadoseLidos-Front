@@ -1,7 +1,7 @@
 export interface Filter {
   campo: string;
   operador: string;
-  valor: string | string[] | number;
+  valor: string | string[] | number | boolean;
 }
   
 export interface Sorter {

@@ -52,7 +52,6 @@
 
 .space-carousel-items {
   display: flex;
-  height: 330px;
   padding: 32px 98px;
   justify-content: center;
   align-items: center;
@@ -62,7 +61,6 @@
 
 .space-carousel-event {
   display: flex;
-  height: 88px;
   padding: 32px 60px;
   justify-content: space-between;
   align-items: center;
