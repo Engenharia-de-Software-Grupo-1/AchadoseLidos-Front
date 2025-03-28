@@ -26,6 +26,7 @@ import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
 import CestaPage from '@pages/cestaPage';
 import { CestaProvider } from '@stores/cesta/cestaStore';
+import PedidoPage from '@pages/pedidoPage';
 
 const App = () => {
   return (
@@ -126,6 +127,14 @@ const App = () => {
                   <ProfileSeboFormProvider>
                     <ProfileSeboForm />
                   </ProfileSeboFormProvider>
+                }
+              />
+              <Route
+                path="/profile/historico/pedido1"
+                element={
+                  <CestaProvider>
+                    <PedidoPage />
+                  </CestaProvider>
                 }
               />
             </Routes>

@@ -133,7 +133,7 @@ const CestaComponent = () => {
                 body={(rowData: ProdutoCesta) => (
                     rowData.produto.fotos?.length > 0 ? (
                         <img
-                            src={rowData.produto.fotos[0]} 
+                            src={rowData.produto.fotos[0].url} 
                             alt={rowData.produto.nome}
                             style={{ width: '6rem', height: 'auto', borderRadius: '4px' }}
                         />
