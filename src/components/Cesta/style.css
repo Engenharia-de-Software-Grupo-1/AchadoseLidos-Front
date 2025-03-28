@@ -23,14 +23,14 @@ body {
 }
 
 .readonly-input {
-    pointer-events: none; /* Prevent clicks on the input field */
-    background-color: transparent; /* Remove background color */
-    border: none; /* Remove border */
-    box-shadow: none; /* Remove focus/hover effects */
+    pointer-events: none; 
+    background-color: transparent; 
+    border: none; 
+    box-shadow: none;
 }
 
 .p-inputnumber-buttons-horizontal .p-inputnumber-button {
-    pointer-events: auto; /* Allow clicks on buttons */
+    pointer-events: auto; 
 }
 
 .empty-cesta {
@@ -94,7 +94,7 @@ tr {
   color: #666;
 }
 
-/* Collapsed header styling */
+
 .accordion-header-collapsed {
   width: 100%;
   padding: 0.5rem 0;
@@ -108,7 +108,7 @@ tr {
   text-align: left;
 }
 
-/* Hide non-essential elements when expanded */
+
 .p-accordion-tab-active .store-info .text-sm,
 .p-accordion-tab-active .qty-col,
 .p-accordion-tab-active .price-col,
@@ -119,12 +119,12 @@ tr {
 .header-grid {
   display: grid;
   grid-template-columns: 
-    1.1fr    /* Product image */
-    2.1fr    /* Product name */
-    1.7fr    /* Product category */
-    1.4fr    /* Unit Price */
-    2fr  /* Quantity */
-    1fr;  /* Actions */
+    1.1fr   
+    2.1fr    
+    1.7fr    
+    1.4fr    
+    2fr 
+    1fr;
   align-items: left;
 }
 
