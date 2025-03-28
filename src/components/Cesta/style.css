@@ -11,7 +11,7 @@ body {
 }
 
 .cesta-container .p-inputtext {
-  width: 5rem;
+  width: 3rem;
 }
 
 .p-inputnumber-button {
@@ -20,6 +20,10 @@ body {
 
 .p-inputnumber-button {
   border:none;
+}
+
+.cesta-container .flex.align-items-center {
+  justify-content: flex-start;
 }
 
 .readonly-input {
@@ -123,7 +127,7 @@ tr {
     2.1fr    
     1.7fr    
     1.4fr    
-    2fr 
+    1fr 
     1fr;
   align-items: left;
 }

@@ -29,23 +29,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 3rem 1rem;
   width: 100%;
 }
 
 .card-register {
-  background-color: white;
-  border-radius: 6px;
+  background-color: var(--Achados-Lighter-OffWhite);
+  border-radius: 1rem;
   width: 90%;
   max-width: 800px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 1rem 1rem 3.5rem;
 }
 
 .options-container {
   display: flex;
   min-height: 340px;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .option-column {
@@ -68,7 +69,9 @@
   font-weight: 500;
   line-height: 24px; /* 57.143% */
   color: var(--Achados-Black, #2f292a);
+  
 }
+
 
 .option-title-users {
   /* Highlight H2 */
@@ -84,6 +87,12 @@
   text-decoration-thickness: 40%;
   text-underline-offset: -30%;
   text-underline-position: from-font;
+  transition: text-underline-offset 0.3s ease;
+}
+
+.option-title-users:hover {
+  text-decoration-thickness: 130%;
+  text-underline-offset: -100%;
 }
 
 .option-description {
@@ -130,7 +139,7 @@
 
 .enter-link {
   color: #333;
-  text-decoration: none;
+  text-decoration: underline;
   font-weight: bold;
 }
 
@@ -145,10 +154,15 @@
 }
 
 .highlight-indicator {
-  position: absolute;
-  top: -10%;
-  right: 0;
+  position: relative;
   width: 30px;
   height: 70px;
+  margin:-40px 0 0 95%;
   background-color: #d9964b;
+}
+
+@media 	(max-width: 727px) {
+  .divider {
+    display:none;
+  }
 }

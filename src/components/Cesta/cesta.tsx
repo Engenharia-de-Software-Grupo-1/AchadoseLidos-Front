@@ -9,6 +9,7 @@ import { useNotification } from '@contexts/notificationContext';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useCesta } from '@stores/cesta/cestaStore';
 import { ProdutoCesta } from '@domains/Cesta';
+import { Link } from 'react-router-dom';
 
 const CestaComponent = () => {
   const { showNotification } = useNotification();
@@ -141,25 +142,30 @@ const CestaComponent = () => {
                         <i className="pi pi-image" style={{ fontSize: '2rem', color: '#ccc' }}></i>
                     )
                 )}
-                style={{ minWidth: '8rem' }}
+                style={{ minWidth: '6rem' }}
                 align="center" 
             />
             <Column 
                 field="produto.nome" 
                 header="Nome" 
                 sortable 
-                style={{ minWidth: '16rem' }} 
+                style={{ minWidth: '10rem' }} 
+                body={(rowData) => (
+                  <Link style={{color:'inherit', textDecoration:'underline'}} to={`/product/${rowData.produto.id}`} className="product-name-link">
+                    {rowData.produto.nome}
+                  </Link>
+                )}
             />
             <Column 
                 field="produto.categoria" 
                 header="Categoria" 
-                style={{ minWidth: '12rem' }} 
+                style={{ minWidth: '8rem' }} 
                 footer='Total: '
             />
             <Column
                 header="Preço"
                 sortable
-                style={{ minWidth: '10rem' }}
+                style={{ minWidth: '8rem' }}
                 body={(rowData: ProdutoCesta) => (
                     `R$ ${rowData.produto.preco.toFixed(2)}`
                 )}
@@ -171,12 +177,12 @@ const CestaComponent = () => {
             />
             <Column
                 header="Quantidade"
-                style={{ minWidth: '5rem' }}
+                style={{ minWidth: '5rem'}}
                 body={(rowData: ProdutoCesta) => 
                     quantidadeBodyTemplate(rowData)
                 }
                 footer={() => (
-                    <div className="font-bold numeric">{quantityTotal}</div>
+                    <div style={{justifyContent:'left'}} className="font-bold numeric">{quantityTotal}</div>
                 )}
             />
             <Column
