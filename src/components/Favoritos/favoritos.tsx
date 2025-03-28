@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useFavorito } from '@stores/favorito/favoritoStore';
-import { Favorito, ProdutoFavorito } from '@domains/Favoritos';
+import { ProdutoFavorito } from '@domains/Favoritos';
 import ContainerItems from '@components/ContainerItems/containerItems';
 import { Button } from 'primereact/button';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import './style.css';
 import ProductCard from '@components/ProductCard/productCard';
-import { useMockFavorito } from '@hooks/useMockFavoritos';
-import { Carousel, CarouselPageChangeEvent } from 'primereact/carousel';
+import { Carousel } from 'primereact/carousel';
 import { useNavigate } from 'react-router-dom';
-import { forInRight } from 'cypress/types/lodash';
-import { getFavoritos } from '@routes/routesFavorito';
 
 const FavoritosPage: React.FC = () => {
   // const [favoritos, setFavoritos] = useState<Favorito[]>([]);
   const imageDefault = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEIDCFVUSkqV6O5Wr69FuhjhOqwv484t75Mw&s';
   const navigate = useNavigate();
-  const { favoritos, loading, deletingIds, fetchFavoritoData, handleRemoverFavorito } = useFavorito();
+  const { favoritos, loading, fetchFavoritoData } = useFavorito();
 
   useEffect(() => {
     fetchFavoritoData();
@@ -29,8 +26,6 @@ const FavoritosPage: React.FC = () => {
       </div>
     );
   }
-
-  console.log(favoritos);
 
   if (!favoritos || favoritos.length === 0) {
     return (
@@ -51,17 +46,8 @@ const FavoritosPage: React.FC = () => {
     );
   }
 
-  const handleSeboClick = (seboId: number) => {
-    navigate(`/profile/sebo/${seboId}`);
-  };
-
   const handleProductClick = (produtoId: number) => {
     navigate(`/product/${produtoId}`);
-  };
-
-  const handleCarouselChange = (e: CarouselPageChangeEvent): void => {
-    console.log('Página do carrossel mudou:', e.page);
-    console.log('Produtos disponíveis:', favoritos);
   };
 
   return (
@@ -129,7 +115,6 @@ const FavoritosPage: React.FC = () => {
               circular
               style={{ width: '100%' }}
               showIndicators={false}
-              // autoplayInterval={3000} 
             />
           </div>
         </ContainerItems>
