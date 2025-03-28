@@ -8,7 +8,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { deleteProduct } from '@routes/routesProduto';
 import { useNotification } from '@contexts/notificationContext';
 import DialogModal from '@components/DialogModal/dialogModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFavorito } from '@stores/favorito/favoritoStore';
+import { addProductCesta } from '@routes/routesCesta';
+
 interface ProdutoDetalhesProps {
   data: Produto;
   id: any;
@@ -19,6 +22,8 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
   const { showNotification } = useNotification();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
+  const { isFavorite, isFavoriteProduct, fetchFavoritoData, favoritos, handleAdicionarFavorito, handleRemoverFavorito } =
+    useFavorito();
 
   const handleDeleteProduct = async () => {
     try {
@@ -27,6 +32,25 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
       navigate('/');
     } catch (error) {
       console.error('Erro ao deletar produto', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFavoritoData();
+  }, []);
+
+  useEffect(() => {
+    if (favoritos.length > 0) {
+      isFavoriteProduct(id);
+    }
+  }, [favoritos]);
+
+  const addCesta = async() => {
+    try {
+      await addProductCesta(id);
+      showNotification('success', 'Produto adicionado na cesta com sucesso!', '');
+    } catch (error) {
+      console.error('Erro ao adicionar produto na cesta', error);
     }
   };
 
@@ -40,7 +64,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
         <section className="product-details-frame">
           <span className="achados-h4">{data.nome}</span>
           <p className="product-sebo">
-            {data.sebo?.endereco.bairro ? `${data.sebo.nome} - ${data.sebo.endereco.bairro}` : `${data.sebo?.nome}`}
+            {data.sebo?.endereco?.bairro ? `${data.sebo.nome} - ${data.sebo.endereco.bairro}` : `${data.sebo?.nome}`}
           </p>
 
           <div className="product-tags">
@@ -53,8 +77,31 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
 
           {conta?.tipo === 'USUARIO' && (
             <div className="product-actions-frame">
-              <Button icon="pi pi-heart" rounded severity="danger" aria-label="Favorite" className="favorite-button" />
-              <Button label="Adicionar à cesta" severity="success" className="button-cesta" rounded />
+              {isFavorite ? (
+                <>
+                  <Button
+                    icon="pi pi-heart"
+                    rounded
+                    severity="danger"
+                    aria-label="Favorite"
+                    className="favorite-button-isFavorite"
+                    onClick={() => handleRemoverFavorito(id)}
+                  />
+                </>
+              ) : (
+                <>
+                  <Button
+                    icon="pi pi-heart"
+                    rounded
+                    severity="danger"
+                    aria-label="Favorite"
+                    className="favorite-button"
+                    onClick={() => handleAdicionarFavorito(id)}
+                  />
+                </>
+              )}
+
+              <Button label="Adicionar à cesta" severity="success" className="button-cesta" rounded onClick={addCesta}/>
             </div>
           )}
           {conta?.tipo === 'SEBO' && (
@@ -74,7 +121,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                   setVisibleDialog={setVisible}
                   visibleDialog={visible}
                   onClickDelete={handleDeleteProduct}
-                  message='Você tem certeza que deseja excluir? Todos os dados deste produto serão apagados.'
+                  message="Você tem certeza que deseja excluir? Todos os dados deste produto serão apagados."
                 />
               )}
               <Link to={`/product/${id}/edit`}>

@@ -61,7 +61,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
             ? [{ label: 'Meus Produtos', icon: 'pi pi-box' }]
             : [
                 { label: 'Cesta', icon: 'pi pi-shopping-bag', command: () => navigate('/profile/user/cesta') },
-                { label: 'Favoritos', icon: 'pi pi-heart' },
+                { label: 'Favoritos', icon: 'pi pi-heart', command: () => navigate('/profile/user/favoritos') },
               ]),
 
           {
@@ -115,7 +115,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
         <div className="flex align-items-center gap-4 justify-center">
           {conta?.tipo == 'USUARIO' && (
             <>
-              <Button icon="pi pi-heart" rounded text aria-label="Favoritos" style={{ color: '#F5ECDD' }} />
+              <Button icon="pi pi-heart" rounded className='heart-header-icon' text aria-label="Favoritos" style={{ color: '#F5ECDD' }} onClick={() => navigate('/profile/user/favoritos')} />
               <Button icon="pi pi-shopping-bag" rounded text aria-label="Cesta" style={{ color: '#F5ECDD' }} onClick={() => navigate('/profile/user/cesta')} />
             </>
           )}

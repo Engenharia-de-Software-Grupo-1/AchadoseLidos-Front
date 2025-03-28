@@ -76,3 +76,8 @@
   background-color: transparent;
   color: inherit;
 }
+
+.heart-header-icon:hover {
+  background: var(--Achados-OffWhite) !important;
+  color: var(--Achados-Black) !important;
+}

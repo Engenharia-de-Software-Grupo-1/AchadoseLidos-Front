@@ -24,6 +24,8 @@ import ProfileUserForm from '@pages/profile/user/form';
 import { ProfileUserFormProvider } from '@stores/profile/user/formStore';
 import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
+import FavoritosPage from '@pages/favoritosPage';
+import { FavoritoProvider } from '@stores/favorito/favoritoStore';
 import CestaPage from '@pages/cestaPage';
 import { CestaProvider } from '@stores/cesta/cestaStore';
 import PedidoPage from '@pages/pedidoPage';
@@ -53,7 +55,14 @@ const App = () => {
                   </RegisterUserProvider>
                 }
               />
-              <Route path="/product/:id" element={<ProductPage />} />
+              <Route
+                path="/product/:id"
+                element={
+                  <FavoritoProvider>
+                    <ProductPage />
+                  </FavoritoProvider>
+                }
+              />
               <Route
                 path="/product/:id/edit"
                 element={
@@ -97,13 +106,14 @@ const App = () => {
               />
 
               <Route
-              path="/profile/user/cesta"
-              element={
-                <CestaProvider>
-                  <CestaPage/>
-                </CestaProvider>
-              }/>
-              
+                path="/profile/user/cesta"
+                element={
+                  <CestaProvider>
+                    <CestaPage />
+                  </CestaProvider>
+                }
+              />
+
               <Route path="/profile/user/:id?" element={<ProfileUser />} />
               <Route
                 path="/profile/user/edit"
@@ -135,6 +145,14 @@ const App = () => {
                   <CestaProvider>
                     <PedidoPage />
                   </CestaProvider>
+                }
+              />
+              <Route
+                path="/profile/user/favoritos"
+                element={
+                  <FavoritoProvider>
+                    <FavoritosPage />
+                  </FavoritoProvider>
                 }
               />
             </Routes>

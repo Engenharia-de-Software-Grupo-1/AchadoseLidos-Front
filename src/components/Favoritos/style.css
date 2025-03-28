@@ -1,0 +1,98 @@
+.favorito-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Ajuste a altura conforme necessário */
+}
+
+.empty-favorito {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25vh;
+  gap: 1rem;
+}
+
+.space-carousel-items {
+  display: flex;
+  height: 330px;
+  padding: 32px 60px;
+  justify-content: left;
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--Achados-OffWhite);
+}
+
+.space-carousel-event {
+  display: flex;
+  height: 88px;
+  padding: 10% 60px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  background: var(--Achados-Lighter-OffWhite);
+}
+
+.empty-favorito h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--Achados-Black);
+}
+
+.empty-favorito p {
+  font-size: 1rem;
+  color: var(--Achados-Grey);
+}
+
+.contanier-fav {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.carrosel-fav {
+  gap: 1rem;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  white-space: nowrap; /* Evita quebra de linha */
+}
+
+.carrosel-fav::-webkit-scrollbar {
+  height: 6px;
+}
+
+.carrosel-fav::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 4px;
+}
+
+.carrosel-item-fav {
+  display: inline-block; /* Para respeitar white-space: nowrap */
+  flex: 0 0 auto;
+  width: 200px; /* Define tamanho fixo dos cards */
+  cursor: pointer;
+}
+
+.favorite-card-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.carrousel-fav-t {
+  width: 100%;
+  overflow: hidden;
+  height: 300px;
+}
+
+.carrousel-fav-t .p-carousel-items-container {
+  flex: 0 0 auto !important;
+}
+
+.carrousel-fav-t .p-carousel .p-carousel-item {
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: unset !important;
+}

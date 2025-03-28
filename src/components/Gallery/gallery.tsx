@@ -22,10 +22,10 @@ export default function Gallery({ position, photos }: GalleryProps) {
     if (!urlImages || urlImages.length === 0) {
       return [
         {
-          itemImageSrc: '', // Pode ser um caminho de placeholder, se necessário
+          itemImageSrc: '',
           thumbnailImageSrc: '',
           alt: 'Nenhuma imagem disponível',
-          empty: true, // Flag para identificar que é um template vazio
+          empty: true,
         },
       ];
     }

@@ -1,0 +1,228 @@
+.card-content {
+    display: flex;
+    height: 169px;
+    padding: 0px 20px;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+  }
+  
+  .cardChild {
+    position: absolute;
+    top: 20px;
+    left: 207px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+    width: 172px;
+    height: 20px;
+    transform: rotate(90deg);
+    transform-origin: 0 0;
+  }
+  
+  .cardItem {
+    position: absolute;
+    align-self: stretch;
+    left: 6px;
+    height: 20px;
+    width: 201px;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: 0px -4px 5px rgba(0, 0, 0, 0.1);
+    background-color: var(--Achados-White);
+  }
+  
+  .cardInner {
+    position: absolute;
+    display: flex;
+    top: 192px;
+    left: 6px;
+    background-color: #fff;
+    width: 172px;
+    height: 20px;
+    transform: rotate(-90deg);
+    transform-origin: 0 0;
+    align-items: flex-start;
+    justify-content: space-between;
+    /* align-self: stretch; */
+    flex-direction: column;
+  }
+  
+  .itemTal1 {
+    align-self: stretch;
+    color: var(--Achados-Black, #2f292a);
+    font-feature-settings:
+      'liga' off,
+      'clig' off;
+  
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  
+  .itemTal {
+    width: 155px;
+    height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 0;
+    padding-bottom: 45px;
+  }
+  
+  .seboTal {
+    margin: 0;
+    color: var(--Achados-Black, #2f292a);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings:
+      'liga' off,
+      'clig' off;
+  
+    /* Regular / Paragraph */
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    align-self: stretch;
+  }
+  
+  .itemTalSeboTalContainer {
+    position: relative;
+  }
+  
+  .title {
+    position: absolute;
+    top: 192px;
+    left: 6px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0px 0px 10px 10px;
+    background-color: #fff;
+    width: 201px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 23px 10px 23px;
+    box-sizing: border-box;
+  }
+  
+  .fotoChild {
+    width: 161px;
+    position: relative;
+    height: 157px;
+    object-fit: contain;
+    image-rendering: smooth;
+  }
+  
+  .money-text {
+    position: relative;
+    font-weight: 500;
+  }
+  
+  .priceTag {
+    width: fit-content;
+    border-radius: 4px;
+    background-color: #fcf4e7;
+    height: 29px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: -14px;
+    position: relative;
+  }
+  
+  .foto {
+    position: absolute;
+    top: 20px;
+    left: 26px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .furosChild {
+    align-self: stretch;
+    position: relative;
+    border-radius: 50%;
+    background-color: #e2e2e2;
+    height: 12px;
+    transform: rotate(90deg);
+  }
+
+  .furosChild-b {
+    align-self: stretch;
+    position: relative;
+    border-radius: 50%;
+    background-color: #e2e2e2;
+    height: 12px;
+    transform: rotate(90deg);
+  }
+  
+  
+  .furosChild-1 {
+    align-self: stretch;
+    position: relative;
+    border-radius: 50%;
+    background-color: #e2e2e2;
+    height: 12px;
+    transform: rotate(-90deg);
+  }
+
+  .furosChild-1b {
+    align-self: stretch;
+    position: relative;
+    border-radius: 50%;
+    background-color:#e2e2e2;
+    height: 12px;
+    transform: rotate(-90deg);
+  }
+  
+  .furos {
+    position: absolute;
+    top: 20px;
+    left: 201px;
+    width: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  
+  .furos-1 {
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    width: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  
+  .furosIcon {
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    width: 12px;
+    height: 220px;
+    object-fit: contain;
+  }
+  
+  .card-container {
+    width: 201px;
+    margin-bottom: 32px;
+    position: relative;
+    height: 257px;
+    text-align: left;
+    font-size: 14px;
+    color: #000;
+    font-family: Poppins;
+  }
