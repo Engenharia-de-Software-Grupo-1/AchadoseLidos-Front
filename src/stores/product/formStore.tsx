@@ -83,6 +83,7 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
       let formattedImages = formData.fotos; 
 
       if (newImages.length > 0) {
+        //@ts-ignore
         const uploadedImages = await uploadImagesToCloudinary(newImages);
         formattedImages = uploadedImages.map((url: string) => ({ url }));
       }

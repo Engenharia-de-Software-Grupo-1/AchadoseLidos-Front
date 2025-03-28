@@ -1,12 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Favorito, ProdutoFavorito } from '@domains/Favoritos';
+import { Favorito } from '@domains/Favoritos';
 import { getFavoritos, adicionarFavorito, removerFavorito } from '@routes/routesFavorito';
 import { useNotification } from '@contexts/notificationContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useAuth } from '@contexts/authContext';
-import { set } from 'cypress/types/lodash';
-import { use } from 'chai';
-import { is } from 'cypress/types/bluebird';
 
 interface FavoritoContextType {
   favoritos: Favorito[];
