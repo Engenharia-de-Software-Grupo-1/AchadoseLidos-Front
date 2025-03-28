@@ -1,7 +1,7 @@
 import PedidoDatatable from '@components/PedidoDatatable/pedidoDatatable';
 import { useState } from 'react';
 import { Pedido } from '@domains/Pedido';
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import './style.css';
 import { Button } from 'primereact/button';

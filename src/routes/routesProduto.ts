@@ -1,4 +1,4 @@
-import { Produto } from '@domains/Produto/Produto';
+import { Produto } from '@domains/Produto';
 import axios from 'axios';
 
 const api = axios.create({

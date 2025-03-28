@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { Checkbox, CheckboxChangeEvent } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
 import './style.css';
-import { ProdutoPedido } from '@domains/Produto/Produto';
+import { ProdutoPedido } from '@domains/Produto';
 import { Pedido } from '@domains/Pedido';
 
 interface PedidoDatatableProps {

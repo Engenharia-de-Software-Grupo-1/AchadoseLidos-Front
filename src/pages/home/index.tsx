@@ -1,5 +1,5 @@
 import Banner from '@components/Banner/banner';
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import './style.css';
 import ContainerItems from '@components/ContainerItems/containerItems';
 

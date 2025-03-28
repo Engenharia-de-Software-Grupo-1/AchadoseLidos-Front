@@ -1,4 +1,4 @@
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';

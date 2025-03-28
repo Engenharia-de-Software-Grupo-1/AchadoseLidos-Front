@@ -3,7 +3,7 @@ import { Tag } from 'primereact/tag';
 import Gallery from '@components/Gallery/gallery';
 import './style.css';
 import { useAuth } from '@contexts/authContext';
-import { Produto } from '@domains/Produto/Produto';
+import { Produto } from '@domains/Produto';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteProduct } from '@routes/routesProduto';
 import { useNotification } from '@contexts/notificationContext';

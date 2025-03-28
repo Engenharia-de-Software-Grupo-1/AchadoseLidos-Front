@@ -1,5 +1,5 @@
 import { createContext, useContext, ReactNode, useState } from 'react';
-import { Produto } from '@domains/Produto/Produto';
+import { Produto } from '@domains/Produto';
 import { useForm } from '@hooks/useForm';
 import { createProduct, getById, updateProduct } from '@routes/routesProduto';
 import { useNavigate } from 'react-router-dom';

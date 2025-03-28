@@ -1,4 +1,4 @@
-import { ProdutoPedido } from './Produto/Produto';
+import { ProdutoPedido } from './Produto';
 
 
 export interface Pedido  {

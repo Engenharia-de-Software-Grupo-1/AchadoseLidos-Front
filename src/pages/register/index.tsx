@@ -1,4 +1,4 @@
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import { Button } from 'primereact/button';
 import './style.css';
 import { Link } from 'react-router-dom';
