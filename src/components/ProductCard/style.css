@@ -7,7 +7,7 @@
     background: #fff;
   }
   
-  .cardChild {
+  .card-child {
     position: absolute;
     top: 20px;
     left: 207px;
@@ -19,7 +19,7 @@
     transform-origin: 0 0;
   }
   
-  .cardItem {
+  .card-item {
     position: absolute;
     align-self: stretch;
     left: 6px;
@@ -30,7 +30,7 @@
     background-color: var(--Achados-White);
   }
   
-  .cardInner {
+  .card-inner {
     position: absolute;
     display: flex;
     top: 192px;
@@ -46,7 +46,7 @@
     flex-direction: column;
   }
   
-  .itemTal1 {
+  .nome-item1 {
     align-self: stretch;
     color: var(--Achados-Black, #2f292a);
     font-feature-settings:
@@ -60,7 +60,7 @@
     line-height: 24px;
   }
   
-  .itemTal {
+  .nome-item {
     width: 155px;
     height: 40px;
     display: flex;
@@ -70,7 +70,7 @@
     padding-bottom: 45px;
   }
   
-  .seboTal {
+  .nome-sebo {
     margin: 0;
     color: var(--Achados-Black, #2f292a);
     font-variant-numeric: lining-nums tabular-nums;
@@ -87,7 +87,7 @@
     align-self: stretch;
   }
   
-  .itemTalSeboTalContainer {
+  .product-info-container {
     position: relative;
   }
   
@@ -107,7 +107,7 @@
     box-sizing: border-box;
   }
   
-  .fotoChild {
+  .foto-produto {
     width: 161px;
     position: relative;
     height: 157px;
@@ -120,7 +120,7 @@
     font-weight: 500;
   }
   
-  .priceTag {
+  .price-tag {
     width: fit-content;
     border-radius: 4px;
     background-color: #fcf4e7;
@@ -146,7 +146,7 @@
     justify-content: center;
   }
   
-  .furosChild {
+  .furos-child {
     align-self: stretch;
     position: relative;
     border-radius: 50%;
@@ -155,7 +155,7 @@
     transform: rotate(90deg);
   }
 
-  .furosChild-b {
+  .furos-child-b {
     align-self: stretch;
     position: relative;
     border-radius: 50%;
@@ -165,7 +165,7 @@
   }
   
   
-  .furosChild-1 {
+  .furos-child-1 {
     align-self: stretch;
     position: relative;
     border-radius: 50%;
@@ -174,7 +174,7 @@
     transform: rotate(-90deg);
   }
 
-  .furosChild-1b {
+  .furos-child-1b {
     align-self: stretch;
     position: relative;
     border-radius: 50%;
@@ -207,7 +207,7 @@
     gap: 8px;
   }
   
-  .furosIcon {
+  .icon-furos {
     position: absolute;
     top: 20px;
     left: 0px;

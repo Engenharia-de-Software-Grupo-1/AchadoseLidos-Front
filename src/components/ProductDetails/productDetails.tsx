@@ -73,7 +73,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
           </div>
 
           <p className="product-stock">{`${data.qtdEstoque} em estoque`}</p>
-          <p className="product-Achados-SubH1">{`R$ ${data.preco.toFixed(2)}`}</p>
+          <p className="product-achados-subh1">{`R$ ${data.preco.toFixed(2)}`}</p>
 
           {conta?.tipo === 'USUARIO' && (
             <div className="product-actions-frame">
