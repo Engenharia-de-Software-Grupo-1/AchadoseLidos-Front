@@ -1,4 +1,4 @@
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import { InputText } from 'primereact/inputtext';
 import FormField from '@components/FormField/formField';
 import { Button } from 'primereact/button';

@@ -1,7 +1,7 @@
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
-import ProductDetails from '@components/ProductDetails/ProductDetails';
-import { Produto } from '@domains/Produto/Produto';
-import TemplatePage from '@pages/templatePage';
+import ProductDetails from '@components/ProductDetails/productDetails';
+import { Produto } from '@domains/Produto';
+import TemplatePage from '@pages/template';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getById } from 'routes/routesProduto';

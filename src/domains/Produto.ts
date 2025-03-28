@@ -1,5 +1,5 @@
-import { Sebo } from '../Sebo';
-import { CategoriaProduto, EstadoConservacaoProduto, StatusProduto } from 'constants/ProdutoConstants';
+import { Sebo } from './Sebo';
+import { CategoriaProduto, EstadoConservacaoProduto, StatusProduto } from 'constants/produtoConstants';
 
 export interface Produto {
     id:number,

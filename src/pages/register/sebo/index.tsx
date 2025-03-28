@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import { Steps } from 'primereact/steps';
 import { Button } from 'primereact/button';
 import TabDadosBasicos from './tabs/tabDadosBasicos';

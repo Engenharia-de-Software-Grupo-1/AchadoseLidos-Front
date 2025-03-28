@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import { Steps } from 'primereact/steps';
 import { Button } from 'primereact/button';
 import TabDadosBasicos from './tabs/tabDadosBasicos';
 import TabDadosPerfil from './tabs/tabPerfil';
-import { useRegisterUser } from '@stores/register/user/store';
+import { useRegisterUser } from '@stores/register/user/registerStore';
 import { useNotification } from '@contexts/notificationContext';
 import { Link } from 'react-router-dom';
 import './style.css';

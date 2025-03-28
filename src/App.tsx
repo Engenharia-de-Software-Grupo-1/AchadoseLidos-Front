@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from '@pages/homePage';
+import HomePage from '@pages/home';
 import RegisterSebo from '@pages/register/sebo';
 import { RegisterSeboProvider } from '@stores/register/sebo/registerStore';
 import { NotificationProvider } from '@contexts/notificationContext';
@@ -10,25 +10,25 @@ import { ErrorProvider } from '@contexts/errorContext';
 import ProductPage from '@pages/product/index';
 import { ProdutoFormProvider } from '@stores/product/formStore';
 import ProductForm from '@pages/product/form';
-import LoginPage from '@pages/loginPage';
+import LoginPage from '@pages/login';
 import { LoginProvider } from '@stores/login/loginStore';
 import { RecoverRequestProvider } from '@stores/recover/recoverStore';
 import RecoverRequestPage from '@pages/recover/request';
 import { ResetRequestProvider } from '@stores/recover/resetStore';
 import ResetRequestPage from '@pages/recover/reset';
 import RegisterUser from '@pages/register/user';
-import { RegisterUserProvider } from '@stores/register/user/store';
-import RegistrationPage from '@pages/registrationPage';
+import { RegisterUserProvider } from '@stores/register/user/registerStore';
+import RegistrationPage from '@pages/register';
 import ProfileUser from '@pages/profile/user';
 import ProfileUserForm from '@pages/profile/user/form';
 import { ProfileUserFormProvider } from '@stores/profile/user/formStore';
 import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
-import FavoritosPage from '@pages/favoritosPage';
+import FavoritosPage from '@pages/favoritos';
 import { FavoritoProvider } from '@stores/favorito/favoritoStore';
-import CestaPage from '@pages/cestaPage';
+import CestaPage from '@pages/cesta';
 import { CestaProvider } from '@stores/cesta/cestaStore';
-import PedidoPage from '@pages/pedidoPage';
+import PedidoPage from '@pages/pedido';
 
 const App = () => {
   return (

@@ -1,5 +1,5 @@
 import { createContext, useContext, ReactNode, useState } from 'react';
-import { Produto } from '@domains/Produto/Produto';
+import { Produto } from '@domains/Produto';
 import { useForm } from '@hooks/useForm';
 import { createProduct, getById, updateProduct } from '@routes/routesProduto';
 import { useNavigate } from 'react-router-dom';
@@ -83,7 +83,6 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
       let formattedImages = formData.fotos; 
 
       if (newImages.length > 0) {
-        //@ts-ignore
         const uploadedImages = await uploadImagesToCloudinary(newImages);
         formattedImages = uploadedImages.map((url: string) => ({ url }));
       }

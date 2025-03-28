@@ -1,4 +1,4 @@
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import DialogModal from '@components/DialogModal/dialogModal';
 import { useAuth } from '@contexts/authContext';
 import { Button } from 'primereact/button';
-//@ts-ignore
 import { ProfileFormFieldUser } from '@components/FormField/profileFormFieldUser';
 
 const ProfileUserForm = () => {
