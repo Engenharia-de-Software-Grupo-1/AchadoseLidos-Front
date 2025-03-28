@@ -8,6 +8,7 @@ import { Tag } from 'primereact/tag';
 import './style.css';
 import { ProdutoPedido } from '@domains/Produto';
 import { Pedido } from '@domains/Pedido';
+import { Link } from 'react-router-dom';
 
 interface PedidoDatatableProps {
   pedido: Pedido;
@@ -101,29 +102,34 @@ const calculateStoreTotals = (products: ProdutoPedido[]) => {
             <img
               src={rowData.produto.fotos[0].url}
               alt={rowData.produto.nome}
-              style={{ width: '6rem', height: '6rem', borderRadius: '4px', objectFit:'cover' }}
+              style={{ width: '4rem', height: '6rem', borderRadius: '4px', objectFit:'cover' }}
             />
           ) : (
             <i className="pi pi-image" style={{ fontSize: '2rem', color: '#ccc' }}></i>
           )
         )}
-        style={{ minWidth: '8rem' }}
+        style={{ minWidth: '6rem' }}
         align="center"
       />
       <Column
         field="produto.nome"
         header="Nome"
-        style={{ minWidth: '24rem' }}
+        style={{ minWidth: '12rem' }}
+        body={(rowData) => (
+          <Link style={{color:'inherit', textDecoration:'underline'}} to={`/product/${rowData.produto.id}`} className="product-name-link">
+            {rowData.produto.nome}
+          </Link>
+        )}
       />
       <Column
         field="produto.categoria"
         header="Categoria"
-        style={{ minWidth: '12rem' }}
+        style={{ minWidth: '7rem' }}
         footer='Total: '
       />
       <Column
         header="Preço"
-        style={{ minWidth: '10rem' }}
+        style={{ minWidth: '8rem' }}
         body={(rowData: ProdutoPedido) => (
           `R$ ${rowData.produto.preco.toFixed(2)}`
         )}
@@ -135,7 +141,7 @@ const calculateStoreTotals = (products: ProdutoPedido[]) => {
       />
       <Column
         header="Quantidade"
-        style={{maxWidth:'10rem'}}
+        style={{maxWidth:'8rem'}}
         body={(rowData: ProdutoPedido) => 
           (isUser || isFinalizado) ? 
             rowData.quantidade : 

@@ -107,12 +107,12 @@ export default function Header({ simpleHeader }: HeaderProps) {
             <InputText
               placeholder="O que deseja garimpar?"
               type="text"
-              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
+              style={{height: '2.5rem' }}
             />
           </IconField>
         </div>
 
-        <div className="flex align-items-center gap-4 justify-center">
+        <div className="flex align-items-center gap-4 justify-center iconGroup">
           {conta?.tipo == 'USUARIO' && (
             <>
               <Button icon="pi pi-heart" rounded className='heart-header-icon' text aria-label="Favoritos" style={{ color: '#F5ECDD' }} onClick={() => navigate('/profile/user/favoritos')} />
@@ -141,7 +141,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
         model={items}
         start={start}
         end={end}
-        style={{ background: '#2F292A', border: 'none', borderRadius: '0%' }}
+        style={{ background: '#2F292A', border: 'none', borderRadius: '0%', padding:'0.5rem 2rem', width:'100vw'}}
       />
     );
   }
