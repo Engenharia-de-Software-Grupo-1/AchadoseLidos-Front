@@ -115,8 +115,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
         <div className="flex align-items-center gap-4 justify-center">
           {conta?.tipo == 'USUARIO' && (
             <>
-              <Button icon="pi pi-heart" rounded text aria-label="Favoritos" style={{ color: '#F5ECDD' }} onClick={() => navigate('/profile/user/favoritos')} />
-              <Button icon="pi pi-shopping-bag" rounded text aria-label="Cesta" style={{ color: '#F5ECDD' }} />
+              <Button icon="pi pi-heart" rounded className='heart-header-icon' text aria-label="Favoritos" style={{ color: '#F5ECDD' }} onClick={() => navigate('/profile/user/favoritos')} />
+              <Button icon="pi pi-shopping-bag" className='heart-header-icon' rounded text aria-label="Cesta" style={{ color: '#F5ECDD' }} />
             </>
           )}
           <Avatar
