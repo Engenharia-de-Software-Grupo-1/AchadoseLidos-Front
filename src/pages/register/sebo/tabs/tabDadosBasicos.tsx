@@ -26,6 +26,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField }) => 
               value={sebo.cpfCnpj}
               onChange={(e) => setField('cpfCnpj', e.target.value)}
               placeholder="CPF ou CNPJ *"
+              maxLength={16}
               keyfilter="int"
             />
           </FormField>
@@ -62,6 +63,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField }) => 
               onChange={(e) => setField('telefone', e.target.value)}
               placeholder={sebo.concordaVender ? 'WhatsApp *' : 'WhatsApp'}
               keyfilter="int" 
+              maxLength={11}
             />
           </FormField>
 

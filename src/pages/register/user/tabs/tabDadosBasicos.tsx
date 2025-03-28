@@ -26,6 +26,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => 
               onChange={(e) => setField('telefone', e.target.value)}
               placeholder="Telefone *"
               keyfilter="int"
+              maxLength={11}
             />
           </FormField>
 
@@ -35,6 +36,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => 
               onChange={(e) => setField('cpf', e.target.value)}
               placeholder="CPF *"
               keyfilter="int"
+              maxLength={11}
             />
           </FormField>
 
