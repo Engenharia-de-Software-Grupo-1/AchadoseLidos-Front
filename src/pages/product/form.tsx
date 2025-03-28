@@ -1,13 +1,13 @@
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import { useForm } from './useForm';
 import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import Gallery from '@components/Gallery/gallery';
 import UploadImages from '@components/UploadImages/uploadImages';
-import { ProdutoFieldNames } from '@domains/Produto/ProdutoFieldNames';
-import { ProductFormField } from '@components/ProductDetails/ProductFormFields';
+import { ProdutoFieldNames } from '@domains/ProdutoFieldNames';
+import { ProductFormField } from '@components/ProductDetails/productFormFields';
 import { Button } from 'primereact/button';
-import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/ProdutoConstants';
+import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/produtoConstants';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useErrorContext } from '@contexts/errorContext';

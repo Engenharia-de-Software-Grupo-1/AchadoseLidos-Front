@@ -3,7 +3,7 @@ import { Tag } from 'primereact/tag';
 import Gallery from '@components/Gallery/gallery';
 import './style.css';
 import { useAuth } from '@contexts/authContext';
-import { Produto } from '@domains/Produto/Produto';
+import { Produto } from '@domains/Produto';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteProduct } from '@routes/routesProduto';
 import { useNotification } from '@contexts/notificationContext';
@@ -73,7 +73,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
           </div>
 
           <p className="product-stock">{`${data.qtdEstoque} em estoque`}</p>
-          <p className="product-Achados-SubH1">{`R$ ${data.preco.toFixed(2)}`}</p>
+          <p className="product-achados-subh1">{`R$ ${data.preco.toFixed(2)}`}</p>
 
           {conta?.tipo === 'USUARIO' && (
             <div className="product-actions-frame">

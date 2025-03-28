@@ -51,7 +51,6 @@ export default function UploadImages({ setField, setImage, image }: UploadProps)
 
     if (validImageFiles.length > 0) {
       setNameImages(validImageFiles.map((file) => file.name));
-      //@ts-ignore
       fileUploadRef.current.setFiles(validImageFiles);
     }
   };

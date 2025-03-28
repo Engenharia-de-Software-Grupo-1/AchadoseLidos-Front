@@ -1,4 +1,4 @@
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import './style.css';
 import Banner from '@components/Banner/banner';
 import Profile from '@components/ProfileUsers/profileUsers';

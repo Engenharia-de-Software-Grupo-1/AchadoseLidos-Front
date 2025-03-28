@@ -1,4 +1,4 @@
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import './style.css';
 import FavoritoComponent from '@components/Favoritos/favoritos';

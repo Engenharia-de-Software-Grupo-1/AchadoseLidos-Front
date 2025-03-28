@@ -42,7 +42,6 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
   const verifyPassword = (user: User, validationResults: Record<string, any>): Record<string, any> => {
     const passwordFields = ['senha', 'confirmaSenha'];
     passwordFields.forEach((field) => {
-      //@ts-ignore
       if (!user.conta[field]) {
         validationResults[field] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
       }
