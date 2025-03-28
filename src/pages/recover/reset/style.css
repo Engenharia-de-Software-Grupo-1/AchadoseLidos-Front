@@ -25,16 +25,20 @@
 
 .card-recover {
   font-family: 'Poppins';
-  color: var(--Achados-Black);
+  color: var(--black);
   background-color: var(--Achados-Lighter-OffWhite);
   border-radius: var(--rounding-medium);
-  width: 35vw;
-  padding: 2.5rem;
+  width:100%;
+  max-width: 650px;
+  margin: 0 3rem;
+  padding: 2.5rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
   text-align: center;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   h1 {
     font-size: 3rem;
@@ -46,9 +50,11 @@
   p {
     font-size: 1rem;
     margin: 0;
+    text-align:center;
     a {
       font-weight: bold;
       text-decoration: underline;
+      display:inline-block;
     }
   }
 
@@ -62,8 +68,23 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 0 3rem;
+    padding: 0 1rem;
     gap: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .field {
+    width:100%;
+    max-width: 400px;
+  }
+
+  .input-wrapper {
+    width:100%;
+  }
+
+  .p-inputtext {
+    width:100%;
   }
 
   .button {

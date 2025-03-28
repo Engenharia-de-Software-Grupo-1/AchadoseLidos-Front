@@ -9,6 +9,7 @@ const RegistrationPage = () => {
       <TemplatePage simpleHeader simpleFooter contents>
       <div className="content-area">
         <div className="card-register">
+          <div className="highlight-indicator"></div>
           <div className="options-container">
             <div className="option-column user-column">
               <h2 className="option-title">Sou <span className='option-title-users'>Usuário</span></h2>
@@ -29,7 +30,6 @@ const RegistrationPage = () => {
             <div className="divider"></div>
             
             <div className="option-column seller-column">
-              <div className="highlight-indicator"></div>
               <h2 className="option-title">Sou <span className='option-title-users'>Vendedor</span></h2>
               <p className="option-description">
                 Quero registrar minha história ou inventário e anunciar produtos e eventos.
