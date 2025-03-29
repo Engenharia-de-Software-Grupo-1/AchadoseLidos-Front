@@ -1,4 +1,4 @@
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import './style.css';
 import Banner from '@components/Banner/banner';
 import Profile from '@components/ProfileUsers/profileUsers';
@@ -39,8 +39,8 @@ const ProfileSebo = () => {
         response.map((item) => {
           return {
             name: item.nome,
-            image: item.fotos && item.fotos.length > 0 ? item.fotos[0] : '/images/sem_foto.png',
-            owner: item.sebo.nome,
+            image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
+            owner: item.sebo?.nome ?? '',
             price: item.preco,
             colorFrills: '2',
           };

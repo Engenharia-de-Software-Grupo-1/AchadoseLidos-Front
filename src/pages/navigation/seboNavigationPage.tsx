@@ -1,6 +1,5 @@
 import './style.css';
 import { useEffect, useState } from 'react';
-import TemplatePage from '@pages/templatePage';
 import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import SeboFilters from '@components/Filters/seboFilters';
@@ -10,6 +9,7 @@ import { Sebo } from '@domains/Sebo';
 import { useSorting } from '@hooks/useSorting';
 import { useSeboFilterStore } from '@stores/filters/seboFilterStore';
 import { Paginator } from 'primereact/paginator';
+import TemplatePage from '@pages/template';
 
 interface SeboNavigationPageProps {
   sorters: Sorter[];

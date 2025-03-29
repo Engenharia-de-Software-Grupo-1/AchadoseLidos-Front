@@ -2,10 +2,11 @@ export enum ProdutoFieldNames {
     nome = 'nome',
     preco = 'preco',
     categoria = 'categoria',
-    estoque = 'estoque',
+    qtdEstoque = 'qtdEstoque',
     anoEdicao = 'anoEdicao',
     anoLancamento = 'anoLancamento',
-    estado = 'estado',
+    estadoConservacao = 'estadoConservacao',
     autores = 'autores',
     descricao = 'descricao',
+    genero= 'generos',
 }

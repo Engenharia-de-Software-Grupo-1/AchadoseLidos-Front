@@ -2,7 +2,6 @@ import FormField from '@components/FormField/formField';
 import { Checkbox } from 'primereact/checkbox';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { InputMask } from 'primereact/inputmask';
 import { Sebo } from '@domains/Sebo';
 import { useLoadCities } from '@hooks/useLoadCities';
 
@@ -42,9 +41,10 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, cities }) => 
           </FormField>
 
           <FormField attribute="cep">
-            <InputMask
+            <InputText
               value={sebo.endereco.cep}
-              mask={'99999-999'}
+              maxLength={8}
+              keyfilter="int"
               onChange={(e) => setField('endereco.cep', e.target.value?.replace(/\D/g, '' ))}
               placeholder="CEP *"
             />

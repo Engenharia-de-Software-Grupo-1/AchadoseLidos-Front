@@ -5,7 +5,7 @@ import React from 'react';
 import { MultiSelect } from 'primereact/multiselect';
 import { InputNumber } from 'primereact/inputnumber';
 import { useProductFilterStore } from '../../stores/filters/productFilterStore';
-import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/ProdutoConstants';
+import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/produtoConstants';
 
 export const ProductFilters: React.FC = () => {
   const {

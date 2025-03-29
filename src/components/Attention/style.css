@@ -1,0 +1,58 @@
+.form-product-atention {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 16px;
+    border-radius: 8px;
+    background: var(--Light-Utility-Colors-Warning-xlight, #ffecd9);
+  }
+  
+  .border-left-atention {
+    width: 6px;
+    flex-shrink: 0;
+    align-self: stretch;
+    background: var(--Light-Utility-Colors-Warning-base, #c2650b);
+  }
+  
+  .form-product-atention-message {
+    display: flex;
+    width: 90%;
+    padding: 16px 16px 16px 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  
+  .atention-message {
+    color: var(--Light-Utility-Colors-Warning-base, #c2650b);
+  
+    /* Bold/Achados Paragraph Medium */
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .text-atention-message {
+    color: var(--Light-Utility-Colors-Warning-base, #c2650b);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings:
+      'liga' off,
+      'clig' off;
+  
+    /* Regular / Paragraph */
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 455px;
+  }
+  

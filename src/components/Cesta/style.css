@@ -1,0 +1,148 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cesta-container {
+  display:flex;
+  width:80%;
+  justify-content: center;
+}
+
+.cesta-container .p-inputtext {
+  width: 3rem;
+}
+
+.p-inputnumber-button {
+  background-color: unset;
+}
+
+.p-inputnumber-button {
+  border:none;
+}
+
+.cesta-container .flex.align-items-center {
+  justify-content: flex-start;
+}
+
+.readonly-input {
+    pointer-events: none; 
+    background-color: transparent; 
+    border: none; 
+    box-shadow: none;
+}
+
+.p-inputnumber-buttons-horizontal .p-inputnumber-button {
+    pointer-events: auto; 
+}
+
+.empty-cesta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+}
+
+.empty-cesta h3 {
+    margin: 1rem 0 0.5rem;
+    color: #444;
+}
+
+.empty-cesta p {
+    margin-bottom: 1.5rem;
+}
+
+.p-accordion {
+  width: 100% !important;
+}
+
+.p-accordion-content {
+  padding: 0;
+}
+
+.p-accordion-header-link, th {
+  background-color: var(--Achados-Lighter-OffWhite);
+  border-radius:0;
+}
+
+.p-accordion-header-link{
+  border:none;
+}
+
+
+tr {
+    border-color:var(--Achados-Black-50);
+
+  background-color: white;
+}
+
+[data-pc-section="footercell"] {
+  background-color: var(--Achados-Lighter-OffWhite);
+  border:none;
+}
+
+
+.p-accordion-tab-active .hidden-on-expand {
+  display: none;
+}
+
+.hidden-on-expand {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+
+.accordion-header-collapsed {
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.header-grid > div {
+  padding: 0 0.5rem;
+}
+
+.price-col, .qty-col {
+  text-align: left;
+}
+
+
+.p-accordion-tab-active .store-info .text-sm,
+.p-accordion-tab-active .qty-col,
+.p-accordion-tab-active .price-col,
+.p-accordion-tab-active .category-info {
+  display: none;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: 
+    1.1fr   
+    2.1fr    
+    1.7fr    
+    1.4fr    
+    1fr 
+    1fr;
+  align-items: left;
+}
+
+.disabled-button {
+  box-shadow: none;
+}
+
+.highlight {
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-color: var(--Achados-Highlight-Green);
+  text-decoration-thickness: 40%;
+  text-underline-offset: -30%;
+  text-underline-position: from-font;
+}

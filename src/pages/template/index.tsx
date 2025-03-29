@@ -25,10 +25,7 @@ const TemplatePage: React.FC<TemplatePageProps> = ({
     </footer>
   );
 
-  const style: React.CSSProperties = contents
-    ? { height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column' }
-    : { height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column' };
-
+  const style = contents ? { height: '100%', display: 'contents' } : { height: '100%'};
   return (
     <div style={style}>
       <Menu simpleHeader={simpleHeader} />

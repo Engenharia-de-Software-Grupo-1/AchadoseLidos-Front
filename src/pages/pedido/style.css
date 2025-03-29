@@ -1,0 +1,57 @@
+.pedido-container {
+    width: 100vw;
+    height: 100vh;
+    background: var(--Achados-OffWhite);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.button-save,
+.button-trash {
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+}
+
+.button-trash {
+  background: var(--Achados-Red);
+  border: 1px solid var(--Achados-Red);
+}
+
+.button-save {
+  border: 1px solid var(--Achados-Light-Blue);
+  background: var(--Achados-Success);
+}
+
+.button-trash:hover {
+  background: var(--Achados-Red) !important;
+
+}
+
+.button-save:hover {
+  background: var(--Achados-Success) !important;
+
+}
+
+.button-save:focus,
+.button-trash:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.h1-highlight {
+  font-size:3rem;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-color: var(--Achados-Highlight-Green);
+  text-decoration-thickness: 40%;
+  text-underline-offset: -30%;
+  text-underline-position: from-font;
+}

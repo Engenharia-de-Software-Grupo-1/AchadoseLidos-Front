@@ -1,5 +1,5 @@
 import Banner from '@components/Banner/banner';
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import './style.css';
 import ContainerItems from '@components/ContainerItems/containerItems';
 import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
@@ -26,8 +26,8 @@ const HomePage = () => {
         response.map((item) => {
           return {
             name: item.nome,
-            image: item.fotos && item.fotos.length > 0 ? item.fotos[0] : '/images/sem_foto.png',
-            owner: item.sebo.nome,
+            image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
+            owner: item.sebo?.nome ?? '',
             price: item.preco,
             colorFrills: '2',
           };
@@ -44,8 +44,8 @@ const HomePage = () => {
         response.map((item) => {
           return {
             name: item.nome,
-            image: item.fotos && item.fotos.length > 0 ? item.fotos[0] : '/images/sem_foto.png',
-            owner: item.sebo.nome,
+            image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
+            owner: item.sebo?.nome ?? '',
             price: item.preco,
             colorFrills: '3',
           };
@@ -77,7 +77,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <TemplatePage simpleHeader={true} simpleFooter={false} backgroundFooterDiff={true}>
+    <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
       <div className="main-context">
         <Banner images={images} showIndicators={true} />
         <div>
@@ -87,35 +87,41 @@ const HomePage = () => {
         </div>
 
         <img src="/images/underline.svg" alt="underline" style={{ marginTop: '42px', marginBottom: '42px' }} />
-        <ContainerItems title="Todos os produtos" backgroundBege={true}>
-          <div className="carrousel-product">
+        <ContainerItems title="Todos os produtos" backgroundBege isFirst>
+          {/* <div className="carrousel-product">
             <Carousel
               value={produtos}
-              numVisible={11}
-              numScroll={10}
+              numVisible={8}
+              numScroll={1}
               itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
+              circular
             />
-          </div>
+          </div> */}
+          {''}
         </ContainerItems>
-        <ContainerItems title="Sebos" backgroundBege={true}>
-          <div className="carrousel-sebo">
+        <ContainerItems title="Sebos" backgroundBege={false}>
+          {/* <div className="carrousel-sebo">
             <Carousel
               value={sebos}
               numVisible={6}
-              numScroll={6}
+              numScroll={1}
               itemTemplate={(sebo: GenericCardProps) => <GenericCard {...sebo} />}
+              circular
             />
-          </div>
+          </div> */}
+          {''}
         </ContainerItems>
-        <ContainerItems title="Livros" backgroundBege={false}>
-          <div className="carrousel-product">
+        <ContainerItems title="Livros" backgroundBege>
+          {/* <div className="carrousel-product">
             <Carousel
               value={livros}
-              numVisible={11}
-              numScroll={10}
+              numVisible={8}
+              numScroll={1}
               itemTemplate={(livro: ProductCardProps) => <ProductCard {...livro} />}
+              circular
             />
-          </div>
+          </div> */}
+          {''}
         </ContainerItems>
       </div>
     </TemplatePage>

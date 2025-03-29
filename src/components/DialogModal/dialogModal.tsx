@@ -6,9 +6,10 @@ interface DialogModalProps {
     visibleDialog: boolean;
     setVisibleDialog: (visible: boolean) => void;
     onClickDelete: (sucessCallback?: () => void) => void;
+    message: string;
 }
 
-export default function DialogModal({ visibleDialog, setVisibleDialog, onClickDelete }: DialogModalProps) {
+export default function DialogModal({ visibleDialog, setVisibleDialog, onClickDelete, message }: DialogModalProps) {
     const footerContent = (
         <div>
             <Button label="Cancel" onClick={() => setVisibleDialog(false)} className="p-button-text button-cancel-dialog" />
@@ -22,7 +23,7 @@ export default function DialogModal({ visibleDialog, setVisibleDialog, onClickDe
                 <div className='container-dialog-text'>
                     <i className="pi pi-exclamation-triangle" style={{ color: '#DB9146' }}></i>
                     <p className="m-0 paragraph-modal">
-                        Você tem certeza que deseja excluir sua conta? Todos os seus dados serão apagados.
+                        {message}
                     </p>
                 </div>
             </Dialog>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from '@pages/homePage';
+import HomePage from '@pages/home';
 import RegisterSebo from '@pages/register/sebo';
 import { RegisterSeboProvider } from '@stores/register/sebo/registerStore';
 import { NotificationProvider } from '@contexts/notificationContext';
@@ -10,14 +10,25 @@ import { ErrorProvider } from '@contexts/errorContext';
 import ProductPage from '@pages/product/index';
 import { ProdutoFormProvider } from '@stores/product/formStore';
 import ProductForm from '@pages/product/form';
-import LoginPage from '@pages/loginPage';
+import LoginPage from '@pages/login';
 import { LoginProvider } from '@stores/login/loginStore';
 import { RecoverRequestProvider } from '@stores/recover/recoverStore';
 import RecoverRequestPage from '@pages/recover/request';
 import { ResetRequestProvider } from '@stores/recover/resetStore';
 import ResetRequestPage from '@pages/recover/reset';
+import RegisterUser from '@pages/register/user';
+import { RegisterUserProvider } from '@stores/register/user/registerStore';
+import RegistrationPage from '@pages/register';
+import ProfileUser from '@pages/profile/user';
+import ProfileUserForm from '@pages/profile/user/form';
+import { ProfileUserFormProvider } from '@stores/profile/user/formStore';
 import { AuthProvider } from '@contexts/authContext';
 import { SeboProvider } from '@stores/profile/sebo/indexStore';
+import FavoritosPage from '@pages/favoritos';
+import { FavoritoProvider } from '@stores/favorito/favoritoStore';
+import CestaPage from '@pages/cesta';
+import { CestaProvider } from '@stores/cesta/cestaStore';
+import PedidoPage from '@pages/pedido';
 import { ProductNavigationPage } from '@pages/navigation/productNavigationPage';
 import { SeboNavigationPage } from '@pages/navigation/seboNavigationPage';
 
@@ -29,6 +40,7 @@ const App = () => {
           <AuthProvider>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/register" element={<RegistrationPage />} />
               <Route
                 path="/register/sebo"
                 element={
@@ -38,21 +50,38 @@ const App = () => {
                 }
               />
               <Route
-                path="/profile/sebo/:id?"
+                path="/register/user"
                 element={
-                  <SeboProvider>
-                    <ProfileSebo />
-                  </SeboProvider>
+                  <RegisterUserProvider>
+                    <RegisterUser />
+                  </RegisterUserProvider>
                 }
               />
               <Route
-                path="/profile/sebo/edit"
+                path="/product/:id"
                 element={
-                  <ProfileSeboFormProvider>
-                    <ProfileSeboForm />
-                  </ProfileSeboFormProvider>
+                  <FavoritoProvider>
+                    <ProductPage />
+                  </FavoritoProvider>
                 }
               />
+              <Route
+                path="/product/:id/edit"
+                element={
+                  <ProdutoFormProvider>
+                    <ProductForm />
+                  </ProdutoFormProvider>
+                }
+              />
+              <Route
+                path="/register/product"
+                element={
+                  <ProdutoFormProvider>
+                    <ProductForm isRegister />
+                  </ProdutoFormProvider>
+                }
+              />
+
               <Route
                 path="/login"
                 element={
@@ -77,7 +106,57 @@ const App = () => {
                   </ResetRequestProvider>
                 }
               />
-              <Route path="/product/:id" element={<ProductPage />} />
+
+              <Route
+                path="/profile/user/cesta"
+                element={
+                  <CestaProvider>
+                    <CestaPage />
+                  </CestaProvider>
+                }
+              />
+
+              <Route path="/profile/user/:id?" element={<ProfileUser />} />
+              <Route
+                path="/profile/user/edit"
+                element={
+                  <ProfileUserFormProvider>
+                    <ProfileUserForm />
+                  </ProfileUserFormProvider>
+                }
+              />
+              <Route
+                path="/profile/sebo/:id?"
+                element={
+                  <SeboProvider>
+                    <ProfileSebo />
+                  </SeboProvider>
+                }
+              />
+              <Route
+                path="/profile/sebo/edit"
+                element={
+                  <ProfileSeboFormProvider>
+                    <ProfileSeboForm />
+                  </ProfileSeboFormProvider>
+                }
+              />
+              <Route
+                path="/profile/historico/pedido1"
+                element={
+                  <CestaProvider>
+                    <PedidoPage />
+                  </CestaProvider>
+                }
+              />
+              <Route
+                path="/profile/user/favoritos"
+                element={
+                  <FavoritoProvider>
+                    <FavoritosPage />
+                  </FavoritoProvider>
+                }
+              />
               <Route
                 path="/product/edit"
                 element={

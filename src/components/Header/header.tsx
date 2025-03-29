@@ -11,9 +11,10 @@ import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@contexts/authContext';
 import { useProductFilterStore } from '@stores/filters/productFilterStore';
+import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
 
 interface HeaderProps {
-  simpleHeader: boolean
+  simpleHeader: boolean;
 }
 
 export default function Header({ simpleHeader }: HeaderProps) {
@@ -51,7 +52,15 @@ export default function Header({ simpleHeader }: HeaderProps) {
         </Link>
       </div>
     );
-
+  } else {
+    const itemRenderer = (item: MenuItem, options: MenuItemOptions) => (
+      <a className={options.className} style={{ backgroundColor: '#f9fafb' }}>
+        <span className="mx-2 p-menuitem-text" style={{ color: '#2F292A' }}>
+          {item.label}
+        </span>
+      </a>
+    );
+    
     const panelMenuItems = isAuthenticated
       ? [
           { label: 'Meu Perfil', icon: 'pi pi-user', command: () => redirectProfile() },
@@ -60,8 +69,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
           ...(conta?.tipo === 'SEBO'
             ? [{ label: 'Meus Produtos', icon: 'pi pi-box', command: () => redirectMyProducts() }]
             : [
-                { label: 'Cesta', icon: 'pi pi-shopping-bag' },
-                { label: 'Favoritos', icon: 'pi pi-heart' },
+                { label: 'Cesta', icon: 'pi pi-shopping-bag', command: () => navigate('/profile/user/cesta') },
+                { label: 'Favoritos', icon: 'pi pi-heart', command: () => navigate('/profile/user/favoritos') },
               ]),
 
           {
@@ -73,6 +82,22 @@ export default function Header({ simpleHeader }: HeaderProps) {
       : [
           { label: 'Entrar', icon: 'pi pi-sign-in', command: () => navigate('/login') },
           { label: 'Cadastrar', icon: 'pi pi-user-plus', command: () => navigate('/register') },
+        ];
+
+        const items = [
+          {
+            label: 'Categorias',
+            items: [
+              {
+                label: 'Livros',
+                template: itemRenderer,
+              },
+              {
+                label: 'Discos',
+                template: itemRenderer,
+              },
+            ],
+          },
         ];
 
     const start = (
@@ -91,7 +116,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
             <InputText
               placeholder="O que deseja garimpar?"
               type="text"
-              style={{ width: '40rem', maxWidth: '40rem', height: '2.5rem' }}
+              style={{height: '2.5rem' }}
               onChange={(e) => setSearchedProduct(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -102,11 +127,11 @@ export default function Header({ simpleHeader }: HeaderProps) {
           </IconField>
         </div>
 
-        <div className="flex align-items-center gap-4 justify-center">
+        <div className="flex align-items-center gap-4 justify-center iconGroup">
           {conta?.tipo == 'USUARIO' && (
             <>
-              <Button icon="pi pi-heart" rounded text aria-label="Favoritos" style={{ color: '#F5ECDD' }} />
-              <Button icon="pi pi-shopping-bag" rounded text aria-label="Cesta" style={{ color: '#F5ECDD' }} />
+              <Button icon="pi pi-heart" rounded className='heart-header-icon' text aria-label="Favoritos" style={{ color: '#F5ECDD' }} onClick={() => navigate('/profile/user/favoritos')} />
+              <Button icon="pi pi-shopping-bag" className='heart-header-icon' rounded text aria-label="Cesta" style={{ color: '#F5ECDD' }} onClick={() => navigate('/profile/user/cesta')} />
             </>
           )}
           <Avatar
@@ -115,7 +140,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
             shape="circle"
             onClick={() => toggleMenu()}
             style={{ cursor: 'pointer' }}
-          />
+            />
         </div>
 
         {menuVisible && (
@@ -129,11 +154,11 @@ export default function Header({ simpleHeader }: HeaderProps) {
     content = (
       <Menubar
         start={start}
+        model={items}
         end={end}
-        style={{ background: '#2F292A', border: 'none', borderRadius: '0%' }}
+        style={{ background: '#2F292A', border: 'none', borderRadius: '0%', padding:'0.5rem 2rem', width:'100vw'}}
       />
     );
   }
-
   return content;
 }

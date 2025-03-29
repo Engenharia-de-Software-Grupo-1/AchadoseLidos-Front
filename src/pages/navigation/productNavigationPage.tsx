@@ -1,10 +1,10 @@
 import './style.css';
 import { useEffect, useState } from 'react';
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProductFilters from '@components/Filters/productFilters';
-import { Filter, Sorter } from 'types/NavigationFilters';
+import { Sorter } from 'types/NavigationFilters';
 import { getAllProducts } from 'routes/routesProduto';
 import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
@@ -44,8 +44,8 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
     const produtos = response.map((item) => {
       return {
         name: item.nome,
-        image: item.fotos && item.fotos.length > 0 ? item.fotos[0] : '/images/sem_foto.png',
-        owner: item.sebo.nome,
+        image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
+        owner: item.sebo?.nome ?? '',
         price: item.preco,
         colorFrills: '1',
       };
@@ -66,7 +66,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
 
   return (
     <div className="nav-page">
-      <TemplatePage simpleHeader={true} simpleFooter={false} backgroundFooterDiff={true}>
+      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <div className="nav-content-center">
           <ProductFilters />

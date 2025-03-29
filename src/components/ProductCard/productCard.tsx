@@ -1,16 +1,17 @@
 import './style.css';
 
 export interface ProductCardProps {
-  name: string;
   image: string;
+  name: string;
   owner: string;
   price: number;
-  colorFrills: string;
+  backgroundBege?: boolean;
+  colorFrills?: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
-  const { image, name, owner, price, colorFrills } = props;
-  
+  const { image, name, owner, price, backgroundBege, colorFrills } = props;
+
   const getClassName = () => {
     if (colorFrills == '1') {
       return ['furosChild', 'furosChild-1'];
@@ -22,31 +23,29 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
 
   return (
     <div className="card-container">
-      <div className="cardChild" />
-      <div className="cardItem" />
-      <div className="cardInner" />
-        <div className="title">
-          <div className="itemTalSeboTalContainer">
-            <p className="itemTal">
-              {name.length > 40 ? `${name.substring(0, 30)}...` : name}
-            </p>
-            <p className="seboTal">{owner}</p>
-          </div>
+      <div className="card-child" />
+      <div className="card-item" />
+      <div className="card-inner" />
+      <div className="title">
+        <div className="product-info-container">
+          <p className="nome-item">{name?.length > 40 ? `${name.substring(0, 30)}...` : name}</p>
+          <p className="nome-sebo">{owner}</p>
         </div>
-        <div className="foto">
-          <img className="fotoChild" src={image} alt="Imagem do Produto" />
-          <div className="priceTag">
-            <div className="money-text">R$ {price.toFixed(2).replace('.', ',')}</div>
-          </div>
+      </div>
+      <div className="foto">
+        <img className="foto-produto" src={image} alt="Imagem do Produto" />
+        <div className="price-tag">
+          <div className="money-text">R$ {price?.toFixed(2).replace('.', ',')}</div>
         </div>
+      </div>
       <div className="furos">
-        {Array.from({ length: 12 }).map((_, index) => (
-          <div key={index} className={getClassName()[0]} />
+        {[...Array(12)].map((_, i) => (
+          <div key={i} className={backgroundBege ? 'furos-child-b' : 'furos-child'} />
         ))}
       </div>
       <div className="furos-1">
-        {Array.from({ length: 12 }).map((_, index) => (
-          <div key={index} className={getClassName()[1]} />
+        {[...Array(12)].map((_, i) => (
+          <div key={i} className={backgroundBege ? 'furos-child-1b' : 'furos-child-1'} />
         ))}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import TemplatePage from '@pages/templatePage';
+import TemplatePage from '@pages/template';
 import './style.css';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
@@ -256,6 +256,7 @@ const ProfileSeboForm = () => {
                     visibleDialog={visible}
                     setVisibleDialog={setVisible}
                     onClickDelete={deleteContaSebo}
+                    message='Você tem certeza que deseja excluir sua conta? Todos os seus dados serão apagados.'
                   ></DialogModal>
                 )}
                 <Button label="Salvar" className="button-save" type="submit" onClick={() => finalizeUpdate()} />
