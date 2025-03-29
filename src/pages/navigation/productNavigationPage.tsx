@@ -4,7 +4,7 @@ import TemplatePage from '@pages/template';
 import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProductFilters from '@components/Filters/productFilters';
-import { Sorter } from 'types/NavigationFilters';
+import { FilterOrders, Sorter } from 'types/NavigationFilters';
 import { getAllProducts } from 'routes/routesProduto';
 import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
@@ -19,8 +19,9 @@ interface ProductNavigationPageProps {
 }
 
 export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigationPageProps) => {
+  const { conta } = useAuth();
   const breadcrumbItems = meusProdutos
-    ? [{ label: 'Meus produtos', url: '/navigation/meus-produtos' }]
+    ? [{ label: 'Meus produtos', url: `/navigation/meus-produtos/${conta?.id}` }]
     : [{ label: 'Produtos', url: '/navigation/products' }];
   const navigate = useNavigate();
   const { nameIcon, changeOrder } = useSorting(sorters);
@@ -28,18 +29,34 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   const [productCards, setProductCards] = useState<ProductCardProps[]>([]);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
-  const { conta } = useAuth();
   const isSebo = conta?.tipo === 'SEBO';
 
   useEffect(() => {
-    if (meusProdutos && conta?.id && isSebo) {
-      filters.push({ campo: 'seboId', operador: '=', valor: conta?.id || -1 });
-    }
     getProducts();
   }, [filters, sorters, nameIcon, meusProdutos]);
 
+  useEffect(() => {
+    if (meusProdutos && conta?.id) {
+      getAllProductsBySeboId({ filters: [{ campo: 'seboId', operador: '=', valor: conta?.id }], sorters: sorters });
+    }
+  }, [meusProdutos, conta?.id]);
+
   const getProducts = async () => {
     const response = await getAllProducts({ filters, sorters: sorters });
+    const produtos = response.map((item) => {
+      return {
+        name: item.nome,
+        image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
+        owner: item.sebo?.nome ?? '',
+        price: item.preco,
+        begeBackground: true,
+      };
+    });
+    setProductCards(produtos);
+  };
+
+  const getAllProductsBySeboId = async (data: FilterOrders) => {
+    const response = await getAllProducts(data);
     const produtos = response.map((item) => {
       return {
         name: item.nome,

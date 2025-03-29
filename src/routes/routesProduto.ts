@@ -1,7 +1,6 @@
 import { Produto } from '@domains/Produto';
 import axios from 'axios';
 import { FilterOrders } from 'types/NavigationFilters';
-import { ProductCardProps } from '@components/ProductCard/productCard';
 
 const api = axios.create({
   baseURL: 'http://localhost:3333/api',
@@ -26,11 +25,6 @@ export const createProduct = async (product: Produto) => {
   const response = await api.post<Produto>('/produtos', product, {
     withCredentials: true,
   });
-  return response.data;
-};
-
-export const getAllProductsBySeboId = async (id: number) => {
-  const response = await api.get<ProductCardProps[]>(`/produtos/sebo/${id}`);
   return response.data;
 };
 

@@ -40,6 +40,10 @@ export default function Header({ simpleHeader }: HeaderProps) {
     navigate('/navigation/products');
   };
 
+  const handleSeboProducts = () => {
+    navigate(`/navigation/meus-produtos/${conta?.id}`);
+  };
+
   const resetFilters = () => {
     filters.length = 0;
   };
@@ -61,7 +65,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
 
           ...(conta?.tipo === 'SEBO'
-            ? [{ label: 'Meus Produtos', icon: 'pi pi-box', command: () => redirectMyProducts() }]
+            ? [{ label: 'Meus Produtos', icon: 'pi pi-box', command: () => handleSeboProducts() }]
             : [
                 { label: 'Cesta', icon: 'pi pi-shopping-bag', command: () => navigate('/profile/user/cesta') },
                 { label: 'Favoritos', icon: 'pi pi-heart', command: () => navigate('/profile/user/favoritos') },

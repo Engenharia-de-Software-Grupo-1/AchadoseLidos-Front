@@ -176,7 +176,7 @@ const App = () => {
               />
 
               <Route
-                path="/navigation/meus-produtos"
+                path="/navigation/meus-produtos/:id?"
                 element={<ProductNavigationPage sorters={[{ campo: 'nome', ordem: 'ASC' }]} meusProdutos={true} />}
               />
             </Routes>
