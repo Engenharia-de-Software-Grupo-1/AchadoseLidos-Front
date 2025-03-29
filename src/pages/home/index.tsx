@@ -25,6 +25,7 @@ const HomePage = () => {
       setProdutos(
         response.map((item) => {
           return {
+            id: item.id,
             name: item.nome,
             image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
             owner: item.sebo?.nome ?? '',
@@ -43,6 +44,7 @@ const HomePage = () => {
       setLivros(
         response.map((item) => {
           return {
+            id: item.id,
             name: item.nome,
             image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
             owner: item.sebo?.nome ?? '',

@@ -77,7 +77,7 @@ const FavoritosPage: React.FC = () => {
                       name={itemFavorito?.nome}
                       owner={favorito?.sebo?.nome}
                       price={itemFavorito?.preco}
-                      backgroundBege
+                      colorFrills='2'
                     />
                   </div>
                 </div>
