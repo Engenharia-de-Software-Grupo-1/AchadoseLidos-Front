@@ -26,14 +26,15 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   const { nameIcon, changeOrder } = useSorting(sorters);
   const { filters } = useProductFilterStore();
   const [productCards, setProductCards] = useState<ProductCardProps[]>([]);
-  const [first, setFirst] = useState(0);  
-  const [rows, setRows] = useState(12);
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
   const { conta } = useAuth();
   const isSebo = conta?.tipo === 'SEBO';
-  const _ = meusProdutos ? filters : filters.push({ campo: 'seboId', operador: '=', valor: conta?.id || -1 });
+  // const _ = meusProdutos ? filters : filters.push({ campo: 'seboId', operador: '=', valor: conta?.id || -1 });
 
   useEffect(() => {
-    if (meusProdutos && conta?.id && isSebo) { // corrigir lógica da página meus-produtos
+    if (meusProdutos && conta?.id && isSebo) {
+      // corrigir lógica da página meus-produtos
       filters.push({ campo: 'seboId', operador: '=', valor: conta?.id || -1 });
     }
     getProducts();
@@ -68,7 +69,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
     <div className="nav-page">
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
-        <div className="nav-content-center">
+        <div className="nav-content-container">
           <ProductFilters />
           <div className="nav-content-column">
             <div className="nav-filter-display">
@@ -101,20 +102,23 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
                     <ProductCard key={index} {...card} />
                   ))}
                 </div>
-                <Paginator
-                  first={first}
-                  rows={rows}
-                  totalRecords={productCards.length}
-                  onPageChange={(e) => {
-                    setFirst(e.first);
-                    setRows(e.rows);
-                  }}
-                ></Paginator>
               </>
             ) : (
               handleEmptyContent('Nenhum produto encontrado!')
             )}
           </div>
+        </div>
+        <div className="nav-page-paginator">
+          <Paginator
+            first={first}
+            rows={rows}
+            totalRecords={productCards.length}
+            onPageChange={(e) => {
+              setFirst(e.first);
+              setRows(e.rows);
+            }}  
+            style={{ backgroundColor: 'var(--Achados-OffWhite)' }}
+          ></Paginator>
         </div>
       </TemplatePage>
     </div>

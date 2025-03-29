@@ -88,7 +88,7 @@ const HomePage = () => {
 
         <img src="/images/underline.svg" alt="underline" style={{ marginTop: '42px', marginBottom: '42px' }} />
         <ContainerItems title="Todos os produtos" backgroundBege={false} isFirst={true}>
-          {/* <div className="carrousel-product">
+          <div className="carrousel-product">
             <Carousel
               value={produtos}
               numVisible={8}
@@ -96,11 +96,10 @@ const HomePage = () => {
               itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
               circular
             />
-          </div> */}
-          {''}
+          </div>
         </ContainerItems>
         <ContainerItems title="Sebos" backgroundBege>
-          {/* <div className="carrousel-sebo">
+          <div className="carrousel-sebo">
             <Carousel
               value={sebos}
               numVisible={6}
@@ -108,11 +107,10 @@ const HomePage = () => {
               itemTemplate={(sebo: GenericCardProps) => <GenericCard {...sebo} />}
               circular
             />
-          </div> */}
-          {''}
+          </div>
         </ContainerItems>
         <ContainerItems title="Livros" backgroundBege={false}>
-          {/* <div className="carrousel-product">
+          <div className="carrousel-product">
             <Carousel
               value={livros}
               numVisible={8}
@@ -120,8 +118,7 @@ const HomePage = () => {
               itemTemplate={(livro: ProductCardProps) => <ProductCard {...livro} />}
               circular
             />
-          </div> */}
-          {''}
+          </div>
         </ContainerItems>
       </div>
     </TemplatePage>

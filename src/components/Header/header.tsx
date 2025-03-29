@@ -53,13 +53,13 @@ export default function Header({ simpleHeader }: HeaderProps) {
       </div>
     );
   } else {
-    const itemRenderer = (item: MenuItem, options: MenuItemOptions) => (
-      <a className={options.className} style={{ backgroundColor: '#f9fafb' }}>
-        <span className="mx-2 p-menuitem-text" style={{ color: '#2F292A' }}>
-          {item.label}
-        </span>
-      </a>
-    );
+    // const itemRenderer = (item: MenuItem, options: MenuItemOptions) => (
+    //   <a className={options.className} style={{ backgroundColor: '#f9fafb' }}>
+    //     <span className="mx-2 p-menuitem-text" style={{ color: '#2F292A' }}>
+    //       {item.label}
+    //     </span>
+    //   </a>
+    // );
     
     const panelMenuItems = isAuthenticated
       ? [
@@ -84,21 +84,21 @@ export default function Header({ simpleHeader }: HeaderProps) {
           { label: 'Cadastrar', icon: 'pi pi-user-plus', command: () => navigate('/register') },
         ];
 
-        const items = [
-          {
-            label: 'Categorias',
-            items: [
-              {
-                label: 'Livros',
-                template: itemRenderer,
-              },
-              {
-                label: 'Discos',
-                template: itemRenderer,
-              },
-            ],
-          },
-        ];
+        // const items = [
+        //   {
+        //     label: 'Categorias',
+        //     items: [
+        //       {
+        //         label: 'Livros',
+        //         template: itemRenderer,
+        //       },
+        //       {
+        //         label: 'Discos',
+        //         template: itemRenderer,
+        //       },
+        //     ],
+        //   },
+        // ];
 
     const start = (
       <>
@@ -154,7 +154,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
     content = (
       <Menubar
         start={start}
-        model={items}
+        // model={items}
         end={end}
         style={{ background: '#2F292A', border: 'none', borderRadius: '0%', padding:'0.5rem 2rem', width:'100vw'}}
       />

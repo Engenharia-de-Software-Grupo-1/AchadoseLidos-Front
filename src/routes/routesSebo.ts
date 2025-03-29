@@ -48,10 +48,3 @@ export const deleteUser = async (id: any) => {
   });
   return response.data;
 };
-
-export const getAllSebosByFilterAndOrders = async (body: FilterOrders) => {
-  const response = await api.get<Sebo[]>('/sebos', {
-    params: body,
-  });
-  return response.data;
-};

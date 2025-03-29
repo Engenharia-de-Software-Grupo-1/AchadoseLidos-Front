@@ -56,9 +56,9 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
 
   return (
     <div className="nav-page">
-      <TemplatePage simpleHeader={true} simpleFooter={false} backgroundFooterDiff={true}>
+      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
-        <div className="nav-content-center">
+        <div className="nav-content-container">
           <SeboFilters />
           <div className="nav-content-column">
             <div className="nav-filter-display">
@@ -80,20 +80,23 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
                     <GenericCard key={index} {...card} />
                   ))}
                 </div>
-                <Paginator
-                  first={first}
-                  rows={rows}
-                  totalRecords={seboCards.length}
-                  onPageChange={(e) => {
-                    setFirst(e.first);
-                    setRows(e.rows);
-                  }}
-                ></Paginator>
               </>
             ) : (
               handleEmptyContent('Nenhum sebo encontrado!')
             )}
           </div>
+        </div>
+        <div className="nav-page-paginator">
+          <Paginator
+            first={first}
+            rows={rows}
+            totalRecords={seboCards.length}
+            onPageChange={(e) => {
+              setFirst(e.first);
+              setRows(e.rows);
+            }}
+            style={{ backgroundColor: 'var(--Achados-OffWhite', alignSelf: 'flex-end'}}
+          ></Paginator>
         </div>
       </TemplatePage>
     </div>
