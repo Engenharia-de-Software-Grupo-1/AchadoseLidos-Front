@@ -12,6 +12,7 @@ interface CestaContextType {
   handleDeleteItem: (productId: number) => Promise<void>;
   handleQuantityChange: (productId: number, newQuantity: number) => Promise<void>;
   calculateStoreTotals: (produtos: ProdutoCesta[]) => { quantityTotal: number; lineTotal: number };
+  handleCreatePedido: () => void;
 }
 
 const CestaContext = createContext<CestaContextType | undefined>(undefined);
@@ -97,6 +98,10 @@ export const CestaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }), { quantityTotal: 0, lineTotal: 0 });
   };
 
+  const handleCreatePedido = () => {
+
+  };
+
   return (
     <CestaContext.Provider value={{
       cestas,
@@ -106,7 +111,8 @@ export const CestaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       fetchCestaData,
       handleDeleteItem,
       handleQuantityChange,
-      calculateStoreTotals
+      calculateStoreTotals,
+      handleCreatePedido,
     }}>
       {children}
     </CestaContext.Provider>
