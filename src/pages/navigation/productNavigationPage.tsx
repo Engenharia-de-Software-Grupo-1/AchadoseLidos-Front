@@ -45,6 +45,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
     const response = await getAllProducts({ filters, sorters: sorters });
     const produtos = response.map((item) => {
       return {
+        id: item.id,
         name: item.nome,
         image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
         owner: item.sebo?.nome ?? '',
@@ -59,6 +60,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
     const response = await getAllProducts(data);
     const produtos = response.map((item) => {
       return {
+        id: item.id,
         name: item.nome,
         image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
         owner: item.sebo?.nome ?? '',
@@ -106,7 +108,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
                 <Button
                   icon="pi pi-plus"
                   className="nav-pagination-header-button"
-                  onClick={() => navigate('/product/edit')}
+                  onClick={() => navigate('/register/product')}
                 >
                   Adicionar produto
                 </Button>
