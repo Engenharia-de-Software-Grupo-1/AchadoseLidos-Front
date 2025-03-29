@@ -30,26 +30,27 @@ const ProfileSebo = () => {
       initialize(seboId);
     }
 
-    const fetchProdutos = async () => {
-      const response = await getAllProducts({
-        filters: [{ campo: 'seboId', operador: '=', valor: seboId || -1 }],
-        sorters: [],
-      });
-      setProdutos(
-        response.map((item) => {
-          return {
-            id: item.id,
-            name: item.nome,
-            image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
-            owner: item.sebo?.nome ?? '',
-            price: item.preco,
-            begeBackground: true
-          };
-        })
-      );
-    };
-    fetchProdutos();
+    fetchProdutos(seboId ?? -1);
   }, [conta?.sebo?.id, id, initialize]);
+  
+  const fetchProdutos = async (seboId: number) => {
+    const response = await getAllProducts({
+      filters: [{ campo: 'seboId', operador: '=', valor: seboId}],
+      sorters: [],
+    });
+    setProdutos(
+      response.map((item) => {
+        return {
+          id: item.id,
+          name: item.nome,
+          image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
+          owner: item.sebo?.nome ?? '',
+          price: item.preco,
+          begeBackground: true
+        };
+      })
+    );
+  };
 
   return (
     <div className="main-profile-sebo">

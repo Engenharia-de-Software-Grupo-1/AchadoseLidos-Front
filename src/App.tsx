@@ -158,14 +158,6 @@ const App = () => {
                 }
               />
               <Route
-                path="/product/edit"
-                element={
-                  <ProdutoFormProvider>
-                    <ProductForm />
-                  </ProdutoFormProvider>
-                }
-              />
-              <Route
                 path="/navigation/products"
                 element={<ProductNavigationPage sorters={[{ campo: 'nome', ordem: 'ASC' }]} meusProdutos={false} />}
               />

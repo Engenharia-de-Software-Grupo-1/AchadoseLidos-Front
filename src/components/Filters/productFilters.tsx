@@ -4,7 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import React from 'react';
 import { MultiSelect } from 'primereact/multiselect';
 import { InputNumber } from 'primereact/inputnumber';
-import { useProductFilterStore } from '../../stores/filters/productFilterStore';
+import { useProductFilterStore } from '@stores/filters/productFilterStore';
 import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/produtoConstants';
 
 export const ProductFilters: React.FC = () => {
