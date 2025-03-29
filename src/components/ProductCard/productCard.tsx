@@ -7,11 +7,11 @@ export interface ProductCardProps {
   name: string;
   owner: string;
   price: number;
-  colorFrills?: string;
+  begeBackground: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
-  const { id, image, name, owner, price, colorFrills } = props;
+  const { id, image, name, owner, price, begeBackground } = props;
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -21,12 +21,10 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   };
 
   const getClassName = () => {
-    if (colorFrills == '1') {
+    if (begeBackground) {
       return ['furosChild', 'furosChild-1'];
-    } else if (colorFrills == '2') {
-      return ['furosChild-loffWhite', 'furosChild-1-loffWhite'];
-    }
-    return ['furosChild-White', 'furosChild-1-White'];
+    } 
+    return ['furosChild-loffWhite', 'furosChild-1-loffWhite'];
   };
 
   return (

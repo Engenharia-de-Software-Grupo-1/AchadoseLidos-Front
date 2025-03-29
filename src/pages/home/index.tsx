@@ -30,7 +30,7 @@ const HomePage = () => {
             image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
             owner: item.sebo?.nome ?? '',
             price: item.preco,
-            colorFrills: '2',
+            begeBackground: true
           };
         })
       );
@@ -49,7 +49,7 @@ const HomePage = () => {
             image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
             owner: item.sebo?.nome ?? '',
             price: item.preco,
-            colorFrills: '3',
+            begeBackground: true
           };
         })
       );

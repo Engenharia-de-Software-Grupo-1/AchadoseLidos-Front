@@ -178,24 +178,6 @@
   transform: rotate(-90deg);
 }
 
-.furosChild-White {
-  align-self: stretch;
-  position: relative;
-  border-radius: 50%;
-  background-color: #f5ecdd;
-  height: 12px;
-  transform: rotate(90deg);
-}
-
-.furosChild-1-White {
-  align-self: stretch;
-  position: relative;
-  border-radius: 50%;
-  background-color: #f5ecdd;
-  height: 12px;
-  transform: rotate(-90deg);
-}
-
 .furos {
   position: absolute;
   top: 20px;
