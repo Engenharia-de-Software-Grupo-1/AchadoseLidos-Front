@@ -40,6 +40,10 @@ export default function Header({ simpleHeader }: HeaderProps) {
     navigate('/navigation/products');
   };
 
+  const resetFilters = () => {
+    filters.length = 0;
+  };
+
   let content = <></>;
 
   if (simpleHeader) {
@@ -77,7 +81,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
     const start = (
       <>
         <Link to="/">
-          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
+          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4" onClick={() => resetFilters()}></img>
         </Link>
       </>
     );
