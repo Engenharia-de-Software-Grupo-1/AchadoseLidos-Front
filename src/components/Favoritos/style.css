@@ -16,23 +16,22 @@
 
 .space-carousel-items {
   display: flex;
-  height: 330px;
+  height: fit-content;
   padding: 32px 60px;
-  justify-content: left;
+  justify-content: flex-start;
   align-items: center;
+  width: 100vw;
   align-self: stretch;
   background-color: var(--Achados-OffWhite);
 }
 
-.space-carousel-event {
+/* .space-carousel-event {
   display: flex;
-  height: 88px;
-  padding: 10% 60px;
+  height: fit-content;
   justify-content: space-between;
   align-items: center;
-  align-self: stretch;
   background: var(--Achados-Lighter-OffWhite);
-}
+} */
 
 .empty-favorito h3 {
   font-size: 1.2rem;
@@ -72,6 +71,7 @@
   flex: 0 0 auto;
   width: 200px; /* Define tamanho fixo dos cards */
   cursor: pointer;
+  
 }
 
 .favorite-card-wrapper {

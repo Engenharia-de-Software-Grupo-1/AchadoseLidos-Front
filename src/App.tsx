@@ -29,6 +29,8 @@ import { FavoritoProvider } from '@stores/favorito/favoritoStore';
 import CestaPage from '@pages/cesta';
 import { CestaProvider } from '@stores/cesta/cestaStore';
 import PedidoPage from '@pages/pedido';
+import { ProductNavigationPage } from '@pages/navigation/productNavigationPage';
+import { SeboNavigationPage } from '@pages/navigation/seboNavigationPage';
 
 const App = () => {
   return (
@@ -124,10 +126,10 @@ const App = () => {
                 }
               />
               <Route
-                path="/profile/sebo"
+                path="/profile/sebo/:id?"
                 element={
                   <SeboProvider>
-                    <ProfileSebo id={1} />
+                    <ProfileSebo />
                   </SeboProvider>
                 }
               />
@@ -154,6 +156,20 @@ const App = () => {
                     <FavoritosPage />
                   </FavoritoProvider>
                 }
+              />
+              <Route
+                path="/navigation/products"
+                element={<ProductNavigationPage sorters={[{ campo: 'nome', ordem: 'ASC' }]} meusProdutos={false} />}
+              />
+
+              <Route
+                path="/navigation/sebos"
+                element={<SeboNavigationPage sorters={[{ campo: 'nome', ordem: 'ASC' }]} />}
+              />
+
+              <Route
+                path="/navigation/meus-produtos/:id?"
+                element={<ProductNavigationPage sorters={[{ campo: 'nome', ordem: 'ASC' }]} meusProdutos={true} />}
               />
             </Routes>
           </AuthProvider>

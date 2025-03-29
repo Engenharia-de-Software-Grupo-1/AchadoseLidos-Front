@@ -52,7 +52,7 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       } else {
         showNotification('error', 'Usuário não autenticado', '');
       }
-      await fetchFavoritoData(); // Recarrega os dados para garantir consistência
+      await fetchFavoritoData();
       showNotification('success', 'Item favoritado!', '');
     } catch (error) {
       console.error('Erro ao adicionar favorito', error);

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-import { getPerfilById } from '@routes/routesSebo';
+import { getById, getPerfilById } from '@routes/routesSebo';
 import { useNotification } from '@contexts/notificationContext';
 import { Sebo } from '@domains/Sebo';
 
@@ -31,7 +31,7 @@ export const SeboProvider = ({ children }: SeboProviderProps) => {
   const initialize = useCallback(async (id: number | undefined) => {
     setLoading(true);
     try {
-      const data = await getPerfilById(id);
+      const data = await getById(id);
       setSebo(data);
     } catch (error) {
       showNotification('error', null, 'Erro ao buscar perfil do sebo');

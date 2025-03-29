@@ -92,11 +92,10 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
       if (!isRegister) {
         await updateProduct({ ...formData, fotos: formattedImages }, id);
         navigate(`/product/${id}`);
-        //window.location.reload();
       } else {
         await createProduct({ ...formData, fotos: formattedImages });
-        //navigate('/meus-produtos');
-        //window.location.reload();
+        navigate('/navigation/meus-produtos');
+        window.location.reload();
       }
       showNotification('success', 'Produto salvo com sucesso!', '');
     } catch (error) {
