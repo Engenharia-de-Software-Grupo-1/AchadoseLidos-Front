@@ -30,7 +30,7 @@ const HomePage = () => {
             image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
             owner: item.sebo?.nome ?? '',
             price: item.preco,
-            begeBackground: true
+            begeBackground: true,
           };
         })
       );
@@ -49,7 +49,7 @@ const HomePage = () => {
             image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
             owner: item.sebo?.nome ?? '',
             price: item.preco,
-            begeBackground: true
+            begeBackground: true,
           };
         })
       );
@@ -93,7 +93,7 @@ const HomePage = () => {
           <div className="carrousel-product">
             <Carousel
               value={produtos}
-              numVisible={6}
+              numVisible={8}
               numScroll={1}
               itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
             />
@@ -103,7 +103,7 @@ const HomePage = () => {
           <div className="carrousel-sebo">
             <Carousel
               value={sebos}
-              numVisible={7}
+              numVisible={6}
               numScroll={1}
               itemTemplate={(sebo: GenericCardProps) => <GenericCard {...sebo} />}
               style={{ padding: 0, height: 'fit-content' }}
@@ -114,7 +114,7 @@ const HomePage = () => {
           <div className="carrousel-product">
             <Carousel
               value={livros}
-              numVisible={7}
+              numVisible={8}
               numScroll={1}
               itemTemplate={(livro: ProductCardProps) => <ProductCard {...livro} />}
             />

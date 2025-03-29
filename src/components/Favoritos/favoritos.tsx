@@ -10,7 +10,7 @@ import { Carousel } from 'primereact/carousel';
 import { useNavigate } from 'react-router-dom';
 
 const FavoritosPage: React.FC = () => {
-  const imageDefault = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEIDCFVUSkqV6O5Wr69FuhjhOqwv484t75Mw&s';
+  const imageDefault = '/images/sem_foto.png';
   const navigate = useNavigate();
   const { favoritos, loading, fetchFavoritoData } = useFavorito();
 

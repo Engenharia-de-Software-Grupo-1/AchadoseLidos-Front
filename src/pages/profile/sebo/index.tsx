@@ -38,11 +38,12 @@ const ProfileSebo = () => {
       setProdutos(
         response.map((item) => {
           return {
+            id: item.id,
             name: item.nome,
             image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
             owner: item.sebo?.nome ?? '',
             price: item.preco,
-            colorFrills: '2',
+            begeBackground: true
           };
         })
       );
@@ -52,7 +53,7 @@ const ProfileSebo = () => {
 
   return (
     <div className="main-profile-sebo">
-      <TemplatePage simpleHeader={true} simpleFooter={false} backgroundFooterDiff={true}>
+      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
         {loading ? (
           <div className="loading-spinner">
             <i className="pi pi-spinner mr-2" />
@@ -63,7 +64,7 @@ const ProfileSebo = () => {
             <div className="profile-sebo">
               <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} />
             </div>
-            <ContainerItems title="Todos os produtos" backgroundBege={true}>
+            <ContainerItems title="Todos os produtos" backgroundBege={false}>
               <div className="carrousel-product">
                 <Carousel
                   value={produtos}
