@@ -11,28 +11,28 @@ export const getById = async (id: any) => {
   return response.data;
 };
 
-export const createProduct = async (order: Pedido) => {
+export const createOrder = async (order: Pedido) => {
   const response = await api.post<Pedido>('/pedidos', order, {
     withCredentials: true,
   });
   return response.data;
 };
 
-export const updateProductStatus = async (status: string, id: any) => {
-  const response = await api.put<Pedido>(`/pedidos/${id}`, status, {
+export const updateOrder = async (data: any, id: any) => {
+  const response = await api.put<Pedido>(`/pedidos/${id}`, data, {
     withCredentials: true,
   });
   return response.data;
 };
 
-export const deleteProduct = async (id: any) => {
+export const deleteOrder = async (id: any) => {
   await api.delete(`/pedidos/${id}`, {
     withCredentials: true,
   });
 };
 
-export const getAllPedidosById = async (body: FilterOrders, id: number) => {
-  const response = await api.get<PedidoList[]>(`/pedidos/${id}`, {
+export const getAll = async (body: FilterOrders) => {
+  const response = await api.get<PedidoList[]>('/pedidos', {
     params: {
       filters: JSON.stringify(body.filters),
     }
