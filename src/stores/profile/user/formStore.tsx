@@ -2,7 +2,6 @@ import { User } from '@domains/User';
 import { createContext, useContext, ReactNode } from 'react';
 import { deleteUser, getById, updateUser } from '@routes/routesUser';
 import { useAuth } from '@contexts/authContext';
-import { useNotification } from '@contexts/notificationContext';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from '@hooks/useForm';
 
@@ -53,13 +52,18 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
       skoob: '',
       goodreads: '',
     } as User,
-    rules: {
-      nome: [{ rule: 'required' }],
-      cpfCnpj: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
-      email: [{ rule: 'required' }, { rule: 'isEmail' }],
-      senha: [{ rule: 'required' }],
-      confirmaSenha: [{ rule: 'required' }],
-    },
+    rules: conta?.usuario?.id
+      ? {
+          nome: [{ rule: 'required' }],
+          cpf: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
+        }
+      : {
+          nome: [{ rule: 'required' }],
+          cpf: [{ rule: 'required' }, { rule: 'isCpfCnpj' }],
+          email: [{ rule: 'required' }, { rule: 'isEmail' }],
+          senha: [{ rule: 'required' }],
+          confirmaSenha: [{ rule: 'required' }],
+        },
   });
 
   const setUser = async () => {
@@ -80,6 +84,11 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
 
   const updateDataUser = async () => {
     try {
+      const isValid = validate();
+      if (!isValid) {
+        showNotification('error', 'Erro ao atualizar dados', 'Verifique os campos obrigatórios');
+        return;
+      }
       if (conta?.usuario?.id !== undefined) {
         await updateUser(formData, conta.usuario.id);
         showNotification('success', 'Dados atualizados com sucesso!', '');

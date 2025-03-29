@@ -1,12 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Favorito, ProdutoFavorito } from '@domains/Favoritos';
+import { Favorito } from '@domains/Favoritos';
 import { getFavoritos, adicionarFavorito, removerFavorito } from '@routes/routesFavorito';
 import { useNotification } from '@contexts/notificationContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useAuth } from '@contexts/authContext';
-import { set } from 'cypress/types/lodash';
-import { use } from 'chai';
-import { is } from 'cypress/types/bluebird';
 
 interface FavoritoContextType {
   favoritos: Favorito[];
@@ -76,7 +73,7 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setFavoritos(prev => 
           prev.map(sebo => ({
             ...sebo,
-            produtos: sebo.produtos.filter(p => p.produto.id !== productId)
+            produtos: sebo.produtos.filter(p => p.id !== productId)
           })).filter(sebo => sebo.produtos.length > 0) 
         );
         await fetchFavoritoData();
@@ -96,7 +93,7 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const isFavoriteProduct = (id: any) => {
     const isFavorited = favoritos.some(favorito =>
       favorito.produtos.some(item =>
-        Number(item.produto.id) === Number(id)  // Acesse o id correto do produto
+        item?.id && Number(item.id) === Number(id)  // Acesse o id correto do produto
       )
     );
     setIsFavorite(isFavorited);

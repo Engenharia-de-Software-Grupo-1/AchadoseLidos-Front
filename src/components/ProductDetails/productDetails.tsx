@@ -50,6 +50,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
       await addProductCesta(id);
       showNotification('success', 'Produto adicionado na cesta com sucesso!', '');
     } catch (error) {
+      showNotification('error', 'Produto já está na cesta.', '');
       console.error('Erro ao adicionar produto na cesta', error);
     }
   };

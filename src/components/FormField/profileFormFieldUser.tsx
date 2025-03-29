@@ -74,8 +74,6 @@ const ProfileFormFieldUser = ({
           placeholder={placeholderText}
         />
       )}
-
-      {shouldShowError && <text className="error-message">Insira o campo acima</text>}
     </div>
   );
 };

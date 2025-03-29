@@ -10,7 +10,6 @@ import { Carousel } from 'primereact/carousel';
 import { useNavigate } from 'react-router-dom';
 
 const FavoritosPage: React.FC = () => {
-  // const [favoritos, setFavoritos] = useState<Favorito[]>([]);
   const imageDefault = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEIDCFVUSkqV6O5Wr69FuhjhOqwv484t75Mw&s';
   const navigate = useNavigate();
   const { favoritos, loading, fetchFavoritoData } = useFavorito();
@@ -64,20 +63,20 @@ const FavoritosPage: React.FC = () => {
               value={favorito.produtos}
               itemTemplate={(itemFavorito: ProdutoFavorito) => (
                 <div
-                  key={itemFavorito.produto.id}
+                  key={itemFavorito?.id}
                   className="carrosel-item-fav"
-                  onClick={() => handleProductClick(itemFavorito.produto.id)}
+                  onClick={() => handleProductClick(itemFavorito.id)}
                 >
                   <div className="favorite-card-wrapper">
                     <ProductCard
-                      image={
-                        typeof itemFavorito.produto.fotos?.[0] === 'object' && 'url' in itemFavorito.produto.fotos[0]
-                          ? (itemFavorito.produto.fotos[0] as { url: string }).url
-                          : imageDefault
-                      }
-                      name={itemFavorito.produto.nome}
-                      owner={favorito.sebo.nome}
-                      price={itemFavorito.produto.preco}
+                        image={
+                          itemFavorito?.fotos?.length
+                            ? itemFavorito.fotos[0].url
+                            : imageDefault
+                        }
+                      name={itemFavorito?.nome}
+                      owner={favorito?.sebo?.nome}
+                      price={itemFavorito?.preco}
                       backgroundBege
                     />
                   </div>

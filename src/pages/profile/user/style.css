@@ -23,8 +23,8 @@
     background: var(--Achados-OffWhite);
 }
 
-.container-image-form {
-    width: 80%;
+.container-image-form-user {
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
