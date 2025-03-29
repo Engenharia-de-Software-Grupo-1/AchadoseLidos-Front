@@ -2,6 +2,7 @@ import { cpf, cnpj } from 'cpf-cnpj-validator';
 import { DATE_FORMAT, DATE_PARSE_FORMAT } from './date';
 import * as validator from 'email-validator';
 import moment from 'moment';
+import { Rule } from '@domains/Rule';
 
 export const getTypeCpfCnpj = (cpfCnpj: string) => {
   if (cpfCnpj) {

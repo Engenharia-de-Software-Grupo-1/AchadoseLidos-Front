@@ -1,5 +1,6 @@
 import { Produto } from '@domains/Produto';
 import axios from 'axios';
+import { FilterOrders } from 'types/NavigationFilters';
 
 const api = axios.create({
   baseURL: 'http://localhost:3333/api',
@@ -7,6 +8,16 @@ const api = axios.create({
 
 export const getById = async (id: any) => {
   const response = await api.get<Produto>(`/produtos/${id}`);
+  return response.data;
+};
+
+export const getAllProducts = async (body: FilterOrders) => {
+  const response = await api.get<Produto[]>('/produtos', {
+    params: {
+      filters: JSON.stringify(body.filters),
+      sorters: JSON.stringify(body.sorters),
+    },
+  });
   return response.data;
 };
 

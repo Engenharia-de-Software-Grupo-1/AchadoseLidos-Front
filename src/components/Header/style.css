@@ -22,6 +22,10 @@
   justify-content: center;
 }
 
+.p-menubar-button {
+  display: none;
+}
+
 .simple-header {
   background: rgb(47, 41, 42);
   border: none;

@@ -10,7 +10,7 @@ import { Carousel } from 'primereact/carousel';
 import { useNavigate } from 'react-router-dom';
 
 const FavoritosPage: React.FC = () => {
-  const imageDefault = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEIDCFVUSkqV6O5Wr69FuhjhOqwv484t75Mw&s';
+  const imageDefault = '/images/sem_foto.png';
   const navigate = useNavigate();
   const { favoritos, loading, fetchFavoritoData } = useFavorito();
 
@@ -53,6 +53,7 @@ const FavoritosPage: React.FC = () => {
     <div className="contanier-fav">
       {favoritos.map((favorito, index) => (
         <ContainerItems
+          idSebo={favorito.sebo.id}
           key={favorito.sebo.id}
           title={favorito.sebo.nome}
           backgroundBege={index % 2 === 0}
@@ -77,7 +78,7 @@ const FavoritosPage: React.FC = () => {
                       name={itemFavorito?.nome}
                       owner={favorito?.sebo?.nome}
                       price={itemFavorito?.preco}
-                      backgroundBege
+                      begeBackground={index % 2 === 0 ? false : true}
                     />
                   </div>
                 </div>
@@ -88,27 +89,27 @@ const FavoritosPage: React.FC = () => {
                 {
                   breakpoint: '1400px',
                   numVisible: 6,
-                  numScroll: 6,
+                  numScroll: 1,
                 },
                 {
                   breakpoint: '1199px',
                   numVisible: 5,
-                  numScroll: 5,
+                  numScroll: 1,
                 },
                 {
                   breakpoint: '991px',
                   numVisible: 4,
-                  numScroll: 4,
+                  numScroll: 1,
                 },
                 {
                   breakpoint: '767px',
                   numVisible: 3,
-                  numScroll: 3,
+                  numScroll: 1,
                 },
                 {
                   breakpoint: '575px',
                   numVisible: 2,
-                  numScroll: 2,
+                  numScroll: 1,
                 },
               ]}
               circular

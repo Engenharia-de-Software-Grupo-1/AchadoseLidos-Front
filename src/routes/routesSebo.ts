@@ -1,4 +1,6 @@
+import { Sebo } from '@domains/Sebo';
 import axios from 'axios';
+import { FilterOrders } from 'types/NavigationFilters';
 
 const api = axios.create({
   baseURL: 'http://localhost:3333/api',
@@ -23,10 +25,13 @@ export const getById = async (id: any) => {
   return response.data;
 };
 
-export const getAll = async () => {
-  const response = await api.get('/sebos', {
-    withCredentials: true,
-  });
+export const getAll = async (body: FilterOrders): Promise<Sebo[]> => {
+  const response = await api.get<Sebo[]>('/sebos', {
+      params: {
+        filters: JSON.stringify(body.filters),
+        sorters: JSON.stringify(body.sorters)
+      }
+    });
   return response.data;
 };
 

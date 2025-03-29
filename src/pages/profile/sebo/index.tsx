@@ -6,20 +6,51 @@ import Gallery from '@components/Gallery/gallery';
 import MyMap from '@components/Map/map';
 import ContainerItems from '@components/ContainerItems/containerItems';
 import { useSebo } from '@stores/profile/sebo/indexStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '@contexts/authContext';
+import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
+import { getAllProducts } from '@routes/routesProduto';
+import { Carousel } from 'primereact/carousel';
+import { useParams } from 'react-router-dom';
 
-const ProfileSebo = ({ id }: { id?: number }) => {
+const ProfileSebo = () => {
   const { sebo, initialize, loading } = useSebo();
+  const { id } = useParams<{ id: string }>();
+  const [produtos, setProdutos] = useState<ProductCardProps[]>([]);
   const { conta, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    const seboId = conta?.sebo?.id ?? id;
+    let seboId = conta?.sebo?.id;
+    
+    if (id) {
+      seboId = Number(id);
+    }
 
     if (seboId) {
       initialize(seboId);
     }
+
+    fetchProdutos(seboId ?? -1);
   }, [conta?.sebo?.id, id, initialize]);
+  
+  const fetchProdutos = async (seboId: number) => {
+    const response = await getAllProducts({
+      filters: [{ campo: 'seboId', operador: '=', valor: seboId}],
+      sorters: [],
+    });
+    setProdutos(
+      response.map((item) => {
+        return {
+          id: item.id,
+          name: item.nome,
+          image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
+          owner: item.sebo?.nome ?? '',
+          price: item.preco,
+          begeBackground: true
+        };
+      })
+    );
+  };
 
   return (
     <div className="main-profile-sebo">
@@ -34,14 +65,16 @@ const ProfileSebo = ({ id }: { id?: number }) => {
             <div className="profile-sebo">
               <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} />
             </div>
-
-            <ContainerItems title="Todos os Itens" backgroundBege={false}>
-              {' '}
+            <ContainerItems title="Todos os produtos" backgroundBege={false}>
+              <div className="carrousel-product">
+                <Carousel
+                  value={produtos}
+                  numVisible={11}
+                  numScroll={10}
+                  itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
+                />
+              </div>
             </ContainerItems>
-            <ContainerItems title="Eventos" backgroundBege={true}>
-              {' '}
-            </ContainerItems>
-
             <div className="container-carousel-items">
               <div className="content-title-history">
                 <span className="title-carousel-history">Nossa História</span>
