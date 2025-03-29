@@ -87,7 +87,7 @@ const HomePage = () => {
         </div>
 
         <img src="/images/underline.svg" alt="underline" style={{ marginTop: '42px', marginBottom: '42px' }} />
-        <ContainerItems title="Todos os produtos" backgroundBege isFirst>
+        <ContainerItems title="Todos os produtos" backgroundBege={false} isFirst={true}>
           {/* <div className="carrousel-product">
             <Carousel
               value={produtos}
@@ -99,7 +99,7 @@ const HomePage = () => {
           </div> */}
           {''}
         </ContainerItems>
-        <ContainerItems title="Sebos" backgroundBege={false}>
+        <ContainerItems title="Sebos" backgroundBege>
           {/* <div className="carrousel-sebo">
             <Carousel
               value={sebos}
@@ -111,7 +111,7 @@ const HomePage = () => {
           </div> */}
           {''}
         </ContainerItems>
-        <ContainerItems title="Livros" backgroundBege>
+        <ContainerItems title="Livros" backgroundBege={false}>
           {/* <div className="carrousel-product">
             <Carousel
               value={livros}
