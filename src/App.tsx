@@ -29,6 +29,7 @@ import { FavoritoProvider } from '@stores/favorito/favoritoStore';
 import CestaPage from '@pages/cesta';
 import { CestaProvider } from '@stores/cesta/cestaStore';
 import PedidoPage from '@pages/pedido';
+import { ListagemPedidoPage } from '@pages/pedido/listagem';
 
 const App = () => {
   return (
@@ -137,6 +138,14 @@ const App = () => {
                   <ProfileSeboFormProvider>
                     <ProfileSeboForm />
                   </ProfileSeboFormProvider>
+                }
+              />
+              <Route
+                path="/profile/historico"
+                element={
+                  <CestaProvider>
+                    <ListagemPedidoPage />
+                  </CestaProvider>
                 }
               />
               <Route

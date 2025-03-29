@@ -148,7 +148,7 @@ const calculateStoreTotals = (products: ProdutoPedido[]) => {
             quantidadeBodyTemplate(rowData)
         }
         footer={() => (
-          <div className="font-bold numeric">{quantityTotal}</div>
+          <div className='font-bold numeric'>{quantityTotal}</div>
         )}
       />
       <Column
