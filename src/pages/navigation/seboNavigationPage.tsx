@@ -64,7 +64,10 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
             <div className="nav-filter-display">
               <p className="nav-filter-display-text">
                 Resultados de pesquisa para: <br />
-                {filters.map((filter) => filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor).join(', ')}
+                {filters
+                  .map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor))
+                  .join(', ')
+                  .slice(0, 103) + (filters.map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor)).join(', ').length > 103 ? '...' : '')}
               </p>
               <div className="nav-filter-display-order">
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>

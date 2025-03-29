@@ -49,7 +49,7 @@
 }
 
 .nav-filter-display-text {
-  width: 251px;
+  width: fit-content;
   flex-shrink: 0;
   color: var(--Achados-Black);
   font-family: Poppins;
