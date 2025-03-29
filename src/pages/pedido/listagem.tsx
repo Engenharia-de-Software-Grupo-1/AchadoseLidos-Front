@@ -14,10 +14,19 @@ export const ListagemPedidoPage = () => {
   const breadcrumbItems = [{ label: 'Histórico de Pedidos', url: '/profile/historico' }];
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(3);
+  let filters = Filter[] = [];
 
   useEffect(() => {
-    initialize(() => getPedidos());
-  }, []);
+    initialize({
+      filters: filters,
+      sorters: [],
+    }, () => getPedidos());
+  }, [filters]);
+
+  const setFilters = (status: string) => {
+    filters = [];
+    filters.push({ campo: 'status', operador: 'like', valor: status })
+  }
 
   const getPedidos = async () => {
     setOrderCards(
@@ -55,9 +64,9 @@ export const ListagemPedidoPage = () => {
               <h1 className="h1-highlight">Histórico de Pedidos</h1>
 
               <div className="status-filters">
-                <Button label="Pendente" className="status-button pending" />
-                <Button label="Concluído" className="status-button completed" />
-                <Button label="Cancelado" className="status-button canceled" />
+                <Button label="Pendente" className="status-button pending" onClick={() => setFilters('PENDENTE')}/>
+                <Button label="Concluído" className="status-button completed" onClick={() => setFilters('CONCLUIDO')}/>
+                <Button label="Cancelado" className="status-button canceled" onClick={() => setFilters('CANCELADO')}/>
               </div>
               {orderCards.length > 0 ? (
                 <>
