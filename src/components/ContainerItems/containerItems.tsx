@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './style.css';
 
 interface ContainerItemsProps {
@@ -5,9 +6,10 @@ interface ContainerItemsProps {
   children: React.ReactNode;
   backgroundBege: boolean;
   isFirst?: boolean;
+  idSebo?: number;
 }
 
-const ContainerItems = ({ title, children, backgroundBege, isFirst }: ContainerItemsProps) => {
+const ContainerItems = ({ title, children, backgroundBege, isFirst, idSebo }: ContainerItemsProps) => {
   const getClassName = (classNameBase: string, isFirst?: boolean) => {
     return backgroundBege
       ? classNameBase + '-event'
@@ -21,7 +23,18 @@ const ContainerItems = ({ title, children, backgroundBege, isFirst }: ContainerI
       <div className={getClassName('container-carousel', isFirst)}>
         <div className={getClassName('content-title')}>
           <span className={getClassName('title-carousel')}>
-            {title} {'>'}
+            <Link
+              to={
+                title === 'Sebos'
+                  ? '/navigation/sebos'
+                  : title === 'Todos os produtos' || title === 'Livros'
+                    ? '/navigation/products'
+                    : `/profile/sebo/${idSebo}`
+              }
+              className="link-conatiner-items"
+            >
+              {title} {'>'}
+            </Link>
           </span>
         </div>
       </div>

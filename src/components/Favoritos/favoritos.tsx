@@ -53,6 +53,7 @@ const FavoritosPage: React.FC = () => {
     <div className="contanier-fav">
       {favoritos.map((favorito, index) => (
         <ContainerItems
+          idSebo={favorito.sebo.id}
           key={favorito.sebo.id}
           title={favorito.sebo.nome}
           backgroundBege={index % 2 === 0}
@@ -88,27 +89,27 @@ const FavoritosPage: React.FC = () => {
                 {
                   breakpoint: '1400px',
                   numVisible: 6,
-                  numScroll: 6,
+                  numScroll: 1,
                 },
                 {
                   breakpoint: '1199px',
                   numVisible: 5,
-                  numScroll: 5,
+                  numScroll: 1,
                 },
                 {
                   breakpoint: '991px',
                   numVisible: 4,
-                  numScroll: 4,
+                  numScroll: 1,
                 },
                 {
                   breakpoint: '767px',
                   numVisible: 3,
-                  numScroll: 3,
+                  numScroll: 1,
                 },
                 {
                   breakpoint: '575px',
                   numVisible: 2,
-                  numScroll: 2,
+                  numScroll: 1,
                 },
               ]}
               circular

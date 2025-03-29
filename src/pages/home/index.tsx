@@ -96,6 +96,7 @@ const HomePage = () => {
               numVisible={8}
               numScroll={1}
               itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
+              circular
             />
           </div>
         </ContainerItems>
@@ -103,10 +104,11 @@ const HomePage = () => {
           <div className="carrousel-sebo">
             <Carousel
               value={sebos}
-              numVisible={6}
+              numVisible={4}
               numScroll={1}
               itemTemplate={(sebo: GenericCardProps) => <GenericCard {...sebo} />}
               style={{ padding: 0, height: 'fit-content' }}
+              circular
             />
           </div>
         </ContainerItems>
@@ -117,6 +119,7 @@ const HomePage = () => {
               numVisible={8}
               numScroll={1}
               itemTemplate={(livro: ProductCardProps) => <ProductCard {...livro} />}
+              circular
             />
           </div>
         </ContainerItems>
