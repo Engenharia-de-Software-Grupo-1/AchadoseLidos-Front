@@ -6,7 +6,7 @@ import { Produto } from '@domains/Produto';
 import { InputNumber, InputNumberChangeEvent } from 'primereact/inputnumber';
 import { InputNumberValueChangeEvent } from 'primereact/inputnumber';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { GeneroProduto } from 'constants/categoriaConstants';
+import { GeneroProduto } from '@constants/categoriaConstants';
 import { useEffect, useState } from 'react';
 import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
 import { InputTextarea } from 'primereact/inputtextarea';

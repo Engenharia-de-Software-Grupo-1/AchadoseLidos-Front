@@ -1,4 +1,4 @@
-import { StatusPedido } from 'constants/statusConstants';
+import { StatusPedido } from '@constants/statusConstants';
 import { ProdutoPedido } from './Produto';
 import { Sebo } from './Sebo';
 import { Usuario } from './Usuario';

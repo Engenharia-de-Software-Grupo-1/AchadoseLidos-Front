@@ -7,7 +7,7 @@ import UploadImages from '@components/UploadImages/uploadImages';
 import { ProdutoFieldNames } from '@domains/ProdutoFieldNames';
 import { ProductFormField } from '@components/ProductDetails/productFormFields';
 import { Button } from 'primereact/button';
-import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/categoriaConstants';
+import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from '@constants/categoriaConstants';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useErrorContext } from '@contexts/errorContext';
