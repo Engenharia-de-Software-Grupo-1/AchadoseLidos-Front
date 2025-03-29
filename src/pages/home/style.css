@@ -55,10 +55,7 @@
   padding: 0rem !important;
 } 
 
-.carrousel-product {
-  width: 100%;
-}
-
-.carrousel-sebo {
-  width: 100%;
+.carrousel-sebo  {
+  padding: 0 !important;
+  height: fit-content !important;
 }

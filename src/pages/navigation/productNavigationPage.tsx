@@ -30,11 +30,9 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   const [rows, setRows] = useState(10);
   const { conta } = useAuth();
   const isSebo = conta?.tipo === 'SEBO';
-  // const _ = meusProdutos ? filters : filters.push({ campo: 'seboId', operador: '=', valor: conta?.id || -1 });
 
   useEffect(() => {
     if (meusProdutos && conta?.id && isSebo) {
-      // corrigir lógica da página meus-produtos
       filters.push({ campo: 'seboId', operador: '=', valor: conta?.id || -1 });
     }
     getProducts();
@@ -75,7 +73,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
             <div className="nav-filter-display">
               <p className="nav-filter-display-text">
                 Resultados de pesquisa para: <br />
-                Filtro 1, Filtro 2.
+                {filters.map((filter) => filter.valor).join(', ')}
               </p>
               <div className="nav-filter-display-order">
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>

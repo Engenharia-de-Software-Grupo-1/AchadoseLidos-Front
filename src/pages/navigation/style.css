@@ -12,7 +12,7 @@
 .nav-content-container {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  gap: 16px;
   padding: 0 1.5rem;
 }
 
@@ -156,6 +156,7 @@
   display: flex;
   flex-direction: row;
   align-self: stretch;
+  gap: 8px;
   height: 100%;
   flex-wrap: wrap;
   background: var(--Achados-OffWhite);
@@ -191,5 +192,4 @@
   font-family: Poppins;
   font-size: 16px;
   font-style: normal;
-  /* font-weight: 500; */
 }
