@@ -25,17 +25,12 @@ export const updateOrder = async (data: any, id: any) => {
   return response.data;
 };
 
-export const deleteOrder = async (id: any) => {
-  await api.delete(`/pedidos/${id}`, {
-    withCredentials: true,
-  });
-};
-
 export const getAll = async (body: FilterOrders) => {
   const response = await api.get<PedidoList[]>('/pedidos', {
     params: {
       filters: JSON.stringify(body.filters),
-    }
+    },
+    withCredentials: true
   });
   return response.data;
 };

@@ -43,6 +43,8 @@
 }
 
 .h1-highlight {
+  text-align: center;
+  font-weight: 500;
   font-size: 3rem;
   line-height: normal;
   text-decoration-line: underline;
@@ -52,6 +54,7 @@
   text-decoration-thickness: 40%;
   text-underline-offset: -30%;
   text-underline-position: from-font;
+  margin-bottom: 5px;
 }
 
 .status-filters {
@@ -68,18 +71,18 @@
 }
 
 .pending {
-  background-color: #d6e4f0;
-  color: #2f292a;
+  background-color: var(--Achados-Light-Blue);
+  color: var(--Achados-OffWhite);
 }
 
 .completed {
-  background-color: #c6e1b8;
-  color: #2f292a;
+  background-color: var(--Achados-Success);
+  color: var(--Achados-OffWhite);
 }
 
 .canceled {
-  background-color: #e1a5a5;
-  color: #2f292a;
+  background-color: var(--Achados-Red);
+  color: var(--Achados-OffWhite);
 }
 
 .orders-container {
@@ -92,4 +95,33 @@
 .empty-filter {
   text-align: center;
   margin-top: 2rem;
+}
+
+.order-page {
+  width: 100vw;
+  height: 100vh;
+  background: var(--Achados-OffWhite);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order-content-center {
+  width: 100%;
+  background-color: var(--Achados-OffWhite);
+  display: flex;
+  padding: 0px 200px;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  border-radius: 32px;
+}
+
+.order-content-column {
+  display: flex;
+  width: 72%;
+  height: 100%;
+  flex-direction: column;
+  gap: 32px;
+  flex-shrink: 0;
 }
