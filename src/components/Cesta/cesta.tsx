@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -29,7 +29,7 @@ const CestaComponent = () => {
     fetchCestaData();
   }, []);
 
-  const handleFinalizarPedido = (quantityTotal: number) => {
+  const handleFinalizarPedido = (quantityTotal: number, lineTotal: number) => {
     if (quantityTotal > 0) {
       showNotification(
         'warn',
@@ -37,7 +37,7 @@ const CestaComponent = () => {
         'Verifique a quantidade/disponibilidade de itens'
       );
     } else {
-      handleCreatePedido();
+      handleCreatePedido(quantityTotal, lineTotal);
     }
   };
 
@@ -220,7 +220,7 @@ const CestaComponent = () => {
                         }
                         tooltipOptions={{ position: 'top' }}
                         disabled={!store.sebo.concordaVender}
-                        onClick={() => handleFinalizarPedido(quantityTotal)}
+                        onClick={() => handleFinalizarPedido(quantityTotal, lineTotal)}
                       />
                     </div>
                   }

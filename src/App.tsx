@@ -30,6 +30,7 @@ import CestaPage from '@pages/cesta';
 import { CestaProvider } from '@stores/cesta/cestaStore';
 import PedidoPage from '@pages/pedido';
 import { ListagemPedidoPage } from '@pages/pedido/listagem';
+import { PedidoProvider } from '@stores/pedido/pedidoStore';
 
 const App = () => {
   return (
@@ -143,17 +144,19 @@ const App = () => {
               <Route
                 path="/profile/historico"
                 element={
-                  <CestaProvider>
+                  <PedidoProvider>
                     <ListagemPedidoPage />
-                  </CestaProvider>
+                  </PedidoProvider>
                 }
               />
               <Route
                 path="/profile/historico/pedido1"
                 element={
-                  <CestaProvider>
-                    <PedidoPage />
-                  </CestaProvider>
+                  <PedidoProvider>
+                    <CestaProvider>
+                      <PedidoPage />
+                    </CestaProvider>
+                  </PedidoProvider>
                 }
               />
               <Route
