@@ -28,7 +28,7 @@ const ContainerItems = ({ title, children, backgroundBege, isFirst, idSebo }: Co
                 title === 'Sebos'
                   ? '/navigation/sebos'
                   : title === 'Todos os produtos' || title === 'Livros'
-                    ? `/navigation/${idSebo ? 'meus-produtos' : 'products'}`
+                    ? `/navigation/${idSebo ? `meus-produtos/${idSebo}` : 'products'}`
                     : `/profile/sebo/${idSebo}`
               }
               className="link-conatiner-items"
