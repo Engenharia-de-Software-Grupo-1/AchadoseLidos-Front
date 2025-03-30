@@ -2,9 +2,9 @@ name: ESLint
 
 on:
   push:
-    branches: [ "**" ]
+    branches: ['**']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
   schedule:
     - cron: '42 10 * * 1'
 
@@ -34,7 +34,7 @@ jobs:
 
       - name: Run ESLint
         env:
-          SARIF_ESLINT_IGNORE_SUPPRESSED: "true"
+          SARIF_ESLINT_IGNORE_SUPPRESSED: 'true'
         run: |
           yarn eslint . --config eslint.config.mjs --ext .js,.jsx,.ts,.tsx
         continue-on-error: true

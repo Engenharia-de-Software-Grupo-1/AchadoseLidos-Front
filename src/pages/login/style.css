@@ -26,7 +26,7 @@
   color: var(--Achados-Black);
   background-color: var(--Achados-Lighter-OffWhite);
   border-radius: var(--rounding-medium);
-  width:100%;
+  width: 100%;
   max-width: 650px;
   margin: 0 3rem;
   padding: 2.5rem 1rem;
@@ -48,10 +48,10 @@
   p {
     font-size: 1rem;
     margin: 0;
-    text-align:center;
+    text-align: center;
 
     a {
-      display:inline-block;
+      display: inline-block;
       font-weight: bold;
       text-decoration: underline;
     }
@@ -88,20 +88,20 @@
   }
 
   .fields {
-    display:flex;
+    display: flex;
     justify-content: center;
   }
 
   .field {
-    width:100%;
+    width: 100%;
     max-width: 400px;
   }
 
   .input-wrapper {
-    width:100%;
+    width: 100%;
   }
 
   .p-inputtext {
-    width:100%;
+    width: 100%;
   }
 }
