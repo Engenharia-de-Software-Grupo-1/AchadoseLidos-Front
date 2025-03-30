@@ -177,6 +177,7 @@
   line-height: 20px;
 }
 
+.content-price-form-cat, 
 .content-price-form {
   display: flex;
   align-items: center;
@@ -185,19 +186,48 @@
   justify-content: space-between;
 }
 
-@media (max-width: 1700px) { 
-  .content-price-form {
+@media (max-width: 1110px) {
+  .content-price-form-cat {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
   }
 
-  .extra-field {
-    order: 3;
+  .content-price-form {
+    gap: 16px; 
+    flex-wrap: wrap;
   }
 
-  .content-price-form .extra-field {
-    flex: 1; 
+  .extra-field {
+    width: 100%; /* Faz o campo ocupar toda a largura */
+  }
+}
+
+@media (min-width: 1110px) {
+  .content-price-form-cat {
+    display: grid;
+    grid-template-columns: 1fr 0fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .content-price-form {
+    justify-content: space-between; /* Mantém um no início e outro no fim */
+  }
+
+  .extra-field {
+    grid-column: span 2; /* Fica na linha abaixo ocupando toda a largura */
+    justify-self: start; /* Alinha no início */
+  }
+}
+
+@media (min-width: 1700px) {
+  .content-price-form-cat {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .extra-field {
+    grid-column: auto; /* Remove restrição */
   }
 }
 

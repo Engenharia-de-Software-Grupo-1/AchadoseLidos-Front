@@ -110,7 +110,7 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
                   />
                 </div>
 
-                <div className="content-price-form">
+                <div className="content-price-form-cat">
                   <ProductFormField
                     labelText="Categoria"
                     fieldName={ProdutoFieldNames.categoria}
@@ -134,21 +134,19 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
                     genero={genero}
                   />
 
-<div className="extra-field">
-                  <ProductFormField
-                    labelText="Estado"
-                    fieldName={ProdutoFieldNames.estadoConservacao}
-                    fieldValue={produto.estadoConservacao}
-                    setField={setField}
-                    hasSubmissionFailed={errors?.estadoConservacao?.error ? errors.estadoConservacao.error : false}
-                    isCategory
-                    isShortInput
-                    options={Object.entries(EstadoConservacaoProduto).map(([key, value]) => ({ label: key, value }))}
-                  />
+                  <div className="extra-field">
+                    <ProductFormField
+                      labelText="Estado"
+                      fieldName={ProdutoFieldNames.estadoConservacao}
+                      fieldValue={produto.estadoConservacao}
+                      setField={setField}
+                      hasSubmissionFailed={errors?.estadoConservacao?.error ? errors.estadoConservacao.error : false}
+                      isCategory
+                      isShortInput
+                      options={Object.entries(EstadoConservacaoProduto).map(([key, value]) => ({ label: key, value }))}
+                    />
+                  </div>
                 </div>
-                </div>
-
-               
 
                 <ProductFormField
                   labelText="Nome dos Autores (separados por vírgula)"
