@@ -1,11 +1,11 @@
 import FormField from '@components/FormField/formField';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { User } from '@domains/User';
+import { Usuario } from '@domains/Usuario';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 
 interface TabDadosPerfilProps {
-  user: User;
+  user: Usuario;
   setField: (field: string, value: any) => void;
 }
 

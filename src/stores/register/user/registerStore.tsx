@@ -1,11 +1,11 @@
 import { createContext, useContext, ReactNode } from 'react';
-import { User } from '@domains/User';
+import { Usuario } from '@domains/Usuario';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '@routes/routesUser';
 import { useForm } from '@hooks/useForm';
 
 interface RegisterUserContextType {
-  user: User;
+  user: Usuario;
   setField: (field: string, value: any) => void;
   validateStep: (stepIndex: number) => Promise<boolean>;
   getRule: (field: string) => {};
@@ -36,14 +36,14 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
     return validate(stepIndex);
   };
 
-  const aditionalValidate = (user: User, validationResults: Record<string, any>): Record<string, any> => {
+  const aditionalValidate = (user: Usuario, validationResults: Record<string, any>): Record<string, any> => {
     validationResults = verifyPassword(user, validationResults);
     validationResults = checkTelefone(user, validationResults);
     return validationResults;
   };
 
   const { formData, setField, validate, getRule, showNotification, validateEmail, verifyPassword, checkTelefone } =
-    useForm<User>({
+    useForm<Usuario>({
       initialData: {
         conta: {
           email: '',
