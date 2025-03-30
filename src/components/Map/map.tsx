@@ -34,7 +34,7 @@ const MyMap: React.FC<MyMapProps> = ({ endereco }) => {
   }, [endereco]);
 
   return (
-    <MapContainer center={position} zoom={13} style={{ height: '400px', width: '100%' }}>
+    <MapContainer center={position} zoom={13} style={{ height: '400px', width: '100%', borderRadius:'20px'}}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <Marker position={position} />
     </MapContainer>
