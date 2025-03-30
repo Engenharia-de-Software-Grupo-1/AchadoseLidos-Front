@@ -8,6 +8,8 @@ import { Filter } from '@types/NavigationFilters';
 import { PedidoList } from '@domains/Pedido';
 import { Button } from 'primereact/button';
 import { usePedido } from '@stores/pedido/pedidoStore';
+import { useAuth } from '@contexts/authContext';
+import { useNavigate } from 'react-router-dom';
 
 export const ListagemPedidoPage = () => {
   const [orderCards, setOrderCards] = useState<GenericCardProps[]>([]);
@@ -16,16 +18,22 @@ export const ListagemPedidoPage = () => {
   const breadcrumbItems = [{ label: 'Histórico de Pedidos', url: '/profile/historico' }];
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(3);
+  const { conta } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    initialize(
-      {
-        filters: filters,
-        sorters: [],
-      },
-      () => getPedidos()
-    );
-  }, [filters]);
+    if (!conta) {
+      navigate('/login');
+    } else {
+      initialize(
+        {
+          filters: filters,
+          sorters: [],
+        },
+        () => getPedidos()
+      );
+    }
+  }, [conta, navigate, filters]);
 
   const updateFilters = (status: string) => {
     setFilters([{ campo: 'status', operador: '=', valor: status }]);
