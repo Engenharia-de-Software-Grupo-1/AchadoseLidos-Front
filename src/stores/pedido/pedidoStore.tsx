@@ -1,15 +1,17 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import { useNotification } from '@contexts/notificationContext';
-import { PedidoList } from '@domains/Pedido';
-import { createOrder, getAll } from '@routes/routesPedido';
+import { Pedido, PedidoList } from '@domains/Pedido';
+import { createOrder, getAll, getById } from '@routes/routesPedido';
 import { FilterOrders } from '@types/NavigationFilters';
-import { getById } from '@routes/routesProduto';
+import { getById as getByIdProduto } from '@routes/routesProduto';
 import { Cesta, ProdutoCesta } from '@domains/Cesta';
 import { Usuario } from '@domains/Usuario';
 
 interface PedidoContextType {
   pedidos: PedidoList[];
+  pedido: Pedido;
   loading: boolean;
+  loadingPedido: boolean;
   initialize: (body: FilterOrders, sucessCallback?: () => void) => Promise<void>;
   handleCreatePedido: (
     quantityTotal: number,
@@ -18,6 +20,9 @@ interface PedidoContextType {
     user: Usuario,
     sucessCallback?: () => void
   ) => void;
+  getPedido: (id: number | undefined) => void;
+  handleQuantityChange: (productId: number, quantity: number)  => void;
+  handleSelectionChange: (productId: number, selected: boolean) => void;
 }
 
 const PedidoContext = createContext<PedidoContextType | undefined>(undefined);
@@ -25,7 +30,9 @@ const PedidoContext = createContext<PedidoContextType | undefined>(undefined);
 export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { showNotification } = useNotification();
   const [pedidos, setPedidos] = useState<PedidoList[]>([]);
+  const [pedido, setPedido] = useState<Pedido>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingPedido, setLoadingPedido] = useState(true);
 
   const initialize = async (body: FilterOrders, sucessCallback?: () => void) => {
     setLoading(true);
@@ -44,7 +51,7 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     try {
       const produtosPedido = await Promise.all(
         produtosCesta.map(async (produtoCesta: ProdutoCesta) => {
-          return await getById(produtoCesta.produto.id);
+          return await getByIdProduto(produtoCesta.produto.id);
         })
       );
       return produtosPedido;
@@ -99,13 +106,44 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   };
 
+  const getPedido = useCallback(async (id: number | undefined) => {
+    setLoadingPedido(true);
+    try {
+      const data = await getById(id);
+      setPedido(data);
+    } catch (error) {
+      showNotification('error', null, 'Erro ao buscar pedido');
+    } finally {
+      setLoadingPedido(false);
+    }
+  }, []);
+
+  const handleQuantityChange = (productId: number, quantity: number) => {
+    setPedido((prev) => ({
+      ...prev,
+      produtos: prev.produtos.map((item) => (item.produto.id === productId ? { ...item, quantidade: quantity } : item)),
+    }));
+  };
+
+  const handleSelectionChange = (productId: number, selected: boolean) => {
+    setPedido((prev) => ({
+      ...prev,
+      produtos: prev.produtos.map((item) => (item.produto.id === productId ? { ...item, selected } : item)),
+    }));
+  };
+
   return (
     <PedidoContext.Provider
       value={{
         pedidos,
         loading,
+        loadingPedido,
         initialize,
         handleCreatePedido,
+        pedido,
+        getPedido,
+        handleQuantityChange,
+        handleSelectionChange,
       }}
     >
       {children}

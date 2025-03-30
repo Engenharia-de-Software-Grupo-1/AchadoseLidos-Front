@@ -152,7 +152,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/profile/historico/pedido1"
+                path="/profile/historico/pedido/:id"
                 element={
                   <PedidoProvider>
                     <CestaProvider>
