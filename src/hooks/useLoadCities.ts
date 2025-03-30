@@ -5,6 +5,6 @@ export const useLoadCities = () => {
   const { loadCitiesByState } = useRegisterSebo();
 
   useEffect(() => {
-      loadCitiesByState();
+    loadCitiesByState();
   }, [loadCitiesByState]);
 };

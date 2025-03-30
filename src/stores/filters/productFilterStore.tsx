@@ -39,7 +39,7 @@ export const useProductFilterStore = create<FilterState>((set, get) => ({
   setSeboId: (seboId) => set({ seboId: seboId ? seboId.toString() : null }),
 
   applyFilters: () => {
-    const { name, genre, firstPrice, secondPrice, selectedCategories, estadoConservacao, seboId} = get();
+    const { name, genre, firstPrice, secondPrice, selectedCategories, estadoConservacao, seboId } = get();
     const filters: Filter[] = [];
 
     if (name) filters.push({ campo: 'nome', operador: 'like', valor: name });
@@ -47,7 +47,8 @@ export const useProductFilterStore = create<FilterState>((set, get) => ({
     if (firstPrice && firstPrice != 0) filters.push({ campo: 'preco', operador: '>=', valor: firstPrice });
     if (secondPrice && secondPrice != 0) filters.push({ campo: 'preco', operador: '<=', valor: secondPrice });
     if (selectedCategories.length > 0) filters.push({ campo: 'categoria', operador: 'in', valor: selectedCategories });
-    if (estadoConservacao.length > 0) filters.push({ campo: 'estadoConservacao', operador: 'in', valor: estadoConservacao });
+    if (estadoConservacao.length > 0)
+      filters.push({ campo: 'estadoConservacao', operador: 'in', valor: estadoConservacao });
     if (seboId && !isNaN(Number(seboId))) filters.push({ campo: 'seboId', operador: '=', valor: Number(seboId) });
 
     set({ filters });

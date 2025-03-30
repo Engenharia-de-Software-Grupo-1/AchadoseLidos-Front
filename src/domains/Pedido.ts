@@ -1,9 +1,8 @@
 import { ProdutoPedido } from './Produto';
 
-
-export interface Pedido  {
+export interface Pedido {
   id: number;
   nome: string;
   produtos: ProdutoPedido[];
-  createdAt:string;
+  createdAt: string;
 }

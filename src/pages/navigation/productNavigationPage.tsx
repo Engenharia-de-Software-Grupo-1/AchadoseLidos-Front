@@ -93,7 +93,10 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
               <p className="nav-filter-display-text">
                 Resultados de pesquisa para: <br />
                 {filters.map((filter) => filter.valor).join(', ').length > 103
-                  ? filters.map((filter) => filter.valor).join(', ').substring(0, 103) + '...'
+                  ? filters
+                      .map((filter) => filter.valor)
+                      .join(', ')
+                      .substring(0, 103) + '...'
                   : filters.map((filter) => filter.valor).join(', ')}
               </p>
               <div className="nav-filter-display-order">
@@ -135,7 +138,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
             onPageChange={(e) => {
               setFirst(e.first);
               setRows(e.rows);
-            }}  
+            }}
             style={{ backgroundColor: 'var(--Achados-OffWhite)' }}
           ></Paginator>
         </div>

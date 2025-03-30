@@ -2,7 +2,7 @@ export interface Cesta {
   sebo: {
     id: number;
     nome: string;
-    concordaVender:boolean;
+    concordaVender: boolean;
   };
   produtos: ProdutoCesta[];
 }
@@ -11,7 +11,7 @@ export interface ProdutoCesta {
   quantidade: number;
   produto: {
     id: number;
-    fotos: {url:string}[]; 
+    fotos: { url: string }[];
     nome: string;
     categoria: string;
     preco: number;

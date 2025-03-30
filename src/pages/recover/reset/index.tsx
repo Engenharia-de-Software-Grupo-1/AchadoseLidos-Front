@@ -48,7 +48,12 @@ const ResetRequestPage = () => {
                 />
               </FormField>
             </div>
-            <Button className="button" type="submit" label="Atualizar Senha" onClick={() => finalizeResetRequest(token)} />
+            <Button
+              className="button"
+              type="submit"
+              label="Atualizar Senha"
+              onClick={() => finalizeResetRequest(token)}
+            />
             <div className="footer"></div>
           </div>
         </div>

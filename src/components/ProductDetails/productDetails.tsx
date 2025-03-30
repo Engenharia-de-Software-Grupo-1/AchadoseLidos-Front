@@ -22,8 +22,14 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
   const { showNotification } = useNotification();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
-  const { isFavorite, isFavoriteProduct, fetchFavoritoData, favoritos, handleAdicionarFavorito, handleRemoverFavorito } =
-    useFavorito();
+  const {
+    isFavorite,
+    isFavoriteProduct,
+    fetchFavoritoData,
+    favoritos,
+    handleAdicionarFavorito,
+    handleRemoverFavorito,
+  } = useFavorito();
 
   const handleDeleteProduct = async () => {
     try {
@@ -45,7 +51,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   }, [favoritos]);
 
-  const addCesta = async() => {
+  const addCesta = async () => {
     try {
       await addProductCesta(id);
       showNotification('success', 'Produto adicionado na cesta com sucesso!', '');
@@ -102,7 +108,13 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                 </>
               )}
 
-              <Button label="Adicionar à cesta" severity="success" className="button-cesta" rounded onClick={addCesta}/>
+              <Button
+                label="Adicionar à cesta"
+                severity="success"
+                className="button-cesta"
+                rounded
+                onClick={addCesta}
+              />
             </div>
           )}
           {conta?.tipo === 'SEBO' && (

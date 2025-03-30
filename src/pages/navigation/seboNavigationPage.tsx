@@ -67,7 +67,12 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
                 {filters
                   .map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor))
                   .join(', ')
-                  .slice(0, 103) + (filters.map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor)).join(', ').length > 103 ? '...' : '')}
+                  .slice(0, 103) +
+                  (filters
+                    .map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor))
+                    .join(', ').length > 103
+                    ? '...'
+                    : '')}
               </p>
               <div className="nav-filter-display-order">
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
@@ -98,7 +103,7 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
               setFirst(e.first);
               setRows(e.rows);
             }}
-            style={{ backgroundColor: 'var(--Achados-OffWhite', alignSelf: 'flex-end'}}
+            style={{ backgroundColor: 'var(--Achados-OffWhite', alignSelf: 'flex-end' }}
           ></Paginator>
         </div>
       </TemplatePage>

@@ -15,15 +15,7 @@ interface FormFieldProps {
   adress?: boolean;
 }
 
-const FormField: React.FC<FormFieldProps> = ({
-  label,
-  attribute,
-  children,
-  required,
-  editField,
-  short,
-  adress,
-}) => {
+const FormField: React.FC<FormFieldProps> = ({ label, attribute, children, required, editField, short, adress }) => {
   const { errors } = useErrorContext();
   const error = errors[getField(attribute)];
 
@@ -36,16 +28,16 @@ const FormField: React.FC<FormFieldProps> = ({
         </label>
       )}
       <div className="input-wrapper">
-      {cloneElement(children as React.ReactElement<any>, {
-        id: attribute,
-        className: classNames({
-          'p-invalid p-error': error?.error,
-          'field-input': editField,
-          'short-input': short,
-        }),
-      })}
+        {cloneElement(children as React.ReactElement<any>, {
+          id: attribute,
+          className: classNames({
+            'p-invalid p-error': error?.error,
+            'field-input': editField,
+            'short-input': short,
+          }),
+        })}
       </div>
-      
+
       {error?.error && <small className="p-error">{error?.message}</small>}
     </div>
   );
