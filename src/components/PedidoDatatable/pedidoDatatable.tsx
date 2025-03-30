@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputNumber } from 'primereact/inputnumber';
@@ -29,23 +29,30 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
   updatingProducts = new Set<number>(),
   isUser = false,
 }) => {
-  const statusVector = [
-    <Tag
-      style={{ width: '7rem', backgroundColor: 'var(--Achados-Highlight-Blue)', color: 'white' }}
-      className="mr-2 mt-2"
-      value={'Pendente'}
-    />,
-    <Tag
-      style={{ width: '7rem', backgroundColor: 'var(--Achados-Red)', color: 'white' }}
-      className="mr-2 mt-2"
-      value={'Cancelado'}
-    />,
-    <Tag
-      style={{ width: '7rem', backgroundColor: 'var(--Achados-Green' }}
-      className="mr-2 mt-2"
-      value={'Confirmado'}
-    />,
-  ];
+
+  const statusProduto: Record<string, JSX.Element> = {
+    PENDENTE: (
+      <Tag
+        style={{ width: '7rem', backgroundColor: 'var(--Achados-Highlight-Blue)', color: 'white' }}
+        className="mr-2 mt-2"
+        value="Pendente"
+      />
+    ),
+    CANCELADO: (
+      <Tag
+        style={{ width: '7rem', backgroundColor: 'var(--Achados-Red)', color: 'white' }}
+        className="mr-2 mt-2"
+        value="Cancelado"
+      />
+    ),
+    CONFIRMADO: (
+      <Tag
+        style={{ width: '7rem', backgroundColor: 'var(--Achados-Green)', color: 'white' }}
+        className="mr-2 mt-2"
+        value="Confirmado"
+      />
+    ),
+  };
 
   const calculateStoreTotals = (products: ProdutoPedido[]) => {
     const quantityTotal = products.reduce((sum, item) => (item.selected === true ? sum + item.quantidade : sum), 0);
@@ -156,7 +163,7 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
           body={(rowData: ProdutoPedido) =>
             isUser || isFinalizado ? (
               <>
-                {statusVector[rowData.status]}
+                {statusProduto[rowData.status]}
                 {isUser && onDeleteItem && (
                   <Button
                     icon="pi pi-trash"

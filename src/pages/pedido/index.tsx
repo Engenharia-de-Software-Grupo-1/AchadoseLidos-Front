@@ -8,6 +8,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { usePedido } from '@stores/pedido/pedidoStore';
 import { useAuth } from '@contexts/authContext';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { getValueDate } from '@utils/utils';
 
 const PedidoPage = () => {
   const { id } = useParams();
@@ -55,7 +56,7 @@ const PedidoPage = () => {
         ) : (
           <h3 style={{ margin: '-2rem', padding: '0' }}>{pedido.sebo?.nome}</h3>
         )}
-        <h4 style={{ padding: '0', marginBottom: '0' }}>{pedido.createdAt}</h4>
+        <h4 style={{ padding: '0', marginBottom: '0' }}>{getValueDate(pedido.createdAt)}</h4>
         <div style={{ width: '80%' }}>
           <PedidoDatatable
             pedido={pedido}

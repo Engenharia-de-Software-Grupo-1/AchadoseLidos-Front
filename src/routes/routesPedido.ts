@@ -7,7 +7,9 @@ const api = axios.create({
 });
 
 export const getById = async (id: any) => {
-  const response = await api.get<Pedido>(`/pedidos/${id}`);
+  const response = await api.get<Pedido>(`/pedidos/${id}`, {
+    withCredentials: true,
+  });
   return response.data;
 };
 
