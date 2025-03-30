@@ -1,7 +1,7 @@
 import { createContext, useContext, useRef, ReactNode } from 'react';
 import { Toast } from 'primereact/toast';
 
-type Severity = 'info' | 'success' | 'warn' | 'error';
+export type Severity = 'info' | 'success' | 'warn' | 'error';
 
 interface NotificationContextType {
   showNotification: (severity: Severity, summary: string | null, detail: string) => void;

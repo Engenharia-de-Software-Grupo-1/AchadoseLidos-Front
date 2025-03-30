@@ -108,3 +108,8 @@
   padding-top: 8px;
   gap: 8px;
 }
+
+.invalid-price-input {
+  border: 1px solid var(--Achados-Red);
+  border-radius: 7px;
+}

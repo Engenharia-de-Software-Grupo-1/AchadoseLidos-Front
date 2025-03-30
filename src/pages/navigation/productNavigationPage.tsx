@@ -42,7 +42,6 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   }, [meusProdutos, conta?.id]);
   
   const getProducts = async () => {
-    console.log('OIII');
     const response = await getAllProducts({ filters, sorters: sorters });
     const produtos = response.map((item) => {
       return {
