@@ -8,6 +8,7 @@ interface TemplatePageProps {
   simpleFooter: boolean;
   backgroundFooterDiff?: boolean;
   contents?: boolean;
+  backLight?: boolean;
 }
 
 const TemplatePage: React.FC<TemplatePageProps> = ({
@@ -15,12 +16,13 @@ const TemplatePage: React.FC<TemplatePageProps> = ({
   simpleHeader,
   simpleFooter,
   backgroundFooterDiff,
+  backLight,
   contents = false,
 }) => {
   const footer = simpleFooter ? (
     <footer className="container-footer" />
   ) : (
-    <footer className={classNames('initial-footer', { backgroundDiff: backgroundFooterDiff })}>
+    <footer className={classNames('initial-footer', { backgroundDiff: backgroundFooterDiff, backgroundDiffLighter: backLight })}>
       <p className="text-footer">ACHADOS E LIDOS</p>
     </footer>
   );

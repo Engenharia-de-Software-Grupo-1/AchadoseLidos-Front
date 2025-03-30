@@ -198,7 +198,7 @@
   text-align: justify;
 }
 
-.profile-form-field {
+.profile-form-field-prod {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -331,6 +331,7 @@
   gap: 8px;
   flex: 1 0 0;
   border: none;
+  border-bottom: 1px solid var(--Achados-Black);
   background: transparent;
 }
 
@@ -348,9 +349,17 @@
   border-bottom: 1px solid var(--Achados-Black) !important;
 }
 
+.star-form {
+  color: red;
+}
+
 .empty-input-error .field-input-stock {
   border: 1px solid red !important;
   border-bottom: 1px solid red !important;
+}
+
+.input-name-product{
+  width: 100% !important;
 }
 
 .field-input-stock input {

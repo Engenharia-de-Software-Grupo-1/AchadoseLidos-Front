@@ -4,7 +4,7 @@ import { useState } from 'react';
 const useFormUser = () => {
   const [submitted, setSubmitted] = useState(false);
 
-  const { user, setField, validate, setUser, updateDataUser, deleteAccount } = useProfileUserForm();
+  const { user, setField, validate, setUser, updateDataUser, deleteAccount, loading } = useProfileUserForm();
 
   const breadcrumbItems = [
     { label: 'Meu Perfil', url: '/profile/user' },
@@ -24,6 +24,7 @@ const useFormUser = () => {
     setUser,
     updateDataUser,
     deleteAccount,
+    loading,
   };
 };
 

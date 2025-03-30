@@ -123,3 +123,7 @@ export const getField = (field: string) => {
   const keys = field.split('.');
   return keys.length === 2 ? keys[1] : keys[0];
 };
+
+export const isValidPrice = (value: number) => {
+  return value !== undefined && value !== null && !isNaN(value) && value > 0;
+};

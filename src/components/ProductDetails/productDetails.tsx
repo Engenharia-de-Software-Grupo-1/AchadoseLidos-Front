@@ -41,6 +41,11 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   };
 
+  const returnToLogin = () => {
+    navigate('/login');
+    showNotification('error', 'Faça login para continuar.', '');
+  };
+
   if (conta?.tipo === 'USUARIO') {
     useEffect(() => {
       fetchFavoritoData();
@@ -63,7 +68,6 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   };
 
-  // Verificar se o sebo logado é o proprietário deste produto
   const isOwnProduct = conta?.sebo?.id === data.sebo?.id;
 
   return (
@@ -87,7 +91,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
           <p className="product-stock">{`${data.qtdEstoque} em estoque`}</p>
           <p className="product-achados-subh1">{`R$ ${data.preco.toFixed(2)}`}</p>
 
-          {conta?.tipo === 'USUARIO' && (
+          {conta?.tipo === 'USUARIO' ? (
             <div className="product-actions-frame">
               {isFavorite ? (
                 <>
@@ -112,7 +116,6 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                   />
                 </>
               )}
-
               <Button
                 label="Adicionar à cesta"
                 severity="success"
@@ -121,7 +124,25 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                 onClick={addCesta}
               />
             </div>
-          )}
+          ) : !conta ? (
+            <div className="product-actions-frame">
+              <Button
+                icon="pi pi-heart"
+                rounded
+                severity="danger"
+                aria-label="Favorite"
+                className="favorite-button"
+                onClick={returnToLogin}
+              />
+              <Button
+                label="Adicionar à cesta"
+                severity="success"
+                className="button-cesta"
+                rounded
+                onClick={returnToLogin}
+              />
+            </div>
+          ) : null}
           {conta?.tipo === 'SEBO' && isOwnProduct && (
             <div className="product-actions-frame">
               <Button

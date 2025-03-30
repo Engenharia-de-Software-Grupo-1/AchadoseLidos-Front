@@ -1,5 +1,5 @@
 import { Usuario } from '@domains/Usuario';
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext, ReactNode, useState } from 'react';
 import { deleteUser, getById, updateUser } from '@routes/routesUser';
 import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ interface ProfileUserFormContextType {
   setUser: () => void;
   updateDataUser: () => void;
   deleteAccount: () => void;
+  loading: boolean;
 }
 
 export const ProfileUserFormContext = createContext<ProfileUserFormContextType | null>(null);
@@ -30,6 +31,7 @@ interface ProfileUserFormProviderProps {
 
 export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderProps) => {
   const { conta, handleLogout } = useAuth();
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const { formData, setField, validate, setFormData, showNotification } = useForm<Usuario>({
@@ -67,6 +69,7 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
   });
 
   const setUser = async () => {
+    setLoading(true);
     try {
       if (conta?.usuario?.id !== undefined) {
         const usuario = await getById(conta.usuario.id);
@@ -79,6 +82,8 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,7 +95,10 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
         return;
       }
       if (conta?.usuario?.id !== undefined) {
-        await updateUser(formData, conta.usuario.id);
+        const response = await updateUser(formData, conta.usuario.id);
+        setFormData(response);
+        conta.usuario = response;
+        navigate('/profile/user');
         showNotification('success', 'Dados atualizados com sucesso!', '');
       }
     } catch (error) {
@@ -113,7 +121,7 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
 
   return (
     <ProfileUserFormContext.Provider
-      value={{ user: formData, setField, validate, setUser, updateDataUser, deleteAccount }}
+      value={{ user: formData, setField, validate, setUser, updateDataUser, deleteAccount, loading }}
     >
       {children}
     </ProfileUserFormContext.Provider>

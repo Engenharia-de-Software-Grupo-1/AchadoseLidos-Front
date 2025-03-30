@@ -11,6 +11,7 @@ import { Sebo } from '@domains/Sebo';
 import { Carousel } from 'primereact/carousel';
 import useWindowSize from '@hooks/useWindowSize';
 import { CARD_SIZES } from 'constants/carousel';
+import { useNavigate } from 'react-router-dom';
 
 
 const HomePage = () => {
@@ -19,6 +20,7 @@ const HomePage = () => {
   const [produtos, setProdutos] = useState<ProductCardProps[]>([]);
   const [livros, setLivros] = useState<ProductCardProps[]>([]);
   const [sebos, setSebos] = useState<GenericCardProps[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProdutos = async () => {
@@ -82,6 +84,14 @@ const HomePage = () => {
     fetchLivros();
   }, []);
 
+  const handleAcessProductPage = (id: number) => {
+    navigate(`/product/${id}`);
+  };
+
+  const handleAcessSeboPage = (id: number) => {
+    navigate(`/profile/sebo/${id}`);
+  };
+
   const { width } = useWindowSize();
 
   const calculateVisibleItems = (cardWidth: number, gap: number, minVisible: number) => {
@@ -128,9 +138,10 @@ const HomePage = () => {
               numScroll={productSettings.scroll}
               itemTemplate={(produto: ProductCardProps) => (
                 <div style={{ 
+                  cursor: 'pointer',
                   width: productSettings.width,
                   padding: `0 ${CARD_SIZES.PRODUCT.GAP / 2}px`
-                }}>
+                }} onClick={() => produto.id !== undefined && handleAcessProductPage(produto.id)}>
                   <ProductCard {...produto} />
                 </div>
               )}
@@ -163,9 +174,11 @@ const HomePage = () => {
               numScroll={seboSettings.scroll}
               itemTemplate={(sebo: GenericCardProps) => (
                 <div style={{ 
+                  cursor: 'pointer',
                   width: seboSettings.width,
                   padding: `0 ${CARD_SIZES.SEBO.GAP / 2}px`
-                }}>
+                }} 
+                onClick={() => sebo.seboId !== undefined && handleAcessSeboPage(sebo.seboId)}>
                   <GenericCard {...sebo} />
                 </div>
               )}
@@ -199,9 +212,11 @@ const HomePage = () => {
               numScroll={productSettings.scroll}
               itemTemplate={(livro: ProductCardProps) => (
                 <div style={{ 
+                  cursor: 'pointer',
                   width: productSettings.width,
                   padding: `0 ${CARD_SIZES.PRODUCT.GAP / 2}px`
-                }}>
+                }}
+                onClick={() => livro.id !== undefined && handleAcessProductPage(livro.id)}>
                   <ProductCard {...livro} />
                 </div>
               )}

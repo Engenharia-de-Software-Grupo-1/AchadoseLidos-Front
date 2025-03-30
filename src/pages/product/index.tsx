@@ -6,11 +6,12 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getById } from '@routes/routesProduto';
 
-const breadcrumbItems = [{ label: 'Página do produto', url: '/product-page' }];
 
 const ProductPage = () => {
   const { id } = useParams();
   const [produto, setProduto] = useState<Produto | null>(null);
+
+const breadcrumbItems = [{ label: 'Página do produto', url: `/product/${id}` }];
 
   const fetchProduto = async () => {
     try {
