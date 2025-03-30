@@ -21,8 +21,10 @@ interface PedidoContextType {
     sucessCallback?: () => void
   ) => void;
   getPedido: (id: number | undefined) => void;
-  handleQuantityChange: (productId: number, quantity: number)  => void;
+  handleQuantityChange: (productId: number, quantity: number) => void;
   handleSelectionChange: (productId: number, selected: boolean) => void;
+  handleConfirm: (sucessCallback?: () => void) => void;
+  handleCancel: (sucessCallback?: () => void) => void;
 }
 
 const PedidoContext = createContext<PedidoContextType | undefined>(undefined);
@@ -132,6 +134,26 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }));
   };
 
+  const handleConfirm = async (sucessCallback?: () => void) => {
+    try {
+      // mudar status do pedido
+      showNotification('success', 'Pedido confirmado com sucesso!', '');
+      sucessCallback && sucessCallback();
+    } catch (error) {
+      console.error('Erro ao confirmar pedido', error);
+    }
+  };
+
+  const handleCancel = async (sucessCallback?: () => void) => {
+    try {
+      // mudar status de todos os produtos e do pedido
+      showNotification('success', 'Pedido cancelado com sucesso!', '');
+      sucessCallback && sucessCallback();
+    } catch (error) {
+      console.error('Erro ao cancelar pedido', error);
+    }
+  };
+
   return (
     <PedidoContext.Provider
       value={{
@@ -144,6 +166,8 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         getPedido,
         handleQuantityChange,
         handleSelectionChange,
+        handleConfirm, 
+        handleCancel
       }}
     >
       {children}

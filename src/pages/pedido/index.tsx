@@ -4,7 +4,7 @@ import TemplatePage from '@pages/template';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import './style.css';
 import { Button } from 'primereact/button';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { usePedido } from '@stores/pedido/pedidoStore';
 import { useAuth } from '@contexts/authContext';
 import { ProgressSpinner } from 'primereact/progressspinner';
@@ -12,7 +12,9 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 const PedidoPage = () => {
   const { id } = useParams();
   const { conta } = useAuth();
-  const { pedido, loadingPedido, getPedido, handleQuantityChange, handleSelectionChange } = usePedido();
+  const { pedido, loadingPedido, getPedido, handleQuantityChange, handleSelectionChange, handleCancel, handleConfirm } =
+    usePedido();
+  const navigate = useNavigate();
   const isUser = conta?.tipo === 'USUARIO';
 
   useEffect(() => {
@@ -71,7 +73,7 @@ const PedidoPage = () => {
                   padding: '0.5rem 1rem',
                 }}
                 tooltipOptions={{ position: 'top' }}
-                onClick={() => confirm('not implemented')}
+                onClick={() => handleCancel(() => navigate('/profile/historico'))}
               />
               <Button
                 label="Confirmar Venda"
@@ -82,7 +84,7 @@ const PedidoPage = () => {
                 }}
                 tooltip={'Ao confirmar, não será mais possível editar este pedido.'}
                 tooltipOptions={{ position: 'top' }}
-                onClick={() => confirm('nao implementado')}
+                onClick={() => handleConfirm(() => navigate('/profile/historico'))}
               />
             </div>
           )}
