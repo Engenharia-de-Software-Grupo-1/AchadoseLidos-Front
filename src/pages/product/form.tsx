@@ -9,7 +9,7 @@ import { ProductFormField } from '@components/ProductDetails/productFormFields';
 import { Button } from 'primereact/button';
 import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/produtoConstants';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useErrorContext } from '@contexts/errorContext';
 import { useAuth } from '@contexts/authContext';
 import Atention from '@components/Attention';
@@ -24,12 +24,22 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
   const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');
   const { errors } = useErrorContext();
   const { conta } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
       setProduct(id);
     }
   }, [id]);
+
+  useEffect(() => {
+    // Retorna imediatamente se os dados ainda não foram carregados
+    if (!produto?.sebo?.id || !conta?.sebo?.id) return;
+
+    if (!isRegister && conta.tipo === 'SEBO' && produto.sebo?.id !== conta.sebo.id) {
+      navigate(`/product/${id}`, { replace: true });
+    }
+  }, [produto, conta, isRegister, navigate]);
 
   const breadcrumbItems = [
     {

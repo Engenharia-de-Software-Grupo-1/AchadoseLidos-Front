@@ -61,6 +61,9 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   };
 
+  // Verificar se o sebo logado é o proprietário deste produto
+  const isOwnProduct = conta?.sebo?.id === data.sebo?.id;
+
   return (
     <main className="product-frame">
       <section className="product-columns-frame">
@@ -117,7 +120,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
               />
             </div>
           )}
-          {conta?.tipo === 'SEBO' && (
+          {conta?.tipo === 'SEBO' && isOwnProduct && (
             <div className="product-actions-frame">
               <Button
                 icon="pi pi-trash"
