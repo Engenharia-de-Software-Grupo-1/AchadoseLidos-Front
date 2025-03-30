@@ -98,7 +98,6 @@
 }
 
 .p-button-success {
-  /* background-color: var(--Achados-Success) !important; Cor de fundo padrão  coloca uma classe no botao de nome unico, se nao vai sobrescrever todos ja que essa é classe geral*/
   border-color: var(--Achados-Success) !important;
 }
 
@@ -199,7 +198,7 @@
   }
 
   .extra-field {
-    width: 100%; /* Faz o campo ocupar toda a largura */
+    width: 100%;
   }
 }
 
@@ -212,12 +211,12 @@
   }
 
   .content-price-form {
-    justify-content: space-between; /* Mantém um no início e outro no fim */
+    justify-content: space-between;
   }
 
   .extra-field {
-    grid-column: span 2; /* Fica na linha abaixo ocupando toda a largura */
-    justify-self: start; /* Alinha no início */
+    grid-column: span 2;
+    justify-self: start; 
   }
 }
 
@@ -227,7 +226,7 @@
   }
 
   .extra-field {
-    grid-column: auto; /* Remove restrição */
+    grid-column: auto; 
   }
 }
 
