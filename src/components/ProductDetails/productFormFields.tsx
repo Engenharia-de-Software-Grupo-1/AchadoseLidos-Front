@@ -10,6 +10,7 @@ import { GeneroProduto } from 'constants/produtoConstants';
 import { useEffect, useState } from 'react';
 import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { useErrorContext } from '@contexts/errorContext';
 
 type ProductFormFieldProps = {
   hasSubmissionFailed: boolean;
@@ -25,7 +26,7 @@ type ProductFormFieldProps = {
   genero?: keyof typeof GeneroProduto;
   labelText: string;
   isTextArea?: boolean;
-  placeholderText: string;
+  placeholderText?: string;
   isShortInput?: boolean;
   isOptional?: boolean;
   isPassword?: boolean;
@@ -49,7 +50,6 @@ const ProductFormField = ({
   fieldName,
   labelText,
   isTextArea,
-  placeholderText,
   isShortInput,
   isOptional,
   isPrice,
@@ -63,6 +63,7 @@ const ProductFormField = ({
 }: ProductFormFieldProps) => {
   const shouldShowError = hasSubmissionFailed && !isOptional && (!fieldValue || !fieldValuePrice);
   const [optionsGenero, setOptionsGenero] = useState<string[]>([]);
+  const { errors } = useErrorContext();
 
   const handleInputTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setField(fieldName, e.target.value);
@@ -119,23 +120,25 @@ const ProductFormField = ({
           })}
           value={fieldValue}
           onChange={handleTextAreaChange}
-          placeholder={placeholderText}
         />
       ) : isPrice ? (
-        <InputNumber
-          className={classNames('field-input', {
-            'short-input': isShortInput,
-            'empty-input-error': shouldShowError,
-            'field-input-price': isPrice,
-          })}
-          placeholder={placeholderText}
-          variant="filled"
-          style={{ width: '230px' }}
-          value={fieldValuePrice}
-          onValueChange={handleNumberChange}
-          mode="decimal"
-          minFractionDigits={2}
-        />
+        <>
+          <InputNumber
+            className={classNames('field-input', {
+              'short-input': isShortInput,
+              'empty-input-error': shouldShowError,
+              'field-input-price': isPrice,
+            })}
+            variant="filled"
+            style={{ width: '230px' }}
+            value={fieldValuePrice}
+            onValueChange={handleNumberChange}
+            mode="decimal"
+            min={0}
+            minFractionDigits={2}
+          />
+          {shouldShowError && <small className="p-error">{errors?.preco?.message}</small>}
+        </>
       ) : isStock ? (
         <InputNumber
           inputId="minmax-buttons"
@@ -164,32 +167,37 @@ const ProductFormField = ({
           style={{ width: '230px' }}
           value={fieldValueNumber}
           onChange={handleNumberChange}
-          placeholder={placeholderText}
         />
       ) : isCategory ? (
-        <Dropdown
-          value={fieldValue}
-          onChange={handleInputDropdownChange}
-          options={options}
-          placeholder={placeholderText}
-          className={classNames('w-full field-input field-input-category', {
-            'empty-input-error': shouldShowError,
-          })}
-          checkmark={true}
-          highlightOnSelect={false}
-        />
+        <>
+          <Dropdown
+            value={fieldValue}
+            onChange={handleInputDropdownChange}
+            options={options}
+            className={classNames('w-full field-input field-input-category', {
+              'empty-input-error': shouldShowError,
+            })}
+            checkmark={true}
+            highlightOnSelect={false}
+          />
+          {shouldShowError && <small className="p-error">{errors?.categoria?.message}</small>}
+        </>
       ) : isGenero ? (
-        <MultiSelect
-          value={fieldValues ? fieldValues : []}
-          onChange={handleMultiChange}
-          options={optionsGenero}
-          placeholder={placeholderText}
-          maxSelectedLabels={3}
-          className={classNames('w-full md:w-15rem field-input field-input-genero', {
-            'empty-input-error': shouldShowError,
-          })}
-        />
+        <>
+          {' '}
+          <MultiSelect
+            value={fieldValues ? fieldValues : []}
+            onChange={handleMultiChange}
+            options={optionsGenero}
+            maxSelectedLabels={3}
+            className={classNames('w-full md:w-15rem field-input field-input-genero', {
+              'empty-input-error': shouldShowError,
+            })}
+          />
+          {shouldShowError && <small className="p-error">{errors?.generos?.message}</small>}
+        </>
       ) : (
+        <>
         <InputText
           className={classNames('field-input', {
             'short-input': isShortInput,
@@ -197,8 +205,9 @@ const ProductFormField = ({
           })}
           value={fieldValue}
           onChange={handleInputTextChange}
-          placeholder={placeholderText}
         />
+        {shouldShowError && <small className="p-error">{errors?.nome?.message}</small>}
+         </>
       )}
     </div>
   );

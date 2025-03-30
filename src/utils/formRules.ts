@@ -1,5 +1,5 @@
 import { Rule } from '@domains/Rule';
-import { getTypeCpfCnpj, isEmail, isMaxValue, isMinValue } from './utils';
+import { getTypeCpfCnpj, isEmail, isMaxValue, isMinValue, isValidPrice } from './utils';
 
 export const stepRules = (fieldsToValidate: Array<string>, rules: Record<string, Rule[]>) =>
   fieldsToValidate.reduce(
@@ -37,7 +37,7 @@ export const extractRules = (definition: Record<string, Rule[]>, object: any) =>
   return result;
 };
 
-export const validateRule = (value: string, ruleList: Rule[] = []) => {
+export const validateRule = (value: string | number, ruleList: Rule[] = []) => {
   const validationResult = { error: false, message: '', rules: ruleList };
 
   ruleList.forEach((rule: Rule) => {
@@ -47,22 +47,27 @@ export const validateRule = (value: string, ruleList: Rule[] = []) => {
         validationResult.message = 'Campo obrigatório';
       }
     } else if (rule.rule === 'getTypeCpfCnpj') {
-      if (value && !getTypeCpfCnpj(value)) {
+      if (value && !getTypeCpfCnpj(String(value))) {
         validationResult.error = true;
         validationResult.message = 'Informe um CPF/CNPJ válido';
       }
     } else if (rule.rule === 'isValidLength') {
-      if (value && rule.maxLength && !isMaxValue(value, rule.maxLength)) {
+      if (value && rule.maxLength && !isMaxValue(String(value), rule.maxLength)) {
         validationResult.error = true;
         validationResult.message = `O campo deve ter no máximo ${rule.maxLength} caracteres`;
-      } else if (value && rule.minLength && !isMinValue(value, rule.minLength)) {
+      } else if (value && rule.minLength && !isMinValue(String(value), rule.minLength)) {
         validationResult.error = true;
         validationResult.message = `O campo deve ter pelo menos ${rule.minLength} caracteres`;
       }
     } else if (rule.rule === 'isEmail') {
-      if (value && !isEmail(value)) {
+      if (value && !isEmail(String(value))) {
         validationResult.error = true;
         validationResult.message = 'Informe um e-mail válido';
+      }
+    } else if (rule.rule === 'isPrice'){
+      if (value !== undefined && value !== null && !isValidPrice(Number(value))) {
+        validationResult.error = true;
+        validationResult.message = 'Informe um preço válido';
       }
     }
   });
