@@ -19,12 +19,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, cities }) => 
       <div className="container-register">
         <div className="container-data">
           <FormField attribute="estado">
-            <InputText
-              value="Paraíba"
-              disabled
-              placeholder="Estado *"
-              style={{ width: '400px' }}
-            />
+            <InputText value="Paraíba" disabled placeholder="Estado *" style={{ width: '400px' }} />
           </FormField>
 
           <FormField attribute="cidade">
@@ -45,7 +40,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, cities }) => 
               value={sebo.endereco.cep}
               maxLength={8}
               keyfilter="int"
-              onChange={(e) => setField('endereco.cep', e.target.value?.replace(/\D/g, '' ))}
+              onChange={(e) => setField('endereco.cep', e.target.value?.replace(/\D/g, ''))}
               placeholder="CEP *"
             />
           </FormField>
@@ -84,10 +79,7 @@ const TabEndereco: React.FC<TabEnderecoProps> = ({ sebo, setField, cities }) => 
 
           <div className="card flex align-items-center gap-4">
             <p className="text-sales">Esse endereço é público?</p>
-            <Checkbox
-              onChange={(e) => setField('endereco.ehPublico', e.checked )}
-              checked={sebo.endereco.ehPublico}
-            />
+            <Checkbox onChange={(e) => setField('endereco.ehPublico', e.checked)} checked={sebo.endereco.ehPublico} />
           </div>
         </div>
       </div>

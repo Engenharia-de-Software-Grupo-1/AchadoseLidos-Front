@@ -5,39 +5,39 @@ body {
 }
 
 .pedido-datatable-container {
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 
 .pedido-datatable-container .p-inputtext {
-  width:50px !important;
+  width: 50px !important;
 }
 
 .pedido-datatable-container .p-inputnumber-button {
   background-color: unset;
-  border:none;
+  border: none;
 }
 
 .pedido-datatable-container .readonly-input {
-    pointer-events: none;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
+  pointer-events: none;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .p-inputnumber-buttons-horizontal .p-inputnumber-button {
-    pointer-events: auto;
+  pointer-events: auto;
 }
 
 tr {
-    border-color:var(--Achados-Black-50);
+  border-color: var(--Achados-Black-50);
 
   background-color: white;
 }
 
-[data-pc-section="footercell"] {
+[data-pc-section='footercell'] {
   background-color: var(--Achados-Lighter-OffWhite);
-  border:none;
+  border: none;
 }
 
 .disabled-button {

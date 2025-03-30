@@ -29,7 +29,6 @@ interface RegisterSeboProviderProps {
 }
 
 export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) => {
-
   const checkTelefone = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
     if (sebo.concordaVender && !sebo.telefone.trim()) {
       validationResults['telefone'] = {

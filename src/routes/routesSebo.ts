@@ -27,11 +27,11 @@ export const getById = async (id: any) => {
 
 export const getAll = async (body: FilterOrders): Promise<Sebo[]> => {
   const response = await api.get<Sebo[]>('/sebos', {
-      params: {
-        filters: JSON.stringify(body.filters),
-        sorters: JSON.stringify(body.sorters)
-      }
-    });
+    params: {
+      filters: JSON.stringify(body.filters),
+      sorters: JSON.stringify(body.sorters),
+    },
+  });
   return response.data;
 };
 
