@@ -65,7 +65,7 @@ const ProfileSebo = () => {
             <div className="profile-sebo">
               <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} />
             </div>
-            <ContainerItems title="Todos os produtos" backgroundBege={false}>
+            <ContainerItems title="Todos os produtos" backgroundBege={false} idSebo={sebo?.id}>
               <div className="carrousel-product">
                 <Carousel
                   value={produtos}

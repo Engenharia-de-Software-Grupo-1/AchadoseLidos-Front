@@ -41,7 +41,8 @@ export const useProductFilterStore = create<FilterState>((set, get) => ({
 
   applyFilters: (onError, setPriceError) => {
     const { name, genre, firstPrice, secondPrice, selectedCategories, estadoConservacao, seboId } = get();
-    const filters: Filter[] = [];
+    const filters = get().filters?.filter((filter) => filter.header && filter.valor && !name);
+    const initialLength = filters.length;
     const showNotification = () => onError('error', 'Insira uma faixa de preço válida!', '');
 
     if (firstPrice && secondPrice && firstPrice > secondPrice) {
@@ -58,6 +59,7 @@ export const useProductFilterStore = create<FilterState>((set, get) => ({
     if (selectedCategories.length > 0) filters.push({ campo: 'categoria', operador: 'in', valor: selectedCategories });
     if (estadoConservacao.length > 0)
       filters.push({ campo: 'estadoConservacao', operador: 'in', valor: estadoConservacao });
+    if (filters.length === initialLength) filters.splice(0, filters.length);
     set({ filters });
   },
 }));

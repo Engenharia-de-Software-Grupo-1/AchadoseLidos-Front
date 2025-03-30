@@ -11,7 +11,6 @@ import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@contexts/authContext';
 import { useProductFilterStore } from '@stores/filters/productFilterStore';
-import { filter } from 'cypress/types/bluebird';
 
 interface HeaderProps {
   simpleHeader: boolean;
@@ -22,8 +21,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
   const [menuVisible, setMenuVisible] = useState(false);
   const { isAuthenticated, conta, handleLogout } = useAuth();
   const [searchedProduct, setSearchedProduct] = useState('');
-  const { filters } = useProductFilterStore();
-
+  const { filters, setSeboId, setFirstPrice, setEstadoConservacao, setGenre, setName, setSecondPrice, setSelectedCategories } = useProductFilterStore();
+  
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
@@ -36,17 +35,27 @@ export default function Header({ simpleHeader }: HeaderProps) {
     }
   };
 
+  const resetFilters = () => {
+    filters.splice(0, filters.length);
+    setName('');
+    setSeboId(null);
+    setFirstPrice(null);
+    setSecondPrice(null);
+    setEstadoConservacao([]);
+    setGenre([]);
+    setSelectedCategories([]);
+  };
+
   const redirectSearchedProduct = () => {
-    filters.push({ campo: 'nome', operador: 'like', valor: searchedProduct });
+    resetFilters();
+    if (searchedProduct !== '') {
+      filters.push({ campo: 'nome', operador: 'like', valor: searchedProduct, header: true });
+    }
     navigate('/navigation/products');
   };
 
   const redirectSeboProducts = () => {
     navigate(`/navigation/meus-produtos/${conta?.id}`);
-  };
-
-  const resetFilters = () => {
-    filters.length = 0;
   };
 
   let content = <></>;
@@ -86,7 +95,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
     const start = (
       <>
         <Link to="/">
-          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4" onClick={() => resetFilters()}></img>
+          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
         </Link>
       </>
     );

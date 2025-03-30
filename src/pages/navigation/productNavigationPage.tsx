@@ -31,10 +31,16 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const isSebo = conta?.tipo === 'SEBO';
-
+  
+  useEffect(() => {
+    if (window.location.pathname.includes('meus-produtos')) {
+      filters.splice(0, filters.length);    
+    }
+  }, []);
+  
   useEffect(() => {
     getProducts();
-  }, [filters, nameIcon]);
+  }, [filters[0]?.valor, filters, nameIcon]);
 
   useEffect(() => {
     if (meusProdutos && conta?.id) {
