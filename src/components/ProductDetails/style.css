@@ -116,7 +116,7 @@
   color: var(--Achados-Pink) !important;
 }
 
-.favorite-button{
+.favorite-button {
   background-color: var(--Achados-Pink);
   color: var(--Achados-Red);
   border: none;

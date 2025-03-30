@@ -56,10 +56,10 @@ export const LoginProvider = ({ children }: LoginProviderProps) => {
         }
       } catch (error: any) {
         if (error.response.status === 401) {
-          setError('senha', {error:true, message:'Senha incorreta.'});
+          setError('senha', { error: true, message: 'Senha incorreta.' });
         } else if (error.response.status === 404) {
-          setError('email', {error:true, message:'Email inválido.'});
-          setError('senha', {error:true, message:''});
+          setError('email', { error: true, message: 'Email inválido.' });
+          setError('senha', { error: true, message: '' });
         } else if (error.response) {
           const errorMessage = error.response.data.message || 'Erro no servidor.';
           showNotification('error', null, errorMessage);
@@ -69,8 +69,12 @@ export const LoginProvider = ({ children }: LoginProviderProps) => {
           showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
         }
       }
-    } 
+    }
   };
 
-  return <LoginContext.Provider value={{ credenciais: formData, setField, validate, finalizeLogin }}>{children}</LoginContext.Provider>;
+  return (
+    <LoginContext.Provider value={{ credenciais: formData, setField, validate, finalizeLogin }}>
+      {children}
+    </LoginContext.Provider>
+  );
 };

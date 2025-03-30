@@ -12,7 +12,7 @@ export interface ProdutoCesta {
   quantidade: number;
   produto: {
     id: number;
-    fotos: {url:string}[]; 
+    fotos: { url: string }[];
     nome: string;
     categoria: string;
     preco: number;

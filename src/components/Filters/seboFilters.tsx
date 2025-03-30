@@ -43,7 +43,7 @@ const SeboFilters: React.FC = () => {
           className="w-full md:w-20rem"
         />
       </div>
-      <div className='nav-filter-column-checkbox'>
+      <div className="nav-filter-column-checkbox">
         <Checkbox onChange={(e) => setConcordaVender(e.checked ? true : false)} checked={concordaVender} />
         <span className="text-sales">Vende produtos pelo site?</span>
       </div>

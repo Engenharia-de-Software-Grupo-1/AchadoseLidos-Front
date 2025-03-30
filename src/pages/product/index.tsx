@@ -35,10 +35,7 @@ const ProductPage = () => {
     <main className="container-product-page">
       <TemplatePage simpleHeader={false} simpleFooter={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
-        <ProductDetails
-          id={id? id : ''}
-          data={produto}
-        />
+        <ProductDetails id={id ? id : ''} data={produto} />
       </TemplatePage>
     </main>
   );

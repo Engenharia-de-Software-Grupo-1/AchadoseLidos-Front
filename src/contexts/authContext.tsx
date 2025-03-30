@@ -33,7 +33,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsAuthenticated(false);
     setConta(null);
     localStorage.removeItem('auth');
-
   }, []);
 
   const handleLogout = useCallback(async () => {
@@ -76,7 +75,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [validateAuth, auth_login]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated,  conta, auth_login, auth_logout, validateAuth, handleLogout, authChecked }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, conta, auth_login, auth_logout, validateAuth, handleLogout, authChecked }}
+    >
       {children}
     </AuthContext.Provider>
   );

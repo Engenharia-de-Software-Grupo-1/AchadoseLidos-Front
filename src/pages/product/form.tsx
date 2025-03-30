@@ -32,7 +32,10 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
   }, [id]);
 
   const breadcrumbItems = [
-    { label: isRegister ? 'Meus Produtos' : 'Meu Produto', url: isRegister ? '/navigation/meus-produtos' : `/product/${id}` },
+    {
+      label: isRegister ? 'Meus Produtos' : 'Meu Produto',
+      url: isRegister ? '/navigation/meus-produtos' : `/product/${id}`,
+    },
     {
       label: isRegister ? 'Cadastrar Produto' : 'Editar Produto',
       url: isRegister ? '/register/product' : `/product/${id}/edit`,

@@ -1,111 +1,110 @@
 .main-register-user {
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--Achados-OffWhite);
-    display: flex; 
-    flex-direction: column; 
-    min-height: 100vh;
-  }
-  
-  .card {
-    display: grid;
-  }
-  
-  .container-register-user {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    background-color: var(--Achados-OffWhite);
-  }
-  
-  .container-register {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .tittle-register {
-    color: var(--Achados-Black);
-    font-feature-settings:
-      'liga' off,
-      'clig' off;
-    font-family: 'Poppins', serif;
-    font-size: 42px;
-    font-style: normal;
-    font-weight: 500;
-    text-align: center;
-    margin: 25px 10px;
-  }
-  
-  .text-data {
-    color: var(--Achados-Black);
-    font-family: 'Poppins', serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  
-  .container-data {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .text-sales {
-    color: var(--Achados-Black);
-    font-family: 'Poppins', serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  
-  .step-button {
-    margin-top: 15px;
-    background-color: var(--Achados-Black);
-    border: 1px solid var(--Achados-Black);
-  }
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--Achados-OffWhite);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  .step-button:hover {
-    background-color: var(--Achados-Black) !important;
-    border: 1px solid var(--Achados-Black) !important;
-  }
-  
-  .p-inputtext {
-    margin: 0;
-    width: 400px;
-  }
-  
-  .p-checkbox .p-checkbox-box {
-    width: 60px;
-    height: 25px;
-  }
-  
-  .p-checkbox.p-highlight .p-checkbox-box {
-    border-color: var(--Achados-Black);
-    background: var(--Achados-Black);
-  }
-  
-  .p-checkbox:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-box {
-    border-color: var(--Achados-Black);
-  }
-  
-  .p-steps .p-steps-item .p-menuitem-link {
-    background: transparent;
-    transition: box-shadow 0.2s;
-    border-radius: 6px;
-  }
-  
-  .p-steps .p-steps-item.p-highlight .p-steps-number {
-    background: var(--Achados-Black);
-    color: #f9fafb;
-  }
-  
-  .p-steps .p-steps-item.p-highlight .p-steps-title {
-    font-weight: 700;
-    color: var(--Achados-Black);
-  }
-  
+.card {
+  display: grid;
+}
+
+.container-register-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background-color: var(--Achados-OffWhite);
+}
+
+.container-register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tittle-register {
+  color: var(--Achados-Black);
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: 'Poppins', serif;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
+  margin: 25px 10px;
+}
+
+.text-data {
+  color: var(--Achados-Black);
+  font-family: 'Poppins', serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.container-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-sales {
+  color: var(--Achados-Black);
+  font-family: 'Poppins', serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.step-button {
+  margin-top: 15px;
+  background-color: var(--Achados-Black);
+  border: 1px solid var(--Achados-Black);
+}
+
+.step-button:hover {
+  background-color: var(--Achados-Black) !important;
+  border: 1px solid var(--Achados-Black) !important;
+}
+
+.p-inputtext {
+  margin: 0;
+  width: 400px;
+}
+
+.p-checkbox .p-checkbox-box {
+  width: 60px;
+  height: 25px;
+}
+
+.p-checkbox.p-highlight .p-checkbox-box {
+  border-color: var(--Achados-Black);
+  background: var(--Achados-Black);
+}
+
+.p-checkbox:not(.p-disabled):has(.p-checkbox-input:hover) .p-checkbox-box {
+  border-color: var(--Achados-Black);
+}
+
+.p-steps .p-steps-item .p-menuitem-link {
+  background: transparent;
+  transition: box-shadow 0.2s;
+  border-radius: 6px;
+}
+
+.p-steps .p-steps-item.p-highlight .p-steps-number {
+  background: var(--Achados-Black);
+  color: #f9fafb;
+}
+
+.p-steps .p-steps-item.p-highlight .p-steps-title {
+  font-weight: 700;
+  color: var(--Achados-Black);
+}

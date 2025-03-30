@@ -68,7 +68,7 @@ export const ProductFilters: React.FC = () => {
           }))}
           optionLabel="label"
           maxSelectedLabels={6}
-          className="w-full md:w-20rem" 
+          className="w-full md:w-20rem"
           placeholder={'Selecione'}
         />
       </div>
@@ -100,7 +100,7 @@ export const ProductFilters: React.FC = () => {
           <InputNumber
             value={firstPrice}
             onValueChange={(e) => setFirstPrice(e.value ?? 0)}
-            placeholder='R$ 00,00'
+            placeholder="R$ 00,00"
             mode="currency"
             currency="BRL"
             locale="pt-BR"
@@ -113,7 +113,7 @@ export const ProductFilters: React.FC = () => {
           <InputNumber
             value={secondPrice}
             onValueChange={(e) => setSecondPrice(e.value ?? 0)}
-            placeholder='R$ 00,00'
+            placeholder="R$ 00,00"
             mode="currency"
             currency="BRL"
             locale="pt-BR"

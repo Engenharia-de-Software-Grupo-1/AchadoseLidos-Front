@@ -70,11 +70,7 @@ const FavoritosPage: React.FC = () => {
                 >
                   <div className="favorite-card-wrapper">
                     <ProductCard
-                        image={
-                          itemFavorito?.fotos?.length
-                            ? itemFavorito.fotos[0].url
-                            : imageDefault
-                        }
+                      image={itemFavorito?.fotos?.length ? itemFavorito.fotos[0].url : imageDefault}
                       name={itemFavorito?.nome}
                       owner={favorito?.sebo?.nome}
                       price={itemFavorito?.preco}

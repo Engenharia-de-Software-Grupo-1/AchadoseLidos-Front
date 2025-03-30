@@ -13,11 +13,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => 
       <div className="container-register">
         <div className="container-data">
           <FormField attribute="nome">
-            <InputText
-              value={user.nome}
-              onChange={(e) => setField('nome', e.target.value)}
-              placeholder="Nome *"
-            />
+            <InputText value={user.nome} onChange={(e) => setField('nome', e.target.value)} placeholder="Nome *" />
           </FormField>
 
           <FormField attribute="telefone">
@@ -68,7 +64,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => 
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default TabDadosBasicos;

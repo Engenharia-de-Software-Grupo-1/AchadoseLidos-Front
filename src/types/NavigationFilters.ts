@@ -3,7 +3,7 @@ export interface Filter {
   operador: string;
   valor: string | string[] | number | boolean;
 }
-  
+
 export interface Sorter {
   campo: string;
   ordem: string;

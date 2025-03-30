@@ -6,11 +6,10 @@ const useFormUser = () => {
 
   const { user, setField, validate, setUser, updateDataUser, deleteAccount } = useProfileUserForm();
 
-
   const breadcrumbItems = [
     { label: 'Meu Perfil', url: '/profile/user' },
-    { label: 'Editar', url: '/profile/user/edit' }
-];
+    { label: 'Editar', url: '/profile/user/edit' },
+  ];
 
   const imageProfile = '/images/anarita.JPG';
 
@@ -22,8 +21,8 @@ const useFormUser = () => {
     submitted,
     setSubmitted,
     imageProfile,
-    setUser, 
-    updateDataUser, 
+    setUser,
+    updateDataUser,
     deleteAccount,
   };
 };

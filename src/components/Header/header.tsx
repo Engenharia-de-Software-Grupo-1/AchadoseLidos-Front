@@ -98,7 +98,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
             <InputText
               placeholder="O que deseja garimpar?"
               type="text"
-              style={{height: '2.5rem' }}
+              style={{ height: '2.5rem' }}
               onChange={(e) => setSearchedProduct(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -112,17 +112,33 @@ export default function Header({ simpleHeader }: HeaderProps) {
         <div className="flex align-items-center gap-4 justify-center iconGroup">
           {conta?.tipo == 'USUARIO' && (
             <>
-              <Button icon="pi pi-heart" rounded className='heart-header-icon' text aria-label="Favoritos" style={{ color: '#F5ECDD' }} onClick={() => navigate('/profile/user/favoritos')} />
-              <Button icon="pi pi-shopping-bag" className='heart-header-icon' rounded text aria-label="Cesta" style={{ color: '#F5ECDD' }} onClick={() => navigate('/profile/user/cesta')} />
+              <Button
+                icon="pi pi-heart"
+                rounded
+                className="heart-header-icon"
+                text
+                aria-label="Favoritos"
+                style={{ color: '#F5ECDD' }}
+                onClick={() => navigate('/profile/user/favoritos')}
+              />
+              <Button
+                icon="pi pi-shopping-bag"
+                className="heart-header-icon"
+                rounded
+                text
+                aria-label="Cesta"
+                style={{ color: '#F5ECDD' }}
+                onClick={() => navigate('/profile/user/cesta')}
+              />
             </>
           )}
           <Avatar
-            image={conta?.usuario?.fotoPerfil || conta?.sebo?.fotoPerfil || undefined} 
+            image={conta?.usuario?.fotoPerfil || conta?.sebo?.fotoPerfil || undefined}
             icon={!conta?.usuario?.fotoPerfil && !conta?.sebo?.fotoPerfil ? 'pi pi-user' : undefined}
             shape="circle"
             onClick={() => toggleMenu()}
             style={{ cursor: 'pointer' }}
-            />
+          />
         </div>
 
         {menuVisible && (
@@ -137,7 +153,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
       <Menubar
         start={start}
         end={end}
-        style={{ background: '#2F292A', border: 'none', borderRadius: '0%', padding:'0.5rem 2rem', width:'100vw'}}
+        style={{ background: '#2F292A', border: 'none', borderRadius: '0%', padding: '0.5rem 2rem', width: '100vw' }}
       />
     );
   }

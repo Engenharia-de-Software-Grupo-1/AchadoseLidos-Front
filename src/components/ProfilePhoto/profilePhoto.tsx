@@ -8,7 +8,7 @@ interface ProfilePhotoProps {
   setField?: (field: string, value: any) => void;
 }
 
-const DEFAULT_AVATAR = '/images/avatar.jpg'; 
+const DEFAULT_AVATAR = '/images/avatar.jpg';
 
 const ProfilePhoto = ({ imageProfile, canUpload = false, setField }: ProfilePhotoProps) => {
   const [image, setImage] = useState(imageProfile || DEFAULT_AVATAR);

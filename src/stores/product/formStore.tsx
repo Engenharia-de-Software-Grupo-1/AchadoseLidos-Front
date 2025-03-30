@@ -53,7 +53,7 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
       generos: [],
     },
     rules: {
-      nome: [{ rule: 'required' }], 
+      nome: [{ rule: 'required' }],
       preco: [{ rule: 'required' }],
       categoria: [{ rule: 'required' }],
       qtdEstoque: [{ rule: 'required' }],
@@ -80,7 +80,7 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
   const handleConfirm = async (isRegister: boolean, id: any) => {
     try {
       const newImages = formData.fotos ? formData.fotos.filter((foto: any) => !foto.url) : [];
-      let formattedImages = formData.fotos; 
+      let formattedImages = formData.fotos;
 
       if (newImages.length > 0) {
         const uploadedImages = await uploadImagesToCloudinary(newImages);

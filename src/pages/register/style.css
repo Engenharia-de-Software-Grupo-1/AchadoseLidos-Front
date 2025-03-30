@@ -69,9 +69,7 @@
   font-weight: 500;
   line-height: 24px; /* 57.143% */
   color: var(--Achados-Black, #2f292a);
-  
 }
-
 
 .option-title-users {
   /* Highlight H2 */
@@ -157,12 +155,12 @@
   position: relative;
   width: 30px;
   height: 70px;
-  margin:-40px 0 0 95%;
+  margin: -40px 0 0 95%;
   background-color: #d9964b;
 }
 
-@media 	(max-width: 727px) {
+@media (max-width: 727px) {
   .divider {
-    display:none;
+    display: none;
   }
 }
