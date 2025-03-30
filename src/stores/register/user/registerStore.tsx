@@ -3,7 +3,6 @@ import { User } from '@domains/User';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '@routes/routesUser';
 import { useForm } from '@hooks/useForm';
-import { validarEmail } from '@routes/routesAuth';
 
 interface RegisterUserContextType {
   user: User;
@@ -29,35 +28,6 @@ interface RegisterUserProviderProps {
 
 export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) => {
 
-  const validateEmail = async (): Promise<boolean> => {
-    try {
-      const response = await validarEmail(formData?.conta?.email);
-      return response.status === 200;
-    } catch (error) {
-      console.error('Erro ao validar e-mail:', error);
-      return false;
-    }
-  };
-
-  const verifyPassword = (user: User, validationResults: Record<string, any>): Record<string, any> => {
-    const passwordFields = ['senha', 'confirmaSenha'];
-    passwordFields.forEach((field) => {
-      if (!user.conta[field]) {
-        validationResults[field] = { error: true, message: 'Por favor, preencha o campo', rules: [] };
-      }
-    });
-
-    if (user.conta.senha && user.conta.confirmaSenha && user.conta.senha !== user.conta.confirmaSenha) {
-      validationResults['confirmaSenha'] = {
-        error: true,
-        message: 'Por favor, coloque senhas equivalentes',
-        rules: [],
-      };
-    }
-
-    return validationResults;
-  };
-
   const validateStep = async (stepIndex: number): Promise<boolean> => {
     if (stepIndex === 0) {
       const emailIsValid = await validateEmail();
@@ -68,38 +38,40 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
 
   const aditionalValidate = (user: User, validationResults: Record<string, any>): Record<string, any> => {
     validationResults = verifyPassword(user, validationResults);
+    validationResults = checkTelefone(user, validationResults);
     return validationResults;
   };
 
-  const { formData, setField, validate, getRule, showNotification } = useForm<User>({
-    initialData: {
-      conta: {
-        email: '',
-        senha: '',
-        confirmaSenha: '',
-        tipo: 'USUARIO',
-        status: 'ATIVA',
-        createdAt: '',
-        updatedAt: '',
+  const { formData, setField, validate, getRule, showNotification, validateEmail, verifyPassword, checkTelefone } =
+    useForm<User>({
+      initialData: {
+        conta: {
+          email: '',
+          senha: '',
+          confirmaSenha: '',
+          tipo: 'USUARIO',
+          status: 'ATIVA',
+          createdAt: '',
+          updatedAt: '',
+        },
+        nome: '',
+        cpf: '',
+        telefone: '',
+        biografia: '',
+        instagram: '',
+        twitter: '',
+        skoob: '',
+        goodreads: '',
       },
-      nome: '',
-      cpf: '',
-      telefone: '',
-      biografia: '',
-      instagram: '',
-      twitter: '',
-      skoob: '',
-      goodreads: '',
-    },
-    rules: {
-      nome: [{ rule: 'required' }],
-      cpf: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
-      email: [{ rule: 'required' }, { rule: 'isEmail' }],
-      senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
-      confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
-    },
-    aditionalValidate,
-  });
+      rules: {
+        nome: [{ rule: 'required' }],
+        cpf: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
+        email: [{ rule: 'required' }, { rule: 'isEmail' }],
+        senha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
+        confirmaSenha: [{ rule: 'required' }, { rule: 'isMatchSenha' }, { rule: 'isValidLength', minLength: 8 }],
+      },
+      aditionalValidate,
+    });
 
   const navigate = useNavigate();
 

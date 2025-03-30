@@ -22,8 +22,14 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
   const { showNotification } = useNotification();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
-  const { isFavorite, isFavoriteProduct, fetchFavoritoData, favoritos, handleAdicionarFavorito, handleRemoverFavorito } =
-    useFavorito();
+  const {
+    isFavorite,
+    isFavoriteProduct,
+    fetchFavoritoData,
+    favoritos,
+    handleAdicionarFavorito,
+    handleRemoverFavorito,
+  } = useFavorito();
 
   const handleDeleteProduct = async () => {
     try {
@@ -35,17 +41,19 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   };
 
-  useEffect(() => {
-    fetchFavoritoData();
-  }, []);
+  if (conta?.tipo === 'USUARIO') {
+    useEffect(() => {
+      fetchFavoritoData();
+    }, []);
 
-  useEffect(() => {
-    if (favoritos.length > 0) {
-      isFavoriteProduct(id);
-    }
-  }, [favoritos]);
+    useEffect(() => {
+      if (favoritos.length > 0) {
+        isFavoriteProduct(id);
+      }
+    }, [favoritos]);
+  }
 
-  const addCesta = async() => {
+  const addCesta = async () => {
     try {
       await addProductCesta(id);
       showNotification('success', 'Produto adicionado na cesta com sucesso!', '');
@@ -102,7 +110,13 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                 </>
               )}
 
-              <Button label="Adicionar à cesta" severity="success" className="button-cesta" rounded onClick={addCesta}/>
+              <Button
+                label="Adicionar à cesta"
+                severity="success"
+                className="button-cesta"
+                rounded
+                onClick={addCesta}
+              />
             </div>
           )}
           {conta?.tipo === 'SEBO' && (
@@ -132,16 +146,16 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
           )}
 
           <div className="product-ediction-year">
-            {data.anoEdicao && (
+            {data.anoEdicao && Number(data.anoEdicao) !== 0 ? (
               <p className="product-ediction-year-p">
-                <span className="product-ediction-year-span">Ano da Edição:</span> {data.anoEdicao}
+                <span className="product-ediction-year-span">Ano da Edição:</span> {` ${2024}`}
               </p>
-            )}
-            {data.anoLancamento && (
+            ) : null}
+            {data.anoLancamento && data.anoLancamento !== 0 ? (
               <p className="product-ediction-year-p">
-                <span className="product-ediction-year-span">Ano de lançamento:</span> {data.anoLancamento}{' '}
+                <span className="product-ediction-year-span">Ano de lançamento:</span> {` ${data.anoLancamento}`}
               </p>
-            )}
+            ) : null}
             {data.autores && (
               <p className="product-ediction-year-p">
                 <span className="product-ediction-year-span">Autor:</span> {data.autores}

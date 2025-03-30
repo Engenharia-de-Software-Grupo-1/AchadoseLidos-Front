@@ -38,10 +38,11 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
         rules: [],
       };
     }
+    validationResults = checkTelefone(sebo, validationResults);
     return validationResults;
   };
 
-  const { formData, setField, validate, loadCitiesByState, cities, setFormData, showNotification } = useForm<Sebo>({
+  const { formData, setField, validate, loadCitiesByState, cities, setFormData, showNotification, checkTelefone } = useForm<Sebo>({
     initialData: null,
     rules: {
       nome: [{ rule: 'required' }],
