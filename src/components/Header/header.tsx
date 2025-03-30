@@ -11,6 +11,7 @@ import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@contexts/authContext';
 import { useProductFilterStore } from '@stores/filters/productFilterStore';
+import { filter } from 'cypress/types/bluebird';
 
 interface HeaderProps {
   simpleHeader: boolean;
@@ -35,12 +36,12 @@ export default function Header({ simpleHeader }: HeaderProps) {
     }
   };
 
-  const redirectMyProducts = () => {
+  const redirectSearchedProduct = () => {
     filters.push({ campo: 'nome', operador: 'like', valor: searchedProduct });
     navigate('/navigation/products');
   };
 
-  const handleSeboProducts = () => {
+  const redirectSeboProducts = () => {
     navigate(`/navigation/meus-produtos/${conta?.id}`);
   };
 
@@ -65,7 +66,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
 
           ...(conta?.tipo === 'SEBO'
-            ? [{ label: 'Meus Produtos', icon: 'pi pi-box', command: () => handleSeboProducts() }]
+            ? [{ label: 'Meus Produtos', icon: 'pi pi-box', command: () => redirectSeboProducts() }]
             : [
                 { label: 'Cesta', icon: 'pi pi-shopping-bag', command: () => navigate('/profile/user/cesta') },
                 { label: 'Favoritos', icon: 'pi pi-heart', command: () => navigate('/profile/user/favoritos') },
@@ -102,7 +103,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
               onChange={(e) => setSearchedProduct(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  redirectMyProducts();
+                  redirectSearchedProduct();
                 }
               }}
             />

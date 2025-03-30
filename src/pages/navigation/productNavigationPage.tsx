@@ -33,15 +33,16 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
 
   useEffect(() => {
     getProducts();
-  }, [filters, sorters, nameIcon, meusProdutos]);
+  }, [filters, nameIcon]);
 
   useEffect(() => {
     if (meusProdutos && conta?.id) {
       getAllProductsBySeboId({ filters: [{ campo: 'seboId', operador: '=', valor: conta?.id }], sorters: sorters });
     }
   }, [meusProdutos, conta?.id]);
-
+  
   const getProducts = async () => {
+    console.log('OIII');
     const response = await getAllProducts({ filters, sorters: sorters });
     const produtos = response.map((item) => {
       return {
