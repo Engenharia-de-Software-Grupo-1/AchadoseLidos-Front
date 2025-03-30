@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { useNotification } from '@contexts/notificationContext';
 import { Pedido, PedidoList } from '@domains/Pedido';
-import { createOrder, getAll, getById } from '@routes/routesPedido';
+import { createOrder, getAll, getById, updateOrder } from '@routes/routesPedido';
 import { FilterOrders } from 'types/NavigationFilters';
 import { getById as getByIdProduto } from '@routes/routesProduto';
 import { Cesta, ProdutoCesta } from '@domains/Cesta';
@@ -136,7 +136,8 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const handleConfirm = async (sucessCallback?: () => void) => {
     try {
-      // mudar status do pedido
+      setPedido({ ...pedido, status: 'CONCLUIDO' });
+      await updateOrder(pedido, pedido?.id);
       showNotification('success', 'Pedido confirmado com sucesso!', '');
       sucessCallback && sucessCallback();
     } catch (error) {
@@ -146,7 +147,12 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const handleCancel = async (sucessCallback?: () => void) => {
     try {
-      // mudar status de todos os produtos e do pedido
+      setPedido({
+        ...pedido,
+        status: 'CANCELADO',
+        produtos: pedido.produtos.map((item) => ({ ...item, status: 'CANCELADO' })),
+      });
+      await updateOrder(pedido, pedido?.id);
       showNotification('success', 'Pedido cancelado com sucesso!', '');
       sucessCallback && sucessCallback();
     } catch (error) {
@@ -166,8 +172,8 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         getPedido,
         handleQuantityChange,
         handleSelectionChange,
-        handleConfirm, 
-        handleCancel
+        handleConfirm,
+        handleCancel,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
-import { StatusPedido } from '@constants/statusConstants';
-import { ProdutoPedido } from './Produto';
+import { StatusPedido, StatusProdutoPedido } from '@constants/statusConstants';
+import { Produto } from './Produto';
 import { Sebo } from './Sebo';
 import { Usuario } from './Usuario';
 
@@ -28,4 +28,11 @@ export interface PedidoList {
   updatedAt: string;
   usuario: Usuario;
   sebo: Sebo;
+}
+
+export interface ProdutoPedido {
+  produto: Produto;
+  quantidade: number;
+  selected?: boolean;
+  status: keyof typeof StatusProdutoPedido;
 }

@@ -20,10 +20,3 @@ export interface Produto {
   sebo?: Sebo;
   generos: string[];
 }
-
-export interface ProdutoPedido {
-  produto: Produto;
-  quantidade: number;
-  selected?: boolean;
-  status: number;
-}
