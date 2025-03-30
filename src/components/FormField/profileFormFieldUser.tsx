@@ -45,7 +45,7 @@ const ProfileFormFieldUser = ({
 
         {labelText && (
           <label>
-            {labelText} {!isOptional && <text>*</text>}{isTextArea && <i className="ml-2 pi pi-info-circle" />}
+            {labelText} {!isOptional && <text>*</text>}
           </label>
         )}
 
