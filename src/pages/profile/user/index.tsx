@@ -40,7 +40,6 @@ const ProfileUser = () => {
 
                 <div className='container-profile-user'>
                     <ALBreadCrumb breadcrumbItems={breadCrumbItems} />
-
                     <Profile
                         authUser={id ? false : true}
                         data={data}
