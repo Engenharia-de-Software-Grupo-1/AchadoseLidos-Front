@@ -3,8 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import { Usuario } from '@domains/Usuario';
 
 interface TabDadosBasicosProps {
-    user: Usuario
-    setField: (field: string, value: any) => void
+  user: Usuario;
+  setField: (field: string, value: any) => void;
 }
 
 const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => {

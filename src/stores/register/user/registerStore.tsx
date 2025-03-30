@@ -27,7 +27,6 @@ interface RegisterUserProviderProps {
 }
 
 export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) => {
-
   const validateStep = async (stepIndex: number): Promise<boolean> => {
     if (stepIndex === 0) {
       const emailIsValid = await validateEmail();

@@ -99,7 +99,7 @@ export const CestaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       { quantityTotal: 0, lineTotal: 0 }
     );
   };
-  
+
   return (
     <CestaContext.Provider
       value={{

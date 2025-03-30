@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FilterOrders } from 'types/NavigationFilters';
 import { Pedido, PedidoList } from '@domains/Pedido';
-  
+
 const api = axios.create({
   baseURL: 'http://localhost:3333/api',
 });
@@ -32,7 +32,7 @@ export const getAll = async (body: FilterOrders) => {
     params: {
       filters: JSON.stringify(body.filters),
     },
-    withCredentials: true
+    withCredentials: true,
   });
   return response.data;
 };

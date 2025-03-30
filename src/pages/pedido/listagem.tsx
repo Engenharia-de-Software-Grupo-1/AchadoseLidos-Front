@@ -36,7 +36,7 @@ export const ListagemPedidoPage = () => {
   }, [conta, navigate, filters]);
 
   useEffect(() => getPedidos(), [pedidos]);
-  
+
   const updateFilters = (status: string) => {
     setFilters([{ campo: 'status', operador: '=', valor: status }]);
   };

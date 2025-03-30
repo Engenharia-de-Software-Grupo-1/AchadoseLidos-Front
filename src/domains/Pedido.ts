@@ -5,14 +5,14 @@ import { Usuario } from './Usuario';
 
 export interface Pedido {
   id?: number;
-  sebo:  {
+  sebo: {
     id: number;
     nome: string;
-    concordaVender:boolean;
+    concordaVender: boolean;
     telefone: string;
   };
   usuario: Usuario;
-  status: keyof typeof StatusPedido
+  status: keyof typeof StatusPedido;
   qtdProdutos: number;
   total: number;
   produtos: ProdutoPedido[];
@@ -21,7 +21,7 @@ export interface Pedido {
 
 export interface PedidoList {
   id: number;
-  status: keyof typeof StatusPedido
+  status: keyof typeof StatusPedido;
   qtdProdutos: number;
   total: number;
   createdAt: string;

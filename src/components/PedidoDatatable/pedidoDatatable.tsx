@@ -29,7 +29,6 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
   updatingProducts = new Set<number>(),
   isUser = false,
 }) => {
-
   const statusProduto: Record<string, JSX.Element> = {
     PENDENTE: (
       <Tag
