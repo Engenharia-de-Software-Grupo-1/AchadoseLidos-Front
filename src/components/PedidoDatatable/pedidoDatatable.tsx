@@ -117,7 +117,6 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
     );
   };
 
-
   return (
     <div className="pedido-datatable-container">
       <DataTable value={pedido.produtos} style={{ width: '100%' }} dataKey="produto.id" >
