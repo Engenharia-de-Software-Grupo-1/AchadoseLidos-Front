@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-import { getById, getPerfilById } from '@routes/routesSebo';
+import { getById } from '@routes/routesSebo';
 import { useNotification } from '@contexts/notificationContext';
 import { Sebo } from '@domains/Sebo';
 

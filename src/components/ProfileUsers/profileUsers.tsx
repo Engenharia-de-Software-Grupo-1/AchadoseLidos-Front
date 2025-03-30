@@ -2,7 +2,7 @@ import { Button } from 'primereact/button';
 import { IconField } from 'primereact/iconfield';
 import { Tag } from 'primereact/tag';
 import './style.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 import { Sebo } from '@domains/Sebo';
 import { Usuario } from '@domains/Usuario';
