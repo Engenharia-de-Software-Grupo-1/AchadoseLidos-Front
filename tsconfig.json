@@ -18,7 +18,6 @@
       "@services/*": ["services/*"],
       "@contexts/*": ["contexts/*"],
       "@routes/*": ["routes/*"],
-      "@types/*": ["types/*"],
       "@constants/*": ["constants/*"]
     }
   }

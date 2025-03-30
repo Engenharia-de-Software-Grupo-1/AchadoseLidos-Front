@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Filter } from '@types/NavigationFilters';
+import { Filter } from 'types/NavigationFilters';
 
 interface SeboFilterState {
   nome: string;

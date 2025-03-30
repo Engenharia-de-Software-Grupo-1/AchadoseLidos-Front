@@ -1,6 +1,6 @@
 import { Sebo } from '@domains/Sebo';
 import axios from 'axios';
-import { FilterOrders } from '@types/NavigationFilters';
+import { FilterOrders } from 'types/NavigationFilters';
 
 const api = axios.create({
   baseURL: 'http://localhost:3333/api',

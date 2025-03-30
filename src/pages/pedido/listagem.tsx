@@ -4,7 +4,7 @@ import TemplatePage from '@pages/template';
 import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import { Paginator } from 'primereact/paginator';
-import { Filter } from '@types/NavigationFilters';
+import { Filter } from 'types/NavigationFilters';
 import { PedidoList } from '@domains/Pedido';
 import { Button } from 'primereact/button';
 import { usePedido } from '@stores/pedido/pedidoStore';

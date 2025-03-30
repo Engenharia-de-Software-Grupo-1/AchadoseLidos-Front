@@ -1,7 +1,7 @@
 import './style.css';
 import { Button } from 'primereact/button';
 import React from 'react';
-import { Filter } from '@types/NavigationFilters';
+import { Filter } from 'types/NavigationFilters';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
 import { useSeboFilterStore } from '@stores/filters/seboFilterStore';

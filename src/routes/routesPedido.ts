@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FilterOrders } from '@types/NavigationFilters';
+import { FilterOrders } from 'types/NavigationFilters';
 import { Pedido, PedidoList } from '@domains/Pedido';
   
 const api = axios.create({

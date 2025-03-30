@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Sorter } from '@types/NavigationFilters';
+import { Sorter } from 'types/NavigationFilters';
 
 export const useSorting = (sorters: Sorter[]) => {
   const [nameIcon, setNameIcon] = useState('pi pi-sort-alpha-down');

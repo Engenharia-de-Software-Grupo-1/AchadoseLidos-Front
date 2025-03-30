@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import SeboFilters from '@components/Filters/seboFilters';
-import { Sorter } from '@types/NavigationFilters';
+import { Sorter } from 'types/NavigationFilters';
 import { getAll } from '@routes/routesSebo';
 import { Sebo } from '@domains/Sebo';
 import { useSorting } from '@hooks/useSorting';

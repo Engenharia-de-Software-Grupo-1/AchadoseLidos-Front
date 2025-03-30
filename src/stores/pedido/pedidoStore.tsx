@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useState } from 'react';
 import { useNotification } from '@contexts/notificationContext';
 import { Pedido, PedidoList } from '@domains/Pedido';
 import { createOrder, getAll, getById } from '@routes/routesPedido';
-import { FilterOrders } from '@types/NavigationFilters';
+import { FilterOrders } from 'types/NavigationFilters';
 import { getById as getByIdProduto } from '@routes/routesProduto';
 import { Cesta, ProdutoCesta } from '@domains/Cesta';
 import { Usuario } from '@domains/Usuario';
