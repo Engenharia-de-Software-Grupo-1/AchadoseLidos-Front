@@ -11,7 +11,7 @@ import { Sebo } from '@domains/Sebo';
 import { Carousel } from 'primereact/carousel';
 
 const HomePage = () => {
-  const images = ['/images/banner.jpg'];
+  const images = ['/images/altbanner.png'];
   const [produtos, setProdutos] = useState<ProductCardProps[]>([]);
   const [livros, setLivros] = useState<ProductCardProps[]>([]);
   const [sebos, setSebos] = useState<GenericCardProps[]>([]);
