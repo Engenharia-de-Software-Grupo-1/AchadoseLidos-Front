@@ -54,7 +54,7 @@ const ProfileSebo = () => {
 
   return (
     <div className="main-profile-sebo">
-      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
+      <TemplatePage simpleHeader={false} simpleFooter={false} backLight={true}>
         {loading ? (
           <div className="loading-spinner">
             <i className="pi pi-spinner mr-2" />
@@ -76,7 +76,7 @@ const ProfileSebo = () => {
                 />
               </div>
             </ContainerItems>
-            <div className="container-carousel-items">
+            <div className="container-carousel-items-h">
               <div className="content-title-history">
                 <span className="title-carousel-history">Nossa História</span>
               </div>
