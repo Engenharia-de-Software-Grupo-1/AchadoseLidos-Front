@@ -1,8 +1,8 @@
 export const CARD_SIZES = {
   PRODUCT: {
-    BASE_WIDTH: 200,
+    BASE_WIDTH: 201,
     MIN_VISIBLE: 1,
-    GAP: 16,
+    GAP: 10,
   },
   SEBO: {
     BASE_WIDTH: 380,

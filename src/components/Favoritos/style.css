@@ -45,53 +45,17 @@
 }
 
 .contanier-fav {
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
 }
 
 .carrosel-fav {
-  gap: 1rem;
-  padding: 1rem 0;
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-  white-space: nowrap; /* Evita quebra de linha */
-}
-
-.carrosel-fav::-webkit-scrollbar {
-  height: 6px;
-}
-
-.carrosel-fav::-webkit-scrollbar-thumb {
-  background-color: #aaa;
-  border-radius: 4px;
-}
-
-.carrosel-item-fav {
-  display: inline-block; /* Para respeitar white-space: nowrap */
-  flex: 0 0 auto;
-  width: 200px; /* Define tamanho fixo dos cards */
-  cursor: pointer;
+  width:100%;
+  height:fit-content;
 }
 
 .favorite-card-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
-}
-
-.carrousel-fav-t {
-  width: 100%;
-  overflow: hidden;
-  height: 300px;
-}
-
-.carrousel-fav-t .p-carousel-items-container {
-  flex: 0 0 auto !important;
-}
-
-.carrousel-fav-t .p-carousel .p-carousel-item {
-  flex: 0 0 auto !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: unset !important;
 }
