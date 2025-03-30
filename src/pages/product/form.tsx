@@ -134,6 +134,7 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
                     genero={genero}
                   />
 
+<div className="extra-field">
                   <ProductFormField
                     labelText="Estado"
                     fieldName={ProdutoFieldNames.estadoConservacao}
@@ -145,6 +146,9 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
                     options={Object.entries(EstadoConservacaoProduto).map(([key, value]) => ({ label: key, value }))}
                   />
                 </div>
+                </div>
+
+               
 
                 <ProductFormField
                   labelText="Nome dos Autores (separados por vírgula)"

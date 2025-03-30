@@ -97,13 +97,13 @@ const ProductFormField = ({
 
   return (
     <div
-      className={classNames('profile-form-field', {
+      className={classNames('profile-form-field-prod', {
         'profile-form-field-price': isPrice,
       })}
     >
       <div className="field-label">
         <label>
-          {labelText} {!isOptional && <text>*</text>}
+          {labelText} {!isOptional && <text className='star-form'>*</text>}
         </label>
 
         {!!iconName && ( // isto é uma tooltip. ainda falta a mensagem da tooltip
@@ -199,7 +199,7 @@ const ProductFormField = ({
       ) : (
         <>
         <InputText
-          className={classNames('field-input', {
+          className={classNames('field-input', 'input-name-product',{
             'short-input': isShortInput,
             'empty-input-error': shouldShowError,
           })}
