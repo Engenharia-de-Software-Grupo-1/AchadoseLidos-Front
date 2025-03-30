@@ -63,7 +63,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ sebo, setField }) => 
               onChange={(e) => setField('telefone', e.target.value)}
               placeholder={sebo.concordaVender ? 'WhatsApp *' : 'WhatsApp'}
               keyfilter="int" 
-              maxLength={11}
+              maxLength={13}
             />
           </FormField>
 
