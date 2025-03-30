@@ -37,7 +37,7 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
     if (!produto?.sebo?.id || !conta?.sebo?.id) return;
 
     if (!isRegister && conta.tipo === 'SEBO' && produto.sebo?.id !== conta.sebo.id) {
-      navigate(`/product/${id}`, { replace: true });
+      navigate('/', { replace: true });
     }
   }, [produto, conta, isRegister, navigate]);
 
