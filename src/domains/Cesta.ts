@@ -3,6 +3,7 @@ export interface Cesta {
     id: number;
     nome: string;
     concordaVender:boolean;
+    telefone: string;
   };
   produtos: ProdutoCesta[];
 }

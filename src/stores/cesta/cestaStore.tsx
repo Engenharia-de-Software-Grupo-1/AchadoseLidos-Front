@@ -12,7 +12,6 @@ interface CestaContextType {
   handleDeleteItem: (productId: number) => Promise<void>;
   handleQuantityChange: (productId: number, newQuantity: number) => Promise<void>;
   calculateStoreTotals: (produtos: ProdutoCesta[]) => { quantityTotal: number; lineTotal: number };
-  handleCreatePedido: (quantityTotal: number, lineTotal: number) => void;
 }
 
 const CestaContext = createContext<CestaContextType | undefined>(undefined);
@@ -48,42 +47,42 @@ export const CestaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const handleDeleteItem = async (productId: number) => {
-    setDeletingIds(prev => [...prev, productId]); 
-    
+    setDeletingIds((prev) => [...prev, productId]);
+
     try {
       await removeProductCesta(productId);
-      setCestas(prev => 
-        prev.map(store => ({
+      setCestas((prev) =>
+        prev.map((store) => ({
           ...store,
-          produtos: store.produtos.filter(p => p.produto.id !== productId)
+          produtos: store.produtos.filter((p) => p.produto.id !== productId),
         }))
       );
       showNotification('success', 'Item removido!', '');
     } catch (error) {
       showNotification('error', 'Falha ao remover item', '');
     } finally {
-      setDeletingIds(prev => prev.filter(id => id !== productId));
+      setDeletingIds((prev) => prev.filter((id) => id !== productId));
     }
   };
 
   const handleQuantityChange = async (productId: number, newQuantity: number) => {
     try {
-      setCestas(prev => prev.map(store => ({
-        ...store,
-        produtos: store.produtos.map(produto => 
-          produto.produto.id === productId
-            ? { ...produto, quantidade: newQuantity }
-            : produto
-        )
-      })));
+      setCestas((prev) =>
+        prev.map((store) => ({
+          ...store,
+          produtos: store.produtos.map((produto) =>
+            produto.produto.id === productId ? { ...produto, quantidade: newQuantity } : produto
+          ),
+        }))
+      );
 
-      setUpdatingProducts(prev => new Set(prev).add(productId));
+      setUpdatingProducts((prev) => new Set(prev).add(productId));
       await updateProductQuantCesta(productId, { quantidade: newQuantity });
     } catch (error) {
       const freshData = await getCesta();
       setCestas(freshData.data);
     } finally {
-      setUpdatingProducts(prev => {
+      setUpdatingProducts((prev) => {
         const newSet = new Set(prev);
         newSet.delete(productId);
         return newSet;
@@ -92,28 +91,28 @@ export const CestaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const calculateStoreTotals = (produtos: ProdutoCesta[]) => {
-    return produtos.reduce((acc, produto) => ({
-      quantityTotal: acc.quantityTotal + produto.quantidade,
-      lineTotal: acc.lineTotal + (produto.produto.preco * produto.quantidade)
-    }), { quantityTotal: 0, lineTotal: 0 });
+    return produtos.reduce(
+      (acc, produto) => ({
+        quantityTotal: acc.quantityTotal + produto.quantidade,
+        lineTotal: acc.lineTotal + produto.produto.preco * produto.quantidade,
+      }),
+      { quantityTotal: 0, lineTotal: 0 }
+    );
   };
-
-  const handleCreatePedido = (quantityTotal: number, lineTotal: number) => {
-
-  };
-
+  
   return (
-    <CestaContext.Provider value={{
-      cestas,
-      loading,
-      deletingIds,
-      updatingProducts,
-      fetchCestaData,
-      handleDeleteItem,
-      handleQuantityChange,
-      calculateStoreTotals,
-      handleCreatePedido,
-    }}>
+    <CestaContext.Provider
+      value={{
+        cestas,
+        loading,
+        deletingIds,
+        updatingProducts,
+        fetchCestaData,
+        handleDeleteItem,
+        handleQuantityChange,
+        calculateStoreTotals,
+      }}
+    >
       {children}
     </CestaContext.Provider>
   );

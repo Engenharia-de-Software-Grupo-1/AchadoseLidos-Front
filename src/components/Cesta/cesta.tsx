@@ -8,11 +8,14 @@ import './style.css';
 import { useNotification } from '@contexts/notificationContext';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useCesta } from '@stores/cesta/cestaStore';
-import { ProdutoCesta } from '@domains/Cesta';
+import { Cesta, ProdutoCesta } from '@domains/Cesta';
 import { Link } from 'react-router-dom';
+import { useAuth } from '@contexts/authContext';
+import { usePedido } from '@stores/pedido/pedidoStore';
 
 const CestaComponent = () => {
   const { showNotification } = useNotification();
+  const { conta } = useAuth();
   const {
     cestas,
     loading,
@@ -22,14 +25,14 @@ const CestaComponent = () => {
     handleDeleteItem,
     handleQuantityChange,
     calculateStoreTotals,
-    handleCreatePedido,
   } = useCesta();
+  const { handleCreatePedido } = usePedido();
 
   useEffect(() => {
     fetchCestaData();
   }, []);
 
-  const handleFinalizarPedido = (quantityTotal: number, lineTotal: number) => {
+  const handleFinalizarPedido = (quantityTotal: number, lineTotal: number, store: Cesta) => {
     if (quantityTotal > 0) {
       showNotification(
         'warn',
@@ -37,7 +40,7 @@ const CestaComponent = () => {
         'Verifique a quantidade/disponibilidade de itens'
       );
     } else {
-      handleCreatePedido(quantityTotal, lineTotal);
+      handleCreatePedido(quantityTotal, lineTotal, store, conta?.usuario);
     }
   };
 
@@ -220,7 +223,7 @@ const CestaComponent = () => {
                         }
                         tooltipOptions={{ position: 'top' }}
                         disabled={!store.sebo.concordaVender}
-                        onClick={() => handleFinalizarPedido(quantityTotal, lineTotal)}
+                        onClick={() => handleFinalizarPedido(quantityTotal, lineTotal, store)}
                       />
                     </div>
                   }

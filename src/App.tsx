@@ -108,16 +108,16 @@ const App = () => {
                   </ResetRequestProvider>
                 }
               />
-
               <Route
                 path="/profile/user/cesta"
                 element={
-                  <CestaProvider>
-                    <CestaPage />
-                  </CestaProvider>
+                  <PedidoProvider>
+                    <CestaProvider>
+                      <CestaPage />
+                    </CestaProvider>
+                  </PedidoProvider>
                 }
               />
-
               <Route path="/profile/user/:id?" element={<ProfileUser />} />
               <Route
                 path="/profile/user/edit"
