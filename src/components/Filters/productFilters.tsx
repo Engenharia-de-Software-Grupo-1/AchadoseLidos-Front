@@ -82,6 +82,7 @@ export const ProductFilters: React.FC = () => {
           }))}
           optionLabel="label"
           maxSelectedLabels={6}
+          selectedItemsLabel="{0} Categorias selecionadas"
           className="w-full md:w-20rem" 
           placeholder={'Selecione'}
         />
@@ -103,7 +104,6 @@ export const ProductFilters: React.FC = () => {
           )}
           optionLabel="label"
           placeholder={'Selecione'}
-          maxSelectedLabels={6}
           className="w-full md:w-20rem"
           disabled={selectedCategories.length === 0}
         />

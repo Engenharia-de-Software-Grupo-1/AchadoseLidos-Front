@@ -123,3 +123,10 @@ export const getField = (field: string) => {
   const keys = field.split('.');
   return keys.length === 2 ? keys[1] : keys[0];
 };
+
+export const formatTypedValue = (value: string, maxSize: number) => {
+  if (value.length > maxSize) {
+    return value.substring(0, maxSize - 5) + '...';
+  }
+  return value;
+};
