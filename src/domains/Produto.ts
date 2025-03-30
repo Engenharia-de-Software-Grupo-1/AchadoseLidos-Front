@@ -1,5 +1,6 @@
 import { Sebo } from './Sebo';
-import { CategoriaProduto, EstadoConservacaoProduto, StatusProduto } from 'constants/produtoConstants';
+import { CategoriaProduto, EstadoConservacaoProduto } from '@constants/categoriaConstants';
+import { StatusProduto } from '@constants/statusConstants';
 
 export interface Produto {
   id: number;
@@ -18,11 +19,4 @@ export interface Produto {
   updatedAt?: Date;
   sebo?: Sebo;
   generos: string[];
-}
-
-export interface ProdutoPedido {
-  produto: Produto;
-  quantidade: number;
-  selected?: boolean;
-  status: number;
 }

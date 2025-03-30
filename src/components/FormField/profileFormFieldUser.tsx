@@ -2,13 +2,13 @@ import { IconField } from 'primereact/iconfield';
 import { InputText } from 'primereact/inputtext';
 import './style.css';
 import { classNames } from 'primereact/utils';
-import { User } from '@domains/User';
+import { Usuario } from '@domains/Usuario';
 
 type ProfileFormFieldPropsUser = {
   hasSubmissionFailed: boolean;
-  fieldName: keyof User;
+  fieldName: keyof Usuario;
   fieldValue: string | undefined;
-  setField: (field: keyof User, value: string) => void;
+  setField: (field: keyof Usuario, value: string) => void;
   iconName?: string;
   labelText?: string;
   isTextArea?: boolean;

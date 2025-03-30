@@ -5,7 +5,7 @@ import { Filter } from 'types/NavigationFilters';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
 import { useSeboFilterStore } from '@stores/filters/seboFilterStore';
-import bairros from 'constants/CgBairros';
+import bairros from '@constants/CgBairros';
 import { Checkbox } from 'primereact/checkbox';
 
 type SeboFilters = {

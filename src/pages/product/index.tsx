@@ -4,7 +4,7 @@ import { Produto } from '@domains/Produto';
 import TemplatePage from '@pages/template';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getById } from 'routes/routesProduto';
+import { getById } from '@routes/routesProduto';
 
 const breadcrumbItems = [{ label: 'Página do produto', url: '/product-page' }];
 

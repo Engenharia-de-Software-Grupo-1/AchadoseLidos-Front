@@ -41,15 +41,17 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   };
 
-  useEffect(() => {
-    fetchFavoritoData();
-  }, []);
+  if (conta?.tipo === 'USUARIO') {
+    useEffect(() => {
+      fetchFavoritoData();
+    }, []);
 
-  useEffect(() => {
-    if (favoritos.length > 0) {
-      isFavoriteProduct(id);
-    }
-  }, [favoritos]);
+    useEffect(() => {
+      if (favoritos.length > 0) {
+        isFavoriteProduct(id);
+      }
+    }, [favoritos]);
+  }
 
   const addCesta = async () => {
     try {
@@ -147,16 +149,16 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
           )}
 
           <div className="product-ediction-year">
-            {data.anoEdicao && (
+            {data.anoEdicao && Number(data.anoEdicao) !== 0 ? (
               <p className="product-ediction-year-p">
-                <span className="product-ediction-year-span">Ano da Edição:</span> {data.anoEdicao}
+                <span className="product-ediction-year-span">Ano da Edição:</span> {` ${2024}`}
               </p>
-            )}
-            {data.anoLancamento && (
+            ) : null}
+            {data.anoLancamento && data.anoLancamento !== 0 ? (
               <p className="product-ediction-year-p">
-                <span className="product-ediction-year-span">Ano de lançamento:</span> {data.anoLancamento}{' '}
+                <span className="product-ediction-year-span">Ano de lançamento:</span> {` ${data.anoLancamento}`}
               </p>
-            )}
+            ) : null}
             {data.autores && (
               <p className="product-ediction-year-p">
                 <span className="product-ediction-year-span">Autor:</span> {data.autores}

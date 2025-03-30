@@ -1,6 +1,6 @@
 import { Conta } from '@domains/Conta';
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { logout, perfil } from 'routes/routesAuth';
+import { logout, perfil } from '@routes/routesAuth';
 import { useNotification } from './notificationContext';
 import { useNavigate } from 'react-router-dom';
 

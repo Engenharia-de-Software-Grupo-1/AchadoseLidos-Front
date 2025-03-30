@@ -38,23 +38,25 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
         rules: [],
       };
     }
+    validationResults = checkTelefone(sebo, validationResults);
     return validationResults;
   };
 
-  const { formData, setField, validate, loadCitiesByState, cities, setFormData, showNotification } = useForm<Sebo>({
-    initialData: null,
-    rules: {
-      nome: [{ rule: 'required' }],
-      cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
-      estado: [{ rule: 'required' }],
-      cidade: [{ rule: 'required' }],
-      cep: [{ rule: 'required' }],
-      rua: [{ rule: 'required' }],
-      bairro: [{ rule: 'required' }],
-      numero: [{ rule: 'required' }],
-    },
-    aditionalValidate,
-  });
+  const { formData, setField, validate, loadCitiesByState, cities, setFormData, showNotification, checkTelefone } =
+    useForm<Sebo>({
+      initialData: null,
+      rules: {
+        nome: [{ rule: 'required' }],
+        cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
+        estado: [{ rule: 'required' }],
+        cidade: [{ rule: 'required' }],
+        cep: [{ rule: 'required' }],
+        rua: [{ rule: 'required' }],
+        bairro: [{ rule: 'required' }],
+        numero: [{ rule: 'required' }],
+      },
+      aditionalValidate,
+    });
 
   const [loading, setLoading] = useState<boolean>(false);
 

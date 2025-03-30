@@ -1,4 +1,4 @@
-import { User } from '@domains/User';
+import { Usuario } from '@domains/Usuario';
 import { createContext, useContext, ReactNode } from 'react';
 import { deleteUser, getById, updateUser } from '@routes/routesUser';
 import { useAuth } from '@contexts/authContext';
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '@hooks/useForm';
 
 interface ProfileUserFormContextType {
-  user: User;
+  user: Usuario;
   setField: (field: string, value: any) => void;
   validate: () => boolean;
   setUser: () => void;
@@ -32,7 +32,7 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
   const { conta, handleLogout } = useAuth();
   const navigate = useNavigate();
 
-  const { formData, setField, validate, setFormData, showNotification } = useForm<User>({
+  const { formData, setField, validate, setFormData, showNotification } = useForm<Usuario>({
     initialData: {
       conta: {
         email: '',
@@ -51,7 +51,7 @@ export const ProfileUserFormProvider = ({ children }: ProfileUserFormProviderPro
       twitter: '',
       skoob: '',
       goodreads: '',
-    } as User,
+    } as Usuario,
     rules: conta?.usuario?.id
       ? {
           nome: [{ rule: 'required' }],

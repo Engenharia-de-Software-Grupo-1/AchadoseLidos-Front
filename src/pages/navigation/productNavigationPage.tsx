@@ -5,7 +5,7 @@ import ProductCard, { ProductCardProps } from '@components/ProductCard/productCa
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProductFilters from '@components/Filters/productFilters';
 import { FilterOrders, Sorter } from 'types/NavigationFilters';
-import { getAllProducts } from 'routes/routesProduto';
+import { getAllProducts } from '@routes/routesProduto';
 import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';

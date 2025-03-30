@@ -1,9 +1,9 @@
 import FormField from '@components/FormField/formField';
 import { InputText } from 'primereact/inputtext';
-import { User } from '@domains/User';
+import { Usuario } from '@domains/Usuario';
 
 interface TabDadosBasicosProps {
-  user: User;
+  user: Usuario;
   setField: (field: string, value: any) => void;
 }
 
@@ -22,7 +22,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => 
               onChange={(e) => setField('telefone', e.target.value)}
               placeholder="Telefone *"
               keyfilter="int"
-              maxLength={11}
+              maxLength={13}
             />
           </FormField>
 

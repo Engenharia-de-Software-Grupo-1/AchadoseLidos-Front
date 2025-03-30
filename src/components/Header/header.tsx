@@ -62,7 +62,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
     const panelMenuItems = isAuthenticated
       ? [
           { label: 'Meu Perfil', icon: 'pi pi-user', command: () => redirectProfile() },
-          { label: 'Histórico de Pedidos', icon: 'pi pi-history' },
+          { label: 'Histórico de Pedidos', icon: 'pi pi-history', command: () => navigate('/profile/historico') },
 
           ...(conta?.tipo === 'SEBO'
             ? [{ label: 'Meus Produtos', icon: 'pi pi-box', command: () => handleSeboProducts() }]

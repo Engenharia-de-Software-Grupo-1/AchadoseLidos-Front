@@ -4,7 +4,7 @@ import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCa
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import SeboFilters from '@components/Filters/seboFilters';
 import { Sorter } from 'types/NavigationFilters';
-import { getAll } from 'routes/routesSebo';
+import { getAll } from '@routes/routesSebo';
 import { Sebo } from '@domains/Sebo';
 import { useSorting } from '@hooks/useSorting';
 import { useSeboFilterStore } from '@stores/filters/seboFilterStore';
