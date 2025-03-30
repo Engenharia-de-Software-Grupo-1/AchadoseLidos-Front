@@ -47,8 +47,6 @@ const FavoritosPage: React.FC = () => {
       </div>
     );
   }
-  
-
 
   const calculateVisibleItems = (cardWidth: number, gap: number, minVisible: number) => {
     const availableWidth = width - 32; // Account for container padding
