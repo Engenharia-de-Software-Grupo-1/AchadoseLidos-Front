@@ -28,8 +28,19 @@
   margin-bottom: 0;
 }
 
+.contact-input-sebo .p-inputtext {
+  width: 300px !important;
+}
+
+.profile-form-field-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
 .short-input {
-  width: 70%;
+  width: 70% !important;
 }
 
 .empty-input-error {

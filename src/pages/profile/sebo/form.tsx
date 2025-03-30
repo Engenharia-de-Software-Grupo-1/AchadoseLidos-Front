@@ -55,7 +55,7 @@ const ProfileSeboForm = () => {
 
   return (
     <div className="container-main-edit-sebo">
-      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
+      <TemplatePage simpleHeader={false} simpleFooter={false} backLight={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
 
         {loading ? (
@@ -190,43 +190,43 @@ const ProfileSeboForm = () => {
                   <span className="span-checkbox">Você concorda em vender produtos via plataforma?</span>
                 </div>
 
-                <div className="form-contat-sebo">
-                  <FormField label="Whatsapp" attribute="telefone" required={sebo?.concordaVender} editField short>
+                <div className="form-contat-sebo"> 
+                  <FormField label="Whatsapp" attribute="telefone" required={sebo?.concordaVender} editField short isContact>
                     <InputText
                       value={sebo?.telefone}
                       onChange={(e) => setField('telefone', e.target.value)}
                       placeholder="Whatsapp"
                     />
                   </FormField>
-                  <FormField label="Instagram" attribute="instagram" editField short>
+                  <FormField label="Instagram" attribute="instagram" editField short isContact>
                     <InputText
                       value={sebo?.instagram}
                       onChange={(e) => setField('instagram', e.target.value)}
                       placeholder="Instagram"
                     />
                   </FormField>
-                  <FormField label="Estante Virtual" attribute="estanteVirtual" editField short>
+                  <FormField label="Estante Virtual" attribute="estanteVirtual" editField short isContact>
                     <InputText
                       value={sebo?.estanteVirtual}
                       onChange={(e) => setField('estanteVirtual', e.target.value)}
                       placeholder="Estante Virtual"
                     />
                   </FormField>
-                  <FormField label="Mercado Livre" attribute="mercadoLivre" editField short>
+                  <FormField label="Mercado Livre" attribute="mercadoLivre" editField short isContact>
                     <InputText
                       value={sebo?.mercadoLivre}
                       onChange={(e) => setField('mercadoLivre', e.target.value)}
                       placeholder="Mercado Livre"
                     />
                   </FormField>
-                  <FormField label="Enjoei" attribute="enjoei" editField short>
+                  <FormField label="Enjoei" attribute="enjoei" editField short isContact>
                     <InputText
                       value={sebo?.enjoei}
                       onChange={(e) => setField('enjoei', e.target.value)}
                       placeholder="Enjoei"
                     />
                   </FormField>
-                  <FormField label="Amazon" attribute="amazon" editField short>
+                  <FormField label="Amazon" attribute="amazon" editField short isContact>
                     <InputText
                       value={sebo?.amazon}
                       onChange={(e) => setField('amazon', e.target.value)}
@@ -237,7 +237,7 @@ const ProfileSeboForm = () => {
               </div>
 
               <div className="container-historia-sebo">
-                <FormField label="História (longo)" attribute="historia" editField>
+                <FormField label="História (longo)" attribute="historia" editField long>
                   <InputTextarea
                     style={{ height: 'auto' }}
                     value={sebo?.historia}

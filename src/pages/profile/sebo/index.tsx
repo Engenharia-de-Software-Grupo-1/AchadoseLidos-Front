@@ -52,7 +52,6 @@ const ProfileSebo = () => {
     );
   };
 
-  // Verificar se o usuário logado é o proprietário deste perfil
   const isOwnProfile = conta?.sebo?.id === sebo?.id;
 
   return (
@@ -88,7 +87,9 @@ const ProfileSebo = () => {
             <div className="space-carousel-history">
               <div className="container-hist-pics">
                 <div className="hist">
-                  <span className="text-hist">{`${sebo?.biografia}`}</span>
+                    <span className="text-hist">
+                    {sebo?.historia || sebo?.biografia || ''}
+                    </span>
                 </div>
 
                 <Gallery />

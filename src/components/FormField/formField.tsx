@@ -13,14 +13,16 @@ interface FormFieldProps {
   editField?: boolean;
   short?: boolean;
   adress?: boolean;
+  isContact?: boolean;
+  long?: boolean;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ label, attribute, children, required, editField, short, adress }) => {
+const FormField: React.FC<FormFieldProps> = ({ label, attribute, children, required, editField, short, adress, isContact, long }) => {
   const { errors } = useErrorContext();
   const error = errors[getField(attribute)];
 
   return (
-    <div className={adress ? 'address-form-field' : editField ? 'profile-form-field' : 'field'}>
+    <div className={adress ? 'address-form-field' : isContact ? 'profile-form-field-contact' : editField ? 'profile-form-field' : 'field'}>
       {label && (
         <label htmlFor={attribute} className={classNames({ 'p-error': error?.error, 'field-label': editField })}>
           {label}
@@ -34,6 +36,8 @@ const FormField: React.FC<FormFieldProps> = ({ label, attribute, children, requi
             'p-invalid p-error': error?.error,
             'field-input': editField,
             'short-input': short,
+            'contact-input-sebo': isContact,
+            'long-input-text': long,
           }),
         })}
       </div>
