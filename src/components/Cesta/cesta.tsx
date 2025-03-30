@@ -9,7 +9,7 @@ import { useNotification } from '@contexts/notificationContext';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useCesta } from '@stores/cesta/cestaStore';
 import { Cesta, ProdutoCesta } from '@domains/Cesta';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@contexts/authContext';
 import { usePedido } from '@stores/pedido/pedidoStore';
 
@@ -27,6 +27,7 @@ const CestaComponent = () => {
     calculateStoreTotals,
   } = useCesta();
   const { handleCreatePedido } = usePedido();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCestaData();
@@ -40,7 +41,7 @@ const CestaComponent = () => {
         'Verifique a quantidade/disponibilidade de itens'
       );
     } else {
-      handleCreatePedido(quantityTotal, lineTotal, store, conta?.usuario);
+      handleCreatePedido(quantityTotal, lineTotal, store, conta?.usuario, () => navigate('/profile/historico'));
     }
   };
 

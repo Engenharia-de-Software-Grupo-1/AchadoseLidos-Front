@@ -11,8 +11,13 @@ interface PedidoContextType {
   pedidos: PedidoList[];
   loading: boolean;
   initialize: (body: FilterOrders, sucessCallback?: () => void) => Promise<void>;
-  handleCreatePedido: (quantityTotal: number, lineTotal: number, cesta: Cesta, user: Usuario) => void;
-
+  handleCreatePedido: (
+    quantityTotal: number,
+    lineTotal: number,
+    cesta: Cesta,
+    user: Usuario,
+    sucessCallback?: () => void
+  ) => void;
 }
 
 const PedidoContext = createContext<PedidoContextType | undefined>(undefined);
@@ -72,7 +77,13 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   };
 
-  const handleCreatePedido = async (quantityTotal: number, lineTotal: number, cesta: Cesta, user: Usuario) => {
+  const handleCreatePedido = async (
+    quantityTotal: number,
+    lineTotal: number,
+    cesta: Cesta,
+    user: Usuario,
+    sucessCallback?: () => void
+  ) => {
     try {
       const pedido = await criarPedido(quantityTotal, lineTotal, cesta, user);
       if (!pedido) {
@@ -82,6 +93,7 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
       const response = await createOrder(pedido);
       window.open(response?.whatsAppLink, '_blank');
+      sucessCallback && sucessCallback();
     } catch (error) {
       console.error('Erro ao processar pedido:', error);
     }
