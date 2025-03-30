@@ -8,11 +8,14 @@ import './style.css';
 import ProductCard from '@components/ProductCard/productCard';
 import { Carousel } from 'primereact/carousel';
 import { useNavigate } from 'react-router-dom';
+import useWindowSize from '@hooks/useWindowSize';
+import { CARD_SIZES } from 'constants/carousel';
 
 const FavoritosPage: React.FC = () => {
   const imageDefault = '/images/sem_foto.png';
   const navigate = useNavigate();
   const { favoritos, loading, fetchFavoritoData } = useFavorito();
+  const { width } = useWindowSize();
 
   useEffect(() => {
     fetchFavoritoData();
@@ -45,6 +48,21 @@ const FavoritosPage: React.FC = () => {
     );
   }
 
+  const calculateVisibleItems = (cardWidth: number, gap: number, minVisible: number) => {
+    const availableWidth = width - 32; // Account for container padding
+    return Math.max(minVisible, Math.floor(availableWidth / (cardWidth + gap)));
+  };
+
+  const productSettings = {
+    visible: calculateVisibleItems(
+      CARD_SIZES.PRODUCT.BASE_WIDTH,
+      CARD_SIZES.PRODUCT.GAP,
+      CARD_SIZES.PRODUCT.MIN_VISIBLE
+    ),
+    scroll: 1,
+    width: `${CARD_SIZES.PRODUCT.BASE_WIDTH}px`,
+  };
+
   const handleProductClick = (produtoId: number) => {
     navigate(`/product/${produtoId}`);
   };
@@ -62,13 +80,20 @@ const FavoritosPage: React.FC = () => {
           <div className="carrousel-fav-t">
             <Carousel
               value={favorito.produtos}
+              numVisible={productSettings.visible}
+              numScroll={productSettings.scroll}
               itemTemplate={(itemFavorito: ProdutoFavorito) => (
                 <div
                   key={itemFavorito?.id}
                   className="carrosel-item-fav"
                   onClick={() => handleProductClick(itemFavorito.id)}
+                  
                 >
-                  <div className="favorite-card-wrapper">
+                  <div className="favorite-card-wrapper"
+                  style={{ 
+                    width: productSettings.width,
+                    padding: `0 ${CARD_SIZES.PRODUCT.GAP / 2}px`
+                  }}>
                     <ProductCard
                       image={itemFavorito?.fotos?.length ? itemFavorito.fotos[0].url : imageDefault}
                       name={itemFavorito?.nome}
@@ -79,37 +104,25 @@ const FavoritosPage: React.FC = () => {
                   </div>
                 </div>
               )}
-              numVisible={8}
-              numScroll={1}
+              
               responsiveOptions={[
                 {
                   breakpoint: '1400px',
-                  numVisible: 6,
-                  numScroll: 1,
+                  numVisible: Math.max(2, productSettings.visible - 2),
+                  numScroll: 1 
                 },
                 {
-                  breakpoint: '1199px',
-                  numVisible: 5,
-                  numScroll: 1,
+                  breakpoint: '992px',
+                  numVisible: Math.max(2, productSettings.visible - 2),
+                  numScroll: 1 
                 },
                 {
-                  breakpoint: '991px',
-                  numVisible: 4,
-                  numScroll: 1,
-                },
-                {
-                  breakpoint: '767px',
-                  numVisible: 3,
-                  numScroll: 1,
-                },
-                {
-                  breakpoint: '575px',
-                  numVisible: 2,
-                  numScroll: 1,
-                },
+                  breakpoint: '576px',
+                  numVisible: 1,
+                  numScroll: 1 
+                }
               ]}
               circular
-              style={{ width: '100%' }}
               showIndicators={false}
             />
           </div>

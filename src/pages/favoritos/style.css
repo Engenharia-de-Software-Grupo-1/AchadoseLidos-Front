@@ -24,5 +24,9 @@
   flex-direction: column;
   align-items: center;
   gap: 32px;
-  width: 200%;
+  width: 100%;
+}
+
+.carrousel-fav-t {
+  width:100%;
 }
