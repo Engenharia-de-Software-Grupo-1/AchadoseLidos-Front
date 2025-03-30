@@ -34,7 +34,7 @@ const CestaComponent = () => {
   }, []);
 
   const handleFinalizarPedido = (quantityTotal: number, lineTotal: number, store: Cesta) => {
-    if (quantityTotal > 0) {
+    if (quantityTotal == 0) {
       showNotification(
         'warn',
         'Não é possível finalizar este pedido',
