@@ -6,14 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 import { Sebo } from '@domains/Sebo';
 import { Usuario } from '@domains/Usuario';
+import { is } from 'cypress/types/bluebird';
 
 interface ProfileProps {
   authUser?: boolean;
   data?: Sebo | Usuario | null;
   role: string | undefined;
+  isOwnProfile?: boolean;
 }
 
-const Profile = ({ authUser, role, data }: ProfileProps) => {
+const Profile = ({ authUser, role, data, isOwnProfile }: ProfileProps) => {
   const navigate = useNavigate();
   return (
     <>
@@ -24,7 +26,7 @@ const Profile = ({ authUser, role, data }: ProfileProps) => {
           <div className="content-title-profile">
             <p className="titulo-profile">{data?.nome}</p>
 
-            {role ? (
+            {role && isOwnProfile ? (
               <Button
                 label="Editar"
                 icon="pi pi-pencil"
