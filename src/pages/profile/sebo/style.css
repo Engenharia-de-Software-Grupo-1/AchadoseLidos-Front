@@ -27,12 +27,6 @@
   background: var(--Achados-OffWhite);
 }
 
-.content-title-history {
-  border-radius: 32px 32px 0px 0px;
-  border-top: 5px solid rgba(207, 179, 88, 0.3);
-  border-right: 5px solid rgba(207, 179, 88, 0.3);
-}
-
 .title-carousel-history {
   color: var(--Achados-Success);
   font-feature-settings:
@@ -52,7 +46,6 @@
   align-items: flex-start;
   gap: 32px;
   align-self: stretch;
-  border-top: 3px solid rgba(207, 179, 88, 0.3);
   background: var(--Achados-OffWhite);
 }
 
