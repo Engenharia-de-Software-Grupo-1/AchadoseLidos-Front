@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import ProfilePhoto from '@components/ProfilePhoto/profilePhoto';
 import { Sebo } from '@domains/Sebo';
 import { Usuario } from '@domains/Usuario';
-import { is } from 'cypress/types/bluebird';
 
 interface ProfileProps {
   authUser?: boolean;
