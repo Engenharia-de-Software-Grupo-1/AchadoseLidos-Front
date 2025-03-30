@@ -6,6 +6,8 @@ import { MultiSelect } from 'primereact/multiselect';
 import { InputNumber } from 'primereact/inputnumber';
 import { useProductFilterStore } from '@stores/filters/productFilterStore';
 import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from '@constants/categoriaConstants';
+import { useNotification } from '@contexts/notificationContext';
+import { classNames } from 'primereact/utils';
 
 export const ProductFilters: React.FC = () => {
   const {
@@ -24,11 +26,23 @@ export const ProductFilters: React.FC = () => {
     applyFilters,
   } = useProductFilterStore();
 
+  const [priceError, setPriceError] = React.useState(false);
+  const { showNotification } = useNotification();
+
+  const handleApplyFilters = () => {
+    applyFilters(showNotification, setPriceError);
+  };
+  
+  const handleOnChangePrice = (value: number, priceSetter: (num: number) => void) => {
+    setPriceError(false);
+    priceSetter(value);
+  };
+
   return (
     <div className="nav-filter-column">
       <div className="nav-filter-column-header">
         <span className="nav-filter-column-header-text">Filtros</span>
-        <Button className="nav-filter-column-header-button" rounded onClick={applyFilters}>
+        <Button className="nav-filter-column-header-button" rounded onClick={handleApplyFilters}>
           Aplicar {'>'}
         </Button>
       </div>
@@ -89,7 +103,6 @@ export const ProductFilters: React.FC = () => {
           )}
           optionLabel="label"
           placeholder={'Selecione'}
-          maxSelectedLabels={6}
           className="w-full md:w-20rem"
           disabled={selectedCategories.length === 0}
         />
@@ -99,11 +112,13 @@ export const ProductFilters: React.FC = () => {
         <div>
           <InputNumber
             value={firstPrice}
-            onValueChange={(e) => setFirstPrice(e.value ?? 0)}
-            placeholder="R$ 00,00"
+            onValueChange={(e) => handleOnChangePrice(e.value ?? 0, setFirstPrice)}
+            placeholder='R$ 00,00'
             mode="currency"
             currency="BRL"
             locale="pt-BR"
+            min={0}
+            className={classNames({ 'invalid-price-input': priceError })}
             style={{ width: '140px' }}
             inputStyle={{ width: '100%' }}
           />
@@ -112,11 +127,13 @@ export const ProductFilters: React.FC = () => {
         <div>
           <InputNumber
             value={secondPrice}
-            onValueChange={(e) => setSecondPrice(e.value ?? 0)}
-            placeholder="R$ 00,00"
+            onValueChange={(e) => handleOnChangePrice(e.value ?? 0, setSecondPrice)}
+            placeholder='R$ 00,00'
             mode="currency"
             currency="BRL"
             locale="pt-BR"
+            min={0}
+            className={classNames({ 'invalid-price-input': priceError })}
             style={{ width: '140px' }}
             inputStyle={{ width: '100%' }}
           />

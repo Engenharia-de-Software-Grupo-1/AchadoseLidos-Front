@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './style.css';
+import { formatTypedValue } from '@utils/utils';
 
 export interface ProductCardProps {
   id?: number;
@@ -35,7 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       <div className="title">
         <div className="product-info-container">
           <p className="nome-item" onClick={handleClick} style={{ cursor: 'pointer' }}>
-            {name?.length > 40 ? `${name.substring(0, 30)}...` : name}
+            {formatTypedValue(name, 40)}
           </p>
           <p className="nome-sebo">{owner}</p>
         </div>

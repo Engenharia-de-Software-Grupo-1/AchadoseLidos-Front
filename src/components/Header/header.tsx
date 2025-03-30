@@ -21,8 +21,8 @@ export default function Header({ simpleHeader }: HeaderProps) {
   const [menuVisible, setMenuVisible] = useState(false);
   const { isAuthenticated, conta, handleLogout } = useAuth();
   const [searchedProduct, setSearchedProduct] = useState('');
-  const { filters } = useProductFilterStore();
-
+  const { filters, setSeboId, setFirstPrice, setEstadoConservacao, setGenre, setName, setSecondPrice, setSelectedCategories } = useProductFilterStore();
+  
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
@@ -35,17 +35,27 @@ export default function Header({ simpleHeader }: HeaderProps) {
     }
   };
 
-  const redirectMyProducts = () => {
-    filters.push({ campo: 'nome', operador: 'like', valor: searchedProduct });
+  const resetFilters = () => {
+    filters.splice(0, filters.length);
+    setName('');
+    setSeboId(null);
+    setFirstPrice(null);
+    setSecondPrice(null);
+    setEstadoConservacao([]);
+    setGenre([]);
+    setSelectedCategories([]);
+  };
+
+  const redirectSearchedProduct = () => {
+    resetFilters();
+    if (searchedProduct !== '') {
+      filters.push({ campo: 'nome', operador: 'like', valor: searchedProduct, header: true });
+    }
     navigate('/navigation/products');
   };
 
-  const handleSeboProducts = () => {
+  const redirectSeboProducts = () => {
     navigate(`/navigation/meus-produtos/${conta?.id}`);
-  };
-
-  const resetFilters = () => {
-    filters.length = 0;
   };
 
   let content = <></>;
@@ -65,7 +75,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
           { label: 'Histórico de Pedidos', icon: 'pi pi-history', command: () => navigate('/profile/historico') },
 
           ...(conta?.tipo === 'SEBO'
-            ? [{ label: 'Meus Produtos', icon: 'pi pi-box', command: () => handleSeboProducts() }]
+            ? [{ label: 'Meus Produtos', icon: 'pi pi-box', command: () => redirectSeboProducts() }]
             : [
                 { label: 'Cesta', icon: 'pi pi-shopping-bag', command: () => navigate('/profile/user/cesta') },
                 { label: 'Favoritos', icon: 'pi pi-heart', command: () => navigate('/profile/user/favoritos') },
@@ -85,7 +95,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
     const start = (
       <>
         <Link to="/">
-          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4" onClick={() => resetFilters()}></img>
+          <img alt="logo" src="/images/logo.svg" height="40" className="ml-2 mr-4"></img>
         </Link>
       </>
     );
@@ -102,7 +112,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
               onChange={(e) => setSearchedProduct(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  redirectMyProducts();
+                  redirectSearchedProduct();
                 }
               }}
             />

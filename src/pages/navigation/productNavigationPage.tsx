@@ -12,6 +12,7 @@ import { Button } from 'primereact/button';
 import { useSorting } from '@hooks/useSorting';
 import { useProductFilterStore } from '@stores/filters/productFilterStore';
 import { Paginator } from 'primereact/paginator';
+import { formatTypedValue } from '@utils/utils';
 
 interface ProductNavigationPageProps {
   sorters: Sorter[];
@@ -30,10 +31,16 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const isSebo = conta?.tipo === 'SEBO';
-
+  
+  useEffect(() => {
+    if (window.location.pathname.includes('meus-produtos')) {
+      filters.splice(0, filters.length);    
+    }
+  }, []);
+  
   useEffect(() => {
     getProducts();
-  }, [filters, sorters, nameIcon, meusProdutos]);
+  }, [filters[0]?.valor, filters, nameIcon]);
 
   useEffect(() => {
     if (meusProdutos && conta?.id) {
@@ -96,12 +103,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
             <div className="nav-filter-display">
               <p className="nav-filter-display-text">
                 Resultados de pesquisa para: <br />
-                {filters.map((filter) => filter.valor).join(', ').length > 103
-                  ? filters
-                      .map((filter) => filter.valor)
-                      .join(', ')
-                      .substring(0, 103) + '...'
-                  : filters.map((filter) => filter.valor).join(', ')}
+                {formatTypedValue(filters.map((filter) => Array.isArray(filter.valor) ? filter.valor.join(', ') : filter.valor).join(', '), 103)}
               </p>
               <div className="nav-filter-display-order">
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>

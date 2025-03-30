@@ -1,6 +1,7 @@
 import { Button } from 'primereact/button';
 import './style.css';
 import { useNavigate } from 'react-router-dom';
+import { formatTypedValue } from '@utils/utils';
 
 export interface GenericCardProps {
   imageUrl: string;
@@ -50,8 +51,8 @@ const GenericCard: React.FC<GenericCardProps> = ({
         </div>
         <div className="info-container">
           <div className="text-info">
-            <div className="card-title">{title}</div>
-            <div className="description">{description}</div>
+            <div className="card-title">{formatTypedValue(title, 18)}</div>
+            <div className="description">{formatTypedValue(title, 24)}</div>
           </div>
           <div className="status">
             {isButtonVisible ? (
