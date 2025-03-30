@@ -55,7 +55,7 @@ export default function Header({ simpleHeader }: HeaderProps) {
   };
 
   const redirectSeboProducts = () => {
-    navigate(`/navigation/meus-produtos/${conta?.id}`);
+    navigate(`/navigation/meus-produtos/${conta?.sebo?.id}`);
   };
 
   let content = <></>;

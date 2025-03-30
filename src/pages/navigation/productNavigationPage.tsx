@@ -4,7 +4,7 @@ import TemplatePage from '@pages/template';
 import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProductFilters from '@components/Filters/productFilters';
-import { FilterOrders, Sorter } from 'types/NavigationFilters';
+import { Sorter } from 'types/NavigationFilters';
 import { getAllProducts } from '@routes/routesProduto';
 import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ interface ProductNavigationPageProps {
 export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigationPageProps) => {
   const { conta } = useAuth();
   const breadcrumbItems = meusProdutos
-    ? [{ label: 'Meus produtos', url: `/navigation/meus-produtos/${conta?.id}` }]
+    ? [{ label: 'Meus produtos', url: `/navigation/meus-produtos/${conta?.sebo?.id}` }]
     : [{ label: 'Produtos', url: '/navigation/products' }];
   const navigate = useNavigate();
   const { nameIcon, changeOrder } = useSorting(sorters);
@@ -35,18 +35,18 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   useEffect(() => {
     if (window.location.pathname.includes('meus-produtos')) {
       filters.splice(0, filters.length);    
+    } else if (filters.some((filter) => filter.campo === 'seboId')) {
+      filters.splice(filters.findIndex((filter) => filter.campo === 'seboId'), 1);
     }
-  }, []);
+  }, [window.location.pathname]);
   
   useEffect(() => {
+    if (meusProdutos && conta?.sebo?.id && !filters.some((filter) => filter.campo === 'seboId')) {
+      filters.push({ campo: 'seboId', operador: '=', valor: conta?.sebo?.id });
+    } 
     getProducts();
-  }, [filters[0]?.valor, filters, nameIcon]);
+  }, [filters[0]?.valor, filters, nameIcon, window.location.pathname]);
 
-  useEffect(() => {
-    if (meusProdutos && conta?.id) {
-      getAllProductsBySeboId({ filters: [{ campo: 'seboId', operador: '=', valor: conta?.id }], sorters: sorters });
-    }
-  }, [meusProdutos, conta?.id]);
 
   const handleAcessProductPage = (id: number) => {
     navigate(`/product/${id}`);
@@ -54,21 +54,6 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
 
   const getProducts = async () => {
     const response = await getAllProducts({ filters, sorters: sorters });
-    const produtos = response.map((item) => {
-      return {
-        id: item.id,
-        name: item.nome,
-        image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
-        owner: item.sebo?.nome ?? '',
-        price: item.preco,
-        begeBackground: true,
-      };
-    });
-    setProductCards(produtos);
-  };
-
-  const getAllProductsBySeboId = async (data: FilterOrders) => {
-    const response = await getAllProducts(data);
     const produtos = response.map((item) => {
       return {
         id: item.id,
