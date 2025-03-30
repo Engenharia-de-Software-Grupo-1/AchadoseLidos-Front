@@ -18,6 +18,7 @@ interface PedidoDatatableProps {
   deletingIds?: number[];
   updatingProducts?: Set<number>;
   isUser?: boolean;
+  isFinalizado?:boolean;
 }
 
 const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
@@ -28,6 +29,7 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
   deletingIds = [],
   updatingProducts = new Set<number>(),
   isUser = false,
+  isFinalizado = false
 }) => {
   const statusProduto: Record<string, JSX.Element> = {
     PENDENTE: (
@@ -54,19 +56,25 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
   };
 
   const calculateStoreTotals = (products: ProdutoPedido[]) => {
-    const quantityTotal = products.reduce((sum, item) => (item.selected === true ? sum + item.quantidade : sum), 0);
-
-    const lineTotal = products.reduce(
-      (sum, item) => (item.selected === true ? sum + item.produto.preco * item.quantidade : sum),
-      0
-    );
-
+  if (isFinalizado) {
+    const confirmedProducts = products.filter(item => item.status === 'CONFIRMADO');
+    const quantityTotal = confirmedProducts.reduce((sum, item) => sum + item.quantidade, 0);
+    const lineTotal = confirmedProducts.reduce((sum, item) => sum + (item.produto.preco * item.quantidade), 0);
     return { quantityTotal, lineTotal };
-  };
-  const { quantityTotal, lineTotal } = calculateStoreTotals(pedido.produtos);
-  const isFinalizado = pedido?.status === 'CONCLUIDO';
+  }
 
-  const quantidadeBodyTemplate = (rowData: ProdutoPedido) => {
+  const selectedProducts = products.filter(item => item.selected);
+  const quantityTotal = selectedProducts.reduce((sum, item) => sum + item.quantidade, 0);
+  const lineTotal = selectedProducts.reduce((sum, item) => sum + (item.produto.preco * item.quantidade), 0);
+  
+  return { quantityTotal, lineTotal };
+};
+
+
+    isFinalizado = pedido?.status !== 'PENDENTE';
+    const { quantityTotal, lineTotal } = calculateStoreTotals(pedido.produtos);
+
+    const quantidadeBodyTemplate = (rowData: ProdutoPedido) => {
     const isUpdating = updatingProducts.has(rowData.produto.id);
     const maxQuantity = rowData.produto.qtdEstoque;
 
@@ -109,9 +117,10 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
     );
   };
 
+
   return (
     <div className="pedido-datatable-container">
-      <DataTable value={pedido.produtos} style={{ width: '100%' }} dataKey="produto.id">
+      <DataTable value={pedido.produtos} style={{ width: '100%' }} dataKey="produto.id" >
         <Column
           header="Imagem"
           body={(rowData: ProdutoPedido) =>

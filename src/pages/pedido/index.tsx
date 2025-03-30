@@ -23,8 +23,8 @@ const PedidoPage = () => {
       getPedido(Number(id));
     }
   }, [id]);
-
-  const isFinalizado = false;
+  
+  const isFinalizado = pedido?.status !== 'PENDENTE';
 
   const breadCrumbItems = [
     { label: 'Perfil', url: `/profile/${!isUser ? 'sebo' : 'user'}/` },

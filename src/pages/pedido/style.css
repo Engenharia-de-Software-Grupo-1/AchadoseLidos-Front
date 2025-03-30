@@ -121,9 +121,22 @@
 
 .order-content-column {
   display: flex;
-  width: 72%;
+  width: 80%;
   height: 100%;
+  gap:2rem;
   flex-direction: column;
-  gap: 32px;
   flex-shrink: 0;
+}
+
+.order-content-center-sebo {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card-container-pedido-details {
+  height:fit-content;
+  width:fit-content;
+  display:inline;
 }

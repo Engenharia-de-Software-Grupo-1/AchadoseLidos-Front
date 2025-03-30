@@ -108,9 +108,10 @@ export const ListagemPedidoPage = () => {
                     {orderCards.slice(first, first + rows).map((card, index) => {
                       return (
                         <div
+                          className='card-container-pedido-details'
                           key={index}
                           onClick={() => navigate(`/profile/historico/pedido/${card?.id}`)}
-                          style={{ cursor: 'pointer', width: '100%' }}
+                          style={{ cursor: 'pointer'}}
                         >
                           <GenericCard {...card} />
                         </div>

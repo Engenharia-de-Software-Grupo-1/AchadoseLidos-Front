@@ -145,13 +145,17 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const handleConfirm = () => {
     setPedido((prevPedido) => {
-      const updatedPedido = {
-        ...prevPedido!,
-        status: 'CONCLUIDO',
-      };
-      updatePedido(updatedPedido);
-      return updatedPedido;
-    });
+    const updatedPedido = {
+      ...prevPedido!,
+      status: 'CONCLUIDO',
+      produtos: prevPedido!.produtos.map((item) => ({
+        ...item,
+        status: item.selected ? 'CONFIRMADO' : 'CANCELADO', // Confirm selected, cancel others
+      })),
+    };
+    updatePedido(updatedPedido);
+    return updatedPedido;
+  });
   };
 
   const handleCancel = () => {
