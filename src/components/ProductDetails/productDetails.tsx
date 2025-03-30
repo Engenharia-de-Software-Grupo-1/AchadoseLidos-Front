@@ -68,6 +68,8 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   };
 
+  const isOwnProduct = conta?.sebo?.id === data.sebo?.id;
+
   return (
     <main className="product-frame">
       <section className="product-columns-frame">
@@ -141,7 +143,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
               />
             </div>
           ) : null}
-          {conta?.tipo === 'SEBO' && (
+          {conta?.tipo === 'SEBO' && isOwnProduct && (
             <div className="product-actions-frame">
               <Button
                 icon="pi pi-trash"

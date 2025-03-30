@@ -52,6 +52,9 @@ const ProfileSebo = () => {
     );
   };
 
+  // Verificar se o usuário logado é o proprietário deste perfil
+  const isOwnProfile = conta?.sebo?.id === sebo?.id;
+
   return (
     <div className="main-profile-sebo">
       <TemplatePage simpleHeader={false} simpleFooter={false} backLight={true}>
@@ -63,7 +66,7 @@ const ProfileSebo = () => {
           <>
             <Banner images={sebo?.fotos} showIndicators={false} />
             <div className="profile-sebo">
-              <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} />
+              <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} isOwnProfile={isOwnProfile}/>
             </div>
             <ContainerItems title="Todos os produtos" backgroundBege={false}>
               <div className="carrousel-product">

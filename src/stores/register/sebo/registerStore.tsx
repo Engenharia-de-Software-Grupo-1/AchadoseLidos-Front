@@ -2,7 +2,6 @@ import { createContext, useContext, ReactNode } from 'react';
 import { Sebo } from '@domains/Sebo';
 import { createSebo } from '@routes/routesSebo';
 import { useForm } from '@hooks/useForm';
-import { validarEmail } from '@routes/routesAuth';
 
 interface RegisterSeboContextType {
   sebo: Sebo;
@@ -29,7 +28,7 @@ interface RegisterSeboProviderProps {
 }
 
 export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) => {
-  const checkTelefone = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
+  const validateTelefone = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
     if (sebo.concordaVender && !sebo.telefone.trim()) {
       validationResults['telefone'] = {
         error: true,
@@ -37,31 +36,13 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
         rules: [],
       };
     }
-    return validationResults;
-  };
-
-  const verifyPassword = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
-    const passwordFields = ['senha', 'confirmaSenha'];
-    passwordFields.forEach((field) => {
-      if (!sebo.conta[field]) {
-        validationResults[field] = { error: true, message: 'Campo obrigatório', rules: [] };
-      }
-    });
-
-    if (sebo.conta.senha && sebo.conta.confirmaSenha && sebo.conta.senha !== sebo.conta.confirmaSenha) {
-      validationResults['confirmaSenha'] = {
-        error: true,
-        message: 'Por favor, coloque senhas equivalentes',
-        rules: [],
-      };
-    }
-
+    validationResults = checkTelefone(sebo, validationResults);
     return validationResults;
   };
 
   const aditionalValidate = (sebo: Sebo, validationResults: Record<string, any>): Record<string, any> => {
     validationResults = verifyPassword(sebo, validationResults);
-    validationResults = checkTelefone(sebo, validationResults);
+    validationResults = validateTelefone(sebo, validationResults);
     return validationResults;
   };
 
@@ -74,16 +55,6 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     }
   };
 
-  const validateEmail = async (): Promise<boolean> => {
-    try {
-      const response = await validarEmail(formData?.conta?.email);
-      return response.status === 200;
-    } catch (error) {
-      console.error('Erro ao validar e-mail:', error);
-      return false;
-    }
-  };
-
   const validateStep = async (stepIndex: number): Promise<boolean> => {
     if (stepIndex === 0) {
       const emailIsValid = await validateEmail();
@@ -92,7 +63,18 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     return validate(stepIndex);
   };
 
-  const { formData, setField, validate, getRule, loadCitiesByState, cities, showNotification } = useForm<Sebo>({
+  const {
+    formData,
+    setField,
+    validate,
+    getRule,
+    loadCitiesByState,
+    cities,
+    showNotification,
+    validateEmail,
+    verifyPassword,
+    checkTelefone,
+  } = useForm<Sebo>({
     initialData: {
       conta: {
         email: '',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -8,11 +8,14 @@ import './style.css';
 import { useNotification } from '@contexts/notificationContext';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useCesta } from '@stores/cesta/cestaStore';
-import { ProdutoCesta } from '@domains/Cesta';
-import { Link } from 'react-router-dom';
+import { Cesta, ProdutoCesta } from '@domains/Cesta';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@contexts/authContext';
+import { usePedido } from '@stores/pedido/pedidoStore';
 
 const CestaComponent = () => {
   const { showNotification } = useNotification();
+  const { conta } = useAuth();
   const {
     cestas,
     loading,
@@ -23,13 +26,23 @@ const CestaComponent = () => {
     handleQuantityChange,
     calculateStoreTotals,
   } = useCesta();
+  const { handleCreatePedido } = usePedido();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCestaData();
   }, []);
 
-  const handleFinalizarPedido = () => {
-    showNotification('error', 'not yet implemented', '');
+  const handleFinalizarPedido = (quantityTotal: number, lineTotal: number, store: Cesta) => {
+    if (quantityTotal == 0) {
+      showNotification(
+        'warn',
+        'Não é possível finalizar este pedido',
+        'Verifique a quantidade/disponibilidade de itens'
+      );
+    } else {
+      handleCreatePedido(quantityTotal, lineTotal, store, conta?.usuario, () => navigate('/profile/historico'));
+    }
   };
 
   const quantidadeBodyTemplate = (rowData: ProdutoCesta) => {
@@ -210,11 +223,8 @@ const CestaComponent = () => {
                             : 'Esse sebo não vende produtos via plataforma, pedidos são realizados apenas presencialmente.'
                         }
                         tooltipOptions={{ position: 'top' }}
-                        onClick={() =>
-                          store.sebo.concordaVender && quantityTotal > 0
-                            ? handleFinalizarPedido()
-                            : showNotification('warn', 'Não é possível finalizar este pedido', '')
-                        }
+                        disabled={!store.sebo.concordaVender}
+                        onClick={() => handleFinalizarPedido(quantityTotal, lineTotal, store)}
                       />
                     </div>
                   }

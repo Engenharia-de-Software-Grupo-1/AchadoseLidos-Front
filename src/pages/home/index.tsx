@@ -15,7 +15,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 const HomePage = () => {
-  const images = ['/images/altbanner.png'];
+  const images = ['/images/altbanner.png', '/images/banner.jpg'];
+
   const [produtos, setProdutos] = useState<ProductCardProps[]>([]);
   const [livros, setLivros] = useState<ProductCardProps[]>([]);
   const [sebos, setSebos] = useState<GenericCardProps[]>([]);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputNumber } from 'primereact/inputnumber';
@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { Checkbox, CheckboxChangeEvent } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
 import './style.css';
-import { ProdutoPedido } from '@domains/Produto';
+import { ProdutoPedido } from '@domains/Pedido';
 import { Pedido } from '@domains/Pedido';
 import { Link } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ interface PedidoDatatableProps {
   deletingIds?: number[];
   updatingProducts?: Set<number>;
   isUser?: boolean;
-  isFinalizado?: boolean;
+  isFinalizado?:boolean;
 }
 
 const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
@@ -29,39 +29,52 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
   deletingIds = [],
   updatingProducts = new Set<number>(),
   isUser = false,
-  isFinalizado = false,
+  isFinalizado = false
 }) => {
-  const statusVector = [
-    <Tag
-      style={{ width: '7rem', backgroundColor: 'var(--Achados-Highlight-Blue)', color: 'white' }}
-      className="mr-2 mt-2"
-      value={'Pendente'}
-    />,
-    <Tag
-      style={{ width: '7rem', backgroundColor: 'var(--Achados-Red)', color: 'white' }}
-      className="mr-2 mt-2"
-      value={'Cancelado'}
-    />,
-    <Tag
-      style={{ width: '7rem', backgroundColor: 'var(--Achados-Green' }}
-      className="mr-2 mt-2"
-      value={'Confirmado'}
-    />,
-  ];
+  const statusProduto: Record<string, JSX.Element> = {
+    PENDENTE: (
+      <Tag
+        style={{ width: '7rem', backgroundColor: 'var(--Achados-Highlight-Blue)', color: 'white' }}
+        className="mr-2 mt-2"
+        value="Pendente"
+      />
+    ),
+    CANCELADO: (
+      <Tag
+        style={{ width: '7rem', backgroundColor: 'var(--Achados-Red)', color: 'white' }}
+        className="mr-2 mt-2"
+        value="Cancelado"
+      />
+    ),
+    CONFIRMADO: (
+      <Tag
+        style={{ width: '7rem', backgroundColor: 'var(--Achados-Green)', color: 'white' }}
+        className="mr-2 mt-2"
+        value="Confirmado"
+      />
+    ),
+  };
 
   const calculateStoreTotals = (products: ProdutoPedido[]) => {
-    const quantityTotal = products.reduce((sum, item) => (item.selected === true ? sum + item.quantidade : sum), 0);
-
-    const lineTotal = products.reduce(
-      (sum, item) => (item.selected === true ? sum + item.produto.preco * item.quantidade : sum),
-      0
-    );
-
+  if (isFinalizado) {
+    const confirmedProducts = products.filter(item => item.status === 'CONFIRMADO');
+    const quantityTotal = confirmedProducts.reduce((sum, item) => sum + item.quantidade, 0);
+    const lineTotal = confirmedProducts.reduce((sum, item) => sum + (item.produto.preco * item.quantidade), 0);
     return { quantityTotal, lineTotal };
-  };
-  const { quantityTotal, lineTotal } = calculateStoreTotals(pedido.produtos);
+  }
 
-  const quantidadeBodyTemplate = (rowData: ProdutoPedido) => {
+  const selectedProducts = products.filter(item => item.selected);
+  const quantityTotal = selectedProducts.reduce((sum, item) => sum + item.quantidade, 0);
+  const lineTotal = selectedProducts.reduce((sum, item) => sum + (item.produto.preco * item.quantidade), 0);
+  
+  return { quantityTotal, lineTotal };
+};
+
+
+    isFinalizado = pedido?.status !== 'PENDENTE';
+    const { quantityTotal, lineTotal } = calculateStoreTotals(pedido.produtos);
+
+    const quantidadeBodyTemplate = (rowData: ProdutoPedido) => {
     const isUpdating = updatingProducts.has(rowData.produto.id);
     const maxQuantity = rowData.produto.qtdEstoque;
 
@@ -106,7 +119,7 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
 
   return (
     <div className="pedido-datatable-container">
-      <DataTable value={pedido.produtos} style={{ width: '100%' }} dataKey="produto.id">
+      <DataTable value={pedido.produtos} style={{ width: '100%' }} dataKey="produto.id" >
         <Column
           header="Imagem"
           body={(rowData: ProdutoPedido) =>
@@ -157,7 +170,7 @@ const PedidoDatatable: React.FC<PedidoDatatableProps> = ({
           body={(rowData: ProdutoPedido) =>
             isUser || isFinalizado ? (
               <>
-                {statusVector[rowData.status]}
+                {statusProduto[rowData.status]}
                 {isUser && onDeleteItem && (
                   <Button
                     icon="pi pi-trash"
