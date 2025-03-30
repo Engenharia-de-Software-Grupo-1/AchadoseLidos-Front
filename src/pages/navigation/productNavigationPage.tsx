@@ -41,6 +41,10 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
     }
   }, [meusProdutos, conta?.id]);
 
+  const handleAcessProductPage = (id: number) => {
+    navigate(`/product/${id}`);
+  };
+
   const getProducts = async () => {
     const response = await getAllProducts({ filters, sorters: sorters });
     const produtos = response.map((item) => {
@@ -121,7 +125,9 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
               <>
                 <div className="nav-content-center">
                   {productCards.slice(first, first + rows).map((card, index) => (
-                    <ProductCard key={index} {...card} />
+                    <div style={{cursor: 'pointer'}} onClick={() => card.id !== undefined && handleAcessProductPage(card.id)} key={index}>
+                      <ProductCard key={index} {...card} />
+                    </div>
                   ))}
                 </div>
               </>
