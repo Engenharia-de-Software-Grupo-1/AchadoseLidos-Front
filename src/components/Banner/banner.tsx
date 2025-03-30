@@ -15,7 +15,7 @@ export default function Banner({ images = [], showIndicators }: BannerProps) {
 
   const imageTemplate = (image: string) => (
     <div className="carousel-item">
-      <img src={ image } alt="Banner" className="carousel-image" />
+      <img src={ image } style={{objectFit: 'cover', objectPosition: 'top left'}} alt="Banner" className="carousel-image" />
     </div>
   );
 

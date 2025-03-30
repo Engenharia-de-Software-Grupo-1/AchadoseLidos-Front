@@ -5,7 +5,7 @@ import React from 'react';
 import { MultiSelect } from 'primereact/multiselect';
 import { InputNumber } from 'primereact/inputnumber';
 import { useProductFilterStore } from '@stores/filters/productFilterStore';
-import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from 'constants/produtoConstants';
+import { CategoriaProduto, EstadoConservacaoProduto, GeneroProduto } from '@constants/categoriaConstants';
 import { useNotification } from '@contexts/notificationContext';
 import { classNames } from 'primereact/utils';
 
@@ -82,8 +82,7 @@ export const ProductFilters: React.FC = () => {
           }))}
           optionLabel="label"
           maxSelectedLabels={6}
-          selectedItemsLabel="{0} Categorias selecionadas"
-          className="w-full md:w-20rem" 
+          className="w-full md:w-20rem"
           placeholder={'Selecione'}
         />
       </div>

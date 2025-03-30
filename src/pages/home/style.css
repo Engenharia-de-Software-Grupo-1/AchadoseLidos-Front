@@ -44,24 +44,14 @@
   text-align: center;
 }
 
-.carrousel-product .p-carousel .p-carousel-item {
-  flex: 0 0 auto !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: unset !important;
-}
-
-.carrousel-product .p-carousel .p-carousel-indicators {
-  padding: 0rem !important;
-} 
-
 .carrousel-product {
   width: 100%;
-
 }
 
-.carrousel-sebo  {
+.carrousel-sebo {
   width: 100%;
-  padding: 0 !important;
   height: fit-content !important;
+  max-width: 100vw;
+  margin: 0 auto;
+  padding: 0 1rem; 
 }

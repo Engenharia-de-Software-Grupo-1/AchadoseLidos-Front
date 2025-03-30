@@ -1,8 +1,3 @@
-export const StatusProduto = {
-  ATIVO: 'ATIVO',
-  EXCLUIDO: 'EXCLUIDO',
-} as const;
-
 export const CategoriaProduto = {
   Livro: 'LIVRO',
   Disco: 'DISCO',

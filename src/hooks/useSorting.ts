@@ -16,6 +16,6 @@ export const useSorting = (sorters: Sorter[]) => {
       setNameIcon((prev) => (prev === 'pi pi-sort-alpha-down' ? 'pi pi-sort-alpha-up' : 'pi pi-sort-alpha-down'));
     }
   };
-  
+
   return { nameIcon, changeOrder };
 };

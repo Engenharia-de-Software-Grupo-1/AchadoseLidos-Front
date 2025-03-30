@@ -1,11 +1,11 @@
 .pedido-container {
-    width: 100vw;
-    height: 100vh;
-    background: var(--Achados-OffWhite);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
+  width: 100vw;
+  height: 100vh;
+  background: var(--Achados-OffWhite);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
 }
 
 .button-save,
@@ -30,12 +30,10 @@
 
 .button-trash:hover {
   background: var(--Achados-Red) !important;
-
 }
 
 .button-save:hover {
   background: var(--Achados-Success) !important;
-
 }
 
 .button-save:focus,
@@ -45,7 +43,9 @@
 }
 
 .h1-highlight {
-  font-size:3rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 3rem;
   line-height: normal;
   text-decoration-line: underline;
   text-decoration-style: solid;
@@ -54,4 +54,89 @@
   text-decoration-thickness: 40%;
   text-underline-offset: -30%;
   text-underline-position: from-font;
+  margin-bottom: 5px;
+}
+
+.status-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.status-button {
+  border-radius: 20px;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  border: none;
+}
+
+.pending {
+  background-color: var(--Achados-Light-Blue);
+  color: var(--Achados-OffWhite);
+}
+
+.completed {
+  background-color: var(--Achados-Success);
+  color: var(--Achados-OffWhite);
+}
+
+.canceled {
+  background-color: var(--Achados-Red);
+  color: var(--Achados-OffWhite);
+}
+
+.orders-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.empty-filter {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.order-page {
+  width: 100vw;
+  height: 100vh;
+  background: var(--Achados-OffWhite);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order-content-center {
+  width: 100%;
+  background-color: var(--Achados-OffWhite);
+  display: flex;
+  padding: 0px 200px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  border-radius: 32px;
+  overflow-y: auto;
+}
+
+.order-content-column {
+  display: flex;
+  width: 80%;
+  height: 100%;
+  gap:2rem;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.order-content-center-sebo {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card-container-pedido-details {
+  height:fit-content;
+  width:fit-content;
+  display:inline;
 }

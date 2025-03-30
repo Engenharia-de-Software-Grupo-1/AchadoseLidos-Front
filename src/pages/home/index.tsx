@@ -9,12 +9,18 @@ import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCa
 import { getAll } from '@routes/routesSebo';
 import { Sebo } from '@domains/Sebo';
 import { Carousel } from 'primereact/carousel';
+import useWindowSize from '@hooks/useWindowSize';
+import { CARD_SIZES } from 'constants/carousel';
+import { useNavigate } from 'react-router-dom';
+
 
 const HomePage = () => {
-  const images = ['/images/banner.jpg'];
+  const images = ['/images/altbanner.png', '/images/banner.jpg'];
+
   const [produtos, setProdutos] = useState<ProductCardProps[]>([]);
   const [livros, setLivros] = useState<ProductCardProps[]>([]);
   const [sebos, setSebos] = useState<GenericCardProps[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProdutos = async () => {
@@ -78,6 +84,41 @@ const HomePage = () => {
     fetchLivros();
   }, []);
 
+  const handleAcessProductPage = (id: number) => {
+    navigate(`/product/${id}`);
+  };
+
+  const handleAcessSeboPage = (id: number) => {
+    navigate(`/profile/sebo/${id}`);
+  };
+
+  const { width } = useWindowSize();
+
+  const calculateVisibleItems = (cardWidth: number, gap: number, minVisible: number) => {
+    const availableWidth = width - 32; // Account for container padding
+    return Math.max(minVisible, Math.floor(availableWidth / (cardWidth + gap)));
+  };
+
+  const productSettings = {
+    visible: calculateVisibleItems(
+      CARD_SIZES.PRODUCT.BASE_WIDTH,
+      CARD_SIZES.PRODUCT.GAP,
+      CARD_SIZES.PRODUCT.MIN_VISIBLE
+    ),
+    scroll: 1,
+    width: `${CARD_SIZES.PRODUCT.BASE_WIDTH}px`,
+  };
+
+  const seboSettings = {
+    visible: calculateVisibleItems(
+      CARD_SIZES.SEBO.BASE_WIDTH,
+      CARD_SIZES.SEBO.GAP,
+      CARD_SIZES.SEBO.MIN_VISIBLE
+    ),
+    scroll: 1,
+    width: `${CARD_SIZES.SEBO.BASE_WIDTH}px`,
+  };
+
   return (
     <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
       <div className="main-context">
@@ -93,10 +134,35 @@ const HomePage = () => {
           <div className="carrousel-product">
             <Carousel
               value={produtos}
-              numVisible={8}
-              numScroll={1}
-              itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
+              numVisible={productSettings.visible}
+              numScroll={productSettings.scroll}
+              itemTemplate={(produto: ProductCardProps) => (
+                <div style={{ 
+                  cursor: 'pointer',
+                  width: productSettings.width,
+                  padding: `0 ${CARD_SIZES.PRODUCT.GAP / 2}px`
+                }} onClick={() => produto.id !== undefined && handleAcessProductPage(produto.id)}>
+                  <ProductCard {...produto} />
+                </div>
+              )}
               circular
+              responsiveOptions={[
+                {
+                  breakpoint: '1400px',
+                  numVisible: Math.max(2, productSettings.visible - 2),
+                  numScroll: 1 
+                },
+                {
+                  breakpoint: '992px',
+                  numVisible: Math.max(2, productSettings.visible - 2),
+                  numScroll: 1 
+                },
+                {
+                  breakpoint: '576px',
+                  numVisible: 1,
+                  numScroll: 1 
+                }
+              ]}
             />
           </div>
         </ContainerItems>
@@ -104,11 +170,37 @@ const HomePage = () => {
           <div className="carrousel-sebo">
             <Carousel
               value={sebos}
-              numVisible={4}
-              numScroll={1}
-              itemTemplate={(sebo: GenericCardProps) => <GenericCard {...sebo} />}
-              style={{ padding: 0, height: 'fit-content' }}
+              numVisible={seboSettings.visible}
+              numScroll={seboSettings.scroll}
+              itemTemplate={(sebo: GenericCardProps) => (
+                <div style={{ 
+                  cursor: 'pointer',
+                  width: seboSettings.width,
+                  padding: `0 ${CARD_SIZES.SEBO.GAP / 2}px`
+                }} 
+                onClick={() => sebo.seboId !== undefined && handleAcessSeboPage(sebo.seboId)}>
+                  <GenericCard {...sebo} />
+                </div>
+              )}
+              style={{ height: 'fit-content' }}
               circular
+              responsiveOptions={[
+                {
+                  breakpoint: '1400px',
+                  numVisible: Math.max(2, seboSettings.visible - 2),
+                  numScroll: 1 
+                },
+                {
+                  breakpoint: '992px',
+                  numVisible: Math.max(2, seboSettings.visible - 2),
+                  numScroll: 1 
+                },
+                {
+                  breakpoint: '576px',
+                  numVisible: 1,
+                  numScroll: 1 
+                }
+              ]}
             />
           </div>
         </ContainerItems>
@@ -116,10 +208,36 @@ const HomePage = () => {
           <div className="carrousel-product">
             <Carousel
               value={livros}
-              numVisible={8}
-              numScroll={1}
-              itemTemplate={(livro: ProductCardProps) => <ProductCard {...livro} />}
+              numVisible={productSettings.visible}
+              numScroll={productSettings.scroll}
+              itemTemplate={(livro: ProductCardProps) => (
+                <div style={{ 
+                  cursor: 'pointer',
+                  width: productSettings.width,
+                  padding: `0 ${CARD_SIZES.PRODUCT.GAP / 2}px`
+                }}
+                onClick={() => livro.id !== undefined && handleAcessProductPage(livro.id)}>
+                  <ProductCard {...livro} />
+                </div>
+              )}
               circular
+              responsiveOptions={[
+                {
+                  breakpoint: '1400px',
+                  numVisible: Math.max(2, productSettings.visible - 2),
+                  numScroll: 1 
+                },
+                {
+                  breakpoint: '992px',
+                  numVisible: Math.max(2, productSettings.visible - 2),
+                  numScroll: 1 
+                },
+                {
+                  breakpoint: '576px',
+                  numVisible: 1,
+                  numScroll: 1 
+                }
+              ]}
             />
           </div>
         </ContainerItems>

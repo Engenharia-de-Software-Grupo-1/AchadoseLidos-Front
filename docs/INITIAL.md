@@ -1,6 +1,6 @@
 # **Configuração Inicial do Projeto**
 
-*Comandos utilizados para subir o projeto na US2*
+_Comandos utilizados para subir o projeto na US2_
 
 Crie o `package.json`:
 
@@ -21,9 +21,9 @@ yarn add -D @vitejs/plugin-react vite-tsconfig-paths
 Crie um arquivo `vite.config.ts` na raiz do projeto:
 
 ```ts
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
@@ -75,12 +75,7 @@ Crie o arquivo `.eslintrc.json`:
 
 ```json
 {
-  "extends": [
-    "airbnb",
-    "airbnb/hooks",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
+  "extends": ["airbnb", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
@@ -114,7 +109,6 @@ Crie o arquivo `.prettierrc`:
   "prettier.printWidth": 120,
   "prettier.trailingComma": "es5"
 }
-
 ```
 
 ---
@@ -128,9 +122,9 @@ yarn add primereact primeicons
 No `main.tsx`, importe o tema do PrimeReact:
 
 ```ts
-import "primereact/resources/themes/lara-light-blue/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
+import 'primereact/resources/themes/lara-light-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 ```
 
 ---
@@ -176,11 +170,11 @@ touch src/main.tsx src/App.tsx index.html
 **`src/main.tsx`**:
 
 ```tsx
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
@@ -190,10 +184,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 **`src/App.tsx`**:
 
 ```tsx
-import { Menubar } from "primereact/menubar";
+import { Menubar } from 'primereact/menubar';
 
 const App = () => {
-  const items = [{ label: "Home" }, { label: "Sobre" }, { label: "Contato" }];
+  const items = [{ label: 'Home' }, { label: 'Sobre' }, { label: 'Contato' }];
 
   return (
     <div>

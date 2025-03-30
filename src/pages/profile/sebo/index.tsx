@@ -21,7 +21,7 @@ const ProfileSebo = () => {
 
   useEffect(() => {
     let seboId = conta?.sebo?.id;
-    
+
     if (id) {
       seboId = Number(id);
     }
@@ -32,10 +32,10 @@ const ProfileSebo = () => {
 
     fetchProdutos(seboId ?? -1);
   }, [conta?.sebo?.id, id, initialize]);
-  
+
   const fetchProdutos = async (seboId: number) => {
     const response = await getAllProducts({
-      filters: [{ campo: 'seboId', operador: '=', valor: seboId}],
+      filters: [{ campo: 'seboId', operador: '=', valor: seboId }],
       sorters: [],
     });
     setProdutos(
@@ -46,15 +46,18 @@ const ProfileSebo = () => {
           image: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : '/images/sem_foto.png',
           owner: item.sebo?.nome ?? '',
           price: item.preco,
-          begeBackground: true
+          begeBackground: true,
         };
       })
     );
   };
 
+  // Verificar se o usuário logado é o proprietário deste perfil
+  const isOwnProfile = conta?.sebo?.id === sebo?.id;
+
   return (
     <div className="main-profile-sebo">
-      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
+      <TemplatePage simpleHeader={false} simpleFooter={false} backLight={true}>
         {loading ? (
           <div className="loading-spinner">
             <i className="pi pi-spinner mr-2" />
@@ -63,7 +66,7 @@ const ProfileSebo = () => {
           <>
             <Banner images={sebo?.fotos} showIndicators={false} />
             <div className="profile-sebo">
-              <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} />
+              <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} isOwnProfile={isOwnProfile}/>
             </div>
             <ContainerItems title="Todos os produtos" backgroundBege={false} idSebo={sebo?.id}>
               <div className="carrousel-product">
@@ -71,11 +74,12 @@ const ProfileSebo = () => {
                   value={produtos}
                   numVisible={11}
                   numScroll={10}
+                  circular
                   itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
                 />
               </div>
             </ContainerItems>
-            <div className="container-carousel-items">
+            <div className="container-carousel-items-h">
               <div className="content-title-history">
                 <span className="title-carousel-history">Nossa História</span>
               </div>

@@ -24,7 +24,7 @@ const RegisterUser = () => {
     }
     setSubmitted(false);
   };
-  
+
   const stepBack = (e: any) => {
     setActiveIndex(activeIndex - 1);
   };
@@ -58,10 +58,10 @@ const RegisterUser = () => {
             <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
               {activeIndex !== 0 && <Button className="step-button" label="Voltar" onClick={(e) => stepBack(e)} />}
               {activeIndex < 1 && <Button className="step-button" label="Continuar" onClick={(e) => nextStep(e)} />}
-                {activeIndex === 1 && <Button className="step-button" label="Finalizar" onClick={finalizeRegister} />}
+              {activeIndex === 1 && <Button className="step-button" label="Finalizar" onClick={finalizeRegister} />}
             </div>
             <p className="login" style={{ color: '#2F292A', textAlign: 'center' }}>
-              Já tem uma conta? <Link to="/login">Entrar</Link> 
+              Já tem uma conta? <Link to="/login">Entrar</Link>
             </p>
           </div>
         </div>

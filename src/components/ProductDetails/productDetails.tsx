@@ -22,8 +22,14 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
   const { showNotification } = useNotification();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
-  const { isFavorite, isFavoriteProduct, fetchFavoritoData, favoritos, handleAdicionarFavorito, handleRemoverFavorito } =
-    useFavorito();
+  const {
+    isFavorite,
+    isFavoriteProduct,
+    fetchFavoritoData,
+    favoritos,
+    handleAdicionarFavorito,
+    handleRemoverFavorito,
+  } = useFavorito();
 
   const handleDeleteProduct = async () => {
     try {
@@ -35,17 +41,24 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     }
   };
 
-  useEffect(() => {
-    fetchFavoritoData();
-  }, []);
+  const returnToLogin = () => {
+    navigate('/login');
+    showNotification('error', 'Faça login para continuar.', '');
+  };
 
-  useEffect(() => {
-    if (favoritos.length > 0) {
-      isFavoriteProduct(id);
-    }
-  }, [favoritos]);
+  if (conta?.tipo === 'USUARIO') {
+    useEffect(() => {
+      fetchFavoritoData();
+    }, []);
 
-  const addCesta = async() => {
+    useEffect(() => {
+      if (favoritos.length > 0) {
+        isFavoriteProduct(id);
+      }
+    }, [favoritos]);
+  }
+
+  const addCesta = async () => {
     try {
       await addProductCesta(id);
       showNotification('success', 'Produto adicionado na cesta com sucesso!', '');
@@ -54,6 +67,8 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
       console.error('Erro ao adicionar produto na cesta', error);
     }
   };
+
+  const isOwnProduct = conta?.sebo?.id === data.sebo?.id;
 
   return (
     <main className="product-frame">
@@ -76,7 +91,7 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
           <p className="product-stock">{`${data.qtdEstoque} em estoque`}</p>
           <p className="product-achados-subh1">{`R$ ${data.preco.toFixed(2)}`}</p>
 
-          {conta?.tipo === 'USUARIO' && (
+          {conta?.tipo === 'USUARIO' ? (
             <div className="product-actions-frame">
               {isFavorite ? (
                 <>
@@ -101,11 +116,34 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
                   />
                 </>
               )}
-
-              <Button label="Adicionar à cesta" severity="success" className="button-cesta" rounded onClick={addCesta}/>
+              <Button
+                label="Adicionar à cesta"
+                severity="success"
+                className="button-cesta"
+                rounded
+                onClick={addCesta}
+              />
             </div>
-          )}
-          {conta?.tipo === 'SEBO' && (
+          ) : !conta ? (
+            <div className="product-actions-frame">
+              <Button
+                icon="pi pi-heart"
+                rounded
+                severity="danger"
+                aria-label="Favorite"
+                className="favorite-button"
+                onClick={returnToLogin}
+              />
+              <Button
+                label="Adicionar à cesta"
+                severity="success"
+                className="button-cesta"
+                rounded
+                onClick={returnToLogin}
+              />
+            </div>
+          ) : null}
+          {conta?.tipo === 'SEBO' && isOwnProduct && (
             <div className="product-actions-frame">
               <Button
                 icon="pi pi-trash"
@@ -132,16 +170,16 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
           )}
 
           <div className="product-ediction-year">
-            {data.anoEdicao && (
+            {data.anoEdicao && Number(data.anoEdicao) !== 0 ? (
               <p className="product-ediction-year-p">
-                <span className="product-ediction-year-span">Ano da Edição:</span> {data.anoEdicao}
+                <span className="product-ediction-year-span">Ano da Edição:</span> {` ${2024}`}
               </p>
-            )}
-            {data.anoLancamento && (
+            ) : null}
+            {data.anoLancamento && data.anoLancamento !== 0 ? (
               <p className="product-ediction-year-p">
-                <span className="product-ediction-year-span">Ano de lançamento:</span> {data.anoLancamento}{' '}
+                <span className="product-ediction-year-span">Ano de lançamento:</span> {` ${data.anoLancamento}`}
               </p>
-            )}
+            ) : null}
             {data.autores && (
               <p className="product-ediction-year-p">
                 <span className="product-ediction-year-span">Autor:</span> {data.autores}

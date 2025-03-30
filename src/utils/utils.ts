@@ -124,6 +124,10 @@ export const getField = (field: string) => {
   return keys.length === 2 ? keys[1] : keys[0];
 };
 
+export const isValidPrice = (value: number) => {
+  return value !== undefined && value !== null && !isNaN(value) && value > 0;
+};
+
 export const formatTypedValue = (value: string, maxSize: number) => {
   if (value.length > maxSize) {
     return value.substring(0, maxSize - 5) + '...';

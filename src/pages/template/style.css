@@ -25,3 +25,7 @@
 .backgroundDiff {
   background: var(--Achados-OffWhite);
 }
+
+.backgroundDiffLighter {
+  background: var(--Achados-Lighter-OffWhite);
+}

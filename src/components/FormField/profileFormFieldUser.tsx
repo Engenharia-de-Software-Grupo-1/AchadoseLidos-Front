@@ -2,13 +2,13 @@ import { IconField } from 'primereact/iconfield';
 import { InputText } from 'primereact/inputtext';
 import './style.css';
 import { classNames } from 'primereact/utils';
-import { User } from '@domains/User';
+import { Usuario } from '@domains/Usuario';
 
 type ProfileFormFieldPropsUser = {
   hasSubmissionFailed: boolean;
-  fieldName: keyof User;
+  fieldName: keyof Usuario;
   fieldValue: string | undefined;
-  setField: (field: keyof User, value: string) => void;
+  setField: (field: keyof Usuario, value: string) => void;
   iconName?: string;
   labelText?: string;
   isTextArea?: boolean;
@@ -42,14 +42,13 @@ const ProfileFormFieldUser = ({
   return (
     <div className="profile-form-field">
       <div className="field-label">
-
         {labelText && (
           <label>
-            {labelText} {!isOptional && <text>*</text>}{isTextArea && <i className="ml-2 pi pi-info-circle" />}
+            {labelText} {!isOptional && <text>*</text>}
           </label>
         )}
 
-        {!!iconName && ( 
+        {!!iconName && (
           <IconField className="label-icon">
             <i className={`pi pi-${iconName}`} />
           </IconField>
@@ -65,7 +64,7 @@ const ProfileFormFieldUser = ({
         />
       ) : (
         <InputText
-          className={classNames('field-user-input','field-input', {
+          className={classNames('field-user-input', 'field-input', {
             'short-input': isShortInput,
             'empty-input-error': shouldShowError,
           })}

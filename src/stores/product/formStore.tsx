@@ -43,8 +43,8 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
       preco: 0,
       categoria: '',
       qtdEstoque: 0,
-      anoEdicao: 0,
-      anoLancamento: 0,
+      anoEdicao: undefined,
+      anoLancamento: undefined,
       estadoConservacao: '',
       autores: '',
       descricao: '',
@@ -53,8 +53,8 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
       generos: [],
     },
     rules: {
-      nome: [{ rule: 'required' }], 
-      preco: [{ rule: 'required' }],
+      nome: [{ rule: 'required' }],
+      preco: [{ rule: 'isPrice' }],
       categoria: [{ rule: 'required' }],
       qtdEstoque: [{ rule: 'required' }],
       generos: [{ rule: 'required' }],
@@ -80,10 +80,9 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
   const handleConfirm = async (isRegister: boolean, id: any) => {
     try {
       const newImages = formData.fotos ? formData.fotos.filter((foto: any) => !foto.url) : [];
-      let formattedImages = formData.fotos; 
+      let formattedImages = formData.fotos;
 
       if (newImages.length > 0) {
-        //@ts-ignore
         const uploadedImages = await uploadImagesToCloudinary(newImages);
         formattedImages = uploadedImages.map((url: string) => ({ url }));
       }

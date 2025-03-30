@@ -4,7 +4,7 @@ export interface Filter {
   valor: string | string[] | number | boolean;
   header?: boolean;
 }
-  
+
 export interface Sorter {
   campo: string;
   ordem: string;

@@ -5,7 +5,7 @@ import { Filter } from 'types/NavigationFilters';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
 import { useSeboFilterStore } from '@stores/filters/seboFilterStore';
-import bairros from 'constants/CgBairros';
+import bairros from '@constants/CgBairros';
 import { Checkbox } from 'primereact/checkbox';
 
 type SeboFilters = {
@@ -43,7 +43,7 @@ const SeboFilters: React.FC = () => {
           className="w-full md:w-20rem"
         />
       </div>
-      <div className='nav-filter-column-checkbox'>
+      <div className="nav-filter-column-checkbox">
         <Checkbox onChange={(e) => setConcordaVender(e.checked ? true : false)} checked={concordaVender} />
         <span className="text-sales">Vende produtos pelo site?</span>
       </div>

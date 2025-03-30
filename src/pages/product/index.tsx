@@ -4,13 +4,14 @@ import { Produto } from '@domains/Produto';
 import TemplatePage from '@pages/template';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getById } from 'routes/routesProduto';
+import { getById } from '@routes/routesProduto';
 
-const breadcrumbItems = [{ label: 'Página do produto', url: '/product-page' }];
 
 const ProductPage = () => {
   const { id } = useParams();
   const [produto, setProduto] = useState<Produto | null>(null);
+
+const breadcrumbItems = [{ label: 'Página do produto', url: `/product/${id}` }];
 
   const fetchProduto = async () => {
     try {
@@ -35,10 +36,7 @@ const ProductPage = () => {
     <main className="container-product-page">
       <TemplatePage simpleHeader={false} simpleFooter={true}>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
-        <ProductDetails
-          id={id? id : ''}
-          data={produto}
-        />
+        <ProductDetails id={id ? id : ''} data={produto} />
       </TemplatePage>
     </main>
   );

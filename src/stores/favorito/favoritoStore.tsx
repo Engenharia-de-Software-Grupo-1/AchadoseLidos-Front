@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Favorito } from '@domains/Favoritos';
 import { getFavoritos, adicionarFavorito, removerFavorito } from '@routes/routesFavorito';
 import { useNotification } from '@contexts/notificationContext';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@contexts/authContext';
 
 interface FavoritoContextType {
@@ -31,7 +31,6 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const { conta } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
 
-
   const fetchFavoritoData = async () => {
     try {
       setLoading(true);
@@ -45,7 +44,7 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const handleAdicionarFavorito = async (productId: number) => {
-    setAddingIds(prev => [...prev, productId]);
+    setAddingIds((prev) => [...prev, productId]);
     try {
       if (conta?.usuario?.id !== undefined) {
         await adicionarFavorito(productId, conta.usuario.id);
@@ -58,42 +57,44 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       console.error('Erro ao adicionar favorito', error);
       showNotification('error', 'Falha ao adicionar favorito', '');
     } finally {
-      setAddingIds(prev => prev.filter(id => id !== productId));
+      setAddingIds((prev) => prev.filter((id) => id !== productId));
     }
   };
 
   useEffect(() => {}, [isFavorite]);
 
   const handleRemoverFavorito = async (productId: number) => {
-    setDeletingIds(prev => [...prev, productId]);
+    setDeletingIds((prev) => [...prev, productId]);
 
     try {
       if (conta?.usuario?.id !== undefined) {
         await removerFavorito(productId, conta.usuario.id);
-        setFavoritos(prev => 
-          prev.map(sebo => ({
-            ...sebo,
-            produtos: sebo.produtos.filter(p => p.id !== productId)
-          })).filter(sebo => sebo.produtos.length > 0) 
+        setFavoritos((prev) =>
+          prev
+            .map((sebo) => ({
+              ...sebo,
+              produtos: sebo.produtos.filter((p) => p.id !== productId),
+            }))
+            .filter((sebo) => sebo.produtos.length > 0)
         );
         await fetchFavoritoData();
         setIsFavorite(false);
       } else {
         showNotification('error', 'Usuário não autenticado', '');
       }
-      
+
       showNotification('success', 'Item removido dos favoritos!', '');
     } catch (error) {
       showNotification('error', 'Falha ao remover favorito', '');
     } finally {
-      setDeletingIds(prev => prev.filter(id => id !== productId));
+      setDeletingIds((prev) => prev.filter((id) => id !== productId));
     }
   };
 
   const isFavoriteProduct = (id: any) => {
-    const isFavorited = favoritos.some(favorito =>
-      favorito.produtos.some(item =>
-        item?.id && Number(item.id) === Number(id)  // Acesse o id correto do produto
+    const isFavorited = favoritos.some((favorito) =>
+      favorito.produtos.some(
+        (item) => item?.id && Number(item.id) === Number(id) // Acesse o id correto do produto
       )
     );
     setIsFavorite(isFavorited);
@@ -114,20 +115,22 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   return (
-    <FavoritoContext.Provider value={{
-      favoritos,
-      loading,
-      deletingIds,
-      addingIds,
-      fetchFavoritoData,
-      handleAdicionarFavorito,
-      handleRemoverFavorito,
-      isFavoriteProduct,
-      isFavorite,
-      getFavoritosAgrupados,
-      handleSeboClick,
-      handleProdutoClick
-    }}>
+    <FavoritoContext.Provider
+      value={{
+        favoritos,
+        loading,
+        deletingIds,
+        addingIds,
+        fetchFavoritoData,
+        handleAdicionarFavorito,
+        handleRemoverFavorito,
+        isFavoriteProduct,
+        isFavorite,
+        getFavoritosAgrupados,
+        handleSeboClick,
+        handleProdutoClick,
+      }}
+    >
       {children}
     </FavoritoContext.Provider>
   );

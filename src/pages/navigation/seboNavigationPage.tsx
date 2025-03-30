@@ -4,7 +4,7 @@ import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCa
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import SeboFilters from '@components/Filters/seboFilters';
 import { Sorter } from 'types/NavigationFilters';
-import { getAll } from 'routes/routesSebo';
+import { getAll } from '@routes/routesSebo';
 import { Sebo } from '@domains/Sebo';
 import { useSorting } from '@hooks/useSorting';
 import { useSeboFilterStore } from '@stores/filters/seboFilterStore';
@@ -67,7 +67,12 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
                 {filters
                   .map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor))
                   .join(', ')
-                  .slice(0, 103) + (filters.map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor)).join(', ').length > 103 ? '...' : '')}
+                  .slice(0, 103) +
+                  (filters
+                    .map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor))
+                    .join(', ').length > 103
+                    ? '...'
+                    : '')}
               </p>
               <div className="nav-filter-display-order">
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
@@ -98,7 +103,7 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
               setFirst(e.first);
               setRows(e.rows);
             }}
-            style={{ backgroundColor: 'var(--Achados-OffWhite', alignSelf: 'flex-end'}}
+            style={{ backgroundColor: 'var(--Achados-OffWhite', alignSelf: 'flex-end' }}
           ></Paginator>
         </div>
       </TemplatePage>

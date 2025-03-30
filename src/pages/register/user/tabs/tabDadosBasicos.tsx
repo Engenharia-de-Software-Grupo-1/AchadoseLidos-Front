@@ -1,10 +1,10 @@
 import FormField from '@components/FormField/formField';
 import { InputText } from 'primereact/inputtext';
-import { User } from '@domains/User';
+import { Usuario } from '@domains/Usuario';
 
 interface TabDadosBasicosProps {
-    user: User
-    setField: (field: string, value: any) => void
+  user: Usuario;
+  setField: (field: string, value: any) => void;
 }
 
 const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => {
@@ -13,11 +13,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => 
       <div className="container-register">
         <div className="container-data">
           <FormField attribute="nome">
-            <InputText
-              value={user.nome}
-              onChange={(e) => setField('nome', e.target.value)}
-              placeholder="Nome *"
-            />
+            <InputText value={user.nome} onChange={(e) => setField('nome', e.target.value)} placeholder="Nome *" />
           </FormField>
 
           <FormField attribute="telefone">
@@ -26,7 +22,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => 
               onChange={(e) => setField('telefone', e.target.value)}
               placeholder="Telefone *"
               keyfilter="int"
-              maxLength={11}
+              maxLength={13}
             />
           </FormField>
 
@@ -68,7 +64,7 @@ const TabDadosBasicos: React.FC<TabDadosBasicosProps> = ({ user, setField }) => 
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default TabDadosBasicos;

@@ -15,12 +15,8 @@ interface NotificationProviderProps {
 
 export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
   const toastRef = useRef<Toast>(null);
-  
-  const showNotification = (
-    severity: Severity,
-    summary: string | null,
-    detail: string
-  ) => {
+
+  const showNotification = (severity: Severity, summary: string | null, detail: string) => {
     if (toastRef.current) {
       toastRef.current.show({ severity, summary, detail, life: 3000 });
     }

@@ -29,6 +29,8 @@ import { FavoritoProvider } from '@stores/favorito/favoritoStore';
 import CestaPage from '@pages/cesta';
 import { CestaProvider } from '@stores/cesta/cestaStore';
 import PedidoPage from '@pages/pedido';
+import { ListagemPedidoPage } from '@pages/pedido/listagem';
+import { PedidoProvider } from '@stores/pedido/pedidoStore';
 import { ProductNavigationPage } from '@pages/navigation/productNavigationPage';
 import { SeboNavigationPage } from '@pages/navigation/seboNavigationPage';
 
@@ -106,16 +108,16 @@ const App = () => {
                   </ResetRequestProvider>
                 }
               />
-
               <Route
                 path="/profile/user/cesta"
                 element={
-                  <CestaProvider>
-                    <CestaPage />
-                  </CestaProvider>
+                  <PedidoProvider>
+                    <CestaProvider>
+                      <CestaPage />
+                    </CestaProvider>
+                  </PedidoProvider>
                 }
               />
-
               <Route path="/profile/user/:id?" element={<ProfileUser />} />
               <Route
                 path="/profile/user/edit"
@@ -142,11 +144,21 @@ const App = () => {
                 }
               />
               <Route
-                path="/profile/historico/pedido1"
+                path="/profile/historico"
                 element={
-                  <CestaProvider>
-                    <PedidoPage />
-                  </CestaProvider>
+                  <PedidoProvider>
+                    <ListagemPedidoPage />
+                  </PedidoProvider>
+                }
+              />
+              <Route
+                path="/profile/historico/pedido/:id"
+                element={
+                  <PedidoProvider>
+                    <CestaProvider>
+                      <PedidoPage />
+                    </CestaProvider>
+                  </PedidoProvider>
                 }
               />
               <Route

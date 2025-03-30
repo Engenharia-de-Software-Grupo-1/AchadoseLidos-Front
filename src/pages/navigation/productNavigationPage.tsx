@@ -5,7 +5,7 @@ import ProductCard, { ProductCardProps } from '@components/ProductCard/productCa
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import ProductFilters from '@components/Filters/productFilters';
 import { FilterOrders, Sorter } from 'types/NavigationFilters';
-import { getAllProducts } from 'routes/routesProduto';
+import { getAllProducts } from '@routes/routesProduto';
 import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
@@ -47,7 +47,11 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
       getAllProductsBySeboId({ filters: [{ campo: 'seboId', operador: '=', valor: conta?.id }], sorters: sorters });
     }
   }, [meusProdutos, conta?.id]);
-  
+
+  const handleAcessProductPage = (id: number) => {
+    navigate(`/product/${id}`);
+  };
+
   const getProducts = async () => {
     const response = await getAllProducts({ filters, sorters: sorters });
     const produtos = response.map((item) => {
@@ -123,7 +127,9 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
               <>
                 <div className="nav-content-center">
                   {productCards.slice(first, first + rows).map((card, index) => (
-                    <ProductCard key={index} {...card} />
+                    <div style={{cursor: 'pointer'}} onClick={() => card.id !== undefined && handleAcessProductPage(card.id)} key={index}>
+                      <ProductCard key={index} {...card} />
+                    </div>
                   ))}
                 </div>
               </>
@@ -140,7 +146,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
             onPageChange={(e) => {
               setFirst(e.first);
               setRows(e.rows);
-            }}  
+            }}
             style={{ backgroundColor: 'var(--Achados-OffWhite)' }}
           ></Paginator>
         </div>

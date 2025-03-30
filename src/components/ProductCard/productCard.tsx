@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const getClassName = () => {
     if (begeBackground) {
       return ['furosChild', 'furosChild-1'];
-    } 
+    }
     return ['furosChild-loffWhite', 'furosChild-1-loffWhite'];
   };
 
