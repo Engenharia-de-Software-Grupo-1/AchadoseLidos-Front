@@ -74,6 +74,7 @@ const ProfileSebo = () => {
                   value={produtos}
                   numVisible={11}
                   numScroll={10}
+                  circular
                   itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
                 />
               </div>

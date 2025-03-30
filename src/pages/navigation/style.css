@@ -22,7 +22,6 @@
   max-width: 99%;
   flex-direction: row;
   gap: 32px;
-  flex-shrink: 0;
   padding-top: 32px;
   padding-right: 390px;
   background-color: var(--Achados-OffWhite);
@@ -30,11 +29,10 @@
 
 .nav-content-column {
   display: flex;
-  width: 72%;
+  width: 100%;
   height: 100%;
   flex-direction: column;
   gap: 32px;
-  flex-shrink: 0;
 }
 
 .nav-filter-display {
