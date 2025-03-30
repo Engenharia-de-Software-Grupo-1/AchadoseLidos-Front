@@ -5,11 +5,11 @@ import GenericCard, { GenericCardProps } from '@components/GenericCard/genericCa
 import ALBreadCrumb from '@components/ALBreadCrumb/breadCrumb';
 import { Paginator } from 'primereact/paginator';
 import { Filter } from 'types/NavigationFilters';
-import { PedidoList } from '@domains/Pedido';
 import { Button } from 'primereact/button';
 import { usePedido } from '@stores/pedido/pedidoStore';
 import { useAuth } from '@contexts/authContext';
 import { useNavigate } from 'react-router-dom';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 export const ListagemPedidoPage = () => {
   const [orderCards, setOrderCards] = useState<GenericCardProps[]>([]);
@@ -18,11 +18,11 @@ export const ListagemPedidoPage = () => {
   const breadcrumbItems = [{ label: 'Histórico de Pedidos', url: '/profile/historico' }];
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(3);
-  const { conta } = useAuth();
+  const { conta, authChecked } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!conta) {
+    if (authChecked && !conta) {
       navigate('/login');
     } else {
       initialize(
@@ -35,24 +35,39 @@ export const ListagemPedidoPage = () => {
     }
   }, [conta, navigate, filters]);
 
+  useEffect(() => getPedidos(), [pedidos]);
+  
   const updateFilters = (status: string) => {
     setFilters([{ campo: 'status', operador: '=', valor: status }]);
   };
 
-  const getPedidos = async () => {
-    setOrderCards(
-      pedidos.map((pedido: PedidoList) => ({
+  const getPedidos = () => {
+    setOrderCards([
+      ...pedidos.map((pedido) => ({
         id: pedido.id,
-        title: `Pedido #${pedido?.id}`,
-        description: `${pedido?.qtdProdutos} ${pedido?.qtdProdutos === 1 ? 'Item' : 'Itens'}`,
-        imageUrl: pedido?.sebo?.fotoPerfil ?? '/images/sebo.png',
-        topLabel: pedido?.status,
-        seboId: pedido?.sebo?.id,
+        title: `Pedido #${pedido.id}`,
+        description: `${pedido.qtdProdutos} ${pedido.qtdProdutos === 1 ? 'Item' : 'Itens'}`,
+        imageUrl: pedido.sebo?.fotoPerfil ?? '/images/sebo.png',
+        topLabel: conta?.tipo === 'USUARIO' ? pedido.sebo?.nome : pedido.usuario?.nome,
+        seboId: pedido.sebo?.id,
         isButtonVisible: false,
         isOffWhiteFrills: true,
-      }))
-    );
+        bottomLabel: pedido.status,
+      })),
+    ]);
   };
+
+  if (!authChecked) {
+    return (
+      <TemplatePage simpleHeader={false} simpleFooter={true}>
+        <div className="order-page">
+          <div className="flex justify-content-center align-items-center" style={{ height: '50vh' }}>
+            <ProgressSpinner />
+          </div>
+        </div>
+      </TemplatePage>
+    );
+  }
 
   const handleEmptyContent = (message: string) => (
     <div className="empty-filter">
@@ -67,7 +82,7 @@ export const ListagemPedidoPage = () => {
 
   return (
     <div className="order-page">
-      <TemplatePage simpleHeader={true} simpleFooter={false} backgroundFooterDiff={true}>
+      <TemplatePage simpleHeader={false} simpleFooter={true} backgroundFooterDiff={true}>
         <div className="order-page">
           <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
           <div className="order-content-center">
@@ -90,10 +105,19 @@ export const ListagemPedidoPage = () => {
               {orderCards.length > 0 ? (
                 <>
                   <div className="order-content-center-sebo">
-                    {orderCards.slice(first, first + rows).map((card, index) => (
-                      <GenericCard key={index} {...card} />
-                    ))}
+                    {orderCards.slice(first, first + rows).map((card, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={() => navigate(`/profile/historico/pedido/${card?.id}`)}
+                          style={{ cursor: 'pointer', width: '100%' }}
+                        >
+                          <GenericCard {...card} />
+                        </div>
+                      );
+                    })}
                   </div>
+
                   <Paginator
                     first={first}
                     rows={rows}
@@ -102,6 +126,7 @@ export const ListagemPedidoPage = () => {
                       setFirst(e.first);
                       setRows(e.rows);
                     }}
+                    style={{ backgroundColor: 'var(--Achados-OffWhite)' }}
                   ></Paginator>
                 </>
               ) : (
