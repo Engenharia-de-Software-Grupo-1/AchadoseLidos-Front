@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useNotification } from '@contexts/notificationContext';
 import { Pedido, PedidoList } from '@domains/Pedido';
 import { createOrder, getAll, getById, updateOrder } from '@routes/routesPedido';
@@ -23,8 +23,8 @@ interface PedidoContextType {
   getPedido: (id: number | undefined) => void;
   handleQuantityChange: (productId: number, quantity: number) => void;
   handleSelectionChange: (productId: number, selected: boolean) => void;
-  handleConfirm: (sucessCallback?: () => void) => void;
-  handleCancel: (sucessCallback?: () => void) => void;
+  handleConfirm: () => void;
+  handleCancel: () => void;
 }
 
 const PedidoContext = createContext<PedidoContextType | undefined>(undefined);
@@ -32,7 +32,7 @@ const PedidoContext = createContext<PedidoContextType | undefined>(undefined);
 export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { showNotification } = useNotification();
   const [pedidos, setPedidos] = useState<PedidoList[]>([]);
-  const [pedido, setPedido] = useState<Pedido>([]);
+  const [pedido, setPedido] = useState<Pedido>(null);
   const [loading, setLoading] = useState(true);
   const [loadingPedido, setLoadingPedido] = useState(true);
 
@@ -76,7 +76,7 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         produtos: produtosPedido.map((produto) => ({
           produto,
           quantidade: cesta.produtos.find((p) => p.produto.id === produto.id)?.quantidade || 1,
-          selected: true,
+          selected: false,
           status: 'PENDENTE',
         })),
       };
@@ -134,30 +134,39 @@ export const PedidoProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }));
   };
 
-  const handleConfirm = async (sucessCallback?: () => void) => {
+  const updatePedido = useCallback(async (updatedPedido: Pedido) => {
     try {
-      setPedido({ ...pedido, status: 'CONCLUIDO' });
-      await updateOrder(pedido, pedido?.id);
-      showNotification('success', 'Pedido confirmado com sucesso!', '');
-      sucessCallback && sucessCallback();
+      await updateOrder(updatedPedido, updatedPedido.id);
+      showNotification('success', `Pedido ${updatedPedido.status.toLowerCase()} com sucesso!`, '');
     } catch (error) {
-      console.error('Erro ao confirmar pedido', error);
+      console.error('Erro ao atualizar pedido');
     }
+  }, []);
+
+  const handleConfirm = () => {
+    setPedido((prevPedido) => {
+      const updatedPedido = {
+        ...prevPedido!,
+        status: 'CONCLUIDO',
+      };
+      updatePedido(updatedPedido);
+      return updatedPedido;
+    });
   };
 
-  const handleCancel = async (sucessCallback?: () => void) => {
-    try {
-      setPedido({
-        ...pedido,
+  const handleCancel = () => {
+    setPedido((prevPedido) => {
+      const updatedPedido = {
+        ...prevPedido!,
         status: 'CANCELADO',
-        produtos: pedido.produtos.map((item) => ({ ...item, status: 'CANCELADO' })),
-      });
-      await updateOrder(pedido, pedido?.id);
-      showNotification('success', 'Pedido cancelado com sucesso!', '');
-      sucessCallback && sucessCallback();
-    } catch (error) {
-      console.error('Erro ao cancelar pedido', error);
-    }
+        produtos: prevPedido!.produtos.map((item) => ({
+          ...item,
+          status: 'CANCELADO',
+        })),
+      };
+      updatePedido(updatedPedido);
+      return updatedPedido;
+    });
   };
 
   return (

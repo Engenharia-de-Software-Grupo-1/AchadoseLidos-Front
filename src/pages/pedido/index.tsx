@@ -50,7 +50,7 @@ const PedidoPage = () => {
         {!isUser ? (
           <h3 style={{ margin: '-2rem', padding: '0' }}>
             <Link to={`/profile/user/${pedido.usuario?.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-              Usuário {pedido.usuario?.nome}
+              Usuário: {pedido.usuario?.nome}
             </Link>
           </h3>
         ) : (
@@ -74,7 +74,10 @@ const PedidoPage = () => {
                   padding: '0.5rem 1rem',
                 }}
                 tooltipOptions={{ position: 'top' }}
-                onClick={() => handleCancel(() => navigate('/profile/historico'))}
+                onClick={() => {
+                  handleCancel();
+                  navigate('/profile/historico');
+                }}
               />
               <Button
                 label="Confirmar Venda"
@@ -85,7 +88,10 @@ const PedidoPage = () => {
                 }}
                 tooltip={'Ao confirmar, não será mais possível editar este pedido.'}
                 tooltipOptions={{ position: 'top' }}
-                onClick={() => handleConfirm(() => navigate('/profile/historico'))}
+                onClick={() => {
+                  handleConfirm();
+                  navigate('/profile/historico');
+                }}
               />
             </div>
           )}
