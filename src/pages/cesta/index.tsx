@@ -29,7 +29,7 @@ const CestaPage = () => {
     );
   }
 
-  const breadCrumbItems = [{ label: 'Cesta', url: '/profile/cesta' }];
+  const breadCrumbItems = [{ label: 'Cesta', url: '/profile/user/cesta' }];
 
   return (
     <TemplatePage simpleHeader={false} simpleFooter={true}>
