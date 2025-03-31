@@ -7,7 +7,7 @@ import ProductFilters from '@components/Filters/productFilters';
 import { Sorter } from 'types/NavigationFilters';
 import { getAllProducts } from '@routes/routesProduto';
 import { useAuth } from '@contexts/authContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useSorting } from '@hooks/useSorting';
 import { useProductFilterStore } from '@stores/filters/productFilterStore';
@@ -21,6 +21,7 @@ interface ProductNavigationPageProps {
 
 export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigationPageProps) => {
   const { conta } = useAuth();
+  const { id } = useParams<{ id: string }>();
   const breadcrumbItems = meusProdutos
     ? [{ label: 'Meus produtos', url: `/navigation/meus-produtos/${conta?.sebo?.id}` }]
     : [{ label: 'Produtos', url: '/navigation/products' }];
@@ -41,11 +42,17 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   }, [window.location.pathname]);
   
   useEffect(() => {
-    if (meusProdutos && conta?.sebo?.id && !filters.some((filter) => filter.campo === 'seboId')) {
-      filters.push({ campo: 'seboId', operador: '=', valor: conta?.sebo?.id });
+    let seboId = conta?.sebo?.id;
+
+    if (id) {
+      seboId = Number(id);
+    }
+
+    if (meusProdutos && seboId && !filters.some((filter) => filter.campo === 'seboId')) {
+      filters.push({ campo: 'seboId', operador: '=', valor: seboId ?? -1 });
     } 
     getProducts();
-  }, [filters[0]?.valor, filters, nameIcon, window.location.pathname]);
+  }, [filters[0]?.valor, filters, nameIcon, window.location.pathname, id]);
 
 
   const handleAcessProductPage = (id: number) => {
@@ -88,7 +95,10 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
             <div className="nav-filter-display">
               <p className="nav-filter-display-text">
                 Resultados de pesquisa para: <br />
-                {formatTypedValue(filters.map((filter) => Array.isArray(filter.valor) ? filter.valor.join(', ') : filter.valor).join(', '), 103)}
+                {formatTypedValue(filters
+                  .filter((filter) => filter.campo !== 'seboId')
+                  .map((filter) => Array.isArray(filter.valor) ? filter.valor.join(', ') : filter.valor)
+                  .join(', '), 103)}
               </p>
               <div className="nav-filter-display-order">
                 <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
@@ -139,3 +149,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
     </div>
   );
 };
+function initialize(seboId: number) {
+  throw new Error('Function not implemented.');
+}
+
