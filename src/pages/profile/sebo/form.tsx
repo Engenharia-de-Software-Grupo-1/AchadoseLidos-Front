@@ -55,7 +55,7 @@ const ProfileSeboForm = () => {
 
   return (
     <div className="container-main-edit-sebo">
-      <TemplatePage simpleHeader={false} simpleFooter={false} backLight={true}>
+      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
 
         {loading ? (
