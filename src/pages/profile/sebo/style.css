@@ -8,7 +8,7 @@
   width: 100%;
   background-color: var(--Achados-Lighter-OffWhite);
   display: flex;
-  padding: 2.5rem 5rem;
+  padding: 48px 200px;
   flex-direction: column;
   align-items: center;
   gap: 32px;
