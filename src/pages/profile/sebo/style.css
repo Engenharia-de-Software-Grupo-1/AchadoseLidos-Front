@@ -101,29 +101,13 @@
   background: var(--Achados-Lighter-OffWhite);
 }
 
-.container-edit-sebo .p-inputtext,  .container-edit-sebo .input-wrapper {
-  width:100%;
-
-  .p-inputtext {
-    width: 100% !important;
-  }
-}
-
-.container-edit-sebo .address-form-field {
-  width:100% !important;
-  align-items: flex-start;
-
-  .input-wrapper {
-    width:100%;
-  }
-}
-
 .container-edit-sebo {
   width: 100%;
-  height: fit-content;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  /* padding: 20px 60px 20px 60px;  */
   gap: 32px;
   border-radius: 32px;
   background: var(--Achados-OffWhite);
@@ -132,31 +116,29 @@
 .form-edit-sebo {
   width: 100%;
   display: flex;
-  padding: 2rem;
+  padding: 32px;
   flex-direction: column;
   align-items: center;
   gap: 32px;
+  align-self: stretch;
   background: var(--Achados-Lighter-OffWhite);
   overflow: auto;
-    max-width: 1200px;
-
 }
 
 .container-data-form {
   display: flex;
-  gap: 3rem;
-  width:100%;
+  gap: 16px;
 }
 
 .fields-column {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  width: 100%;
+  width: 50%;
 }
 
 .container-upload {
-  width: 100%;
+  width: 60%;
   display: flex;
   padding-bottom: 16px;
   flex-direction: column;
@@ -168,18 +150,19 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  width: 100%;
+  width: 60%;
 }
 
 .container-historia-sebo {
-  width: 100%;
+  width: 60%;
   align-items: flex-start;
 }
 
 .checkbox-adress {
-  width: 100%;
+  width: fit-content;
   display: inline;
   margin-top: 6px;
+  align-self: flex-end;
 }
 
 .button-save,
@@ -222,7 +205,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
+  width: 60%;
 }
 
 .span-checkbox {
@@ -246,11 +229,7 @@
   row-gap: 10px;
   align-self: stretch;
   flex-wrap: wrap;
-  width: 100%;
-
-  .p-inputtext {
-    width:100% !important;
-  }
+  width: 110%
 }
 
 .container-carousel-items-h {
@@ -260,18 +239,4 @@
   gap: 10px;
   align-self: stretch;
   background-color: var(--Achados-OffWhite);
-}
-
-.form-edit-sebo .profile-picture {
-  justify-content:center;
-}
-
-.profile-sebo .profile-picture {
-  justify-content: flex-start;
-}
-
-.profile-sebo .container-profile {
-  width:100%;
-  max-width: 1200px;
-  justify-content: space-between;
 }

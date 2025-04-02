@@ -122,7 +122,7 @@ const ProfileSeboForm = () => {
                   </FormField>
 
                   <FormField label="Estado" attribute="estado" editField required adress>
-                    <InputText value="Paraíba" disabled placeholder="Estado *" />
+                    <InputText value="Paraíba" disabled placeholder="Estado *" style={{ width: '400px' }} />
                   </FormField>
 
                   <FormField label="Cidade" attribute="cidade" editField required adress>
@@ -134,6 +134,7 @@ const ProfileSeboForm = () => {
                       optionValue="value"
                       showClear
                       placeholder="Cidade *"
+                      style={{ width: '400px' }}
                     />
                   </FormField>
                   <FormField label="Rua" attribute="rua" editField required adress>

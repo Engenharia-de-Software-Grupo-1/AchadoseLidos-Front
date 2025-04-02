@@ -21,7 +21,6 @@ const HomePage = () => {
   const [livros, setLivros] = useState<ProductCardProps[]>([]);
   const [sebos, setSebos] = useState<GenericCardProps[]>([]);
   const navigate = useNavigate();
-  const { width } = useWindowSize();
 
   useEffect(() => {
     const fetchProdutos = async () => {
@@ -93,6 +92,7 @@ const HomePage = () => {
     navigate(`/profile/sebo/${id}`);
   };
 
+  const { width } = useWindowSize();
 
   const calculateVisibleItems = (cardWidth: number, gap: number, minVisible: number) => {
     const availableWidth = width - 32; // Account for container padding
