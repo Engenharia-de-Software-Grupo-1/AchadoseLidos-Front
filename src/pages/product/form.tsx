@@ -172,7 +172,7 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
                   labelText="Descrição"
                   fieldName={ProdutoFieldNames.descricao}
                   fieldValue={produto.descricao}
-                  setField={setField}
+                  setField={setField} 
                   hasSubmissionFailed={submitted}
                   isTextArea
                   isOptional

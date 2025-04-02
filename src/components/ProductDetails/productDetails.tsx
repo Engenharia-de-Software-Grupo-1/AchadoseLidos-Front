@@ -177,12 +177,12 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
             ) : null}
             {data.anoLancamento && data.anoLancamento !== 0 ? (
               <p className="product-ediction-year-p">
-                <span className="product-ediction-year-span">Ano de lançamento:</span> {` ${data.anoLancamento}`}
+                <span className="product-ediction-year-span">Ano de Lançamento:</span> {` ${data.anoLancamento}`}
               </p>
             ) : null}
             {data.autores && (
               <p className="product-ediction-year-p">
-                <span className="product-ediction-year-span">Autor:</span> {data.autores}
+                <span className="product-ediction-year-span">Autor(es):</span> {data.autores}
               </p>
             )}
           </div>

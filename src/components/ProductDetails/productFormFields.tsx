@@ -158,7 +158,7 @@ const ProductFormField = ({
         />
       ) : isYear ? (
         <InputNumber
-          className={classNames('field-input', {
+          className={classNames( {
             'short-input': isShortInput,
             'empty-input-error': shouldShowError,
             'field-input-year': isYear,
