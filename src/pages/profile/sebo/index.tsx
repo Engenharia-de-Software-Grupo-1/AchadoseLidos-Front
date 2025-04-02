@@ -11,13 +11,17 @@ import { useAuth } from '@contexts/authContext';
 import ProductCard, { ProductCardProps } from '@components/ProductCard/productCard';
 import { getAllProducts } from '@routes/routesProduto';
 import { Carousel } from 'primereact/carousel';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import useWindowSize from '@hooks/useWindowSize';
+import { CARD_SIZES } from '@constants/carousel';
 
 const ProfileSebo = () => {
   const { sebo, initialize, loading } = useSebo();
   const { id } = useParams<{ id: string }>();
   const [produtos, setProdutos] = useState<ProductCardProps[]>([]);
   const { conta, isAuthenticated } = useAuth();
+  const { width } = useWindowSize();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let seboId = conta?.sebo?.id;
@@ -54,6 +58,23 @@ const ProfileSebo = () => {
 
   const isOwnProfile = conta?.sebo?.id === sebo?.id;
 
+  
+  
+  const calculateVisibleItems = (cardWidth: number, gap: number, minVisible: number) => {
+    const availableWidth = width - 32; // Account for container padding
+    return Math.max(minVisible, Math.floor(availableWidth / (cardWidth + gap)));
+  };
+
+  const productSettings = {
+    visible: calculateVisibleItems(
+      CARD_SIZES.PRODUCT.BASE_WIDTH,
+      CARD_SIZES.PRODUCT.GAP,
+      CARD_SIZES.PRODUCT.MIN_VISIBLE
+    ),
+    scroll: 1,
+    width: `${CARD_SIZES.PRODUCT.BASE_WIDTH}px`,
+  };
+
   return (
     <div className="main-profile-sebo">
       <TemplatePage simpleHeader={false} simpleFooter={false} backLight={true}>
@@ -71,10 +92,35 @@ const ProfileSebo = () => {
               <div className="carrousel-product">
                 <Carousel
                   value={produtos}
-                  numVisible={11}
-                  numScroll={10}
+                  numVisible={productSettings.visible}
+                  numScroll={productSettings.scroll}
+                  itemTemplate={(produto: ProductCardProps) => (
+                    <div style={{ 
+                      cursor: 'pointer',
+                      width: productSettings.width,
+                      padding: `0 ${CARD_SIZES.PRODUCT.GAP / 2}px`
+                    }} onClick={() => produto.id !== undefined && navigate(`/product/${id}`)}>
+                      <ProductCard {...produto} />
+                    </div>
+                  )}
                   circular
-                  itemTemplate={(produto: ProductCardProps) => <ProductCard {...produto} />}
+                  responsiveOptions={[
+                {
+                  breakpoint: '1400px',
+                  numVisible: Math.max(2, productSettings.visible - 2),
+                  numScroll: 1 
+                },
+                {
+                  breakpoint: '992px',
+                  numVisible: Math.max(2, productSettings.visible - 2),
+                  numScroll: 1 
+                },
+                {
+                  breakpoint: '576px',
+                  numVisible: 1,
+                  numScroll: 1 
+                }
+              ]}
                 />
               </div>
             </ContainerItems>
