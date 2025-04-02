@@ -1,13 +1,13 @@
 .container-profile {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 32px;
 }
 
 .profile-description {
   display: flex;
-  width: 861px;
-  height: 191px;
+  width: 100%;
+  height:fit-content;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
