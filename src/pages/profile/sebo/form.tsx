@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 
 const ProfileSeboForm = () => {
-  const { sebo, setField, cities, validate, initialize, loading, updateSebo, deleteSebo } = useProfileSeboForm();
+  const { sebo, setField, cities, images, setImages, validate, initialize, loading, updateSebo, deleteSebo } = useProfileSeboForm();
   const { showNotification } = useNotification();
   const { conta, handleLogout } = useAuth();
   const [visible, setVisible] = useState<boolean>(false);
@@ -37,7 +37,7 @@ const ProfileSeboForm = () => {
   const finalizeUpdate = async () => {
     if (validate()) {
       updateSebo(() => {
-        navigate('/');
+        navigate('/profile/sebo');
         showNotification('success', null, 'Sebo atualizado com sucesso!');
       });
     } else {
@@ -55,7 +55,7 @@ const ProfileSeboForm = () => {
 
   return (
     <div className="container-main-edit-sebo">
-      <TemplatePage simpleHeader={false} simpleFooter={false} backLight={true}>
+      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff>
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} />
 
         {loading ? (
@@ -176,7 +176,7 @@ const ProfileSeboForm = () => {
               </div>
 
               <div className="container-upload">
-                <UploadImages />
+                <UploadImages image={images} setImage={setImages} setField={setField} />
               </div>
 
               <div className="container-contat-edit-sebo">
