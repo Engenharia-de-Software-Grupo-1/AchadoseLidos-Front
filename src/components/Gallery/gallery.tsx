@@ -74,7 +74,6 @@ export default function Gallery({ position, photos }: GalleryProps) {
         value={photos ? returnImages(photos) : images}
         numVisible={photos?.length || 1}
         circular
-        style={{ width: '100%', height: '400px' }}
         showThumbnails={false}
         showItemNavigators
         item={itemTemplate}
