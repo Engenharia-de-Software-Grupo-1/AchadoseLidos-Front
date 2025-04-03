@@ -6,45 +6,42 @@
 
 .product-frame {
   display: flex;
-  padding: 0px 64px;
-  height: 87%;
+  padding: 32px 64px;
+  min-height: 100%;
+  height: fit-content;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   flex: 1 0 0;
   align-self: stretch;
+  background-color: var(--Achados-OffWhite);
 }
 
 .product-columns-frame {
   display: flex;
-  padding: 16px 0px;
+  padding: 64px;
   align-items: flex-start;
-  gap: 10px;
+  gap: 48px;
   flex: 1 0 0;
-  align-self: stretch;
   border-radius: 16px;
   background-color: var(--Achados-Lighter-OffWhite);
-  overflow-y: auto;
+  flex-wrap: wrap;
+  width: 	100%;
+  max-width: 1200px;
 }
 
 .product-details-frame {
   display: flex;
-  padding: 32px 64px;
   flex-direction: column;
   align-items: left;
   gap: 12px;
   flex: 1 0 0;
   align-self: stretch;
-}
+  width: 100%;
 
-.product-details-frame {
-  display: flex;
-  padding: 32px 64px;
-  flex-direction: column;
-  align-items: left;
-  gap: 12px;
-  flex: 1 0 0;
-  align-self: stretch;
+  img {
+    min-width: 200px;
+  }
 }
 
 .product-title-frame {
@@ -66,7 +63,6 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 0px;
 }
 
 .product-achados-subh1 {
@@ -79,7 +75,6 @@
   font-size: 22px;
   font-style: normal;
   font-weight: 500;
-  line-height: 0px;
 }
 
 .product-sebo {
@@ -91,7 +86,6 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 6px;
 }
 
 .product-tags {
@@ -143,7 +137,6 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
 }
 
 .product-ediction-year-span {
@@ -154,7 +147,6 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 142.857% */
 }
 
 .product-ediction-year-p {
@@ -165,7 +157,6 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
 }
 
 .product-ediction-description {
@@ -178,7 +169,6 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 24px;
   display: block;
   margin-bottom: 10px;
 }
@@ -193,7 +183,6 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
   align-self: stretch;
   text-align: justify;
 }
@@ -205,20 +194,11 @@
   margin-bottom: 8px;
 }
 
-.address-form-field {
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-self: flex-end;
-}
-
 .field-input {
   border-radius: 4px;
   background: var(--Achados-White);
   height: 36px;
   width: 100%;
-  line-height: 20px;
   margin-bottom: 0;
 }
 
@@ -309,7 +289,6 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
 }
 
 .change-password-button-rose div,
@@ -408,5 +387,10 @@
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
+}
+
+@media screen and (max-width: 750px) {
+  .product-frame {
+    padding: 8px;
+  }
 }
