@@ -12,6 +12,8 @@ interface ProfileSeboFormContextType {
   cities: { value: string; text: string }[];
   initialize: (id: number) => void;
   loading: boolean;
+  images: { url: string }[] | undefined;
+  setImages: (images: { url: string }[]) => void;
   updateSebo: (sucessCallback?: () => void) => void;
   deleteSebo: (sucessCallback?: () => void) => void;
 }
@@ -60,12 +62,14 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
     });
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [images, setImages] = useState<{ url: string }[]>();
 
   const initialize = useCallback(async (id: number | undefined) => {
     setLoading(true);
     try {
       const data = await getPerfilById(id);
       setFormData(data);
+      setImages(data.fotos);
       loadCitiesByState();
     } catch (error) {
       showNotification('error', null, 'Erro ao buscar perfil do sebo');
@@ -110,6 +114,8 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
         loadCitiesByState,
         validate,
         initialize,
+        setImages,
+        images,
         loading,
         updateSebo,
         deleteSebo,

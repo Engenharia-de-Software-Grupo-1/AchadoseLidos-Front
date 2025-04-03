@@ -17,11 +17,10 @@ import { useNavigate } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 
 const ProfileSeboForm = () => {
-  const { sebo, setField, cities, validate, initialize, loading, updateSebo, deleteSebo } = useProfileSeboForm();
+  const { sebo, setField, cities, images, setImages, validate, initialize, loading, updateSebo, deleteSebo } = useProfileSeboForm();
   const { showNotification } = useNotification();
   const { conta, handleLogout } = useAuth();
   const [visible, setVisible] = useState<boolean>(false);
-  const [images, setImages] = useState<any[]>([]);
 
   const navigate = useNavigate();
   const breadcrumbItems = [
@@ -32,7 +31,6 @@ const ProfileSeboForm = () => {
   useEffect(() => {
     if (conta?.sebo?.id) {
       initialize(conta.sebo.id);
-      setImages(sebo?.fotos || []);
     }
   }, [conta?.sebo?.id]);
 
@@ -178,7 +176,7 @@ const ProfileSeboForm = () => {
               </div>
 
               <div className="container-upload">
-                <UploadImages image={images} setField={setField} />
+                <UploadImages image={images} setImage={setImages} setField={setField} />
               </div>
 
               <div className="container-contat-edit-sebo">
