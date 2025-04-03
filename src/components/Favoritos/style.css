@@ -17,21 +17,13 @@
 .space-carousel-items {
   display: flex;
   height: fit-content;
-  padding: 32px 60px;
+  padding: 32px;
   justify-content: flex-start;
   align-items: center;
   width: 100vw;
   align-self: stretch;
   background-color: var(--Achados-OffWhite);
 }
-
-/* .space-carousel-event {
-  display: flex;
-  height: fit-content;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--Achados-Lighter-OffWhite);
-} */
 
 .empty-favorito h3 {
   font-size: 1.2rem;
