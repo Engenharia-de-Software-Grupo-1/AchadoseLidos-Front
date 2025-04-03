@@ -82,6 +82,7 @@ const ProductFormField = ({
     if (fieldName === 'categoria') {
       if (setGenero) {
         setGenero(e.target.value);
+        setField('generos', '');
       }
     }
   };
@@ -158,7 +159,7 @@ const ProductFormField = ({
         />
       ) : isYear ? (
         <InputNumber
-          className={classNames('field-input', {
+          className={classNames( {
             'short-input': isShortInput,
             'empty-input-error': shouldShowError,
             'field-input-year': isYear,
@@ -194,7 +195,6 @@ const ProductFormField = ({
               'empty-input-error': shouldShowError,
             })}
           />
-          {shouldShowError && <small className="p-error">{errors?.generos?.message}</small>}
         </>
       ) : (
         <>
