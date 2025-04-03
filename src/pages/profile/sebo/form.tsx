@@ -21,6 +21,7 @@ const ProfileSeboForm = () => {
   const { showNotification } = useNotification();
   const { conta, handleLogout } = useAuth();
   const [visible, setVisible] = useState<boolean>(false);
+  const [images, setImages] = useState<any[]>([]);
 
   const navigate = useNavigate();
   const breadcrumbItems = [
@@ -31,6 +32,7 @@ const ProfileSeboForm = () => {
   useEffect(() => {
     if (conta?.sebo?.id) {
       initialize(conta.sebo.id);
+      setImages(sebo?.fotos || []);
     }
   }, [conta?.sebo?.id]);
 
@@ -176,7 +178,7 @@ const ProfileSeboForm = () => {
               </div>
 
               <div className="container-upload">
-                <UploadImages />
+                <UploadImages image={images} setField={setField} />
               </div>
 
               <div className="container-contat-edit-sebo">

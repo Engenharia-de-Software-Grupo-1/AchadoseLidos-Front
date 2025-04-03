@@ -2,6 +2,7 @@ import { createContext, useContext, ReactNode, useState, useCallback } from 'rea
 import { Sebo } from '@domains/Sebo';
 import { useForm } from '@hooks/useForm';
 import { deleteUser, getPerfilById, updateUser } from '@routes/routesSebo';
+import { uploadImagesToCloudinary } from '@services/cloudinaryService';
 
 interface ProfileSeboFormContextType {
   sebo: Sebo;
@@ -75,8 +76,16 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
 
   const updateSebo = async (sucessCallback?: () => void) => {
     try {
+      const newImages = formData.fotos ? formData.fotos.filter((foto: any) => !foto.url) : [];
+      let formattedImages = formData.fotos;
+      if (newImages.length > 0) {
+        const uploadedImages = await uploadImagesToCloudinary(newImages);
+        formattedImages = uploadedImages.map((url: string) => ({ url }));
+      }
+      formData.fotos = formattedImages;
+
       formData.telefone.trim();
-      await updateUser(formData, formData?.id);
+      await updateUser({ ...formData, fotos: formattedImages }, formData?.id);
       sucessCallback && sucessCallback();
     } catch (error) {
       console.error('Erro ao cadastrar sebo:', error);

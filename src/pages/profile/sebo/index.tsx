@@ -82,7 +82,7 @@ const ProfileSebo = () => {
           </div>
         ) : (
           <>
-            <Banner images={sebo?.fotos} showIndicators={false} />
+            <Banner showIndicators={false} />
             <div className="profile-sebo">
               <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} isOwnProfile={isOwnProfile}/>
             </div>
@@ -136,7 +136,7 @@ const ProfileSebo = () => {
                     </span>
                 </div>
 
-                <Gallery />
+                <Gallery photos={sebo?.fotos} />
               </div>
 
               <div className="container-map">
