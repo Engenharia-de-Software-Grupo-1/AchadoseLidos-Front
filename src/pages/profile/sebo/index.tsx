@@ -58,8 +58,6 @@ const ProfileSebo = () => {
 
   const isOwnProfile = conta?.sebo?.id === sebo?.id;
 
-  
-  
   const calculateVisibleItems = (cardWidth: number, gap: number, minVisible: number) => {
     const availableWidth = width - 32; // Account for container padding
     return Math.max(minVisible, Math.floor(availableWidth / (cardWidth + gap)));
@@ -84,7 +82,7 @@ const ProfileSebo = () => {
           </div>
         ) : (
           <>
-            <Banner images={sebo?.fotos} showIndicators={false} />
+            <Banner showIndicators={false} />
             <div className="profile-sebo">
               <Profile authUser={isAuthenticated} role={conta?.tipo} data={sebo} isOwnProfile={isOwnProfile}/>
             </div>
@@ -99,7 +97,7 @@ const ProfileSebo = () => {
                       cursor: 'pointer',
                       width: productSettings.width,
                       padding: `0 ${CARD_SIZES.PRODUCT.GAP / 2}px`
-                    }} onClick={() => produto.id !== undefined && navigate(`/product/${id}`)}>
+                    }} onClick={() => produto.id !== undefined && navigate(`/product/${produto.id}`)}>
                       <ProductCard {...produto} />
                     </div>
                   )}
@@ -138,7 +136,7 @@ const ProfileSebo = () => {
                     </span>
                 </div>
 
-                <Gallery />
+                <Gallery photos={sebo?.fotos} />
               </div>
 
               <div className="container-map">

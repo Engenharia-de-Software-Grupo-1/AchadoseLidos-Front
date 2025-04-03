@@ -21,7 +21,7 @@ interface ProdutoFormProps {
 const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
   const { id } = useParams();
   const { produto, setField, submitted, setProduct, images, setImages, handleSave } = useForm();
-  const [genero, setGenero] = useState<keyof typeof GeneroProduto>('LIVRO');
+  const [genero, setGenero] = useState<keyof typeof GeneroProduto>();
   const { errors } = useErrorContext();
   const { conta } = useAuth();
   const navigate = useNavigate();
@@ -33,7 +33,6 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
   }, [id]);
 
   useEffect(() => {
-    // Retorna imediatamente se os dados ainda não foram carregados
     if (!produto?.sebo?.id || !conta?.sebo?.id) return;
 
     if (!isRegister && conta.tipo === 'SEBO' && produto.sebo?.id !== conta.sebo.id) {
@@ -172,7 +171,7 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
                   labelText="Descrição"
                   fieldName={ProdutoFieldNames.descricao}
                   fieldValue={produto.descricao}
-                  setField={setField}
+                  setField={setField} 
                   hasSubmissionFailed={submitted}
                   isTextArea
                   isOptional

@@ -195,7 +195,6 @@
 }
 
 .field-input {
-  border: 1px var(--Achados-Black) solid;
   border-radius: 4px;
   background: var(--Achados-White);
   height: 36px;
@@ -361,14 +360,11 @@
 .field-input-year input {
   height: 36px;
   width: 227px;
-  border: none;
+  border-color: var(--Achados-Black);
   box-shadow: none;
-  border-bottom: 1px solid var(--Achados-Black) !important;
+  border-radius: 5px;
 }
 
-.field-input-year {
-  border: 1px var(--Achados-Black) solid;
-}
 
 .field-input-genero {
   width: 14.5rem !important;
