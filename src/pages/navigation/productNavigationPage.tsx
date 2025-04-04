@@ -23,7 +23,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   const { conta } = useAuth();
   const { id } = useParams<{ id: string }>();
   const breadcrumbItems = meusProdutos
-    ? [{ label: 'Meus produtos', url: `/navigation/meus-produtos/${id}` }]
+    ? [{ label: 'Produtos', url: `/navigation/meus-produtos/${id}` }]
     : [{ label: 'Produtos', url: '/navigation/products' }];
   const navigate = useNavigate();
   const { nameIcon, changeOrder } = useSorting(sorters);
@@ -37,9 +37,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
     if (window.location.pathname.includes('meus-produtos')) {
       filters.splice(0, filters.length);
     } else if (filters.some((filter) => filter.campo === 'seboId')) {
-      filters.splice(
-        filters.findIndex((filter) => filter.campo === 'seboId'),
-      );
+      filters.splice(filters.findIndex((filter) => filter.campo === 'seboId'));
     }
   }, [window.location.pathname]);
 
@@ -82,74 +80,73 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
 
   return (
     <div className="nav-page">
-      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
-        <div className='nav-container'>
-
-        <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
-        <div className="nav-content-container">
-          <ProductFilters />
-          <div className="nav-content-column">
-            <div className="nav-filter-display">
-              <p className="nav-filter-display-text">
-                Resultados de pesquisa para: <br />
-                {formatTypedValue(
-                  filters
-                  .filter((filter) => filter.campo !== 'seboId')
-                  .map((filter) => (Array.isArray(filter.valor) ? filter.valor.join(', ') : filter.valor))
-                  .join(', '),
-                  103
-                )}
-              </p>
-              <div className="nav-filter-display-order">
-                <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
-                  Nome
+      <TemplatePage simpleHeader={false} simpleFooter={true} backgroundFooterDiff={true}>
+        <div className="nav-container">
+          <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
+          <div className="nav-content-container">
+            <ProductFilters />
+            <div className="nav-content-column">
+              <div className="nav-filter-display">
+                <p className="nav-filter-display-text">
+                  Resultados de pesquisa para: <br />
+                  {formatTypedValue(
+                    filters
+                      .filter((filter) => filter.campo !== 'seboId')
+                      .map((filter) => (Array.isArray(filter.valor) ? filter.valor.join(', ') : filter.valor))
+                      .join(', '),
+                    103
+                  )}
                 </p>
-                <i className={nameIcon} onClick={() => changeOrder('nome')} style={{ cursor: 'pointer' }} />
-              </div>
-            </div>
-            {isSebo && meusProdutos && (
-              <div className="nav-pagination-header-button-container">
-                <Button
-                  icon="pi pi-plus"
-                  className="nav-pagination-header-button"
-                  onClick={() => navigate('/register/product')}
-                  >
-                  Adicionar produto
-                </Button>
-              </div>
-            )}
-            {productCards.length > 0 ? (
-              <>
-                <div className="nav-content-center">
-                  {productCards.slice(first, first + rows).map((card, index) => (
-                    <div
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => card.id !== undefined && handleAcessProductPage(card.id)}
-                    key={index}
-                    >
-                      <ProductCard key={index} {...card} />
-                    </div>
-                  ))}
+                <div className="nav-filter-display-order">
+                  <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
+                    Nome
+                  </p>
+                  <i className={nameIcon} onClick={() => changeOrder('nome')} style={{ cursor: 'pointer' }} />
                 </div>
-              </>
-            ) : (
-              handleEmptyContent('Nenhum produto encontrado!')
-            )}
+              </div>
+              {isSebo && meusProdutos && (
+                <div className="nav-pagination-header-button-container">
+                  <Button
+                    icon="pi pi-plus"
+                    className="nav-pagination-header-button"
+                    onClick={() => navigate('/register/product')}
+                  >
+                    Adicionar produto
+                  </Button>
+                </div>
+              )}
+              {productCards.length > 0 ? (
+                <>
+                  <div className="nav-content-center">
+                    {productCards.slice(first, first + rows).map((card, index) => (
+                      <div
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => card.id !== undefined && handleAcessProductPage(card.id)}
+                        key={index}
+                      >
+                        <ProductCard key={index} {...card} />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                handleEmptyContent('Nenhum produto encontrado!')
+              )}
+            </div>
+          </div>
+          <div className="nav-page-paginator">
+            <Paginator
+              first={first}
+              rows={rows}
+              totalRecords={productCards.length}
+              onPageChange={(e) => {
+                setFirst(e.first);
+                setRows(e.rows);
+              }}
+              style={{ backgroundColor: 'var(--Achados-OffWhite)' }}
+            ></Paginator>
           </div>
         </div>
-        <div className="nav-page-paginator">
-          <Paginator
-            first={first}
-            rows={rows}
-            totalRecords={productCards.length}
-            onPageChange={(e) => {
-              setFirst(e.first);
-              setRows(e.rows);
-            }}
-            style={{ backgroundColor: 'var(--Achados-OffWhite)' }}
-            ></Paginator>
-        </div>
-            </div>
       </TemplatePage>
     </div>
   );
