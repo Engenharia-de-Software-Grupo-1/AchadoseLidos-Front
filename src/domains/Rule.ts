@@ -4,3 +4,9 @@ export interface Rule {
   maxLength?: number;
   minLength?: number;
 }
+
+export interface ValidationResult {
+  error: boolean;
+  message: string;
+  rules?: Rule[];
+};

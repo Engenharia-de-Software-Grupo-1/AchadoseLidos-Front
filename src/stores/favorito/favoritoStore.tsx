@@ -46,11 +46,12 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const handleAdicionarFavorito = async (productId: number) => {
     setAddingIds((prev) => [...prev, productId]);
     try {
-      if (conta?.usuario?.id !== undefined) {
-        await adicionarFavorito(productId, conta.usuario.id);
-      } else {
+      if (!conta?.usuario?.id) {
         showNotification('error', 'Usuário não autenticado', '');
+        return;
       }
+
+      await adicionarFavorito(productId, conta.usuario.id);
       await fetchFavoritoData();
       showNotification('success', 'Item favoritado!', '');
     } catch (error) {
@@ -63,26 +64,30 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {}, [isFavorite]);
 
+  const removeFavoritoFromList = (productId: number) => {
+    setFavoritos((prev) =>
+      prev
+        .map((sebo) => ({
+          ...sebo,
+          produtos: sebo.produtos.filter((p) => p.id !== productId),
+        }))
+        .filter((sebo) => sebo.produtos.length > 0)
+    );
+  };
+
   const handleRemoverFavorito = async (productId: number) => {
     setDeletingIds((prev) => [...prev, productId]);
 
     try {
-      if (conta?.usuario?.id !== undefined) {
-        await removerFavorito(productId, conta.usuario.id);
-        setFavoritos((prev) =>
-          prev
-            .map((sebo) => ({
-              ...sebo,
-              produtos: sebo.produtos.filter((p) => p.id !== productId),
-            }))
-            .filter((sebo) => sebo.produtos.length > 0)
-        );
-        await fetchFavoritoData();
-        setIsFavorite(false);
-      } else {
+      if (!conta?.usuario?.id) {
         showNotification('error', 'Usuário não autenticado', '');
+        return;
       }
 
+      await removerFavorito(productId, conta.usuario.id);
+      removeFavoritoFromList(productId);
+      await fetchFavoritoData();
+      setIsFavorite(false);
       showNotification('success', 'Item removido dos favoritos!', '');
     } catch (error) {
       showNotification('error', 'Falha ao remover favorito', '');
@@ -93,9 +98,7 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const isFavoriteProduct = (id: any) => {
     const isFavorited = favoritos.some((favorito) =>
-      favorito.produtos.some(
-        (item) => item?.id && Number(item.id) === Number(id) // Acesse o id correto do produto
-      )
+      favorito.produtos.some((item) => item?.id && Number(item.id) === Number(id))
     );
     setIsFavorite(isFavorited);
   };

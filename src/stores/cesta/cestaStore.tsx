@@ -23,6 +23,19 @@ export const CestaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [deletingIds, setDeletingIds] = useState<number[]>([]);
   const [updatingProducts, setUpdatingProducts] = useState<Set<number>>(new Set());
 
+  const handleFetchError = (error: any) => {
+    if (error.response?.status === 401) {
+      showNotification('warn', null, 'Faça login para acessar a cesta.');
+    } else if (error.response) {
+      const message = error.response.data.message || 'Erro no servidor.';
+      showNotification('error', null, message);
+    } else if (error.request) {
+      showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
+    } else {
+      showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
+    }
+  };
+
   const fetchCestaData = async () => {
     try {
       setLoading(true);
@@ -31,19 +44,19 @@ export const CestaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setCestas(response.data);
       }
     } catch (error: any) {
-      if (error.response.status === 401) {
-        showNotification('warn', null, 'Faça login para acessar a cesta.');
-      } else if (error.response) {
-        const errorMessage = error.response.data.message || 'Erro no servidor.';
-        showNotification('error', null, errorMessage);
-      } else if (error.request) {
-        showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
-      } else {
-        showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
-      }
+      handleFetchError(error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const removeProductOfCesta = (productId: number) => {
+    setCestas(prev =>
+      prev.map(store => ({
+        ...store,
+        produtos: store.produtos.filter(p => p.produto.id !== productId),
+      }))
+    );
   };
 
   const handleDeleteItem = async (productId: number) => {
@@ -51,12 +64,7 @@ export const CestaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     try {
       await removeProductCesta(productId);
-      setCestas((prev) =>
-        prev.map((store) => ({
-          ...store,
-          produtos: store.produtos.filter((p) => p.produto.id !== productId),
-        }))
-      );
+      removeProductOfCesta(productId);
       showNotification('success', 'Item removido!', '');
     } catch (error) {
       showNotification('error', 'Falha ao remover item', '');
@@ -65,17 +73,20 @@ export const CestaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
+  const updateProductQuantity = (productId: number, newQuantity: number) => {
+    setCestas((prev) =>
+      prev.map((store) => ({
+        ...store,
+        produtos: store.produtos.map((produto) =>
+          produto.produto.id === productId ? { ...produto, quantidade: newQuantity } : produto
+        ),
+      }))
+    );
+  };
+
   const handleQuantityChange = async (productId: number, newQuantity: number) => {
     try {
-      setCestas((prev) =>
-        prev.map((store) => ({
-          ...store,
-          produtos: store.produtos.map((produto) =>
-            produto.produto.id === productId ? { ...produto, quantidade: newQuantity } : produto
-          ),
-        }))
-      );
-
+      updateProductQuantity(productId, newQuantity);
       setUpdatingProducts((prev) => new Set(prev).add(productId));
       await updateProductQuantCesta(productId, { quantidade: newQuantity });
     } catch (error) {

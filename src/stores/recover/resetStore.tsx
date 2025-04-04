@@ -72,10 +72,28 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
     aditionalValidate,
   });
 
+  const handleError = (error: any) => {
+    if (error.response) {
+      const errorData = error.response.data;
+
+      if (errorData.errors && Array.isArray(errorData.errors)) {
+        errorData.errors.forEach((err: { message: string }) => {
+          showNotification('error', null, err.message);
+        });
+      } else {
+        showNotification('error', null, errorData.mensagem || 'Erro no servidor.');
+      }
+    } else if (error.request) {
+      showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
+    } else {
+      showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
+    }
+  };
+
   const finalizeResetRequest = async (token: string | null) => {
     if (validate()) {
       try {
-        await setField('conta.token', token);
+        setField('conta.token', token);
         const response = await atualizar_senha(formData.conta);
 
         if (response.status === 200) {
@@ -83,21 +101,7 @@ export const ResetRequestProvider = ({ children }: ResetRequestProviderProps) =>
           navigate('/login');
         }
       } catch (error: any) {
-        if (error.response) {
-          const errorData = error.response.data;
-
-          if (errorData.errors && Array.isArray(errorData.errors)) {
-            errorData.errors.forEach((err: { message: string }) => {
-              showNotification('error', null, err.message);
-            });
-          } else {
-            showNotification('error', null, errorData.mensagem || 'Erro no servidor.');
-          }
-        } else if (error.request) {
-          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
-        } else {
-          showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
-        }
+        handleError(error);
       }
     }
   };

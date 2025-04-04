@@ -1,4 +1,3 @@
-import { IconField } from 'primereact/iconfield';
 import { InputText } from 'primereact/inputtext';
 import './style.css';
 import { classNames } from 'primereact/utils';
@@ -22,7 +21,6 @@ type ProductFormFieldProps = {
   fieldValueNumber?: number | undefined;
   setField: (field: keyof Produto, value: string | number) => void;
   setGenero?: (genero: keyof typeof GeneroProduto) => void;
-  iconName?: string;
   genero?: keyof typeof GeneroProduto;
   labelText: string;
   isTextArea?: boolean;
@@ -45,7 +43,6 @@ const ProductFormField = ({
   fieldValuePrice,
   fieldValueStock,
   fieldValueNumber,
-  iconName,
   setField,
   fieldName,
   labelText,
@@ -96,6 +93,124 @@ const ProductFormField = ({
     setOptionsGenero([...generos]);
   }, [genero]);
 
+  const renderTextArea = () => (
+    <InputTextarea
+      className={classNames('text-area', {
+        'taxt-area-short': isTextArea,
+      })}
+      value={fieldValue}
+      onChange={handleTextAreaChange}
+    />
+  );
+
+  const renderPrice = () => (
+    <>
+      <InputNumber
+        className={classNames('field-input', {
+          'short-input': isShortInput,
+          'empty-input-error': shouldShowError,
+          'field-input-price': isPrice,
+        })}
+        variant="filled"
+        style={{ width: '230px' }}
+        value={fieldValuePrice}
+        onValueChange={handleNumberChange}
+        mode="decimal"
+        min={0}
+        minFractionDigits={2}
+      />
+      {shouldShowError && <small className="p-error">{errors?.preco?.message}</small>}
+    </>
+  );
+
+  const renderStock = () => (
+    <InputNumber
+      inputId="minmax-buttons"
+      className={classNames('field-input', {
+        'short-input': isShortInput,
+        'empty-input-error': shouldShowError,
+        'field-input-price': isPrice,
+        'field-input-stock': isStock,
+      })}
+      style={{ width: '230px' }}
+      value={fieldValueStock}
+      onValueChange={handleNumberChange}
+      mode="decimal"
+      showButtons
+      min={0}
+      max={1000}
+    />
+  );
+
+  const renderYear = () => (
+    <InputNumber
+      className={classNames({
+        'short-input': isShortInput,
+        'empty-input-error': shouldShowError,
+        'field-input-year': isYear,
+      })}
+      useGrouping={false}
+      style={{ width: '230px' }}
+      value={fieldValueNumber}
+      onChange={handleNumberChange}
+    />
+  );
+
+  const renderCategory = () => (
+    <>
+      <Dropdown
+        value={fieldValue}
+        onChange={handleInputDropdownChange}
+        options={options}
+        className={classNames('w-full field-input field-input-category', {
+          'empty-input-error': shouldShowError,
+        })}
+        checkmark={true}
+        highlightOnSelect={false}
+      />
+      {shouldShowError && <small className="p-error">{errors?.categoria?.message}</small>}
+    </>
+  );
+
+  const renderGenero = () => (
+    <>
+      {' '}
+      <MultiSelect
+        value={fieldValues ? fieldValues : []}
+        onChange={handleMultiChange}
+        options={optionsGenero}
+        maxSelectedLabels={3}
+        className={classNames('w-full md:w-15rem field-input field-input-genero', {
+          'empty-input-error': shouldShowError,
+        })}
+      />
+    </>
+  );
+
+  const renderRegularInput = () => (
+    <>
+      <InputText
+        className={classNames('field-input', 'input-name-product', {
+          'short-input': isShortInput,
+          'empty-input-error': shouldShowError,
+        })}
+        value={fieldValue}
+        onChange={handleInputTextChange}
+      />
+      {shouldShowError && <small className="p-error">{errors?.nome?.message}</small>}
+    </>
+  );
+
+  const renderInput = () => {
+    if (isTextArea) return renderTextArea();
+    if (isPrice) return renderPrice();
+    if (isStock) return renderStock();
+    if (isYear) return renderYear();
+    if (isCategory) return renderCategory();
+    if (isGenero) return renderGenero();
+    return renderRegularInput();
+  };
+
   return (
     <div
       className={classNames('profile-form-field-prod', {
@@ -104,111 +219,11 @@ const ProductFormField = ({
     >
       <div className="field-label">
         <label>
-          {labelText} {!isOptional && <text className='star-form'>*</text>}
+          {labelText} {!isOptional && <text className="star-form">*</text>}
         </label>
-
-        {!!iconName && ( // isto é uma tooltip. ainda falta a mensagem da tooltip
-          <IconField className="label-icon">
-            <i className={`pi pi-${iconName}`} />
-          </IconField>
-        )}
       </div>
 
-      {isTextArea ? (
-        <InputTextarea
-          className={classNames('text-area', {
-            'taxt-area-short': isTextArea,
-          })}
-          value={fieldValue}
-          onChange={handleTextAreaChange}
-        />
-      ) : isPrice ? (
-        <>
-          <InputNumber
-            className={classNames('field-input', {
-              'short-input': isShortInput,
-              'empty-input-error': shouldShowError,
-              'field-input-price': isPrice,
-            })}
-            variant="filled"
-            style={{ width: '230px' }}
-            value={fieldValuePrice}
-            onValueChange={handleNumberChange}
-            mode="decimal"
-            min={0}
-            minFractionDigits={2}
-          />
-          {shouldShowError && <small className="p-error">{errors?.preco?.message}</small>}
-        </>
-      ) : isStock ? (
-        <InputNumber
-          inputId="minmax-buttons"
-          className={classNames('field-input', {
-            'short-input': isShortInput,
-            'empty-input-error': shouldShowError,
-            'field-input-price': isPrice,
-            'field-input-stock': isStock,
-          })}
-          style={{ width: '230px' }}
-          value={fieldValueStock}
-          onValueChange={handleNumberChange}
-          mode="decimal"
-          showButtons
-          min={0}
-          max={1000}
-        />
-      ) : isYear ? (
-        <InputNumber
-          className={classNames( {
-            'short-input': isShortInput,
-            'empty-input-error': shouldShowError,
-            'field-input-year': isYear,
-          })}
-          useGrouping={false}
-          style={{ width: '230px' }}
-          value={fieldValueNumber}
-          onChange={handleNumberChange}
-        />
-      ) : isCategory ? (
-        <>
-          <Dropdown
-            value={fieldValue}
-            onChange={handleInputDropdownChange}
-            options={options}
-            className={classNames('w-full field-input field-input-category', {
-              'empty-input-error': shouldShowError,
-            })}
-            checkmark={true}
-            highlightOnSelect={false}
-          />
-          {shouldShowError && <small className="p-error">{errors?.categoria?.message}</small>}
-        </>
-      ) : isGenero ? (
-        <>
-          {' '}
-          <MultiSelect
-            value={fieldValues ? fieldValues : []}
-            onChange={handleMultiChange}
-            options={optionsGenero}
-            maxSelectedLabels={3}
-            className={classNames('w-full md:w-15rem field-input field-input-genero', {
-              'empty-input-error': shouldShowError,
-            })}
-          />
-        </>
-      ) : (
-        <>
-        <InputText
-          className={classNames('field-input', 'input-name-product',{
-            'short-input': isShortInput,
-            'empty-input-error': shouldShowError,
-          })}
-          value={fieldValue}
-          onChange={handleInputTextChange}
-        />
-        {shouldShowError && <small className="p-error">{errors?.nome?.message}</small>}
-         </>
-      )}
+      {renderInput()}
     </div>
   );
 };
