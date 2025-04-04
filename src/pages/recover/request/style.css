@@ -22,7 +22,7 @@
 }
 
 .card-recover {
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
   color: var(--black);
   background-color: var(--Achados-Lighter-OffWhite);
   border-radius: var(--rounding-medium);

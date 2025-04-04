@@ -59,7 +59,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -71,7 +71,7 @@
     'liga' off,
     'clig' off;
 
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 22px;
   font-style: normal;
   font-weight: 500;
@@ -82,7 +82,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -133,7 +133,7 @@
 
 .product-ediction-year {
   color: #000;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -143,7 +143,7 @@
   color: #000;
 
   /* Bold / Paragraph */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -153,7 +153,7 @@
   color: #000;
 
   /* Regular / Paragraph */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -165,7 +165,7 @@
     'liga' off,
     'clig' off;
 
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -179,7 +179,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -220,12 +220,12 @@
   width: 100% !important;
   color: var(--Achados-Black);
   background-color: transparent;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
 }
 
 .field-input {
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
 }
 
 .field-label {
@@ -234,7 +234,7 @@
   gap: 5px;
   padding-left: 2px;
   color: var(--Achados-Black);
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-weight: 700;
   font-size: 14px;
 }
@@ -285,7 +285,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -383,7 +383,7 @@
 
 .achados-h4 {
   color: var(--Achados-Black);
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 28px;
   font-style: normal;
   font-weight: 500;

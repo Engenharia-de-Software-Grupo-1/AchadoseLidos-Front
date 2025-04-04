@@ -52,7 +52,7 @@
     'liga' off,
     'clig' off;
 
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -78,7 +78,7 @@
     'clig' off;
 
   /* Regular / Paragraph */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -219,7 +219,7 @@
   text-align: left;
   font-size: 14px;
   color: #000;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
 }
 /* display: flex;
     height: 169px;
@@ -275,7 +275,7 @@
     'liga' off,
     'clig' off;
 
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -301,7 +301,7 @@
     'clig' off;
 
   /* Regular / Paragraph */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -445,5 +445,5 @@
   text-align: left;
   font-size: 14px;
   color: #000;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
 }

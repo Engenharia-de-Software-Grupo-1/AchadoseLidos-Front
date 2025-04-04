@@ -56,12 +56,12 @@
   height: 100px;
   color: var(--Achados-Black);
   background-color: transparent;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
 }
 
 .field-input {
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
 }
 
 .field-label {
@@ -70,7 +70,7 @@
   gap: 5px;
   padding-left: 2px;
   color: var(--Achados-Black);
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-weight: 700;
   font-size: 14px;
 }
@@ -121,7 +121,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -147,7 +147,7 @@
     'clig' off;
   background: var(--Achados-White);
 
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;

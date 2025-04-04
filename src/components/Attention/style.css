@@ -29,7 +29,7 @@
   color: var(--Light-Utility-Colors-Warning-base, #c2650b);
 
   /* Bold/Achados Paragraph Medium */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -48,7 +48,7 @@
     'clig' off;
 
   /* Regular / Paragraph */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

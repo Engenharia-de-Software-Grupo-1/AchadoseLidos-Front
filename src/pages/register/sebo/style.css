@@ -64,7 +64,7 @@
 }
 
 .login {
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
   color: var(--Achados-Black);
   border-radius: var(--rounding-medium);
   flex-direction: column;

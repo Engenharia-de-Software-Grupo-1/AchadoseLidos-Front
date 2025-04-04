@@ -120,7 +120,7 @@
     'clig' off;
 
   /* Bold / Paragraph 2 */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -136,7 +136,7 @@
     'clig' off;
 
   /* Regular / Paragraph */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -151,7 +151,7 @@
     'clig' off;
 
   /* Regular / Paragraph */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -179,7 +179,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -201,7 +201,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;

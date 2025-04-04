@@ -22,7 +22,7 @@
 }
 
 .card-login {
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
   color: var(--Achados-Black);
   background-color: var(--Achados-Lighter-OffWhite);
   border-radius: var(--rounding-medium);

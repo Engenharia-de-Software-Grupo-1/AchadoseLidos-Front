@@ -33,7 +33,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 42px;
   font-style: normal;
   font-weight: 600;
@@ -78,7 +78,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -232,7 +232,7 @@
   font-feature-settings:
     'liga' off,
     'clig' off;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;

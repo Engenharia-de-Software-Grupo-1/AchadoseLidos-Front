@@ -59,7 +59,7 @@
 .span-form-user-data {
   width: 400px;
   color: var(--Achados-Black);
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 28px;
   font-style: normal;
   font-weight: 500;

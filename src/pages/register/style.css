@@ -63,7 +63,7 @@
   color: var(--Achados-Black, #2f292a);
 
   /* Achados/Medium H2 */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 42px;
   font-style: normal;
   font-weight: 500;
@@ -73,7 +73,7 @@
 
 .option-title-users {
   /* Highlight H2 */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 42px;
   font-style: normal;
   font-weight: 500;
@@ -104,7 +104,7 @@
   text-align: center;
 
   /* Achados / Paragraph medium */
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -129,7 +129,7 @@
 }
 
 .login-link {
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 13px;
   color: #555;
   margin-top: 5px;
