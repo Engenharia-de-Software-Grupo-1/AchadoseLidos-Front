@@ -37,7 +37,7 @@ const ProfileSeboForm = () => {
   const finalizeUpdate = async () => {
     if (validate()) {
       updateSebo(() => {
-        navigate('/');
+        navigate('/profile/sebo');
         showNotification('success', null, 'Sebo atualizado com sucesso!');
       });
     } else {

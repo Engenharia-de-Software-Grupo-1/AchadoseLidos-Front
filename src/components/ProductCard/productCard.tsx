@@ -38,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           <p className="nome-item" onClick={handleClick} style={{ cursor: 'pointer' }}>
             {formatTypedValue(name, 40)}
           </p>
-          <p className="nome-sebo">{owner}</p>
+          <p className="nome-sebo">{formatTypedValue(owner, 22)}</p>
         </div>
       </div>
       <div className="foto">
