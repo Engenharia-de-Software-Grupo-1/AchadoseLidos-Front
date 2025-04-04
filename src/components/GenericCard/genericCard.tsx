@@ -52,7 +52,7 @@ const GenericCard: React.FC<GenericCardProps> = ({
         <div className="info-container">
           <div className="text-info">
             <div className="card-title">{formatTypedValue(title, 18)}</div>
-            <div className="description">{formatTypedValue(title, 24)}</div>
+            <div className="description">{formatTypedValue(description, 24)}</div>
           </div>
           <div className="status">
             {isButtonVisible ? (

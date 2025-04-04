@@ -56,55 +56,57 @@ export const SeboNavigationPage = ({ sorters }: SeboNavigationPageProps) => {
 
   return (
     <div className="nav-page">
-      <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
-        <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
-        <div className="nav-content-container">
-          <SeboFilters />
-          <div className="nav-content-column">
-            <div className="nav-filter-display">
-              <p className="nav-filter-display-text">
-                Resultados de pesquisa para: <br />
-                {filters
-                  .map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor))
-                  .join(', ')
-                  .slice(0, 103) +
-                  (filters
+      <TemplatePage simpleHeader={false} simpleFooter={true} backgroundFooterDiff={true}>
+        <div className="nav-container">
+          <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
+          <div className="nav-content-container">
+            <SeboFilters />
+            <div className="nav-content-column">
+              <div className="nav-filter-display">
+                <p className="nav-filter-display-text">
+                  Resultados de pesquisa para: <br />
+                  {filters
                     .map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor))
-                    .join(', ').length > 103
-                    ? '...'
-                    : '')}
-              </p>
-              <div className="nav-filter-display-order">
-                <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
-                  Nome
+                    .join(', ')
+                    .slice(0, 103) +
+                    (filters
+                      .map((filter) => (filter.campo === 'concordaVender' ? 'Concorda vender' : filter.valor))
+                      .join(', ').length > 103
+                      ? '...'
+                      : '')}
                 </p>
-                <i className={nameIcon} onClick={() => changeOrder('nome')} style={{ cursor: 'pointer' }} />
-              </div>
-            </div>
-            {seboCards.length > 0 ? (
-              <>
-                <div className="nav-content-center-sebo">
-                  {seboCards.slice(first, first + rows).map((card, index) => (
-                    <GenericCard key={index} {...card} />
-                  ))}
+                <div className="nav-filter-display-order">
+                  <p className="nav-filter-display-order-text" style={{ cursor: 'pointer' }}>
+                    Nome
+                  </p>
+                  <i className={nameIcon} onClick={() => changeOrder('nome')} style={{ cursor: 'pointer' }} />
                 </div>
-              </>
-            ) : (
-              handleEmptyContent('Nenhum sebo encontrado!')
-            )}
+              </div>
+              {seboCards.length > 0 ? (
+                <>
+                  <div className="nav-content-center-sebo">
+                    {seboCards.slice(first, first + rows).map((card, index) => (
+                      <GenericCard key={index} {...card} />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                handleEmptyContent('Nenhum sebo encontrado!')
+              )}
+            </div>
           </div>
-        </div>
-        <div className="nav-page-paginator">
-          <Paginator
-            first={first}
-            rows={rows}
-            totalRecords={seboCards.length}
-            onPageChange={(e) => {
-              setFirst(e.first);
-              setRows(e.rows);
-            }}
-            style={{ backgroundColor: 'var(--Achados-OffWhite', alignSelf: 'flex-end' }}
-          ></Paginator>
+          <div className="nav-page-paginator">
+            <Paginator
+              first={first}
+              rows={rows}
+              totalRecords={seboCards.length}
+              onPageChange={(e) => {
+                setFirst(e.first);
+                setRows(e.rows);
+              }}
+              style={{ backgroundColor: 'var(--Achados-OffWhite', alignSelf: 'flex-end' }}
+            ></Paginator>
+          </div>
         </div>
       </TemplatePage>
     </div>

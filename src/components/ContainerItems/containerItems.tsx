@@ -18,19 +18,19 @@ const ContainerItems = ({ title, children, backgroundBege, isFirst, idSebo }: Co
         : classNameBase + '-items';
   };
 
+  const getNavigationLink = () => {
+    if (title === 'Sebos') return '/navigation/sebos';
+    if (title === 'Todos os produtos' || 'Livros') return `/navigation/${idSebo ? `meus-produtos/${idSebo}` : 'products'}`;
+    return `/profile/sebo/${idSebo}`;
+  };
+
   return (
     <>
       <div className={getClassName('container-carousel', isFirst)}>
         <div className={getClassName('content-title')}>
           <span className={getClassName('title-carousel')}>
             <Link
-              to={
-                title === 'Sebos'
-                  ? '/navigation/sebos'
-                  : title === 'Todos os produtos' || title === 'Livros'
-                    ? `/navigation/${idSebo ? `meus-produtos/${idSebo}` : 'products'}`
-                    : `/profile/sebo/${idSebo}`
-              }
+              to={getNavigationLink()}
               className="link-conatiner-items"
             >
               {title} {'>'}

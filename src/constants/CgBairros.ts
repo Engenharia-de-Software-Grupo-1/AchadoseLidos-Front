@@ -25,7 +25,6 @@ const bairros = [
   'Ligeiro',
   'Malvinas',
   'Monte Santo',
-  'Mutirão do Serrotão',
   'Novo Bodocongó',
   'Novo Cruzeiro',
   'Novo Horizonte',
@@ -39,10 +38,7 @@ const bairros = [
   'Sítio Estreito',
   'Universitário',
   'Distrito de Catolé',
-  'Distrito de Galante',
-  'Distrito de Marinho',
-  'Distrito de Santa Terezinha',
-  'Distrito de São José da Mata',
+  'Centro'
 ];
 
 const formattedBairros = bairros
