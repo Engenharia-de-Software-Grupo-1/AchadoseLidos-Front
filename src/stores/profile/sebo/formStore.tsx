@@ -53,7 +53,7 @@ export const ProfileSeboFormProvider = ({ children }: ProfileSeboFormProviderPro
         cpfCnpj: [{ rule: 'required' }, { rule: 'getTypeCpfCnpj' }],
         estado: [{ rule: 'required' }],
         cidade: [{ rule: 'required' }],
-        cep: [{ rule: 'required' }],
+        cep: [{ rule: 'required' }, { rule: 'isValidLength', minLength: 8 }],
         rua: [{ rule: 'required' }],
         bairro: [{ rule: 'required' }],
         numero: [{ rule: 'required' }],
