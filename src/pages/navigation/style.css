@@ -1,6 +1,6 @@
 .nav-page {
   width: 100vw;
-  height: fit-content;
+  height: 100%;
   background-color: var(--Achados-OffWhite);
   display: flex;
   flex-direction: column;
@@ -14,6 +14,7 @@
   flex-wrap: nowrap;
   gap: 16px;
   padding: 0 1.5rem;
+  height:fit-content;
 }
 
 .nav-center {
@@ -140,7 +141,6 @@
 .nav-content-center {
   display: flex;
   flex-direction: row;
-  align-self: stretch;
   height: 100%;
   flex-wrap: wrap;
   background: var(--Achados-OffWhite);
@@ -153,7 +153,6 @@
 .nav-content-center-sebo {
   display: flex;
   flex-direction: row;
-  align-self: stretch;
   gap: 8px;
   height: 100%;
   flex-wrap: wrap;
@@ -190,4 +189,14 @@
   font-family: Poppins;
   font-size: 16px;
   font-style: normal;
+}
+
+.nav-container {
+  min-height:100%;
+  height:fit-content;
+  background-color: var(--Achados-OffWhite);
+}
+
+.nav-page .p-paginator {
+  justify-content: flex-end;
 }

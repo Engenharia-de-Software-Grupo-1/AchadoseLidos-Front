@@ -83,6 +83,8 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
   return (
     <div className="nav-page">
       <TemplatePage simpleHeader={false} simpleFooter={false} backgroundFooterDiff={true}>
+        <div className='nav-container'>
+
         <ALBreadCrumb breadcrumbItems={breadcrumbItems} style={{ backgroundColor: '#F5ECDD' }} />
         <div className="nav-content-container">
           <ProductFilters />
@@ -92,9 +94,9 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
                 Resultados de pesquisa para: <br />
                 {formatTypedValue(
                   filters
-                    .filter((filter) => filter.campo !== 'seboId')
-                    .map((filter) => (Array.isArray(filter.valor) ? filter.valor.join(', ') : filter.valor))
-                    .join(', '),
+                  .filter((filter) => filter.campo !== 'seboId')
+                  .map((filter) => (Array.isArray(filter.valor) ? filter.valor.join(', ') : filter.valor))
+                  .join(', '),
                   103
                 )}
               </p>
@@ -111,7 +113,7 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
                   icon="pi pi-plus"
                   className="nav-pagination-header-button"
                   onClick={() => navigate('/register/product')}
-                >
+                  >
                   Adicionar produto
                 </Button>
               </div>
@@ -121,9 +123,9 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
                 <div className="nav-content-center">
                   {productCards.slice(first, first + rows).map((card, index) => (
                     <div
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => card.id !== undefined && handleAcessProductPage(card.id)}
-                      key={index}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => card.id !== undefined && handleAcessProductPage(card.id)}
+                    key={index}
                     >
                       <ProductCard key={index} {...card} />
                     </div>
@@ -145,8 +147,9 @@ export const ProductNavigationPage = ({ sorters, meusProdutos }: ProductNavigati
               setRows(e.rows);
             }}
             style={{ backgroundColor: 'var(--Achados-OffWhite)' }}
-          ></Paginator>
+            ></Paginator>
         </div>
+            </div>
       </TemplatePage>
     </div>
   );
