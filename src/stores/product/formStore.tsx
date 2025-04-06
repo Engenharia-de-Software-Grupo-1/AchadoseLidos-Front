@@ -94,7 +94,6 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
       } else {
         await createProduct({ ...formData, fotos: formattedImages });
         navigate(`/navigation/meus-produtos/${idSebo}`);
-        window.location.reload();
       }
       showNotification('success', 'Produto salvo com sucesso!', '');
     } catch (error) {
