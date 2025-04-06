@@ -219,12 +219,11 @@ const CestaComponent = () => {
                         }}
                         tooltip={
                           store.sebo.concordaVender
-                            ? ''
+                            ? (quantityTotal > 0 ? '' : 'Pedido está vazio.') 
                             : 'Esse sebo não vende produtos via plataforma, pedidos são realizados apenas presencialmente.'
                         }
                         tooltipOptions={{ position: 'top' }}
-                        disabled={!store.sebo.concordaVender}
-                        onClick={() => handleFinalizarPedido(quantityTotal, lineTotal, store)}
+                        onClick={() => (store.sebo.concordaVender && quantityTotal > 0) ? handleFinalizarPedido(quantityTotal, lineTotal, store) : showNotification('warn', 'Não é possível concluir este pedido online.', '')}
                       />
                     </div>
                   }
