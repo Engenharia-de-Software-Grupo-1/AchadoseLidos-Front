@@ -13,7 +13,7 @@ interface ProdutoFormContextType {
   images: { url: string }[] | undefined;
   setProduct: (id: any) => void;
   setImages: (images: { url: string }[]) => void;
-  handleSave: (isRegister: boolean, id: any) => void;
+  handleSave: (isRegister: boolean, id: any, idSebo: any) => void;
   submitted: boolean;
   setSubmitted: (submitted: boolean) => void;
 }
@@ -77,7 +77,7 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
     }
   };
 
-  const handleConfirm = async (isRegister: boolean, id: any) => {
+  const handleConfirm = async (isRegister: boolean, id: any, idSebo: any) => {
     try {
       const newImages = formData.fotos ? formData.fotos.filter((foto: any) => !foto.url) : [];
       let formattedImages = formData.fotos;
@@ -93,8 +93,7 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
         navigate(`/product/${id}`);
       } else {
         await createProduct({ ...formData, fotos: formattedImages });
-        navigate('/navigation/meus-produtos');
-        window.location.reload();
+        navigate(`/navigation/meus-produtos/${idSebo}`);
       }
       showNotification('success', 'Produto salvo com sucesso!', '');
     } catch (error) {
@@ -102,13 +101,13 @@ export const ProdutoFormProvider = ({ children }: ProdutoFormProviderProps) => {
     }
   };
 
-  const handleSave = (isRegister: boolean, id: any) => {
+  const handleSave = (isRegister: boolean, id: any, idSebo: any) => {
     const isValid = validate();
     if (!isValid) {
       showNotification('error', 'Erro ao salvar produto', 'Preencha todos os campos obrigatórios!');
       return;
     }
-    handleConfirm(isRegister, id);
+    handleConfirm(isRegister, id, idSebo);
   };
 
   return (
