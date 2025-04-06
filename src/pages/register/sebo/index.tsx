@@ -7,7 +7,7 @@ import TabEndereco from './tabs/tabEndereco';
 import TabDadosPerfil from './tabs/tabPerfil';
 import { useRegisterSebo } from '@stores/register/sebo/registerStore';
 import { useNotification } from '@contexts/notificationContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './style.css';
 
@@ -77,7 +77,7 @@ const RegisterSebo = () => {
               {activeIndex < 2 && <Button className="step-button" label="Continuar" onClick={() => nextStep()} />}
             </div>
             <p className="login" style={{ textAlign: 'center' }}>
-              Já tem uma conta? <a href="/login">Entrar</a>
+              Já tem uma conta? <Link to="/login">Entrar</Link>
             </p>
           </div>
         </div>

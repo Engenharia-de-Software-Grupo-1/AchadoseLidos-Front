@@ -21,9 +21,9 @@ const RegistrationPage = () => {
                 </Link>
                 <div className="login-link">
                   <span>Já possui conta? </span>
-                  <a href="/login" className="enter-link">
+                  <Link to="/login" className="enter-link">
                     Entre
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -41,9 +41,9 @@ const RegistrationPage = () => {
                 </Link>
                 <div className="login-link">
                   <span>Já possui conta? </span>
-                  <a href="/login" className="enter-link">
+                  <Link to="/login" className="enter-link">
                     Entre
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

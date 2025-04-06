@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import FormField from '@components/FormField/formField';
 import { useRecoverRequest } from '@stores/recover/recoverStore';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 const RecoverRequestPage = () => {
   const { credenciais, setField, finalizeRecoverRequest } = useRecoverRequest();
@@ -38,7 +39,7 @@ const RecoverRequestPage = () => {
             />
             <div className="footer">
               <p>
-                <a href="/login">Voltar</a>
+                <Link to="/login">Voltar</Link>
               </p>
             </div>
           </div>

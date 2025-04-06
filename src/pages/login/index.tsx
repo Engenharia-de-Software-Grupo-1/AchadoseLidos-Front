@@ -4,6 +4,7 @@ import FormField from '@components/FormField/formField';
 import { Button } from 'primereact/button';
 import { useLogin } from '@stores/login/loginStore';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const { credenciais, setField, finalizeLogin } = useLogin();
@@ -39,10 +40,10 @@ const LoginPage = () => {
             <Button label="Entrar" className="button" type="submit" onClick={() => finalizeLogin()} />
             <div className="footer">
               <p>
-                Não possui uma conta? <a href="/register">Cadastre-se</a>
+                Não possui uma conta? <Link to="/register">Cadastre-se</Link>
               </p>
               <p>
-                Esqueceu sua senha? <a href="/recover/request">Recuperar senha</a>
+                Esqueceu sua senha? <Link to="/recover/request">Recuperar senha</Link>
               </p>
             </div>
           </div>
