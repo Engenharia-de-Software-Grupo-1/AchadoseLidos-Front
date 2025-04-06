@@ -43,7 +43,7 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
   const breadcrumbItems = [
     {
       label: isRegister ? 'Meus Produtos' : 'Meu Produto',
-      url: isRegister ? '/navigation/meus-produtos' : `/product/${id}`,
+      url: isRegister ? `/navigation/meus-produtos/${conta?.sebo?.id}` : `/product/${id}`,
     },
     {
       label: isRegister ? 'Cadastrar Produto' : 'Editar Produto',
@@ -178,7 +178,7 @@ const ProductForm = ({ isRegister = false }: ProdutoFormProps) => {
                 />
                 {conta?.tipo === 'SEBO' && !conta?.sebo?.concordaVender && <Atention />}
               </div>
-              <Button label="Salvar" className="button-save" onClick={() => handleSave(isRegister, id)} />
+              <Button label="Salvar" className="button-save" onClick={() => handleSave(isRegister, id, conta?.sebo?.id)} />
             </div>
           </section>
         </section>
