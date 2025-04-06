@@ -3,7 +3,7 @@ import axios from 'axios';
 import { FilterOrders } from 'types/NavigationFilters';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3333/api',
+  baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
 export const createSebo = async (data: any) => {
