@@ -62,9 +62,15 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     try {
       await addProductCesta(id);
       showNotification('success', 'Produto adicionado na cesta com sucesso!', '');
-    } catch (error) {
-      showNotification('error', 'Produto já está na cesta.', '');
-      console.error('Erro ao adicionar produto na cesta', error);
+    } catch (error: Any) {
+      if (error.response) {
+          const errorMessage = error.response.data.message || 'Erro no servidor.';
+          showNotification('error', null, errorMessage);
+      } else if (error.request) {
+          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
+      } else {
+        showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
+      }
     }
   };
 

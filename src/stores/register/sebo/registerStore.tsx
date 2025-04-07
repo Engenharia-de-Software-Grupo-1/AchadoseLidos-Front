@@ -50,8 +50,16 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     try {
       await createSebo(formData);
       sucessCallback && sucessCallback();
-    } catch (error) {
+    } catch (error:Any) {
       console.error('Erro ao cadastrar sebo:', error);
+      if (error.response) {
+          const errorMessage = error.response.data.message || 'Verifique os campos do formulário.';
+          showNotification('error', null, errorMessage);
+        } else if (error.request) {
+          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
+        } else {
+          showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
+        }
     }
   };
 

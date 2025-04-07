@@ -79,8 +79,16 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
       await registerUser(formData);
       showNotification('success', null, 'Usuário cadastrado com sucesso!');
       navigate('/login');
-    } catch {
-      showNotification('error', null, 'Erro ao cadastrar usuário!');
+    } catch (error: Any) {
+      console.error(error);
+      if (error.response) {
+          const errorMessage = error.response.data.message || 'Erro ao cadastrar usuário. Verifique os campos do formulário.';
+          showNotification('error', null, errorMessage);
+        } else if (error.request) {
+          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
+        } else {
+          showNotification('error', null, 'Erro ao cadastrar Usuário. Tente novamente mais tarde.');
+        }
     }
   };
 
