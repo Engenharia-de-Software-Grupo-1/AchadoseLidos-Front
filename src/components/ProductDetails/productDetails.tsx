@@ -11,6 +11,7 @@ import DialogModal from '@components/DialogModal/dialogModal';
 import { useEffect, useState } from 'react';
 import { useFavorito } from '@stores/favorito/favoritoStore';
 import { addProductCesta } from '@routes/routesCesta';
+import { defaultErrorMessages } from '@utils/utils';
 
 interface ProdutoDetalhesProps {
   data: Produto;
@@ -63,14 +64,8 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
       await addProductCesta(id);
       showNotification('success', 'Produto adicionado na cesta com sucesso!', '');
     } catch (error: Any) {
-      if (error.response) {
-          const errorMessage = error.response.data.message || 'Erro no servidor.';
-          showNotification('error', null, errorMessage);
-      } else if (error.request) {
-          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
-      } else {
-        showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
-      }
+      const errorMessage = defaultErrorMessages(error, 'Erro ao adicionar à cesta.');
+      showNotification('error', errorMessage, '');
     }
   };
 

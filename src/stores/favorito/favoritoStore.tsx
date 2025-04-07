@@ -54,16 +54,9 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       await adicionarFavorito(productId, conta.usuario.id);
       await fetchFavoritoData();
       showNotification('success', 'Item favoritado!', '');
-    } catch (error: Any) {
-      if (error.response) {
-          const errorMessage = error.response.data.message || 'Erro no servidor.';
-          showNotification('error', null, errorMessage);
-      } else if (error.request) {
-          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
-      } else {
-        showNotification('error', null, 'Algo deu errado. Tente novamente mais tarde.');
-      }
+    } catch (error) {
       console.error('Erro ao adicionar favorito', error);
+      showNotification('error', 'Falha ao adicionar favorito', '');
     } finally {
       setAddingIds((prev) => prev.filter((id) => id !== productId));
     }
@@ -96,15 +89,8 @@ export const FavoritoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       await fetchFavoritoData();
       setIsFavorite(false);
       showNotification('success', 'Item removido dos favoritos!', '');
-    } catch (error:Any) {
-      if (error.response) {
-          const errorMessage = error.response.data.message || 'Erro no servidor.';
-          showNotification('error', null, errorMessage);
-      } else if (error.request) {
-          showNotification('error', null, 'Sem resposta do servidor. Verifique sua conexão.');
-      } else {
-        showNotification('error', 'Falha ao remover favorito', '');
-      }
+    } catch (error) {
+      showNotification('error', 'Falha ao remover favorito', '');
     } finally {
       setDeletingIds((prev) => prev.filter((id) => id !== productId));
     }
