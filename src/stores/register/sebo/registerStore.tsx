@@ -2,6 +2,7 @@ import { createContext, useContext, ReactNode } from 'react';
 import { Sebo } from '@domains/Sebo';
 import { createSebo } from '@routes/routesSebo';
 import { useForm } from '@hooks/useForm';
+import { defaultErrorMessages } from '@utils/utils';
 
 interface RegisterSeboContextType {
   sebo: Sebo;
@@ -50,8 +51,9 @@ export const RegisterSeboProvider = ({ children }: RegisterSeboProviderProps) =>
     try {
       await createSebo(formData);
       sucessCallback && sucessCallback();
-    } catch (error) {
-      console.error('Erro ao cadastrar sebo:', error);
+    } catch (error:Any) {
+      const errorMessage = defaultErrorMessages(error, 'Erro ao cadastrar sebo. Verifique os campos do formulário.');
+      showNotification('error', errorMessage, '');
     }
   };
 

@@ -3,6 +3,7 @@ import { Usuario } from '@domains/Usuario';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '@routes/routesUser';
 import { useForm } from '@hooks/useForm';
+import { defaultErrorMessages } from '@utils/utils';
 
 interface RegisterUserContextType {
   user: Usuario;
@@ -79,8 +80,9 @@ export const RegisterUserProvider = ({ children }: RegisterUserProviderProps) =>
       await registerUser(formData);
       showNotification('success', null, 'Usuário cadastrado com sucesso!');
       navigate('/login');
-    } catch {
-      showNotification('error', null, 'Erro ao cadastrar usuário!');
+    } catch (error: Any) {
+      const errorMessage = defaultErrorMessages(error, 'Erro ao cadastrar usuário. Verifique os campos do formulário.');
+      showNotification('error', errorMessage, '');
     }
   };
 

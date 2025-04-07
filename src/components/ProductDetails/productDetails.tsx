@@ -11,6 +11,7 @@ import DialogModal from '@components/DialogModal/dialogModal';
 import { useEffect, useState } from 'react';
 import { useFavorito } from '@stores/favorito/favoritoStore';
 import { addProductCesta } from '@routes/routesCesta';
+import { defaultErrorMessages } from '@utils/utils';
 
 interface ProdutoDetalhesProps {
   data: Produto;
@@ -62,9 +63,9 @@ const ProductDetails: React.FC<ProdutoDetalhesProps> = ({ data, id }: ProdutoDet
     try {
       await addProductCesta(id);
       showNotification('success', 'Produto adicionado na cesta com sucesso!', '');
-    } catch (error) {
-      showNotification('error', 'Produto já está na cesta.', '');
-      console.error('Erro ao adicionar produto na cesta', error);
+    } catch (error: Any) {
+      const errorMessage = defaultErrorMessages(error, 'Erro ao adicionar à cesta.');
+      showNotification('error', errorMessage, '');
     }
   };
 

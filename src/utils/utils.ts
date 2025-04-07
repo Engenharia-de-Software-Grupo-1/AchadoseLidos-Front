@@ -134,3 +134,24 @@ export const formatTypedValue = (value: string, maxSize: number) => {
   }
   return value;
 };
+
+export const defaultErrorMessages = (error:Any, defaultMessage: string) => {
+  console.error(error);
+  if (error.response.data.message) {
+    return error.response.data.message || defaultMessage;
+  } else if (error.response?.data?.errors) {
+  const errorFields = extractErrorFields(error.response.data.errors);
+    return `Verifique os campos: ${errorFields.join(', ')}`;
+  } else if (error.request) {
+    return 'Sem resposta do servidor. Verifique sua conexão.';
+  } else {
+    return 'Algo deu errado. Tente novamente mais tarde.';
+  }
+};
+
+const extractErrorFields = (errors: Array<{ message: string }>): string[] => {
+  return errors.map(error => {
+    const match = error.message.match(/^([a-zA-Z0-9_.]+):/);
+    return match ? match[1] : 'unknown_field';
+  });
+};
